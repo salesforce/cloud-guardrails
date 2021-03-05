@@ -1,3 +1,0 @@
-[submodule "azure_guardrails/shared/data"]
-	path = azure_guardrails/shared/data
-	url = git@github.com:Azure/azure-policy.git
