@@ -13,6 +13,7 @@ def azure_guardrails():
 
 
 azure_guardrails.add_command(command.get_policies.get_policies)
+azure_guardrails.add_command(command.list_services.list_services)
 
 
 def main():

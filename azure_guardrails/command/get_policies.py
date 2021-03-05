@@ -1,10 +1,12 @@
 """
-List exposable resources
+
 """
+import os
 import logging
+import json
 import click
 from azure_guardrails import set_log_level
-from azure_guardrails.shared import constants
+from azure_guardrails.shared import constants, utils
 
 logger = logging.getLogger(__name__)
 
@@ -15,7 +17,8 @@ logger = logging.getLogger(__name__)
     "-s",
     type=str,
     required=True,
-    help=f"The Azure Policy ",
+    help=f"The Azure PolicyDefinition ",
+    # TODO: Add callback validator
 )
 @click.option(
     "--with-parameters",
@@ -36,3 +39,7 @@ def get_policies(service, verbosity):
     """
 
     set_log_level(verbosity)
+    service_names = utils.get_service_names()
+    if service not in service_names:
+        raise Exception(f"Please provide a valid service name. Valid service names are {service_names}")
+    print("Getting policy names according to service")
