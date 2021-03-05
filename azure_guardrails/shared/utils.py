@@ -6,6 +6,8 @@ from azure_guardrails.shared import constants
 def get_service_names():
     services = os.listdir(constants.AZURE_POLICY_SERVICE_DIRECTORY)
     services.sort()
+    # Regulatory compliance is full of Microsoft Managed Controls
+    services.remove("Regulatory Compliance")
     return services
 
 

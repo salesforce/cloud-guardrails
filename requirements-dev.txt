@@ -13,3 +13,4 @@ mkdocs-material-extensions==1.0.1
 mkdocstrings==0.14.0
 datamodel-code-generator
 datamodel-code-generator[http]
+pydantic==1.8.1

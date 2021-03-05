@@ -34,7 +34,7 @@ setuptools.setup(
     tests_require=TESTS_REQUIRE,
     install_requires=[
         "click",
-        "colorama",
+        "pyyaml",
     ],
     classifiers=[
         "Programming Language :: Python :: 3",

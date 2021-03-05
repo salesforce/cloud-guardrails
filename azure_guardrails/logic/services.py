@@ -1,7 +1,10 @@
 import os
+import logging
 from typing import List
 from azure_guardrails.shared import utils, constants
 from azure_guardrails.logic.policy_definition import PolicyDefinition
+
+logger = logging.getLogger(__name__)
 
 
 class Service:
@@ -65,13 +68,13 @@ class Services:
         self.services = self._services()
 
     def _service_names(self) -> list:
-        service_names = os.listdir(constants.AZURE_POLICY_SERVICE_DIRECTORY)
+        service_names = utils.get_service_names()
         service_names.sort()
         return service_names
 
     def _services(self) -> List[Service]:
         services = []
-        service_names = utils.get_service_names()
+        service_names = self.service_names
         # TODO: Removing Azure Government because it has nested folders. Need to handle this case later.
         service_names.remove("Azure Government")
         for service_name in service_names:
@@ -93,9 +96,11 @@ class Services:
     def get_display_names_sorted_by_service(self, with_parameters: bool = False, with_modify_capabilities: bool = False, all_policies: bool = False) -> dict:
         display_names = {}
         for service in self.services:
+            logger.info("Getting display names for service: %s" % service)
             service_display_names = service.get_display_names(with_parameters=with_parameters,
                                                               with_modify_capabilities=with_modify_capabilities,
                                                               all_policies=all_policies)
             service_display_names = list(dict.fromkeys(service_display_names))  # remove duplicates
-            display_names[service] = service_display_names
+            if service_display_names:
+                display_names[service.service_name] = service_display_names
         return display_names
