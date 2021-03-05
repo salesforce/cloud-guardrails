@@ -13,7 +13,7 @@ from azure_guardrails.shared import utils, validate
 logger = logging.getLogger(__name__)
 
 
-@click.command(name="get-policies", short_help="")
+@click.command(name="list-policies", short_help="")
 @click.option(
     "--service",
     "-s",
@@ -44,9 +44,9 @@ logger = logging.getLogger(__name__)
     "verbosity",
     count=True,
 )
-def get_policies(service: str, with_parameters: bool, fmt: str, verbosity: int):
+def list_policies(service: str, with_parameters: bool, fmt: str, verbosity: int):
     """
-    Get Azure Policies
+    List Azure Policies
     """
 
     set_log_level(verbosity)

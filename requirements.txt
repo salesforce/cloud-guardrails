@@ -1,3 +1,4 @@
 click==7.1.2
 PyYAML==5.4.1
 jinja2==2.11.3
+colorama==0.4.4

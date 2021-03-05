@@ -3,6 +3,8 @@ import json
 import yaml
 from pathlib import Path
 from jinja2 import Template
+from colorama import Fore
+END = "\033[0m"
 
 AZURE_POLICY_SERVICE_DIRECTORY = os.path.abspath(
     os.path.join(
@@ -53,11 +55,5 @@ def get_policy_json(service_name: str, filename: str):
     return contents
 
 
-class MyDumper(yaml.SafeDumper):
-    # HACK: insert blank lines between top-level objects
-    # inspired by https://stackoverflow.com/a/44284819/3786245
-    def write_line_break(self, data=None):
-        super().write_line_break(data)
-
-        if len(self.indents) == 1:
-            super().write_line_break()
+def print_red(string):
+    print(f"{Fore.RED}{string}{END}")
