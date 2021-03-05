@@ -3,8 +3,13 @@ SHELL:=/bin/bash
 PROJECT := azure-guardrails
 PROJECT_UNDERSCORE := azure_guardrails
 
+.PHONY: update-submodule
+update-submodule:
+	git submodule init
+	git submodule update
+
 .PHONY: setup-env
-setup-env:
+setup-env: update-submodule
 	python3 -m venv ./venv && source venv/bin/activate
 	python3 -m pip install -r requirements.txt
 
