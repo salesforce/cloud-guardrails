@@ -1,7 +1,7 @@
 import os
 import logging
 from typing import List
-from azure_guardrails.shared import utils, constants
+from azure_guardrails.shared import utils
 from azure_guardrails.logic.policy_definition import PolicyDefinition
 
 logger = logging.getLogger(__name__)
@@ -10,7 +10,7 @@ logger = logging.getLogger(__name__)
 class Service:
     def __init__(self, service_name):
         self.service_name = service_name
-        self.service_policy_directory = os.path.join(constants.AZURE_POLICY_SERVICE_DIRECTORY, self.service_name)
+        self.service_policy_directory = os.path.join(utils.AZURE_POLICY_SERVICE_DIRECTORY, self.service_name)
         self.policy_files = self._policy_files()
         self.policy_definitions = self._policy_definitions()
         self.display_names = self.get_display_names()
@@ -75,8 +75,6 @@ class Services:
     def _services(self) -> List[Service]:
         services = []
         service_names = self.service_names
-        # TODO: Removing Azure Government because it has nested folders. Need to handle this case later.
-        service_names.remove("Azure Government")
         for service_name in service_names:
             service = Service(service_name=service_name)
             services.append(service)

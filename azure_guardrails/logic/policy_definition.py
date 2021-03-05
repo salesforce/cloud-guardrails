@@ -2,7 +2,6 @@ import os
 import logging
 import json
 from typing import Set, List, Optional
-from azure_guardrails.shared import utils, constants
 
 logger = logging.getLogger(__name__)
 

@@ -14,6 +14,7 @@ def azure_guardrails():
 
 azure_guardrails.add_command(command.get_policies.get_policies)
 azure_guardrails.add_command(command.list_services.list_services)
+azure_guardrails.add_command(command.create_exclusions_file.create_exclusions_file)
 
 
 def main():

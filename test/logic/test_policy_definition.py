@@ -1,5 +1,5 @@
 import unittest
-from azure_guardrails.shared import constants, utils
+from azure_guardrails.shared import utils
 from azure_guardrails.logic.policy_definition import Parameter, PolicyDefinition, Properties
 from azure_guardrails.logic.services import Service, Services
 

@@ -65,3 +65,4 @@ packer_cache/
 *.log
 *.pem
 .notes/*
+exclusions.yml
