@@ -15,6 +15,7 @@ def azure_guardrails():
 azure_guardrails.add_command(command.list_policies.list_policies)
 azure_guardrails.add_command(command.list_services.list_services)
 azure_guardrails.add_command(command.create_exclusions_file.create_exclusions_file)
+azure_guardrails.add_command(command.generate_terraform.generate_terraform)
 
 
 def main():
