@@ -3,7 +3,6 @@ from jinja2 import Template, Environment, FileSystemLoader
 from azure_guardrails.shared import utils
 
 
-# TODO: Instead of a straight up list, how about we include the service name at the top?
 def get_terraform_template(name: str, policy_names: dict, subscription_name: str = "",
                            management_group: str = "", enforcement_mode: bool = False,
                            module_source: str = utils.DEFAULT_TERRAFORM_MODULE_SOURCE) -> str:

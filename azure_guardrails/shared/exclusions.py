@@ -36,7 +36,7 @@ class Exclusions:
         if not match_only_keywords:
             self.match_only_keywords = []
         else:
-            self.match_only_keywords = [x.lower() for x in match_only_keywords]
+            self.match_only_keywords = [x.lower() for x in match_only_keywords if x != ""]
 
         # Get the list of services excluded by the user
         self.exclude_services = self._exclude_services(exclude_services)
@@ -50,13 +50,30 @@ class Exclusions:
         )
         return json.dumps(result)
 
+    def json(self):
+        result = dict(
+            match_only_keywords=self.match_only_keywords,
+            exclude_services=self.exclude_services,
+            exclude_policies=self.exclude_policies
+        )
+        return result
+
     def _exclude_policies(self, policies_dict: dict = None) -> dict:
+        result = {}
         if policies_dict:
             # Let's just loop through and validate the service names.
-            for key, value in policies_dict.items():
-                if key not in self.supported_services:
-                    raise Exception("Error: the provided service %s is not in the list of supported services")
-            return policies_dict
+            for service, values in policies_dict.items():
+                if service not in self.supported_services:
+                    raise Exception("Error: the provided service %s is not in the list of supported services" % service)
+                # Let's do some weird voodoo because the default template has empty strings as part of the dictionary
+                service_values = []
+                for value in values:
+                    if value == "":
+                        pass
+                    else:
+                        service_values.append(value)
+                result[service] = service_values
+            return result
         else:
             return {}
 
@@ -64,10 +81,12 @@ class Exclusions:
         exclude_services = []
         if services:
             for service in services:
-                if service in self.supported_services:
+                if service == "":
+                    pass
+                elif service in self.supported_services:
                     exclude_services.append(service)
                 else:
-                    raise Exception("Error: the provided service %s is not in the list of supported services")
+                    raise Exception("Error: the provided service %s is not in the list of supported services" % service)
         return exclude_services
 
     def is_keyword_match(self, policy_display_name: str) -> bool:

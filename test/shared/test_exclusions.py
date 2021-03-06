@@ -1,5 +1,7 @@
+import os
 import unittest
 import yaml
+import json
 import logging
 from azure_guardrails.shared import utils
 from azure_guardrails.shared.exclusions import get_exclusions_template, Exclusions, get_exclusions_from_file
@@ -38,10 +40,20 @@ class ExclusionsTestCase(unittest.TestCase):
         self.assertTrue(exclusions.is_excluded("General", "Allow resource creation only in Asia data centers"))
         self.assertFalse(exclusions.is_excluded("General", "Allow resource creation only in India data centers"))
 
-    # def test_read_exclusions_file(self):
-    #     print(DEFAULT_EXCLUSIONS_FILE)
-    #     exclusions = get_exclusions_from_file(DEFAULT_EXCLUSIONS_FILE)
-    #     print(exclusions.__str__())
+    def test_read_exclusions_file(self):
+        example_exclusions_file = os.path.abspath(os.path.join(
+            os.path.dirname(__file__),
+            os.path.pardir,
+            "files",
+            "example-exclusions.yml"
+        ))
+
+        # print(example_exclusions_file)
+        exclusions = get_exclusions_from_file(example_exclusions_file)
+        # print(exclusions.__str__())
+        # print(json.dumps(exclusions.json(), indent=4))
+        keys = list(exclusions.json().keys())
+        self.assertListEqual(keys, ['match_only_keywords', 'exclude_services', 'exclude_policies'])
 
     def test_read_exclusions(self):
         default_exclusions = get_exclusions_template()

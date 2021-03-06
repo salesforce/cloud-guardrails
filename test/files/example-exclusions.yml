@@ -1,0 +1,218 @@
+####
+# match_only_keywords: Use this to only apply policies that match any of these keywords
+# exclude_services: Specify services that you want to exclude entirely.
+# exclude_policies: Specify Azure Policy Definition displayNames that you want to exclude from the results, sorted by service
+####
+
+# Use this to only apply policies that match any of these keywords
+# Example: "encrypt", "SQL", "HTTP"
+match_only_keywords:
+  - ""
+
+
+# Specify services that you want to exclude entirely.
+# Uncomment the services mentioned below if you want to exclude them.
+exclude_services:
+  - ""
+  #- "API Management"
+  #- "API for FHIR"
+  #- "App Configuration"
+  #- "App Platform"
+  #- "App Service"
+  #- "Attestation"
+  #- "Automanage"
+  #- "Automation"
+  #- "Azure Data Explorer"
+  #- "Azure Stack Edge"
+  #- "Backup"
+  #- "Batch"
+  #- "Bot Service"
+  #- "Cache"
+  #- "Cognitive Services"
+  #- "Compute"
+  #- "Container Registry"
+  #- "Cosmos DB"
+  #- "Custom Provider"
+  #- "Data Box"
+  #- "Data Factory"
+  #- "Data Lake"
+  #- "Event Grid"
+  #- "Event Hub"
+  #- "General"
+  #- "Guest Configuration"
+  #- "HDInsight"
+  #- "Internet of Things"
+  #- "Key Vault"
+  #- "Kubernetes"
+  #- "Kubernetes service"
+  #- "Lighthouse"
+  #- "Logic Apps"
+  #- "Machine Learning"
+  #- "Managed Application"
+  #- "Monitoring"
+  #- "Network"
+  #- "Portal"
+  #- "SQL"
+  #- "Search"
+  #- "Security Center"
+  #- "Service Bus"
+  #- "Service Fabric"
+  #- "SignalR"
+  #- "Storage"
+  #- "Stream Analytics"
+  #- "Synapse"
+  #- "Tags"
+  #- "VM Image Builder"
+
+
+# Specify Azure Policy Definition displayNames that you want to exclude from the results
+exclude_policies:
+  General:
+    - "Allow resource creation only in Asia data centers"
+    - "Allow resource creation only in European data centers"
+    - "Allow resource creation only in India data centers"
+    - "Allow resource creation only in United States data centers"
+  Tags:
+    - "Allow resource creation if 'department' tag set"
+    - "Allow resource creation if 'environment' tag value in allowed values"
+
+  API Management:
+    - ""
+
+  API for FHIR:
+    - ""
+
+  App Configuration:
+    - ""
+
+  App Platform:
+    - ""
+
+  App Service:
+    - ""
+
+  Attestation:
+    - ""
+
+  Automanage:
+    - ""
+
+  Automation:
+    - ""
+
+  Azure Data Explorer:
+    - ""
+
+  Azure Stack Edge:
+    - ""
+
+  Backup:
+    - ""
+
+  Batch:
+    - ""
+
+  Bot Service:
+    - ""
+
+  Cache:
+    - ""
+
+  Cognitive Services:
+    - ""
+
+  Compute:
+    - ""
+
+  Container Registry:
+    - ""
+
+  Cosmos DB:
+    - ""
+
+  Custom Provider:
+    - ""
+
+  Data Box:
+    - ""
+
+  Data Factory:
+    - ""
+
+  Data Lake:
+    - ""
+
+  Event Grid:
+    - ""
+
+  Event Hub:
+    - ""
+
+  Guest Configuration:
+    - ""
+
+  HDInsight:
+    - ""
+
+  Internet of Things:
+    - ""
+
+  Key Vault:
+    - ""
+
+  Kubernetes:
+    - ""
+
+  Kubernetes service:
+    - ""
+
+  Lighthouse:
+    - ""
+
+  Logic Apps:
+    - ""
+
+  Machine Learning:
+    - ""
+
+  Managed Application:
+    - ""
+
+  Monitoring:
+    - ""
+
+  Network:
+    - ""
+
+  Portal:
+    - ""
+
+  SQL:
+    - ""
+
+  Search:
+    - ""
+
+  Security Center:
+    - ""
+
+  Service Bus:
+    - ""
+
+  Service Fabric:
+    - ""
+
+  SignalR:
+    - ""
+
+  Storage:
+    - ""
+
+  Stream Analytics:
+    - ""
+
+  Synapse:
+    - ""
+
+  VM Image Builder:
+    - ""
