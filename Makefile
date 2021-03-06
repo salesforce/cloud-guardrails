@@ -32,7 +32,7 @@ build: setup-env clean
 
 .PHONY: install
 install: build
-	python3 -m pip install -q ./dist/${PROJECT_UNDERSCORE}*.tar.gz
+	python3 -m pip install -q ./dist/${PROJECT}*.tar.gz
 	${PROJECT} --help
 
 .PHONY: uninstall
