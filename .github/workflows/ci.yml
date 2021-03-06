@@ -9,7 +9,10 @@ jobs:
       matrix:
         python-version: ['3.7']
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          submodules: recursive
 
       - name: Setup Python
         uses: actions/setup-python@v2
