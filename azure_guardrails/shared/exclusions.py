@@ -25,7 +25,7 @@ def get_exclusions_template() -> str:
     return template.render(t=template_contents)
 
 
-DEFAULT_EXCLUSIONS_CFG = get_exclusions_template()
+DEFAULT_EXCLUSIONS_TEMPLATE = get_exclusions_template()
 
 
 class Exclusions:
@@ -118,18 +118,31 @@ class Exclusions:
         return result
 
     def is_excluded(self, service_name: str, display_name: str) -> bool:
+        # Case: substrings from match_only_keywords are NOT in the display name
+        if self.match_only_keywords:
+            if not self.is_keyword_match(policy_display_name=display_name):
+                return True
         # Case: Service is listed in excluded services
         if service_name in self.exclude_services:
             return True
-        # Case: substrings from match_only_keywords are in the display name
-        elif self.is_keyword_match(policy_display_name=display_name):
-            return True
+        # elif self.is_keyword_match(policy_display_name=display_name):
+        #     return True
         # Case: The policy name is in the list of excluded policies, sorted by service
         elif self.is_policy_excluded(service_name=service_name, display_name=display_name):
             return True
         else:
             return False
 
+
+def get_default_exclusions() -> Exclusions:
+    exclusions_cfg = yaml.safe_load(DEFAULT_EXCLUSIONS_TEMPLATE)
+    exclude_policies = exclusions_cfg.get("exclude_policies", None)
+    exclude_services = exclusions_cfg.get("exclude_services", None)
+    match_only_keywords = exclusions_cfg.get("match_only_keywords", None)
+    exclusions = Exclusions(exclude_policies=exclude_policies, exclude_services=exclude_services, match_only_keywords=match_only_keywords)
+    return exclusions
+
+DEFAULT_EXCLUSIONS = get_default_exclusions()
 
 def get_exclusions_from_file(exclusions_file: str) -> Exclusions:
     with open(exclusions_file, "r") as yaml_file:
