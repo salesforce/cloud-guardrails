@@ -5,7 +5,7 @@ import re
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 VERSION_RE = re.compile(r"""__version__ = ['"]([0-9.]+)['"]""")
-TESTS_REQUIRE = ["coverage", "nose", "pytest", "moto[s3]"]
+TESTS_REQUIRE = ["coverage", "nose", "pytest"]
 DESCRIPTION = ""
 
 
@@ -35,6 +35,8 @@ setuptools.setup(
     install_requires=[
         "click",
         "pyyaml",
+        "jinja2",
+        "colorama"
     ],
     classifiers=[
         "Programming Language :: Python :: 3",

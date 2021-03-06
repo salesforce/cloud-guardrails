@@ -5,7 +5,7 @@ default_source = "git@github.com:kmcquade/azure-guardrails.git//azure_guardrails
 
 
 # TODO: Instead of a straight up list, how about we include the service name at the top?
-def get_terraform_template(name: str, policy_names: list, subscription_name: str = "",
+def get_terraform_template(name: str, policy_names: dict, subscription_name: str = "",
                            management_group: str = "", enforcement_mode: bool = False,
                            module_source: str = default_source) -> str:
     if subscription_name == "" and management_group == "":

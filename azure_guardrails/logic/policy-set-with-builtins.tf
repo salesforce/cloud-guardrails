@@ -9,7 +9,11 @@ module "name" {
   enforcement_mode               = {{ t.enforcement_mode }}
   policy_set_definition_category = local.name
   policy_set_name                = local.name
-  policy_names = [{% for policy_name in t.policy_names %}
+  policy_names = [{% for service_name, service_policy_names in t.policy_names.items() %}
+    # -----------------------------------------------------------------------------------------------------------------
+    # {{ service_name }}
+    # -----------------------------------------------------------------------------------------------------------------{% for policy_name in service_policy_names %}
     "{{ policy_name }}",{% endfor %}
+    {% endfor %}
   ]
 }
