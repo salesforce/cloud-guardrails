@@ -1,17 +1,35 @@
-policies:
-  general:
+####
+# match_only_keywords: Use this to only apply policies that match any of these keywords
+# exclude_services: Specify services that you want to exclude entirely.
+# exclude_policies: Specify Azure Policy Definition displayNames that you want to exclude from the results, sorted by service
+####
+
+# Use this to only apply policies that match any of these keywords
+# Example: "encrypt", "SQL", "HTTP"
+match_only_keywords:
+  - ""
+{% for keyword in t.match_only_keywords %}
+  - "{{ keyword }}"
+{% endfor %}
+
+# Specify services that you want to exclude entirely.
+# Uncomment the services mentioned below if you want to exclude them.
+exclude_services:
+  - ""
+{% for service in t.service_names %}  #- "{{ service }}"
+{% endfor %}
+
+# Specify Azure Policy Definition displayNames that you want to exclude from the results
+exclude_policies:
+  General:
     - "Allow resource creation only in Asia data centers"
     - "Allow resource creation only in European data centers"
     - "Allow resource creation only in India data centers"
     - "Allow resource creation only in United States data centers"
-  tags:
+  Tags:
     - "Allow resource creation if 'department' tag set"
     - "Allow resource creation if 'environment' tag value in allowed values"
-
-services:
-  - ""
-
-# Use this to only apply policies that match any of these keywords
-# Example: "encrypt", "SQL", "HTTP"
-keywords:
-  - ""
+{% for service in t.service_names %}{% if (service != "General") and (service != "Tags") %}
+  {{ service }}:
+    - ""
+{% endif %}{% endfor %}

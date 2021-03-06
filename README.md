@@ -92,12 +92,11 @@ module "name" {
 # TODO
 
 Major:
-* Add ability to exclude based on YAML
-* Add ability to generate Terraform based on YAML, not just on the command line options
 * Add ability to look up the rule content based on a name
 
 Tweaks:
 * Add ability to use policies with parameters as long as they have default values
+* Exclusions: Should be able to specify explicit match strings in the command line
 
 Enhancement:
 * Add ability to supply the values that you want to put in the policy?

@@ -1,8 +1,6 @@
 import os
 import json
-import yaml
 from pathlib import Path
-from jinja2 import Template
 from colorama import Fore
 END = "\033[0m"
 
@@ -16,18 +14,6 @@ AZURE_POLICY_SERVICE_DIRECTORY = os.path.abspath(
 )
 
 DEFAULT_TERRAFORM_MODULE_SOURCE = "git@github.com:kmcquade/azure-guardrails.git//azure_guardrails/shared/terraform/policy-initiative-with-builtins"
-
-EXCLUSIONS_TEMPLATE = """# Specify Azure Policy Definition displayNames that you want to exclude from the results
-{% for service in service_names %}
-{{ service }}:
-  - ""
-{% endfor %}
-"""
-
-
-def get_exclusions_template() -> str:
-    template = Template(EXCLUSIONS_TEMPLATE)
-    return template.render(service_names=get_service_names())
 
 
 def get_service_names():

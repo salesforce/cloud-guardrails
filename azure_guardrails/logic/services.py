@@ -2,14 +2,16 @@ import os
 import logging
 from typing import List
 from azure_guardrails.shared import utils
+from azure_guardrails.shared.exclusions import DEFAULT_EXCLUSIONS, Exclusions
 from azure_guardrails.logic.policy_definition import PolicyDefinition
 
 logger = logging.getLogger(__name__)
 
 
 class Service:
-    def __init__(self, service_name):
+    def __init__(self, service_name: str, exclusions: Exclusions = DEFAULT_EXCLUSIONS):
         self.service_name = service_name
+        self.exclusions = exclusions
         self.service_policy_directory = os.path.join(utils.AZURE_POLICY_SERVICE_DIRECTORY, self.service_name)
         self.policy_files = self._policy_files()
         self.policy_definitions = self._policy_definitions()
@@ -42,6 +44,11 @@ class Service:
             # If the policy is deprecated, skip it
             if policy_definition.is_deprecated:
                 logger.debug("Policy definition is deprecated; skipping. Policy name: %s" % policy_definition.display_name)
+                continue
+
+            # If we have specified it in the Exclusions config, skip it
+            if self.exclusions.is_excluded(service_name=self.service_name, display_name=policy_definition.display_name):
+                logger.debug("Policy definition is excluded; skipping. Policy name: %s" % policy_definition.display_name)
                 continue
 
             # Now, add display names depending on the filtering arguments supplied
@@ -84,17 +91,18 @@ class Service:
 
 
 class Services:
-    def __init__(self):
+    def __init__(self, exclusions: Exclusions = DEFAULT_EXCLUSIONS):
         service_names = utils.get_service_names()
         service_names.sort()
         self.service_names = service_names
+        self.exclusions = exclusions
         self.services = self._services()
 
     def _services(self) -> List[Service]:
         services = []
         service_names = self.service_names
         for service_name in service_names:
-            service = Service(service_name=service_name)
+            service = Service(service_name=service_name, exclusions=self.exclusions)
             services.append(service)
         return services
 

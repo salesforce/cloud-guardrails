@@ -10,6 +10,7 @@ import click
 from azure_guardrails import set_log_level
 from azure_guardrails.logic.services import Services, Service
 from azure_guardrails.shared import utils, validate
+from azure_guardrails.shared.exclusions import get_exclusions_template
 
 logger = logging.getLogger(__name__)
 
@@ -36,7 +37,7 @@ def create_exclusions_file(output_file: str, verbosity: int):
 
     set_log_level(verbosity)
 
-    exclusions_template = utils.get_exclusions_template()
+    exclusions_template = get_exclusions_template()
 
     filename = Path(output_file).resolve()
     if os.path.exists(output_file):

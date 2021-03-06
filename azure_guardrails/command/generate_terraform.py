@@ -11,6 +11,7 @@ from colorama import Fore, Back
 from azure_guardrails import set_log_level, set_stream_logger
 from azure_guardrails.logic.terraform import get_terraform_template
 from azure_guardrails.shared import utils, validate
+from azure_guardrails.shared.exclusions import get_default_exclusions, get_exclusions_from_file
 from azure_guardrails.logic.services import Services, Service
 
 
@@ -29,13 +30,7 @@ supported_services_argument_values.append("all")
     help="Services supported by Azure Policy definitions. Set to 'all' for all policies",
     callback=validate.click_validate_supported_azure_service,
 )
-@click.option(
-    "--with-parameters",
-    "-p",
-    is_flag=True,
-    default=False,
-    help="Include Policies with Parameters",
-)
+
 @click.option(
     "--target-name",
     "-n",
@@ -92,6 +87,13 @@ supported_services_argument_values.append("all")
     help="The exclusions file",
 )
 @click.option(
+    "--with-parameters",
+    "-p",
+    is_flag=True,
+    default=False,
+    help="Include Policies with Parameters",
+)
+@click.option(
     "--quiet",
     "-q",
     is_flag=True,
@@ -114,7 +116,10 @@ def generate_terraform(service: str, with_parameters: bool, target_name: str, ta
         set_stream_logger(level=log_level)
 
     if not exclusions_file:
-        logger.info("You did not supply an exclusions file. Consider creating one to exclude different policies.")
+        logger.info("You did not supply an exclusions file. Consider creating one to exclude different policies. We will use the default one.")
+        exclusions = get_default_exclusions()
+    else:
+        exclusions = get_exclusions_from_file(exclusions_file=exclusions_file)
 
     subscription_name = ""
     management_group = ""
@@ -124,12 +129,12 @@ def generate_terraform(service: str, with_parameters: bool, target_name: str, ta
         management_group = target_name
 
     if service == "all":
-        services = Services()
+        services = Services(exclusions=exclusions)
         policy_names = services.get_display_names_sorted_by_service(with_parameters=with_parameters)
         result = get_terraform_template(name=policy_set_name, policy_names=policy_names, subscription_name=subscription_name,
                                         management_group=management_group, enforcement_mode=enforcement_mode, module_source=terraform_module_source)
     else:
-        service = Service(service_name=service)
+        service = Service(service_name=service, exclusions=exclusions)
         policy_names = service.get_display_names_sorted_by_service(with_parameters=with_parameters)
 
         result = get_terraform_template(name=policy_set_name, policy_names=policy_names, subscription_name=subscription_name,
