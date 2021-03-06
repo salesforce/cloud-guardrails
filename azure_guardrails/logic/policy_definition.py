@@ -47,6 +47,18 @@ class PolicyDefinition:
         return result
 
     @property
+    def includes_parameters_without_default_values(self) -> bool:
+        """Determines if the policy requires parameters that do not have defaultValues"""
+        result = False
+        for parameter in self.properties.parameters:
+            if parameter.name == "effect":
+                pass
+            if not parameter.default_value:
+                result = True
+                break
+        return result
+
+    @property
     def is_deprecated(self) -> bool:
         """Determine whether the policy is deprecated or not"""
         if self.properties.deprecated:
