@@ -1,1 +1,1 @@
-recursive-include azure_guardrails/shared *.txt *.yml *.json *.tf
+recursive-include azure_guardrails/ *.txt *.yml *.json *.tf

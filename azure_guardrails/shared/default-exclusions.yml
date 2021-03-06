@@ -1,0 +1,17 @@
+policies:
+  general:
+    - "Allow resource creation only in Asia data centers"
+    - "Allow resource creation only in European data centers"
+    - "Allow resource creation only in India data centers"
+    - "Allow resource creation only in United States data centers"
+  tags:
+    - "Allow resource creation if 'department' tag set"
+    - "Allow resource creation if 'environment' tag value in allowed values"
+
+services:
+  - ""
+
+# Use this to only apply policies that match any of these keywords
+# Example: "encrypt", "SQL", "HTTP"
+keywords:
+  - ""

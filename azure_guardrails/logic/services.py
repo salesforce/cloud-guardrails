@@ -30,13 +30,22 @@ class Service:
     def get_display_names(self, with_parameters: bool = False, with_modify_capabilities: bool = False, all_policies: bool = False) -> list:
         display_names = []
         for policy_definition in self.policy_definitions:
+            # Quality control
+            # First, if the display name starts with [Deprecated], skip it
+            if policy_definition.display_name.startswith("[Deprecated]: "):
+                logger.debug("Deprecated Policy; skipping. Policy name: %s" % policy_definition.display_name)
+                continue
+            # Some Policies with Modify capabilities don't have an Effect - only way to detect them is to see if the name starts with 'Deploy'
+            if not with_modify_capabilities and policy_definition.display_name.startswith("Deploy "):
+                logger.debug("'Deploy' Policy detected; skipping. Policy name: %s" % policy_definition.display_name)
+                continue
+
+            # Now, add display names depending on the filtering arguments supplied
             # Case: Return all policies
             if all_policies:
-                # print("all_policies")
                 display_names.append(policy_definition.display_name)
             # Case: Return only policies that do not have parameters or modify capabilities
             if not with_parameters and not with_modify_capabilities:
-                # print("simple ones")
                 if (
                     not policy_definition.includes_parameters
                     and not policy_definition.modifies_resources
@@ -44,7 +53,6 @@ class Service:
                     display_names.append(policy_definition.display_name)
             # Case: return policies with parameters only, as long as they do not include modify capabilities
             elif with_parameters and not with_modify_capabilities:
-                # print("with_parameters")
                 if (
                     policy_definition.includes_parameters
                     and not policy_definition.modifies_resources
@@ -52,7 +60,6 @@ class Service:
                     display_names.append(policy_definition.display_name)
             # Case: return policies with parameters and modify capabilities
             elif with_parameters and with_modify_capabilities:
-                # print("with_parameters and with_modify_capabilities")
                 if (
                     policy_definition.modifies_resources
                     and policy_definition.includes_parameters
@@ -101,7 +108,7 @@ class Services:
     def get_display_names_sorted_by_service(self, with_parameters: bool = False, with_modify_capabilities: bool = False, all_policies: bool = False) -> dict:
         display_names = {}
         for service in self.services:
-            logger.info("Getting display names for service: %s" % service)
+            logger.debug("Getting display names for service: %s" % service)
             service_display_names = service.get_display_names(with_parameters=with_parameters,
                                                               with_modify_capabilities=with_modify_capabilities,
                                                               all_policies=all_policies)

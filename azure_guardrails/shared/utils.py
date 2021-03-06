@@ -15,6 +15,8 @@ AZURE_POLICY_SERVICE_DIRECTORY = os.path.abspath(
     )
 )
 
+DEFAULT_TERRAFORM_MODULE_SOURCE = "git@github.com:kmcquade/azure-guardrails.git//azure_guardrails/shared/terraform/policy-initiative-with-builtins"
+
 EXCLUSIONS_TEMPLATE = """# Specify Azure Policy Definition displayNames that you want to exclude from the results
 {% for service in service_names %}
 {{ service }}:
