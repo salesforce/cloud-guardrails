@@ -32,12 +32,12 @@ build: setup-env clean
 
 .PHONY: install
 install: build
-	python3 -m pip install -q ./dist/$PROJECT_UNDERSCORE*.tar.gz
-	$PROJECT --help
+	python3 -m pip install -q ./dist/${PROJECT_UNDERSCORE}*.tar.gz
+	${PROJECT} --help
 
 .PHONY: uninstall
 uninstall:
-	python3 -m pip uninstall $PROJECT -y
+	python3 -m pip uninstall ${PROJECT} -y
 	python3 -m pip uninstall -r requirements.txt -y
 	python3 -m pip uninstall -r requirements-dev.txt -y
 	python3 -m pip freeze | xargs python3 -m pip uninstall -y
@@ -59,21 +59,21 @@ test: setup-dev
 
 .PHONY: security-test
 security-test: setup-dev
-	bandit -r ./$PROJECT_UNDERSCORE/
+	bandit -r ./${PROJECT_UNDERSCORE}/
 
 .PHONY: fmt
 fmt: setup-dev
-	black $PROJECT_UNDERSCORE/
+	black ${PROJECT_UNDERSCORE}/
 
 .PHONY: lint
 lint: setup-dev
-	pylint $PROJECT_UNDERSCORE/
+	pylint ${PROJECT_UNDERSCORE}/
 
 .PHONY: publish
 publish: build
 	python3 -m pip install --upgrade twine
 	python3 -m twine upload dist/*
-	python3 -m pip install $PROJECT
+	python3 -m pip install ${PROJECT}
 
 .PHONY: count-loc
 count-loc:
