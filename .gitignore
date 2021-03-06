@@ -56,7 +56,7 @@ coverage.xml
 *.tfstate
 *.tfstate.*
 *.tfvars
-!terraform.tfvars
+#!terraform.tfvars
 .vagrant
 packer_cache/
 *.box
@@ -67,3 +67,4 @@ packer_cache/
 .notes/*
 exclusions.yml
 **/state.tf
+azure-guardrails-*

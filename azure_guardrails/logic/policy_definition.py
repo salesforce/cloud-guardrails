@@ -16,9 +16,9 @@ class PolicyDefinition:
         self.content = policy_content
         self.id = policy_content.get("id")
         self.name = policy_content.get("name")
-        self.display_name = policy_content.get("properties").get("displayName")
         self.category = policy_content.get("properties").get("metadata").get("category", None)
         self.properties = Properties(properties_json=policy_content.get("properties"))
+        self.display_name = self.properties.display_name
 
     def __repr__(self):
         return json.dumps(self.content)
@@ -45,6 +45,14 @@ class PolicyDefinition:
                 result = True
                 break
         return result
+
+    @property
+    def is_deprecated(self) -> bool:
+        """Determine whether the policy is deprecated or not"""
+        if self.properties.deprecated:
+            return True
+        else:
+            return False
 
     @property
     def allowed_effects(self) -> list:
@@ -116,7 +124,7 @@ class Properties:
     def __init__(self, properties_json: dict):
         self.properties_json = properties_json
         # Values
-        self.display_name = properties_json.get("displayName")
+        display_name = properties_json.get("displayName")
         self.policy_type = properties_json.get("policyType")
         self.mode = properties_json.get("mode")
         self.description = properties_json.get("description")
@@ -126,6 +134,10 @@ class Properties:
         self.version = self.metadata_json.get("version", None)
         self.category = self.metadata_json.get("category", None)
         self.preview = self.metadata_json.get("preview", None)
+        if self.preview:
+            self.display_name = f"[Preview]: {display_name}"
+        else:
+            self.display_name = display_name
         self.deprecated = self.metadata_json.get("deprecated", None)
 
         # PolicyDefinition Rule and Parameters

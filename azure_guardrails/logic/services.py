@@ -39,6 +39,10 @@ class Service:
             if not with_modify_capabilities and policy_definition.display_name.startswith("Deploy "):
                 logger.debug("'Deploy' Policy detected; skipping. Policy name: %s" % policy_definition.display_name)
                 continue
+            # If the policy is deprecated, skip it
+            if policy_definition.is_deprecated:
+                logger.debug("Policy definition is deprecated; skipping. Policy name: %s" % policy_definition.display_name)
+                continue
 
             # Now, add display names depending on the filtering arguments supplied
             # Case: Return all policies
