@@ -7,12 +7,6 @@ from azure_guardrails.shared import utils
 
 logger = logging.getLogger(__name__)
 
-EXCLUSIONS_TEMPLATE = """# Specify Azure Policy Definition displayNames that you want to exclude from the results
-{% for service in service_names %}
-{{ service }}:
-  - ""
-{% endfor %}
-"""
 
 DEFAULT_EXCLUSIONS_FILE = os.path.abspath(os.path.join(
     os.path.dirname(__file__),
@@ -21,11 +15,6 @@ DEFAULT_EXCLUSIONS_FILE = os.path.abspath(os.path.join(
 
 
 def get_exclusions_template() -> str:
-    template = Template(EXCLUSIONS_TEMPLATE)
-    return template.render(service_names=utils.get_service_names())
-
-
-def get_new_exclusions_template() -> str:
     template_contents = dict(
         match_only_keywords=[],
         service_names=utils.get_service_names(),
