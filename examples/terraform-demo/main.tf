@@ -1,12 +1,15 @@
 variable "name" { default = "example" }
+variable "subscription_name" { default = "example" }
+variable "management_group" { default = "" }
+variable "enforcement_mode" { default = false }
 
 module "example" {
   source                         = "../../azure_guardrails/shared/terraform/policy-initiative-with-builtins"
   description                    = var.name
   display_name                   = var.name
-  subscription_name              = "example"
-  management_group               = ""
-  enforcement_mode               = false
+  subscription_name              = var.subscription_name
+  management_group               = var.management_group
+  enforcement_mode               = var.enforcement_mode
   policy_set_definition_category = var.name
   policy_set_name                = var.name
   policy_names = [
@@ -26,7 +29,7 @@ module "example" {
     # -----------------------------------------------------------------------------------------------------------------
     # App Platform
     # -----------------------------------------------------------------------------------------------------------------
-    "Audit Azure Spring Cloud instances where distributed tracing is not enabled",
+    "[Preview]: Audit Azure Spring Cloud instances where distributed tracing is not enabled",
     
     # -----------------------------------------------------------------------------------------------------------------
     # App Service
@@ -40,18 +43,10 @@ module "example" {
     "CORS should not allow every resource to access your Web Applications",
     "Diagnostic logs in App Services should be enabled",
     "Ensure API app has 'Client Certificates (Incoming client certificates)' set to 'On'",
-    "Ensure Function app is using the latest version of TLS encryption",
     "Ensure WEB app has 'Client Certificates (Incoming client certificates)' set to 'On'",
-    "Ensure WEB app is using the latest version of TLS encryption ",
-    "Ensure that '.NET Framework' version is the latest, if used as a part of the API app",
-    "Ensure that '.NET Framework' version is the latest, if used as a part of the Function App",
-    "Ensure that '.NET Framework' version is the latest, if used as a part of the Web app",
     "Ensure that 'HTTP Version' is the latest, if used to run the API app",
     "Ensure that 'HTTP Version' is the latest, if used to run the Function app",
     "Ensure that 'HTTP Version' is the latest, if used to run the Web app",
-    "Ensure that Register with Azure Active Directory is enabled on API app",
-    "Ensure that Register with Azure Active Directory is enabled on Function App",
-    "Ensure that Register with Azure Active Directory is enabled on WEB App",
     "FTPS only should be required in your API App",
     "FTPS only should be required in your Function App",
     "FTPS should be required in your Web App",
@@ -153,11 +148,11 @@ module "example" {
     # -----------------------------------------------------------------------------------------------------------------
     # Data Factory
     # -----------------------------------------------------------------------------------------------------------------
-    "Azure Data Factory linked services should use Key Vault for storing secrets",
-    "Azure Data Factory linked services should use system-assigned managed identity authentication when it is supported",
-    "Azure Data Factory should use a Git repository for source control",
     "Azure data factories should be encrypted with a customer-managed key",
     "Public network access on Azure Data Factory should be disabled",
+    "[Preview]: Azure Data Factory linked services should use Key Vault for storing secrets",
+    "[Preview]: Azure Data Factory linked services should use system-assigned managed identity authentication when it is supported",
+    "[Preview]: Azure Data Factory should use a Git repository for source control",
     
     # -----------------------------------------------------------------------------------------------------------------
     # Data Lake
@@ -182,79 +177,9 @@ module "example" {
     # -----------------------------------------------------------------------------------------------------------------
     # General
     # -----------------------------------------------------------------------------------------------------------------
-    "Allow resource creation only in Asia data centers",
-    "Allow resource creation only in European data centers",
-    "Allow resource creation only in India data centers",
-    "Allow resource creation only in United States data centers",
     "Audit resource location matches resource group location",
     "Audit usage of custom RBAC rules",
     "Custom subscription owner roles should not exist",
-    
-    # -----------------------------------------------------------------------------------------------------------------
-    # Guest Configuration
-    # -----------------------------------------------------------------------------------------------------------------
-    "Audit Linux virtual machines on which the Linux Guest Configuration extension is not enabled",
-    "Audit Windows virtual machines on which the Windows Guest Configuration extension is not enabled",
-    "Show audit results from Linux VMs that allow remote connections from accounts without passwords",
-    "Show audit results from Linux VMs that do not have the passwd file permissions set to 0644",
-    "Show audit results from Linux VMs that do not have the specified applications installed",
-    "Show audit results from Linux VMs that have accounts without passwords",
-    "Show audit results from Linux VMs that have the specified applications installed",
-    "Show audit results from Windows Server VMs on which Windows Serial Console is not enabled",
-    "Show audit results from Windows VMs configurations in 'Administrative Templates - Control Panel'",
-    "Show audit results from Windows VMs configurations in 'Administrative Templates - MSS (Legacy)'",
-    "Show audit results from Windows VMs configurations in 'Administrative Templates - Network'",
-    "Show audit results from Windows VMs configurations in 'Administrative Templates - System'",
-    "Show audit results from Windows VMs configurations in 'Security Options - Accounts'",
-    "Show audit results from Windows VMs configurations in 'Security Options - Audit'",
-    "Show audit results from Windows VMs configurations in 'Security Options - Devices'",
-    "Show audit results from Windows VMs configurations in 'Security Options - Interactive Logon'",
-    "Show audit results from Windows VMs configurations in 'Security Options - Microsoft Network Client'",
-    "Show audit results from Windows VMs configurations in 'Security Options - Microsoft Network Server'",
-    "Show audit results from Windows VMs configurations in 'Security Options - Network Access'",
-    "Show audit results from Windows VMs configurations in 'Security Options - Network Security'",
-    "Show audit results from Windows VMs configurations in 'Security Options - Recovery console'",
-    "Show audit results from Windows VMs configurations in 'Security Options - Shutdown'",
-    "Show audit results from Windows VMs configurations in 'Security Options - System objects'",
-    "Show audit results from Windows VMs configurations in 'Security Options - System settings'",
-    "Show audit results from Windows VMs configurations in 'Security Options - User Account Control'",
-    "Show audit results from Windows VMs configurations in 'Security Settings - Account Policies'",
-    "Show audit results from Windows VMs configurations in 'System Audit Policies - Account Logon'",
-    "Show audit results from Windows VMs configurations in 'System Audit Policies - Account Management'",
-    "Show audit results from Windows VMs configurations in 'System Audit Policies - Detailed Tracking'",
-    "Show audit results from Windows VMs configurations in 'System Audit Policies - Logon-Logoff'",
-    "Show audit results from Windows VMs configurations in 'System Audit Policies - Object Access'",
-    "Show audit results from Windows VMs configurations in 'System Audit Policies - Policy Change'",
-    "Show audit results from Windows VMs configurations in 'System Audit Policies - Privilege Use'",
-    "Show audit results from Windows VMs configurations in 'System Audit Policies - System'",
-    "Show audit results from Windows VMs configurations in 'User Rights Assignment'",
-    "Show audit results from Windows VMs configurations in 'Windows Components'",
-    "Show audit results from Windows VMs configurations in 'Windows Firewall Properties'",
-    "Show audit results from Windows VMs if the Administrators group contains any of the specified members",
-    "Show audit results from Windows VMs if the Administrators group doesn't contain all of the specified members",
-    "Show audit results from Windows VMs if the Administrators group doesn't contain only specified members",
-    "Show audit results from Windows VMs on which Windows Defender Exploit Guard is not enabled",
-    "Show audit results from Windows VMs on which the DSC configuration is not compliant",
-    "Show audit results from Windows VMs on which the Log Analytics agent is not connected as expected",
-    "Show audit results from Windows VMs on which the remote connection status does not match the specified one",
-    "Show audit results from Windows VMs on which the specified services are not installed and 'Running'",
-    "Show audit results from Windows VMs that allow re-use of the previous 24 passwords",
-    "Show audit results from Windows VMs that are not joined to the specified domain",
-    "Show audit results from Windows VMs that are not set to the specified time zone",
-    "Show audit results from Windows VMs that contain certificates expiring within the specified number of days",
-    "Show audit results from Windows VMs that do not contain the specified certificates in Trusted Root",
-    "Show audit results from Windows VMs that do not have a maximum password age of 70 days",
-    "Show audit results from Windows VMs that do not have a minimum password age of 1 day",
-    "Show audit results from Windows VMs that do not have the password complexity setting enabled",
-    "Show audit results from Windows VMs that do not have the specified Windows PowerShell execution policy",
-    "Show audit results from Windows VMs that do not have the specified Windows PowerShell modules installed",
-    "Show audit results from Windows VMs that do not have the specified applications installed",
-    "Show audit results from Windows VMs that do not restrict the minimum password length to 14 characters",
-    "Show audit results from Windows VMs that do not store passwords using reversible encryption",
-    "Show audit results from Windows VMs that have not restarted within the specified number of days",
-    "Show audit results from Windows VMs that have the specified applications installed",
-    "Show audit results from Windows VMs with a pending reboot",
-    "Show audit results from Windows web servers that are not using secure communication protocols",
     
     # -----------------------------------------------------------------------------------------------------------------
     # HDInsight
@@ -267,14 +192,14 @@ module "example" {
     # Key Vault
     # -----------------------------------------------------------------------------------------------------------------
     "Azure Key Vault Managed HSM should have purge protection enabled",
-    "Firewall should be enabled on Key Vault",
-    "Key Vault keys should have an expiration date",
-    "Key Vault secrets should have an expiration date",
     "Key vaults should have purge protection enabled",
     "Key vaults should have soft delete enabled",
-    "Keys should be backed by a hardware security module (HSM)",
-    "Private endpoint should be configured for Key Vault",
-    "Secrets should have content type set",
+    "[Preview]: Firewall should be enabled on Key Vault",
+    "[Preview]: Key Vault keys should have an expiration date",
+    "[Preview]: Key Vault secrets should have an expiration date",
+    "[Preview]: Keys should be backed by a hardware security module (HSM)",
+    "[Preview]: Private endpoint should be configured for Key Vault",
+    "[Preview]: Secrets should have content type set",
     
     # -----------------------------------------------------------------------------------------------------------------
     # Kubernetes
@@ -282,15 +207,6 @@ module "example" {
     "Azure Policy Add-on for Kubernetes service (AKS) should be installed and enabled on your clusters",
     "Both operating systems and data disks in Azure Kubernetes Service clusters should be encrypted by customer-managed keys",
     "Temp disks and cache for agent node pools in Azure Kubernetes Service clusters should be encrypted at host",
-    
-    # -----------------------------------------------------------------------------------------------------------------
-    # Kubernetes service
-    # -----------------------------------------------------------------------------------------------------------------
-    "Do not allow privileged containers in AKS",
-    "Enforce HTTPS ingress in AKS",
-    "Enforce internal load balancers in AKS",
-    "Enforce unique ingress hostnames across namespaces in AKS",
-    "Ensure CPU and memory resource limits defined on containers in AKS",
     
     # -----------------------------------------------------------------------------------------------------------------
     # Lighthouse
@@ -319,23 +235,25 @@ module "example" {
     "Azure Monitor should collect activity logs from all regions",
     "Azure Monitor solution 'Security and Audit' must be deployed",
     "Azure subscriptions should have a log profile for Activity Log",
-    "Log Analytics agent should be installed on your Linux Azure Arc machines",
-    "Log Analytics agent should be installed on your Windows Azure Arc machines",
-    "Network traffic data collection agent should be installed on Linux virtual machines",
-    "Network traffic data collection agent should be installed on Windows virtual machines",
     "Saved-queries in Azure Monitor should be saved in customer storage account for logs encryption",
     "Storage account containing the container with activity logs must be encrypted with BYOK",
     "The Log Analytics agent should be installed on Virtual Machine Scale Sets",
     "The Log Analytics agent should be installed on virtual machines",
     "Workbooks should be saved to storage accounts that you control",
+    "[Preview]: Deploy - Configure Linux Azure Monitor agent to enable Azure Monitor assignments on Linux virtual machines",
+    "[Preview]: Deploy - Configure Windows Azure Monitor agent to enable Azure Monitor assignments on Windows virtual machines",
+    "[Preview]: Deploy Dependency agent to Windows Azure Arc machines",
+    "[Preview]: Deploy Dependency agent to hybrid Linux Azure Arc machines",
+    "[Preview]: Log Analytics agent should be installed on your Linux Azure Arc machines",
+    "[Preview]: Log Analytics agent should be installed on your Windows Azure Arc machines",
+    "[Preview]: Network traffic data collection agent should be installed on Linux virtual machines",
+    "[Preview]: Network traffic data collection agent should be installed on Windows virtual machines",
     
     # -----------------------------------------------------------------------------------------------------------------
     # Network
     # -----------------------------------------------------------------------------------------------------------------
-    "All Internet traffic should be routed via your deployed Azure Firewall",
     "App Service should use a virtual network service endpoint",
     "Azure VPN gateways should not use 'basic' SKU",
-    "Container Registry should use a virtual network service endpoint",
     "Cosmos DB should use a virtual network service endpoint",
     "Event Hub should use a virtual network service endpoint",
     "Flow log should be configured for every network security group",
@@ -350,7 +268,8 @@ module "example" {
     "Storage Accounts should use a virtual network service endpoint",
     "Web Application Firewall (WAF) should be enabled for Application Gateway",
     "Web Application Firewall (WAF) should be enabled for Azure Front Door Service service",
-    "Web Application Firewall should be enabled for Azure Front Door Service or Application Gateway",
+    "[Preview]: All Internet traffic should be routed via your deployed Azure Firewall",
+    "[Preview]: Container Registry should use a virtual network service endpoint",
     
     # -----------------------------------------------------------------------------------------------------------------
     # Portal
@@ -360,10 +279,6 @@ module "example" {
     # -----------------------------------------------------------------------------------------------------------------
     # SQL
     # -----------------------------------------------------------------------------------------------------------------
-    "Advanced Threat Protection types should be set to 'All' in SQL Managed Instance advanced data security settings",
-    "Advanced Threat Protection types should be set to 'All' in SQL server Advanced Data Security settings",
-    "Advanced data security settings for SQL Managed Instance should contain an email address for security alerts",
-    "Advanced data security settings for SQL server should contain an email address to receive security alerts",
     "Advanced data security should be enabled on SQL Managed Instance",
     "Advanced data security should be enabled on your SQL servers",
     "An Azure Active Directory administrator should be provisioned for SQL servers",
@@ -372,8 +287,6 @@ module "example" {
     "Bring your own key data protection should be enabled for PostgreSQL servers",
     "Connection throttling should be enabled for PostgreSQL database servers",
     "Disconnections should be logged for PostgreSQL database servers.",
-    "Email notifications to admins should be enabled in SQL Managed Instance advanced data security settings",
-    "Email notifications to admins should be enabled in SQL server advanced data security settings",
     "Enforce SSL connection should be enabled for MySQL database servers",
     "Enforce SSL connection should be enabled for PostgreSQL database servers",
     "Geo-redundant backup should be enabled for Azure Database for MariaDB",
@@ -398,7 +311,6 @@ module "example" {
     "Public network access should be disabled for MySQL servers",
     "Public network access should be disabled for PostgreSQL flexible servers",
     "Public network access should be disabled for PostgreSQL servers",
-    "Require SQL Server version 12.0",
     "SQL Auditing settings should have Action-Groups configured to capture critical activities",
     "SQL Database should avoid using GRS backup redundancy",
     "SQL Managed Instance should have the minimal TLS version of 1.2",
@@ -415,16 +327,13 @@ module "example" {
     # Security Center
     # -----------------------------------------------------------------------------------------------------------------
     "A maximum of 3 owners should be designated for your subscription",
-    "A security contact phone number should be provided for your subscription",
     "A vulnerability assessment solution should be enabled on your virtual machines",
-    "Access to App Services should be restricted",
     "Adaptive application controls for defining safe applications should be enabled on your machines",
     "Adaptive network hardening recommendations should be applied on internet facing virtual machines",
     "All network ports should be restricted on network security groups associated to your virtual machine",
     "Allowlist rules in your adaptive application control policy should be updated",
     "Authorized IP ranges should be defined on Kubernetes Services",
     "Auto provisioning of the Log Analytics agent should be enabled on your subscription",
-    "Automatic provisioning of security monitoring agent",
     "Azure DDoS Protection Standard should be enabled",
     "Azure Defender for App Service should be enabled",
     "Azure Defender for Azure SQL Database servers should be enabled",
@@ -458,14 +367,10 @@ module "example" {
     "Management ports of virtual machines should be protected with just-in-time network access control",
     "Management ports should be closed on your virtual machines",
     "Monitor missing Endpoint Protection in Azure Security Center",
-    "Monitor unaudited SQL servers in Azure Security Center",
-    "Monitor unencrypted SQL databases in Azure Security Center",
     "Non-internet-facing virtual machines should be protected with network security groups",
     "Operating system version should be the most current version for your cloud service roles",
-    "Pod Security Policies should be defined on Kubernetes Services",
     "Role-Based Access Control (RBAC) should be used on Kubernetes Services",
     "Security Center standard pricing tier should be selected",
-    "Sensitive data in your SQL databases should be classified",
     "Service principals should be used to protect your subscriptions instead of management certificates",
     "Subnets should be associated with a Network Security Group",
     "Subscriptions should have a contact email address for security issues",
@@ -479,8 +384,9 @@ module "example" {
     "Vulnerabilities in security configuration on your virtual machine scale sets should be remediated",
     "Vulnerabilities on your SQL databases should be remediated",
     "Vulnerabilities on your SQL servers on machine should be remediated",
-    "Vulnerabilities should be remediated by a Vulnerability Assessment solution",
-    "Web ports should be restricted on Network Security Groups associated to your VM",
+    "[Preview]: Deploy - Configure Linux machines to automatically install the Azure Security agent",
+    "[Preview]: Deploy - Configure Windows machines to automatically install the Azure Security agent",
+    "[Preview]: Sensitive data in your SQL databases should be classified",
     
     # -----------------------------------------------------------------------------------------------------------------
     # Service Bus
@@ -504,7 +410,6 @@ module "example" {
     # -----------------------------------------------------------------------------------------------------------------
     "Geo-redundant storage should be enabled for Storage Accounts",
     "Secure transfer to storage accounts should be enabled",
-    "Storage account public access should be disallowed",
     "Storage account should use a private link connection",
     "Storage accounts should allow access from trusted Microsoft services",
     "Storage accounts should be migrated to new Azure Resource Manager resources",
@@ -512,6 +417,7 @@ module "example" {
     "Storage accounts should restrict network access",
     "Storage accounts should restrict network access using virtual network rules",
     "Storage accounts should use customer-managed key for encryption",
+    "[Preview]: Storage account public access should be disallowed",
     
     # -----------------------------------------------------------------------------------------------------------------
     # Stream Analytics
@@ -527,12 +433,6 @@ module "example" {
     "Managed workspace virtual network on Azure Synapse workspaces should be enabled",
     "Private endpoint connections on Azure Synapse workspaces should be enabled",
     "Vulnerability assessment should be enabled on your Synapse workspaces",
-    
-    # -----------------------------------------------------------------------------------------------------------------
-    # Tags
-    # -----------------------------------------------------------------------------------------------------------------
-    "Allow resource creation if 'department' tag set",
-    "Allow resource creation if 'environment' tag value in allowed values",
     
     # -----------------------------------------------------------------------------------------------------------------
     # VM Image Builder
