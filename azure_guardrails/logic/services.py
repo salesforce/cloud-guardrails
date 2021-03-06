@@ -61,16 +61,23 @@ class Service:
         display_names.sort()
         return display_names
 
+    def get_display_names_sorted_by_service(self, with_parameters: bool = False, with_modify_capabilities: bool = False, all_policies: bool = False) -> dict:
+        display_names = {}
+        service_display_names = self.get_display_names(with_parameters=with_parameters,
+                                                       with_modify_capabilities=with_modify_capabilities,
+                                                       all_policies=all_policies)
+        service_display_names = list(dict.fromkeys(service_display_names))  # remove duplicates
+        if service_display_names:
+            display_names[self.service_name] = service_display_names
+        return display_names
+
 
 class Services:
     def __init__(self):
-        self.service_names = self._service_names()
-        self.services = self._services()
-
-    def _service_names(self) -> list:
         service_names = utils.get_service_names()
         service_names.sort()
-        return service_names
+        self.service_names = service_names
+        self.services = self._services()
 
     def _services(self) -> List[Service]:
         services = []
