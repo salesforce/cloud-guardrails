@@ -57,7 +57,7 @@ supported_services_argument_values.append("all")
     default="subscription"
 )
 @click.option(
-    "--set",
+    "--policy-set-name",
     "-s",
     "policy_set_name",
     type=str,
