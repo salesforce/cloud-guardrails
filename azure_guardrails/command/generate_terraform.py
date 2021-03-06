@@ -8,7 +8,7 @@ from pathlib import Path
 import yaml
 import click
 from colorama import Fore, Back
-from azure_guardrails import set_log_level
+from azure_guardrails import set_log_level, set_stream_logger
 from azure_guardrails.logic.terraform import get_terraform_template
 from azure_guardrails.shared import utils, validate
 from azure_guardrails.logic.services import Services, Service
@@ -21,14 +21,6 @@ supported_services_argument_values.append("all")
 
 
 @click.command(name="generate-terraform", short_help="")
-@click.option(
-    "--directory",
-    "-d",
-    "output_directory",
-    type=click.Path(exists=False),
-    required=True,
-    help="The path to the directory where you will create your Terraform code.",
-)
 @click.option(
     "--service",
     "-s",
@@ -51,7 +43,8 @@ supported_services_argument_values.append("all")
     type=str,
     required=True,
     help="The target name. Must be the name of a subscription or management group.",
-    envvar="TARGET_NAME"
+    envvar="TARGET_NAME",
+    default="example"
 )
 @click.option(
     "--target-type",
@@ -60,16 +53,18 @@ supported_services_argument_values.append("all")
     required=True,
     type=click.Choice(["subscription", "mg"]),
     help="The target type - a subscription or management group.",
-    envvar="TARGET_TYPE"
+    envvar="TARGET_TYPE",
+    default="subscription"
 )
 @click.option(
-    "--set",
+    "--policy-set-name",
     "-s",
     "policy_set_name",
     type=str,
     required=True,
     help="The name to use for the resulting Azure Policy Set/Initiative.",
-    envvar="POLICY_SET_NAME"
+    envvar="POLICY_SET_NAME",
+    default="example"
 )
 @click.option(
     "--enforce",
@@ -80,6 +75,16 @@ supported_services_argument_values.append("all")
     help="Enforce Azure Policies instead of just auditing them.",
 )
 @click.option(
+    "--module-source",
+    "-m",
+    "terraform_module_source",
+    type=str,
+    required=True,
+    help="The source to use for the Terraform remote module. You can set this to your own fork or private Git Repo if you don't want to rely on this source code.",
+    envvar="TERRAFORM_MODULE_SOURCE",
+    default=utils.DEFAULT_TERRAFORM_MODULE_SOURCE
+)
+@click.option(
     "--exclusions-file",
     "-e",
     type=click.Path(exists=False),
@@ -87,20 +92,29 @@ supported_services_argument_values.append("all")
     help="The exclusions file",
 )
 @click.option(
-    "--verbose",
-    "-v",
-    "verbosity",
-    count=True,
+    "--quiet",
+    "-q",
+    is_flag=True,
+    default=False,
 )
-def generate_terraform(output_directory: str, service: str, with_parameters: bool, target_name: str, target_type: str,
-                       policy_set_name: str, exclusions_file: str, enforcement_mode: bool, verbosity: int):
+def generate_terraform(service: str, with_parameters: bool, target_name: str, target_type: str,
+                       policy_set_name: str, terraform_module_source: str, exclusions_file: str, enforcement_mode: bool,
+                       quiet: bool):
     """
     Get Azure Policies
     """
 
-    set_log_level(verbosity)
+    # For the Generate Terraform example, we will deviate from the -vvv behavior
+    # and just force the user to use the quiet flag if they want to output via stdout
+    if quiet:
+        log_level = getattr(logging, "WARNING")
+        set_stream_logger(level=log_level)
+    else:
+        log_level = getattr(logging, "INFO")
+        set_stream_logger(level=log_level)
+
     if not exclusions_file:
-        utils.print_red("You did not supply an exclusions file. Consider creating one to exclude different policies.")
+        logger.info("You did not supply an exclusions file. Consider creating one to exclude different policies.")
 
     subscription_name = ""
     management_group = ""
@@ -111,13 +125,13 @@ def generate_terraform(output_directory: str, service: str, with_parameters: boo
 
     if service == "all":
         services = Services()
-        display_names = services.get_display_names_sorted_by_service(with_parameters=with_parameters)
+        policy_names = services.get_display_names_sorted_by_service(with_parameters=with_parameters)
         result = get_terraform_template(name=policy_set_name, policy_names=policy_names, subscription_name=subscription_name,
-                                        management_group=management_group, enforcement_mode=enforcement_mode)
+                                        management_group=management_group, enforcement_mode=enforcement_mode, module_source=terraform_module_source)
     else:
         service = Service(service_name=service)
-        policy_names = service.get_display_names(with_parameters=False)
+        policy_names = service.get_display_names_sorted_by_service(with_parameters=with_parameters)
 
         result = get_terraform_template(name=policy_set_name, policy_names=policy_names, subscription_name=subscription_name,
-                                        management_group=management_group, enforcement_mode=enforcement_mode)
+                                        management_group=management_group, enforcement_mode=enforcement_mode, module_source=terraform_module_source)
     print(result)

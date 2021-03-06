@@ -66,3 +66,4 @@ packer_cache/
 *.pem
 .notes/*
 exclusions.yml
+**/state.tf
