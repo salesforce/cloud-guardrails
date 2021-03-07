@@ -2,16 +2,16 @@ from bs4 import BeautifulSoup
 from azure_guardrails.shared.utils import chomp_keep_single_spaces
 
 
-def scrape_azure_benchmark(html_file_path: str):
+def scrape_standard(html_file_path: str, benchmark_name: str, replacement_string: str):
     with open(html_file_path, "r") as f:
         soup = BeautifulSoup(f.read(), "html.parser")
     tables = soup.find_all("table")
 
-    def get_azure_benchmark_id(input_text: str):
+    def get_iso_id(input_text: str):
         """Pass in table.previous_sibling.previous_sibling.text and get the Azure Benchmark ID"""
         id_ownership_string = chomp_keep_single_spaces(input_text)
         this_id = id_ownership_string
-        this_id = this_id.replace("ID : Azure Security Benchmark ", "")
+        this_id = this_id.replace(f"ID : {replacement_string} ", "")
         this_id = this_id.replace(" Ownership : Customer", "")
         this_id = this_id.replace(" Ownership : Shared", "")
         return this_id
@@ -21,11 +21,9 @@ def scrape_azure_benchmark(html_file_path: str):
     for table in tables:
         table_identifier_sibling = table.previous_sibling.previous_sibling
         # Azure Security Benchmark ID
-        requirement_id = get_azure_benchmark_id(table_identifier_sibling.text)
-        # print(benchmark_id)
+        requirement_id = get_iso_id(table_identifier_sibling.text)
 
-        if "Azure Security Benchmark" in table_identifier_sibling.text:
-
+        if replacement_string in table_identifier_sibling.text:
             # Requirement Name
             requirement_sibling = table_identifier_sibling.previous_sibling.previous_sibling
             requirement = chomp_keep_single_spaces(requirement_sibling.text)
@@ -68,7 +66,7 @@ def scrape_azure_benchmark(html_file_path: str):
                 github_version = chomp_keep_single_spaces(github_link_cell_href[0].text)
 
                 entry = dict(
-                    benchmark="Azure Security Benchmark",
+                    benchmark=benchmark_name,
                     category=category,
                     requirement=requirement,
                     id=requirement_id,

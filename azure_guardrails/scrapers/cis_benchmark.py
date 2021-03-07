@@ -10,13 +10,13 @@ def scrape_cis(html_file_path: str):
     def get_cis_id(input_text: str):
         """Pass in table.previous_sibling.previous_sibling.text and get the CIS ID"""
         id_ownership_string = chomp_keep_single_spaces(input_text)
-        this_cis_id = id_ownership_string
-        this_cis_id = this_cis_id.replace("ID : CIS Azure ", "")
-        this_cis_id = this_cis_id.replace(" Ownership : Customer", "")
-        return this_cis_id
+        this_id = id_ownership_string
+        this_id = this_id.replace("ID : CIS Azure ", "")
+        this_id = this_id.replace(" Ownership : Customer", "")
+        return this_id
 
     results = []
-    cis_categories = []
+    categories = []
     for table in tables:
         # Get the CIS Azure ID
         cis_identifier_sibling = table.previous_sibling.previous_sibling
@@ -32,9 +32,9 @@ def scrape_cis(html_file_path: str):
             cis_category_sibling = cis_requirement_sibling.previous_sibling.previous_sibling
             if "(Azure portal)" not in chomp_keep_single_spaces(cis_category_sibling.text):
                 cis_category = chomp_keep_single_spaces(cis_category_sibling.text)
-                cis_categories.append(cis_category)
+                categories.append(cis_category)
             else:
-                cis_category = cis_categories[-1]
+                cis_category = categories[-1]
 
             rows = table.find_all("tr")
             if len(rows) == 0:
@@ -79,6 +79,6 @@ def scrape_cis(html_file_path: str):
                 )
                 results.append(entry)
         else:
-            raise Exception("No CIS ID found. Figure out how to handle this.")
+            raise Exception("No benchmark ID found. Figure out how to handle this.")
     return results
 
