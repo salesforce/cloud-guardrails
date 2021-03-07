@@ -2,3 +2,8 @@ click==7.1.2
 PyYAML==5.4.1
 jinja2==2.11.3
 colorama==0.4.4
+# Scrapers
+beautifulsoup4==4.9.3
+requests==2.25.1
+pandas==1.2.3
+lxml==4.6.2
