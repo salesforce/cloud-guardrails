@@ -113,14 +113,8 @@ def chomp_keep_single_spaces(string):
 def scrape_cis(html_file_path):
     results = []
 
-    # url = "https://docs.microsoft.com/en-us/azure/governance/policy/samples/cis-azure-1-3-0"
-    # page = requests.get(url)
-
-    # soup = BeautifulSoup(page.text, "html.parser")
     with open(html_file_path, "r") as f:
         soup = BeautifulSoup(f.read(), "html.parser")
-    h2 = soup.find_all("h2", class_="heading-anchor")
-    h3 = soup.find_all("h3", class_="heading-anchor")
     tables = soup.find_all("table")
 
     def get_cis_id(input_text):
@@ -132,14 +126,26 @@ def scrape_cis(html_file_path):
         return this_cis_id
 
     results = []
+    cis_categories = []
     for table in tables:
-        # print(chomp_keep_single_spaces(table.text))
-        # TODO: Get the header for this table because that is the CIS ID
         # Get the CIS Azure ID
-        if "CIS Azure" in table.previous_sibling.previous_sibling.text:
-            cis_id = get_cis_id(table.previous_sibling.previous_sibling.text)
-            # print(cis_id)
-        # print(chomp_keep_single_spaces(table.text))
+        cis_identifier_sibling = table.previous_sibling.previous_sibling
+        if "CIS Azure" in cis_identifier_sibling.text:
+            # CIS Benchmark ID
+            cis_id = get_cis_id(cis_identifier_sibling.text)
+
+            # CIS Requirement Name
+            cis_requirement_sibling = cis_identifier_sibling.previous_sibling.previous_sibling
+            cis_requirement = chomp_keep_single_spaces(cis_requirement_sibling.text)
+
+            # CIS Benchmark Category
+            cis_category_sibling = cis_requirement_sibling.previous_sibling.previous_sibling
+            if "(Azure portal)" not in chomp_keep_single_spaces(cis_category_sibling.text):
+                cis_category = chomp_keep_single_spaces(cis_category_sibling.text)
+                cis_categories.append(cis_category)
+            else:
+                cis_category = cis_categories[-1]
+
             rows = table.find_all("tr")
             if len(rows) == 0:
                 continue
@@ -170,6 +176,8 @@ def scrape_cis(html_file_path):
                 github_version = chomp_keep_single_spaces(github_link_cell_href[0].text)
 
                 entry = dict(
+                    cis_category=cis_category,
+                    cis_requirement=cis_requirement,
                     cis_id=cis_id,
                     name=name_text,
                     policy_id=policy_id,
@@ -186,6 +194,8 @@ def scrape_cis(html_file_path):
 
 def write_spreadsheets(results: list, results_path: str):
     field_names = [
+        "cis_category",
+        "cis_requirement",
         "cis_id",
         "name",
         "policy_id",
