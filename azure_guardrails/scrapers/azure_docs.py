@@ -1,8 +1,6 @@
 import requests
 import os
-import csv
 import logging
-import pandas as pd
 from bs4 import BeautifulSoup
 logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
 
@@ -54,33 +52,4 @@ def get_azure_html(link, file_path):
         file.close()
     logger.info("%s downloaded", file_name)
     return file_path
-
-
-def write_spreadsheets(results: list, results_path: str):
-    field_names = [
-        "benchmark",
-        "category",
-        "requirement",
-        "id",
-        "name",
-        "policy_id",
-        "description",
-        "effects",
-        "github_link",
-        "github_version",
-    ]
-    csv_file_path = os.path.join(results_path, "results.csv")
-    with open(csv_file_path, 'w', newline='') as csv_file:
-        writer = csv.DictWriter(csv_file, fieldnames=field_names)
-        writer.writeheader()
-        for row in results:
-            writer.writerow(row)
-    print(f"CSV updated! Wrote {len(results)} rows. Path: {csv_file_path}")
-
-    df_new = pd.read_csv(csv_file_path)
-    excel_file_path = os.path.join(results_path, "results.xlsx")
-    writer = pd.ExcelWriter(excel_file_path)
-    df_new.to_excel(writer, index=False)
-    writer.save()
-    print(f"Excel file updated! Wrote {len(results)} rows. Path: {excel_file_path}")
 

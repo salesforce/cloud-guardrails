@@ -87,3 +87,7 @@ LOCAL_MODULE_SOURCE := "../../azure_guardrails/shared/terraform/policy-initiativ
 terraform-demo: install
 	azure-guardrails --help
 	azure-guardrails generate-terraform --module-source ${LOCAL_MODULE_SOURCE} --service all --quiet > examples/terraform-demo/main.tf
+
+.PHONY: update-data
+update-data: setup-dev
+	python3 ./update_data.py --dest azure_guardrails/shared/data/ --download

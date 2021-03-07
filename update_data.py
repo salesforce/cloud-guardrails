@@ -1,17 +1,12 @@
 import os
-import re
+import sys
+from pathlib import Path
 import csv
 import logging
 import click
-import requests
-import json
-from bs4 import BeautifulSoup
 import pandas as pd
-from azure_guardrails.scrapers.azure_docs import get_azure_html, write_spreadsheets
-from azure_guardrails.scrapers.cis_benchmark import scrape_cis
+from azure_guardrails.scrapers.azure_docs import get_azure_html
 from azure_guardrails.scrapers.standard import scrape_standard
-from azure_guardrails.scrapers.iso import scrape_iso
-from azure_guardrails.scrapers.azure_benchmark import scrape_azure_benchmark
 
 logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
 
@@ -45,6 +40,8 @@ def update_data(destination, download):
         "nist-sp-800-171-r2": "https://docs.microsoft.com/en-us/azure/governance/policy/samples/nist-sp-800-171-r2",
     }
     files = []
+    destination = os.path.abspath(destination)
+    print(destination)
     # Get the file names
     for standard, link in links.items():
         filename = os.path.join(destination, f"{standard}.html")
@@ -78,6 +75,35 @@ def update_data(destination, download):
     results.extend(nist_800_171_results)
 
     write_spreadsheets(results=results, results_path=destination)
+
+
+def write_spreadsheets(results: list, results_path: str):
+    field_names = [
+        "benchmark",
+        "category",
+        "requirement",
+        "id",
+        "name",
+        "policy_id",
+        "description",
+        "effects",
+        "github_link",
+        "github_version",
+    ]
+    csv_file_path = os.path.join(results_path, "results.csv")
+    with open(csv_file_path, 'w', newline='') as csv_file:
+        writer = csv.DictWriter(csv_file, fieldnames=field_names)
+        writer.writeheader()
+        for row in results:
+            writer.writerow(row)
+    print(f"CSV updated! Wrote {len(results)} rows. Path: {csv_file_path}")
+
+    df_new = pd.read_csv(csv_file_path)
+    excel_file_path = os.path.join(results_path, "results.xlsx")
+    writer = pd.ExcelWriter(excel_file_path)
+    df_new.to_excel(writer, index=False)
+    writer.save()
+    print(f"Excel file updated! Wrote {len(results)} rows. Path: {excel_file_path}")
 
 
 if __name__ == '__main__':
