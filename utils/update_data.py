@@ -9,6 +9,7 @@ from bs4 import BeautifulSoup
 import pandas as pd
 from azure_guardrails.scrapers.azure_docs import get_azure_html, write_spreadsheets
 from azure_guardrails.scrapers.cis_benchmark import scrape_cis
+from azure_guardrails.scrapers.azure_benchmark import scrape_azure_benchmark
 
 logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
 
@@ -55,7 +56,14 @@ def update_data(destination, download):
         print("Download not selected; files must already exist.")
 
     print(files)
-    results = scrape_cis(files[0])
+    # CIS Benchmark
+    results = []
+
+    cis_result = scrape_cis(files[0])
+    results.extend(cis_result)
+    azure_benchmark_results = scrape_azure_benchmark(files[1])
+    results.extend(azure_benchmark_results)
+
     write_spreadsheets(results=results, results_path=destination)
 
 

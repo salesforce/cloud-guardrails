@@ -58,9 +58,10 @@ def get_azure_html(link, file_path):
 
 def write_spreadsheets(results: list, results_path: str):
     field_names = [
-        "cis_category",
-        "cis_requirement",
-        "cis_id",
+        "benchmark",
+        "category",
+        "requirement",
+        "id",
         "name",
         "policy_id",
         "description",

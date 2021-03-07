@@ -2,39 +2,41 @@ from bs4 import BeautifulSoup
 from azure_guardrails.shared.utils import chomp_keep_single_spaces
 
 
-def scrape_cis(html_file_path: str):
+def scrape_azure_benchmark(html_file_path: str):
     with open(html_file_path, "r") as f:
         soup = BeautifulSoup(f.read(), "html.parser")
     tables = soup.find_all("table")
 
-    def get_cis_id(input_text: str):
-        """Pass in table.previous_sibling.previous_sibling.text and get the CIS ID"""
+    def get_azure_benchmark_id(input_text: str):
+        """Pass in table.previous_sibling.previous_sibling.text and get the Azure Benchmark ID"""
         id_ownership_string = chomp_keep_single_spaces(input_text)
-        this_cis_id = id_ownership_string
-        this_cis_id = this_cis_id.replace("ID : CIS Azure ", "")
-        this_cis_id = this_cis_id.replace(" Ownership : Customer", "")
-        return this_cis_id
+        this_id = id_ownership_string
+        this_id = this_id.replace("ID : Azure Security Benchmark ", "")
+        this_id = this_id.replace(" Ownership : Customer", "")
+        this_id = this_id.replace(" Ownership : Shared", "")
+        return this_id
 
     results = []
-    cis_categories = []
+    categories = []
     for table in tables:
-        # Get the CIS Azure ID
-        cis_identifier_sibling = table.previous_sibling.previous_sibling
-        if "CIS Azure" in cis_identifier_sibling.text:
-            # CIS Benchmark ID
-            cis_id = get_cis_id(cis_identifier_sibling.text)
+        table_identifier_sibling = table.previous_sibling.previous_sibling
+        # Azure Security Benchmark ID
+        requirement_id = get_azure_benchmark_id(table_identifier_sibling.text)
+        # print(benchmark_id)
+
+        if "Azure Security Benchmark" in table_identifier_sibling.text:
 
             # CIS Requirement Name
-            cis_requirement_sibling = cis_identifier_sibling.previous_sibling.previous_sibling
-            cis_requirement = chomp_keep_single_spaces(cis_requirement_sibling.text)
+            requirement_sibling = table_identifier_sibling.previous_sibling.previous_sibling
+            requirement = chomp_keep_single_spaces(requirement_sibling.text)
 
             # CIS Benchmark Category
-            cis_category_sibling = cis_requirement_sibling.previous_sibling.previous_sibling
+            cis_category_sibling = requirement_sibling.previous_sibling.previous_sibling
             if "(Azure portal)" not in chomp_keep_single_spaces(cis_category_sibling.text):
-                cis_category = chomp_keep_single_spaces(cis_category_sibling.text)
-                cis_categories.append(cis_category)
+                category = chomp_keep_single_spaces(cis_category_sibling.text)
+                categories.append(category)
             else:
-                cis_category = cis_categories[-1]
+                category = categories[-1]
 
             rows = table.find_all("tr")
             if len(rows) == 0:
@@ -66,10 +68,10 @@ def scrape_cis(html_file_path: str):
                 github_version = chomp_keep_single_spaces(github_link_cell_href[0].text)
 
                 entry = dict(
-                    benchmark="CIS",
-                    category=cis_category,
-                    requirement=cis_requirement,
-                    id=cis_id,
+                    benchmark="Azure Security Benchmark",
+                    category=category,
+                    requirement=requirement,
+                    id=requirement_id,
                     name=name_text,
                     policy_id=policy_id,
                     description=description,
@@ -78,7 +80,4 @@ def scrape_cis(html_file_path: str):
                     github_version=github_version
                 )
                 results.append(entry)
-        else:
-            raise Exception("No CIS ID found. Figure out how to handle this.")
     return results
-
