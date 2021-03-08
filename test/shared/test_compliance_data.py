@@ -31,7 +31,9 @@ class ComplianceCoverageTestCase(unittest.TestCase):
         compliance_coverage = ComplianceCoverage(display_names=display_names)
         results = compliance_coverage.matching_metadata
         # print(json.dumps(results, indent=4))
-        compliance_coverage.print_markdown_table()
+        markdown_table = compliance_coverage.markdown_table()
+        print(markdown_table)
+        # print(tabulate(results, headers=headers, tablefmt="github"))
 
 #
 # class PolicyDefinitionMetadataTestCase(unittest.TestCase):

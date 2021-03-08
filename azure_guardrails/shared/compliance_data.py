@@ -167,8 +167,7 @@ class PolicyComplianceData:
                     requirement_id=requirement_id,
                 )
                 if not results.get(name, None):
-                    stuff = {benchmark: None}
-                    results[name] = stuff
+                    results[name] = {}
                     results[name][benchmark] = policy_definition_metadata
                 else:
                     results[name][benchmark] = policy_definition_metadata
@@ -204,12 +203,16 @@ class ComplianceCoverage:
                 results[display_name] = benchmark_data
         return results
 
-    def print_markdown_table(self):
+    def markdown_table(self) -> str:
         headers = ["Service", "Policy Definition", "Benchmark"]
         results = []
-        for policy_definition in self.matching_metadata:
-            for benchmark in self.matching_metadata[policy_definition]:
-                results.append(["", policy_definition, self.matching_metadata[policy_definition][benchmark][benchmark]])
-        print(tabulate(results, headers=headers, tablefmt="github"))
+        for policy_definition_name in self.matching_metadata:
+            # TODO: Print the compliance framework names on the same line
+            name = policy_definition_name.replace("[Preview]: ", "")
+            for benchmark in self.matching_metadata[policy_definition_name]:
+                service_name = self.policy_compliance_data.policy_definition_metadata[name][benchmark].service_name
+                results.append([service_name, policy_definition_name, self.matching_metadata[policy_definition_name][benchmark][benchmark]])
+        # print(tabulate(results, headers=headers, tablefmt="github"))
+        return tabulate(results, headers=headers, tablefmt="github")
 
 

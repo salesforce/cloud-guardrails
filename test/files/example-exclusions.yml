@@ -7,7 +7,7 @@
 # Use this to only apply policies that match any of these keywords
 # Example: "encrypt", "SQL", "HTTP"
 match_only_keywords:
-  - ""
+  - "private link"
 
 
 # Specify services that you want to exclude entirely.
@@ -42,7 +42,7 @@ exclude_services:
   #- "Guest Configuration"
   #- "HDInsight"
   #- "Internet of Things"
-  #- "Key Vault"
+  - "Key Vault"
   #- "Kubernetes"
   #- "Kubernetes service"
   #- "Lighthouse"
