@@ -8,27 +8,27 @@ from azure_guardrails.shared import utils
 logger = logging.getLogger(__name__)
 
 
-DEFAULT_EXCLUSIONS_FILE = os.path.abspath(os.path.join(
+DEFAULT_CONFIG_FILE = os.path.abspath(os.path.join(
     os.path.dirname(__file__),
-    "default-exclusions.yml"
+    "default-config.yml"
 ))
 
 
-def get_exclusions_template() -> str:
+def get_config_template() -> str:
     template_contents = dict(
         match_only_keywords=[],
         service_names=utils.get_service_names(),
     )
     template_path = os.path.join(os.path.dirname(__file__))
     env = Environment(loader=FileSystemLoader(template_path))  # nosec
-    template = env.get_template("default-exclusions.yml")
+    template = env.get_template("default-config.yml")
     return template.render(t=template_contents)
 
 
-DEFAULT_EXCLUSIONS_TEMPLATE = get_exclusions_template()
+DEFAULT_CONFIG_TEMPLATE = get_config_template()
 
 
-class Exclusions:
+class Config:
     def __init__(self, exclude_policies: dict, match_only_keywords: list = None, exclude_services: list = None):
         self.supported_services = utils.get_service_names()  # This is not really needed by the object - just used for data validation
 
@@ -134,24 +134,24 @@ class Exclusions:
             return False
 
 
-def get_default_exclusions() -> Exclusions:
-    exclusions_cfg = yaml.safe_load(DEFAULT_EXCLUSIONS_TEMPLATE)
-    exclude_policies = exclusions_cfg.get("exclude_policies", None)
-    exclude_services = exclusions_cfg.get("exclude_services", None)
-    match_only_keywords = exclusions_cfg.get("match_only_keywords", None)
-    exclusions = Exclusions(exclude_policies=exclude_policies, exclude_services=exclude_services, match_only_keywords=match_only_keywords)
-    return exclusions
+def get_default_config() -> Config:
+    config_cfg = yaml.safe_load(DEFAULT_CONFIG_TEMPLATE)
+    exclude_policies = config_cfg.get("exclude_policies", None)
+    exclude_services = config_cfg.get("exclude_services", None)
+    match_only_keywords = config_cfg.get("match_only_keywords", None)
+    config = Config(exclude_policies=exclude_policies, exclude_services=exclude_services, match_only_keywords=match_only_keywords)
+    return config
 
-DEFAULT_EXCLUSIONS = get_default_exclusions()
+DEFAULT_CONFIG = get_default_config()
 
-def get_exclusions_from_file(exclusions_file: str) -> Exclusions:
-    with open(exclusions_file, "r") as yaml_file:
+def get_config_from_file(config_file: str) -> Config:
+    with open(config_file, "r") as yaml_file:
         try:
-            exclusions_cfg = yaml.safe_load(yaml_file)
+            config_cfg = yaml.safe_load(yaml_file)
         except yaml.YAMLError as exc:
             logger.critical(exc)
-    exclude_policies = exclusions_cfg.get("exclude_policies", None)
-    exclude_services = exclusions_cfg.get("exclude_services", None)
-    match_only_keywords = exclusions_cfg.get("match_only_keywords", None)
-    exclusions = Exclusions(exclude_policies=exclude_policies, exclude_services=exclude_services, match_only_keywords=match_only_keywords)
-    return exclusions
+    exclude_policies = config_cfg.get("exclude_policies", None)
+    exclude_services = config_cfg.get("exclude_services", None)
+    match_only_keywords = config_cfg.get("match_only_keywords", None)
+    config = Config(exclude_policies=exclude_policies, exclude_services=exclude_services, match_only_keywords=match_only_keywords)
+    return config

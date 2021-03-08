@@ -12,7 +12,7 @@ from azure_guardrails import set_log_level, set_stream_logger
 from azure_guardrails.logic.terraform import get_terraform_template
 from azure_guardrails.shared import utils, validate
 from azure_guardrails.shared.compliance_data import ComplianceCoverage
-from azure_guardrails.shared.exclusions import get_default_exclusions, get_exclusions_from_file
+from azure_guardrails.shared.config import get_default_config, get_config_from_file
 from azure_guardrails.logic.services import Services, Service
 
 
@@ -80,11 +80,11 @@ supported_services_argument_values.append("all")
     default=utils.DEFAULT_TERRAFORM_MODULE_SOURCE
 )
 @click.option(
-    "--exclusions-file",
+    "--config-file",
     "-e",
     type=click.Path(exists=False),
     required=False,
-    help="The exclusions file",
+    help="The config file",
 )
 @click.option(
     "--generate-summary",
@@ -107,7 +107,7 @@ supported_services_argument_values.append("all")
     default=False,
 )
 def generate_terraform(service: str, with_parameters: bool, target_name: str, target_type: str,
-                       policy_set_name: str, terraform_module_source: str, exclusions_file: str, enforcement_mode: bool,
+                       policy_set_name: str, terraform_module_source: str, config_file: str, enforcement_mode: bool,
                        generate_summary: bool, quiet: bool):
     """
     Get Azure Policies
@@ -122,11 +122,11 @@ def generate_terraform(service: str, with_parameters: bool, target_name: str, ta
         log_level = getattr(logging, "INFO")
         set_stream_logger(level=log_level)
 
-    if not exclusions_file:
-        logger.info("You did not supply an exclusions file. Consider creating one to exclude different policies. We will use the default one.")
-        exclusions = get_default_exclusions()
+    if not config_file:
+        logger.info("You did not supply an config file. Consider creating one to exclude different policies. We will use the default one.")
+        config = get_default_config()
     else:
-        exclusions = get_exclusions_from_file(exclusions_file=exclusions_file)
+        config = get_config_from_file(config_file=config_file)
 
     subscription_name = ""
     management_group = ""
@@ -137,22 +137,22 @@ def generate_terraform(service: str, with_parameters: bool, target_name: str, ta
 
     if generate_summary:
         if service == "all":
-            services = Services(exclusions=exclusions)
+            services = Services(config=config)
             policy_names = services.get_display_names(with_parameters=with_parameters)
         else:
-            services = Service(service_name=service, exclusions=exclusions)
+            services = Service(service_name=service, config=config)
             policy_names = services.get_display_names(with_parameters=with_parameters)
         compliance_coverage = ComplianceCoverage(display_names=policy_names)
         markdown_table = compliance_coverage.markdown_table()
         print(markdown_table)
     else:
         if service == "all":
-            services = Services(exclusions=exclusions)
+            services = Services(config=config)
             policy_names = services.get_display_names_sorted_by_service(with_parameters=with_parameters)
             result = get_terraform_template(name=policy_set_name, policy_names=policy_names, subscription_name=subscription_name,
                                             management_group=management_group, enforcement_mode=enforcement_mode, module_source=terraform_module_source)
         else:
-            services = Service(service_name=service, exclusions=exclusions)
+            services = Service(service_name=service, config=config)
             policy_names = services.get_display_names_sorted_by_service(with_parameters=with_parameters)
 
             result = get_terraform_template(name=policy_set_name, policy_names=policy_names, subscription_name=subscription_name,
