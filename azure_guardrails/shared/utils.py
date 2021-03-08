@@ -1,6 +1,7 @@
 import os
 import re
 import json
+import csv
 from pathlib import Path
 from colorama import Fore
 END = "\033[0m"
@@ -57,3 +58,13 @@ def chomp_keep_single_spaces(string):
     result = result.replace(u"\xa0", u" ")  # Remove non-breaking space
     result = re.sub("^[ ]*", "", result)  # Clean start
     return re.sub("[ ]*$", "", result)  # Clean end
+
+
+def get_compliance_table() -> list:
+    compliance_data = os.path.join(os.path.dirname(__file__), "data", "results.csv")
+    results = []
+    with open(compliance_data) as csv_file:
+        csv_reader = csv.DictReader(csv_file, delimiter=',')
+        for row in csv_reader:
+            results.append(row)
+    return results

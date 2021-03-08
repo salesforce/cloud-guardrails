@@ -7,7 +7,7 @@ def scrape_standard(html_file_path: str, benchmark_name: str, replacement_string
         soup = BeautifulSoup(f.read(), "html.parser")
     tables = soup.find_all("table")
 
-    def get_iso_id(input_text: str):
+    def get_iso_id(input_text: str) -> str:
         """Pass in table.previous_sibling.previous_sibling.text and get the Azure Benchmark ID"""
         id_ownership_string = chomp_keep_single_spaces(input_text)
         this_id = id_ownership_string
@@ -15,6 +15,13 @@ def scrape_standard(html_file_path: str, benchmark_name: str, replacement_string
         this_id = this_id.replace(" Ownership : Customer", "")
         this_id = this_id.replace(" Ownership : Shared", "")
         return this_id
+
+    def get_service_name(github_link: str) -> str:
+        """Pass in the github link and get the name of the service based on folder name"""
+        elements = github_link.split("/")
+        service_name = elements[-2:][0]
+        service_name = service_name.replace("%20", " ")
+        return service_name
 
     results = []
     categories = []
@@ -64,12 +71,14 @@ def scrape_standard(html_file_path: str, benchmark_name: str, replacement_string
                 github_link_cell_href = cells[3].find_all('a', href=True)
                 github_link = github_link_cell_href[0].attrs["href"]
                 github_version = chomp_keep_single_spaces(github_link_cell_href[0].text)
+                service_name = get_service_name(github_link)
 
                 entry = dict(
                     benchmark=benchmark_name,
                     category=category,
                     requirement=requirement,
-                    id=requirement_id,
+                    requirement_id=requirement_id,
+                    service_name=service_name,
                     name=name_text,
                     policy_id=policy_id,
                     description=description,

@@ -30,7 +30,6 @@ supported_services_argument_values.append("all")
     help="Services supported by Azure Policy definitions. Set to 'all' for all policies",
     callback=validate.click_validate_supported_azure_service,
 )
-
 @click.option(
     "--target-name",
     "-n",
@@ -87,6 +86,13 @@ supported_services_argument_values.append("all")
     help="The exclusions file",
 )
 @click.option(
+    "--generate-summary",
+    "-g",
+    is_flag=True,
+    default=False,
+    help="Generate a CSV summary showing your compliance coverage",
+)
+@click.option(
     "--with-parameters",
     "-p",
     is_flag=True,
@@ -101,7 +107,7 @@ supported_services_argument_values.append("all")
 )
 def generate_terraform(service: str, with_parameters: bool, target_name: str, target_type: str,
                        policy_set_name: str, terraform_module_source: str, exclusions_file: str, enforcement_mode: bool,
-                       quiet: bool):
+                       generate_summary: bool, quiet: bool):
     """
     Get Azure Policies
     """

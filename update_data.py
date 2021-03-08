@@ -1,12 +1,15 @@
 import os
 import sys
+import json
 from pathlib import Path
 import csv
 import logging
 import click
 import pandas as pd
+from typing import Dict
 from azure_guardrails.scrapers.azure_docs import get_azure_html
 from azure_guardrails.scrapers.standard import scrape_standard
+from azure_guardrails.scrapers.compliance_data import ComplianceResults
 
 logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
 
@@ -75,6 +78,17 @@ def update_data(destination, download):
     results.extend(nist_800_171_results)
 
     write_spreadsheets(results=results, results_path=destination)
+    # dump the raw results
+
+    # raw_json_results_path = os.path.join(destination, "raw_results.json")
+    # with open(raw_json_results_path, "w") as file:
+    #     json.dump(results, file, indent=4)
+    # print(f"Saved raw json results to {raw_json_results_path}")
+    compliance_results = ComplianceResults(results_list=results)
+    raw_json_results_path = os.path.join(destination, "results.json")
+    with open(raw_json_results_path, "w") as file:
+        json.dump(compliance_results.json(), file, indent=4)
+    print(f"Saved json results to {raw_json_results_path}")
 
 
 def write_spreadsheets(results: list, results_path: str):
@@ -82,7 +96,8 @@ def write_spreadsheets(results: list, results_path: str):
         "benchmark",
         "category",
         "requirement",
-        "id",
+        "requirement_id",
+        "service_name",
         "name",
         "policy_id",
         "description",
