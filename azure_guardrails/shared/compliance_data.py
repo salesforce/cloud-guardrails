@@ -1,6 +1,7 @@
 from typing import Dict
 import os
 import json
+from operator import itemgetter
 from tabulate import tabulate
 
 COMPLIANCE_DATA_FILE = os.path.abspath(os.path.join(
@@ -74,7 +75,8 @@ class PolicyDefinitionMetadata:
         result = {}
         for benchmark, benchmark_value in self.benchmarks.items():
             benchmark_name = benchmark_value.benchmark
-            benchmark_string = f"{benchmark_value.benchmark}: {benchmark_value.requirement_id} ({benchmark_value.requirement})"
+            benchmark_string = f"{benchmark_value.benchmark}: {benchmark_value.requirement_id}"
+            # benchmark_string = f"{benchmark_value.benchmark}: {benchmark_value.requirement_id} ({benchmark_value.requirement})"
             result[benchmark_name] = benchmark_string
         return result
 
@@ -204,15 +206,17 @@ class ComplianceCoverage:
         return results
 
     def markdown_table(self) -> str:
-        headers = ["Service", "Policy Definition", "Benchmark"]
+        headers = ["Service", "Policy Definition", "Benchmarks"]
         results = []
         for policy_definition_name in self.matching_metadata:
             # TODO: Print the compliance framework names on the same line
             name = policy_definition_name.replace("[Preview]: ", "")
+            benchmark_strings = []
             for benchmark in self.matching_metadata[policy_definition_name]:
                 service_name = self.policy_compliance_data.policy_definition_metadata[name][benchmark].service_name
-                results.append([service_name, policy_definition_name, self.matching_metadata[policy_definition_name][benchmark][benchmark]])
-        # print(tabulate(results, headers=headers, tablefmt="github"))
+                benchmark_strings.append(self.matching_metadata[policy_definition_name][benchmark][benchmark])
+            results.append([service_name, policy_definition_name, "<br>".join(benchmark_strings)])
+        results = sorted(results, key=itemgetter(0, 1, 2))
         return tabulate(results, headers=headers, tablefmt="github")
 
 

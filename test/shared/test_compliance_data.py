@@ -35,16 +35,12 @@ class ComplianceCoverageTestCase(unittest.TestCase):
         print(markdown_table)
         # print(tabulate(results, headers=headers, tablefmt="github"))
 
-#
-# class PolicyDefinitionMetadataTestCase(unittest.TestCase):
-#     def setUp(self):
-#         policy_id = ""
-#         service_name = ""
-#         effects = ""
-#         description = ""
-#         name = ""
-#         benchmark = ""
-#         category = ""
-#         requirement = ""
-#         requirement_id = ""
-#         self.policy_definition_metadata = PolicyDefinitionMetadata()
+    def test_compliance_coverage_response_full(self):
+        policy_compliance_data = PolicyComplianceData()
+        display_names = policy_compliance_data.policy_definition_names()
+        compliance_coverage = ComplianceCoverage(display_names=display_names)
+        # results = compliance_coverage.matching_metadata
+        # print(json.dumps(results, indent=4))
+        markdown_table = compliance_coverage.markdown_table()
+        print(markdown_table)
+        # print(tabulate(results, headers=headers, tablefmt="github"))
