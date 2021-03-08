@@ -1,0 +1,4 @@
+azure_guardrails/shared/data/* linguist-vendored
+azure_guardrails/shared/azure-policy/* linguist-vendored
+HomebrewFormula/* linguist-vendored
+Makefile linguist-vendored

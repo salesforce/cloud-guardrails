@@ -91,7 +91,7 @@ supported_services_argument_values.append("all")
     "-g",
     is_flag=True,
     default=False,
-    help="Generate a CSV summary showing your compliance coverage",
+    help="Generate a Markdown table summary showing your policies and which standards they apply to.",
 )
 @click.option(
     "--with-parameters",

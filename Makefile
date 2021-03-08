@@ -88,6 +88,11 @@ terraform-demo: install
 	azure-guardrails --help
 	azure-guardrails generate-terraform --module-source ${LOCAL_MODULE_SOURCE} --service all --quiet > examples/terraform-demo/main.tf
 
+.PHONY: update-policy-table
+update-policy-table: install
+	azure-guardrails --help
+	azure-guardrails generate-terraform --service all --quiet --generate-summary > policy-table.md
+
 .PHONY: update-data
 update-data: setup-dev
 	python3 ./update_data.py --dest azure_guardrails/shared/data/ --download
