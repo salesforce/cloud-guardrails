@@ -37,12 +37,15 @@ class BenchmarkEntry:
 
 
 class PolicyDefinitionMetadata:
-    def __init__(self, policy_id: str, service_name: str, effects: str, description: str, name: str, benchmark: str, category: str, requirement: str, requirement_id: str):
+    def __init__(self, policy_id: str, service_name: str, effects: str, description: str, name: str, benchmark: str,
+                 category: str, requirement: str, requirement_id: str, github_link: str, github_version: str):
         self.policy_id = policy_id
         self.service_name = service_name
         self.effects = effects
         self.description = description
         self.name = name
+        self.github_link = github_link
+        self.github_version = github_version
         self.benchmarks = self._benchmarks(benchmark=benchmark, requirement=requirement, requirement_id=requirement_id, category=category)
 
     def __repr__(self) -> str:
@@ -55,6 +58,8 @@ class PolicyDefinitionMetadata:
             description=self.description,
             name=self.name,
             service_name=self.service_name,
+            github_link=self.github_link,
+            github_version=self.github_version,
             benchmarks=benchmark_response,
         )
         return json.dumps(result)
@@ -117,6 +122,8 @@ class ComplianceResultsTransformer:
                     category=result.get("category"),
                     requirement=result.get("requirement"),
                     requirement_id=result.get("requirement_id"),
+                    github_link=result.get("github_link"),
+                    github_version=result.get("github_version"),
                 )
                 results[result.get("name")] = policy_definition_metadata
             else:
@@ -152,6 +159,8 @@ class PolicyComplianceData:
             service_name = metadata_values.get("service_name")
             effects = metadata_values.get("effects")
             description = metadata_values.get("description")
+            github_link = metadata_values.get("github_link")
+            github_version = metadata_values.get("github_version")
             for benchmark_key, benchmark_values in metadata_values.get("benchmarks").items():
                 benchmark = benchmark_key
                 category = benchmark_values.get("category")
@@ -167,6 +176,8 @@ class PolicyComplianceData:
                     category=category,
                     requirement=requirement,
                     requirement_id=requirement_id,
+                    github_link=github_link,
+                    github_version=github_version,
                 )
                 if not results.get(name, None):
                     results[name] = {}
@@ -209,14 +220,14 @@ class ComplianceCoverage:
         headers = ["Service", "Policy Definition", "Benchmarks"]
         results = []
         for policy_definition_name in self.matching_metadata:
-            # TODO: Print the compliance framework names on the same line
             name = policy_definition_name.replace("[Preview]: ", "")
             benchmark_strings = []
             for benchmark in self.matching_metadata[policy_definition_name]:
                 service_name = self.policy_compliance_data.policy_definition_metadata[name][benchmark].service_name
+                github_link = self.policy_compliance_data.policy_definition_metadata[name][benchmark].github_link
                 benchmark_strings.append(self.matching_metadata[policy_definition_name][benchmark][benchmark])
-            results.append([service_name, policy_definition_name, "<br>".join(benchmark_strings)])
+                policy_definition_string = f"[{policy_definition_name}]({github_link})"
+            results.append([service_name, policy_definition_string, "<br>".join(benchmark_strings)])
         results = sorted(results, key=itemgetter(0, 1, 2))
         return tabulate(results, headers=headers, tablefmt="github")
-
 

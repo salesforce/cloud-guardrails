@@ -75,12 +75,6 @@ def update_data(destination, download):
     results.extend(nist_800_171_results)
 
     write_spreadsheets(results=results, results_path=destination)
-    # dump the raw results
-
-    # raw_json_results_path = os.path.join(destination, "raw_results.json")
-    # with open(raw_json_results_path, "w") as file:
-    #     json.dump(results, file, indent=4)
-    # print(f"Saved raw json results to {raw_json_results_path}")
     compliance_results = ComplianceResultsTransformer(results_list=results)
     raw_json_results_path = os.path.join(destination, "results.json")
     with open(raw_json_results_path, "w") as file:
