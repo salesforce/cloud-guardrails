@@ -69,3 +69,4 @@ tmp/*
 exclusions.yml
 **/state.tf
 azure-guardrails-*
+**/~$*.xlsx

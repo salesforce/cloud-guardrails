@@ -18,17 +18,20 @@ class BenchmarkEntry:
         self.requirement = requirement
         self.requirement_id = requirement_id
 
-    def __repr__(self) -> dict:
+    def __repr__(self):
         result = dict(
             benchmark=self.benchmark,
             category=self.category,
             requirement=self.requirement,
             requirement_id=self.requirement_id,
         )
-        return result
+        return json.dumps(result)
+
+    def __str__(self):
+        return json.dumps(self.__repr__())
 
     def json(self) -> dict:
-        return self.__repr__()
+        return json.loads(self.__repr__())
 
 
 class PolicyDefinitionMetadata:
@@ -40,10 +43,10 @@ class PolicyDefinitionMetadata:
         self.name = name
         self.benchmarks = self._benchmarks(benchmark=benchmark, requirement=requirement, requirement_id=requirement_id, category=category)
 
-    def __repr__(self) -> dict:
+    def __repr__(self) -> str:
         benchmark_response = {}
-        for benchmark in self.benchmarks:
-            benchmark_response[benchmark.benchmark] = benchmark.json()
+        for benchmark, benchmark_value in self.benchmarks.items():
+            benchmark_response[benchmark_value.benchmark] = benchmark_value.json()
         result = dict(
             policy_id=self.policy_id,
             effects=self.effects,
@@ -52,22 +55,28 @@ class PolicyDefinitionMetadata:
             service_name=self.service_name,
             benchmarks=benchmark_response,
         )
-        return result
+        return json.dumps(result)
 
-    def json(self) -> dict:
+    def __str__(self):
         return self.__repr__()
 
-    def _benchmarks(self, benchmark: str, category: str, requirement: str, requirement_id: str) -> [BenchmarkEntry]:
-        result = []
+    def json(self) -> dict:
+        return json.loads(self.__repr__())
+
+    def _benchmarks(self, benchmark: str, category: str, requirement: str, requirement_id: str) -> {BenchmarkEntry}:
+        # def _benchmarks(self, benchmark: str, category: str, requirement: str, requirement_id: str) -> [BenchmarkEntry]:
+        #     result = []
+        result = {}
         benchmark_entry = BenchmarkEntry(benchmark=benchmark, category=category, requirement=requirement, requirement_id=requirement_id)
-        result.append(benchmark_entry)
+        # result.append(benchmark_entry)
+        result[benchmark] = benchmark_entry
         return result
 
     def get_compliance_data_matching_policy_definition(self) -> dict:
         result = {}
-        for benchmark in self.benchmarks:
-            benchmark_name = benchmark.benchmark
-            benchmark_string = f"{benchmark.benchmark}: {benchmark.requirement_id} ({benchmark.requirement})"
+        for benchmark, benchmark_value in self.benchmarks.items():
+            benchmark_name = benchmark_value.benchmark
+            benchmark_string = f"{benchmark_value.benchmark}: {benchmark_value.requirement_id} ({benchmark_value.requirement})"
             result[benchmark_name] = benchmark_string
         return result
 
@@ -82,13 +91,16 @@ class ComplianceResultsTransformer:
         self.results_list_json = results_list
         self.results = self._results()
 
-    def __repr__(self) -> dict:
+    def __repr__(self) -> str:
         response = {}
         for result_key, result_value in self.results.items():
             response[result_key] = result_value.json()
-        return response
+        return json.dumps(response)
 
     def json(self) -> dict:
+        return json.loads(self.__repr__())
+
+    def __str__(self):
         return self.__repr__()
 
     def _results(self) -> {PolicyDefinitionMetadata}:
@@ -114,7 +126,8 @@ class ComplianceResultsTransformer:
                 requirement_id = result.get("requirement_id")
                 benchmark_entry = BenchmarkEntry(benchmark=benchmark, category=category, requirement=requirement,
                                                  requirement_id=requirement_id)
-                results[result.get("name")].benchmarks.append(benchmark_entry)
+                # results[result.get("name")].benchmarks.append(benchmark_entry)
+                results[result.get("name")].benchmarks[benchmark] = benchmark_entry
         return results
 
 
@@ -124,7 +137,7 @@ class PolicyComplianceData:
         self.policy_definition_metadata = self._policy_definition_metadata()
 
     def __repr__(self):
-        return COMPLIANCE_DATA
+        return json.dumps(COMPLIANCE_DATA)
 
     def __str__(self):
         return json.dumps(COMPLIANCE_DATA)
@@ -156,7 +169,12 @@ class PolicyComplianceData:
                     requirement=requirement,
                     requirement_id=requirement_id,
                 )
-                results[name] = policy_definition_metadata
+                if not results.get(name, None):
+                    stuff = {benchmark: None}
+                    results[name] = stuff
+                    results[name][benchmark] = policy_definition_metadata
+                else:
+                    results[name][benchmark] = policy_definition_metadata
         return results
 
     def policy_definition_names(self):
@@ -164,7 +182,28 @@ class PolicyComplianceData:
         result.sort()
         return result
 
-    def get_compliance_data_matching_policy_definition(self, policy_definition_name) -> dict:
+    def get_benchmark_data_matching_policy_definition(self, policy_definition_name: str) -> dict:
+        results = {}
         metadata = self.policy_definition_metadata.get(policy_definition_name)
-        result = metadata.get_compliance_data_matching_policy_definition()
-        return result
+        for benchmark in metadata:
+            results[benchmark] = metadata[benchmark].get_compliance_data_matching_policy_definition()
+        # result = metadata[policy_definition_name].get_compliance_data_matching_policy_definition()
+        return results
+
+
+class ComplianceCoverage:
+    def __init__(self, display_names: list):
+        self.provided_display_names = display_names
+        self.policy_compliance_data = PolicyComplianceData()
+        self.matching_metadata = self._matching_metadata()
+
+    def _matching_metadata(self):
+        results = {}
+        policy_definition_names = self.policy_compliance_data.policy_definition_names()
+        for display_name in self.provided_display_names:
+            # Trim [Preview]:
+            name = display_name.replace("[Preview]: ", "")
+            if name in policy_definition_names:
+                benchmark_data = self.policy_compliance_data.get_benchmark_data_matching_policy_definition(name)
+                results[display_name] = benchmark_data
+        return results
