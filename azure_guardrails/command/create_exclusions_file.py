@@ -3,13 +3,9 @@
 """
 import os
 import logging
-import json
 from pathlib import Path
-import yaml
 import click
 from azure_guardrails import set_log_level
-from azure_guardrails.logic.services import Services, Service
-from azure_guardrails.shared import utils, validate
 from azure_guardrails.shared.exclusions import get_exclusions_template
 
 logger = logging.getLogger(__name__)

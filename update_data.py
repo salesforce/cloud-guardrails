@@ -1,15 +1,12 @@
 import os
-import sys
 import json
-from pathlib import Path
 import csv
 import logging
 import click
 import pandas as pd
-from typing import Dict
 from azure_guardrails.scrapers.azure_docs import get_azure_html
 from azure_guardrails.scrapers.standard import scrape_standard
-from azure_guardrails.scrapers.compliance_data import ComplianceResults
+from azure_guardrails.shared.compliance_data import ComplianceResultsTransformer
 
 logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
 
@@ -84,10 +81,10 @@ def update_data(destination, download):
     # with open(raw_json_results_path, "w") as file:
     #     json.dump(results, file, indent=4)
     # print(f"Saved raw json results to {raw_json_results_path}")
-    compliance_results = ComplianceResults(results_list=results)
+    compliance_results = ComplianceResultsTransformer(results_list=results)
     raw_json_results_path = os.path.join(destination, "results.json")
     with open(raw_json_results_path, "w") as file:
-        json.dump(compliance_results.json(), file, indent=4)
+        json.dump(compliance_results.json(), file, indent=4, sort_keys=True)
     print(f"Saved json results to {raw_json_results_path}")
 
 

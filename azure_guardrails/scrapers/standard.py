@@ -56,6 +56,10 @@ def scrape_standard(html_file_path: str, benchmark_name: str, replacement_string
                 name_cell_href = cells[0].find_all('a', href=True)
                 azure_portal_link = name_cell_href[0].attrs["href"]
                 name_text = chomp_keep_single_spaces(name_cell.text)
+                # Let's skip all the ones with Microsoft Managed Control; Azure be flexin', but that would unnecessarily
+                # clutter our results since we are focusing on Customer/Shared responsibility only.
+                if name_text.startswith("Microsoft Managed Control"):
+                    continue
                 policy_id = azure_portal_link.partition("policyDefinitions%2F")[2]
 
                 # Cell 1: Description
