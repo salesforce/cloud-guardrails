@@ -67,6 +67,7 @@ packer_cache/
 .notes/*
 tmp/*
 exclusions.yml
+config.yml
 **/state.tf
 azure-guardrails-*
 **/~$*.xlsx

@@ -1,4 +1,4 @@
 from azure_guardrails.command import list_policies
 from azure_guardrails.command import list_services
-from azure_guardrails.command import create_exclusions_file
+from azure_guardrails.command import create_config_file
 from azure_guardrails.command import generate_terraform
