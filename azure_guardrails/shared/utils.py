@@ -15,7 +15,7 @@ AZURE_POLICY_SERVICE_DIRECTORY = os.path.abspath(
     )
 )
 
-DEFAULT_TERRAFORM_MODULE_SOURCE = "git@github.com:kmcquade/azure-guardrails.git//azure_guardrails/shared/terraform/policy-initiative-with-builtins"
+DEFAULT_TERRAFORM_MODULE_SOURCE = "git@github.com:salesforce/azure-guardrails.git//azure_guardrails/shared/terraform/policy-initiative-with-builtins"
 
 
 def get_service_names():

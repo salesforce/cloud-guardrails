@@ -29,7 +29,7 @@ setuptools.setup(
     description=DESCRIPTION,
     long_description=get_description(),
     long_description_content_type="text/markdown",
-    url="https://github.com/kmcquade/azure-guardrails",
+    url="https://github.com/salesforce/azure-guardrails",
     packages=setuptools.find_packages(exclude=["test*"]),
     tests_require=TESTS_REQUIRE,
     install_requires=[
