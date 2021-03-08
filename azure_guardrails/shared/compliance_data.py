@@ -1,6 +1,7 @@
 from typing import Dict
 import os
 import json
+from tabulate import tabulate
 
 COMPLIANCE_DATA_FILE = os.path.abspath(os.path.join(
     os.path.dirname(__file__),
@@ -64,11 +65,8 @@ class PolicyDefinitionMetadata:
         return json.loads(self.__repr__())
 
     def _benchmarks(self, benchmark: str, category: str, requirement: str, requirement_id: str) -> {BenchmarkEntry}:
-        # def _benchmarks(self, benchmark: str, category: str, requirement: str, requirement_id: str) -> [BenchmarkEntry]:
-        #     result = []
         result = {}
         benchmark_entry = BenchmarkEntry(benchmark=benchmark, category=category, requirement=requirement, requirement_id=requirement_id)
-        # result.append(benchmark_entry)
         result[benchmark] = benchmark_entry
         return result
 
@@ -126,7 +124,6 @@ class ComplianceResultsTransformer:
                 requirement_id = result.get("requirement_id")
                 benchmark_entry = BenchmarkEntry(benchmark=benchmark, category=category, requirement=requirement,
                                                  requirement_id=requirement_id)
-                # results[result.get("name")].benchmarks.append(benchmark_entry)
                 results[result.get("name")].benchmarks[benchmark] = benchmark_entry
         return results
 
@@ -187,7 +184,6 @@ class PolicyComplianceData:
         metadata = self.policy_definition_metadata.get(policy_definition_name)
         for benchmark in metadata:
             results[benchmark] = metadata[benchmark].get_compliance_data_matching_policy_definition()
-        # result = metadata[policy_definition_name].get_compliance_data_matching_policy_definition()
         return results
 
 
@@ -197,7 +193,7 @@ class ComplianceCoverage:
         self.policy_compliance_data = PolicyComplianceData()
         self.matching_metadata = self._matching_metadata()
 
-    def _matching_metadata(self):
+    def _matching_metadata(self) -> dict:
         results = {}
         policy_definition_names = self.policy_compliance_data.policy_definition_names()
         for display_name in self.provided_display_names:
@@ -207,3 +203,13 @@ class ComplianceCoverage:
                 benchmark_data = self.policy_compliance_data.get_benchmark_data_matching_policy_definition(name)
                 results[display_name] = benchmark_data
         return results
+
+    def print_markdown_table(self):
+        headers = ["Service", "Policy Definition", "Benchmark"]
+        results = []
+        for policy_definition in self.matching_metadata:
+            for benchmark in self.matching_metadata[policy_definition]:
+                results.append(["", policy_definition, self.matching_metadata[policy_definition][benchmark][benchmark]])
+        print(tabulate(results, headers=headers, tablefmt="github"))
+
+

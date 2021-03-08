@@ -11,8 +11,6 @@ class PolicyComplianceDataTestCase(unittest.TestCase):
         self.policy_compliance_data = PolicyComplianceData()
 
     def test_policy_definition_names(self):
-        # print(json.dumps(self.policy_compliance_data.json(), indent=4))
-        # print(self.policy_compliance_data.policy_definition_names())
         names = self.policy_compliance_data.policy_definition_names()
         self.assertTrue(len(names) >= 300)
         print(json.dumps(names, indent=4))
@@ -32,7 +30,8 @@ class ComplianceCoverageTestCase(unittest.TestCase):
         ]
         compliance_coverage = ComplianceCoverage(display_names=display_names)
         results = compliance_coverage.matching_metadata
-        print(json.dumps(results, indent=4))
+        # print(json.dumps(results, indent=4))
+        compliance_coverage.print_markdown_table()
 
 #
 # class PolicyDefinitionMetadataTestCase(unittest.TestCase):
