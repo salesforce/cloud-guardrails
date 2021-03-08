@@ -1,5 +1,7 @@
 import os
+import re
 import json
+import csv
 from pathlib import Path
 from colorama import Fore
 END = "\033[0m"
@@ -45,3 +47,24 @@ def get_policy_json(service_name: str, filename: str):
 
 def print_red(string):
     print(f"{Fore.RED}{string}{END}")
+
+
+def chomp_keep_single_spaces(string):
+    """This chomp cleans up all white-space, not just at the ends"""
+    string = str(string)
+    result = string.replace("\n", " ")  # Convert line ends to spaces
+    result = re.sub(" [ ]*", " ", result)  # Truncate multiple spaces to single space
+    result = result.replace(" ", " ")  # Replace weird spaces with regular spaces
+    result = result.replace(u"\xa0", u" ")  # Remove non-breaking space
+    result = re.sub("^[ ]*", "", result)  # Clean start
+    return re.sub("[ ]*$", "", result)  # Clean end
+
+
+def get_compliance_table() -> list:
+    compliance_data = os.path.join(os.path.dirname(__file__), "data", "results.csv")
+    results = []
+    with open(compliance_data) as csv_file:
+        csv_reader = csv.DictReader(csv_file, delimiter=',')
+        for row in csv_reader:
+            results.append(row)
+    return results

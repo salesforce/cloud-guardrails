@@ -36,7 +36,8 @@ setuptools.setup(
         "click",
         "pyyaml",
         "jinja2",
-        "colorama"
+        "colorama",
+        "tabulate"
     ],
     classifiers=[
         "Programming Language :: Python :: 3",

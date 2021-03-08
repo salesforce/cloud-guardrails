@@ -91,9 +91,6 @@ module "name" {
 
 # TODO
 
-Major:
-* Add ability to look up the rule content based on a name
-
 Tweaks:
 * Add ability to use policies with parameters as long as they have default values
 * Exclusions: Should be able to specify explicit match strings in the command line

@@ -1,0 +1,3368 @@
+<!DOCTYPE html>
+<html class="hasSidebar hasPageActions hasBreadcrumb conceptual has-default-focus theme-light" data-auth-status-determined="false" data-authenticated="false" data-css-variable-support="true" data-target="docs" dir="ltr" lang="en-us" x-ms-format-detection="none">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="Regulatory Compliance details for ISO 27001:2013 - Azure Policy" property="og:title"/>
+  <meta content="website" property="og:type"/>
+  <meta content="https://docs.microsoft.com/en-us/azure/governance/policy/samples/iso-27001" property="og:url"/>
+  <meta content="Details of the ISO 27001:2013 Regulatory Compliance built-in initiative. Each control is mapped to one or more Azure Policy definitions that assist with assessment." property="og:description"/>
+  <meta content="https://docs.microsoft.com/en-us/media/logos/logo-ms-social.png" property="og:image"/>
+  <meta content="Microsoft Logo" property="og:image:alt"/>
+  <meta content="summary" name="twitter:card"/>
+  <meta content="@docsmsft" name="twitter:site"/>
+  <meta content="light dark" name="color-scheme"/>
+  <meta content="DCtheGeek" name="author">
+   <meta content="/azure/bread/toc.json" name="breadcrumb_path"/>
+   <meta content="Azure.azure-documents" name="depot_name"/>
+   <meta content="Details of the ISO 27001:2013 Regulatory Compliance built-in initiative. Each control is mapped to one or more Azure Policy definitions that assist with assessment." name="description"/>
+   <meta content="0457a7a1-90a2-7b58-de73-6b49950bbdfc" name="document_id"/>
+   <meta content="26a9677d-af95-c913-86ad-f4899bab26ac" name="document_version_independent_id"/>
+   <meta content="https://github.com/MicrosoftDocs/azure-docs-pr/blob/7da118f830458b6f2ea33de0aa1c9de1246122bc/articles/governance/policy/samples/iso-27001.md" name="gitcommit"/>
+   <meta content="azure" name="learn_banner_products"/>
+   <meta content="en-us" name="locale"/>
+   <meta content="dacoulte" name="ms.author"/>
+   <meta content="generated" name="ms.custom"/>
+   <meta content="03/05/2021" name="ms.date"/>
+   <meta content="azure-policy" name="ms.service"/>
+   <meta content="sample" name="ms.topic"/>
+   <meta content="https://github.com/MicrosoftDocs/azure-docs-pr/blob/live/articles/governance/policy/samples/iso-27001.md" name="original_content_git_url"/>
+   <meta content="false" name="recommendations"/>
+   <meta content="azure-documents" name="search.ms_docsetname"/>
+   <meta content="Azure" name="search.ms_product"/>
+   <meta content="Docs" name="search.ms_sitename"/>
+   <meta content="Docs" name="site_name"/>
+   <meta content="azure" name="uhfHeaderId"/>
+   <meta content="2021-03-07 12:01 PM" name="updated_at"/>
+   <meta content="conceptual" name="page_type"/>
+   <meta content="../toc.json" name="toc_rel"/>
+   <meta content="https://docs.microsoft.com/pdfstore/en-us/Azure.azure-documents/{branchName}{pdfName}" name="pdf_url_template"/>
+   <meta content="4623" name="word_count"/>
+   <meta content="Azure" name="scope"/>
+   <link href="https://docs.microsoft.com/en-us/azure/governance/policy/samples/iso-27001" rel="canonical"/>
+   <title>
+    Regulatory Compliance details for ISO 27001:2013 - Azure Policy | Microsoft Docs
+   </title>
+   <link href="https://docs.microsoft.com/_themes/docs.theme/master/en-us/_themes/styles/f1aec926.site-ltr.css " rel="stylesheet"/>
+   <link href="https://docs.microsoft.com/_themes/docs.theme/master/en-us/_themes/styles/a96de1e1.conceptual.css " rel="stylesheet"/>
+   <script id="msdocs-script">
+    var msDocs = {
+		data: {
+			timeOrigin: Date.now(),
+			contentLocale: 'en-us',
+			contentDir: 'ltr',
+			userLocale: 'en-us',
+			userDir: 'ltr',
+			pageTemplate: 'Conceptual',
+			brand: 'azure',
+			context: {
+
+			},
+			hasBinaryRating: true,
+			hasGithubIssues: true,
+			showFeedbackReport: false,
+			enableTutorialFeedback: false,
+			feedbackSystem: 'GitHub',
+			feedbackGitHubRepo: 'MicrosoftDocs/azure-docs',
+			feedbackProductUrl: 'https://feedback.azure.com/forums/915958-azure-governance',
+			contentGitUrl: 'https://github.com/MicrosoftDocs/azure-docs/blob/master/articles/governance/policy/samples/iso-27001.md',
+			extendBreadcrumb: false,
+			isEditDisplayable: true,
+			hideViewSource: false,
+			hasPageActions: true,
+			hasBookmark: true,
+			hasShare: true,
+			hasRecommendations: false,
+			contributors: [
+						{ name: "DCtheGeek", url: "https://github.com/DCtheGeek" }
+],
+		},
+		functions:{}
+	};
+   </script>
+   <script src="https://wcpstatic.microsoft.com/mscc/lib/v2/wcp-consent.js">
+   </script>
+   <script src="https://docs.microsoft.com/static/third-party/jsll/4.3.4/jsll-4.js">
+   </script>
+   <script>
+    window.jsllAwa = window.awa;
+   </script>
+   <script crossorigin="anonymous" integrity="sha384-aD4BDeDGeLXLpPK4yKeqtZQa9dv4a/7mQ+4L5vwshIYH1Mc2BrXvHd32iHzYCQy5" nomodule="" src="https://docs.microsoft.com/static/third-party/bluebird/3.5.0/bluebird.min.js">
+   </script>
+   <script crossorigin="anonymous" integrity="sha384-EQIXrC5K2+7X8nGgLkB995I0/6jfAvvyG1ieZ+WYGxgJHFMD/alsG9fSDWvzb5Y1" nomodule="" src="https://docs.microsoft.com/static/third-party/fetch/3.0.0/fetch.umd.min.js">
+   </script>
+   <script crossorigin="anonymous" integrity="sha384-1zKzI6ldTVHMU7n0W2HpE/lhHI+UG4D9IIaxbj3kT2UhCWicdTuJkTtnKuu0CQzN" nomodule="" src="https://docs.microsoft.com/static/third-party/template/1.4.0/template.min.js">
+   </script>
+   <script crossorigin="anonymous" integrity="sha384-vn7xBMtpSTfzaTRWxj0kVq0UcsbBrTOgZ/M1ISHqe1V358elYva+lfiEC+T8jLPc" nomodule="" src="https://docs.microsoft.com/static/third-party/url/0.5.7/url.min.js">
+   </script>
+   <script src="https://docs.microsoft.com/_themes/docs.theme/master/en-us/_themes/scripts/f0a172e9.index-polyfills.js">
+   </script>
+   <script src="https://docs.microsoft.com/_themes/docs.theme/master/en-us/_themes/scripts/b98f24fa.index-docs.js">
+   </script>
+  </meta>
+ </head>
+ <body dir="ltr" lang="en-us">
+  <div class="header-holder has-default-focus">
+   <a class="skip-to-main-link has-outline-color-text visually-hidden-until-focused is-fixed has-inner-focus focus-visible has-top-zero has-left-zero has-right-zero has-padding-medium has-text-centered has-body-background-medium" href="#main" tabindex="1">
+    Skip to main content
+   </a>
+   <div class="has-default-focus has-overflow-hidden" id="ignite-banner-holder">
+   </div>
+   <div hidden="" id="cookie-consent-holder">
+   </div>
+   <!-- liquid-tag banners global -->
+   <div data-bi-name="header" id="headerAreaHolder">
+    <header itemscope="itemscope" itemtype="http://schema.org/Organization" role="banner">
+     <div class="nav-bar">
+      <div class="nav-bar-brand">
+       <a aria-label="Microsoft" class="nav-bar-button" href="https://www.microsoft.com" itemprop="url">
+        <div aria-hidden="true" class="nav-bar-logo has-background-image theme-display is-light" itemprop="logo" itemscope="itemscope" role="presentation">
+        </div>
+        <div aria-hidden="true" class="nav-bar-logo has-background-image theme-display is-dark is-high-contrast" itemprop="logo" itemscope="itemscope" role="presentation">
+        </div>
+       </a>
+      </div>
+     </div>
+     <div class="nav-bar has-border-top is-hidden-mobile">
+     </div>
+    </header>
+   </div>
+   <div class="content-header uhf-container has-padding has-default-focus has-border-bottom-none" data-bi-name="content-header">
+    <nav aria-label="Breadcrumb" class="breadcrumb-holder has-padding-none has-padding-left-medium-tablet has-padding-right-medium-tablet has-padding-left-none-uhf-tablet has-padding-left-none-uhf-tablet has-padding-none-desktop has-flex-grow" data-bi-name="breadcrumb" itemscope="" itemtype="http://schema.org/BreadcrumbList" role="navigation">
+     <ul class="breadcrumbs" id="page-breadcrumbs">
+     </ul>
+    </nav>
+    <div class="content-header-controls">
+     <button aria-haspopup="true" class="contents-button button" data-bi-name="contents-expand" type="button">
+      <span class="icon">
+       <span aria-hidden="true" class="docon docon-menu">
+       </span>
+      </span>
+      <span class="contents-expand-title">
+       Contents
+      </span>
+     </button>
+     <button aria-controls="action-panel" class="ap-collapse-behavior ap-expanded button" data-bi-name="ap-collapse" type="button">
+      <span class="icon">
+       <span aria-hidden="true" class="docon docon-exit-mode">
+       </span>
+      </span>
+      <span>
+       Exit focus mode
+      </span>
+     </button>
+    </div>
+    <div class="has-padding-none-tablet has-padding-medium is-size-small is-flex-touch has-flex-justify-content-space-between-touch has-flex-grow page-action-holder">
+     <ul class="is-hidden-mobile action-list has-flex-justify-content-start has-flex-justify-content-end-tablet is-flex is-flex-row has-flex-wrap has-flex-grow is-unstyled">
+      <li>
+       <button class="bookmark button is-text has-inner-focus is-small is-icon-only-touch" data-bi-name="bookmark" data-list-type="bookmarks" title="Bookmark this page" type="button">
+        <span aria-hidden="true" class="icon">
+         <span class="docon docon-single-bookmark">
+         </span>
+        </span>
+        <span class="bookmark-status is-visually-hidden-touch is-hidden-portrait">
+         Bookmark
+        </span>
+       </button>
+      </li>
+      <li id="feedback-section-link">
+       <a class="button is-text has-inner-focus is-small is-icon-only-touch" data-bi-name="comments" href="#feedback" title="Send feedback about this page">
+        <span aria-hidden="true" class="icon">
+         <span class="docon docon-comment-lines">
+         </span>
+        </span>
+        <span class="is-visually-hidden-touch is-hidden-portrait">
+         Feedback
+        </span>
+       </a>
+      </li>
+      <li id="contenteditbtn">
+       <a class="button is-text has-inner-focus is-icon-only-touch is-small" data-bi-name="edit" data-original_content_git_url="https://github.com/MicrosoftDocs/azure-docs-pr/blob/live/articles/governance/policy/samples/iso-27001.md" data-original_content_git_url_template="{repo}/blob/{branch}/articles/governance/policy/samples/iso-27001.md" data-pr_branch="" data-pr_repo="" href="https://github.com/MicrosoftDocs/azure-docs/blob/master/articles/governance/policy/samples/iso-27001.md" title="Edit This Document">
+        <span aria-hidden="true" class="icon">
+         <span class="docon docon-edit-outline">
+         </span>
+        </span>
+        <span class="is-visually-hidden-touch is-hidden-portrait">
+         Edit
+        </span>
+       </a>
+      </li>
+      <li>
+       <div class="sharing dropdown has-caret">
+        <button aria-controls="sharing-menu" aria-expanded="false" class="dropdown-trigger button is-text is-fullwidth has-flex-justify-content-start has-inner-focus is-small is-icon-only-touch" data-bi-name="share" title="Share This Document">
+         <span aria-hidden="true" class="icon">
+          <span class="docon docon-sharing">
+          </span>
+         </span>
+         <span class="is-visually-hidden-touch is-hidden-portrait">
+          Share
+         </span>
+        </button>
+        <div class="dropdown-menu has-padding-small" id="sharing-menu">
+         <ul data-bi-name="share-links">
+          <li>
+           <a class="button is-text is-fullwidth has-flex-justify-content-start has-inner-focus is-small share-twitter" data-bi-name="twitter">
+            <span class="icon">
+             <span aria-hidden="true" class="docon docon-brand-twitter has-text-primary">
+             </span>
+            </span>
+            <span>
+             Twitter
+            </span>
+           </a>
+          </li>
+          <li>
+           <a class="button is-text is-fullwidth has-flex-justify-content-start has-inner-focus is-small share-linkedin" data-bi-name="linkedin">
+            <span class="icon">
+             <span aria-hidden="true" class="docon docon-brand-linkedin has-text-primary">
+             </span>
+            </span>
+            <span>
+             LinkedIn
+            </span>
+           </a>
+          </li>
+          <li>
+           <a class="button is-text is-fullwidth has-flex-justify-content-start has-inner-focus is-small share-facebook" data-bi-name="facebook">
+            <span class="icon">
+             <span aria-hidden="true" class="docon docon-brand-facebook has-text-primary">
+             </span>
+            </span>
+            <span>
+             Facebook
+            </span>
+           </a>
+          </li>
+          <li>
+           <a class="button is-text is-fullwidth has-flex-justify-content-start has-inner-focus is-small share-email" data-bi-name="email">
+            <span class="icon">
+             <span aria-hidden="true" class="docon docon-mail-message-fill has-text-primary">
+             </span>
+            </span>
+            <span>
+             Email
+            </span>
+           </a>
+          </li>
+         </ul>
+        </div>
+       </div>
+      </li>
+     </ul>
+     <button aria-label="Contents" class="has-border contents-button button is-small is-text is-hidden-tablet has-inner-focus" data-bi-name="contents-expand" type="button">
+      <span class="icon">
+       <span aria-hidden="true" class="docon docon-editor-list-bullet">
+       </span>
+      </span>
+      <span class="contents-expand-title">
+       Table of contents
+      </span>
+     </button>
+     <div class="is-invisible">
+     </div>
+     <div class="is-hidden-tablet level-item is-flexible level-right">
+      <button aria-label="Page Actions" class="page-actions-button button is-small is-text is-hidden-tablet has-inner-focus has-border is-full-height has-margin-left-small" data-bi-name="pageactions" type="button">
+       <span class="icon">
+        <span aria-hidden="true" class="docon docon-more-vertical">
+        </span>
+       </span>
+      </button>
+     </div>
+    </div>
+   </div>
+   <div class="has-overflow-hidden has-default-focus" id="disclaimer-holder">
+    <!-- liquid-tag banners sectional -->
+   </div>
+  </div>
+  <div class="mainContainer uhf-container has-top-padding has-default-focus" data-bi-name="body">
+   <div class="columns has-large-gaps is-gapless-mobile">
+    <div class="left-container is-hidden-mobile column is-one-third-tablet is-one-quarter-desktop" id="left-container">
+     <nav aria-label="Primary" class="is-fixed is-flex is-flex-column" id="affixed-left-container" role="navigation">
+     </nav>
+    </div>
+    <section class="primary-holder column is-two-thirds-tablet is-three-quarters-desktop">
+     <div class="columns is-gapless-mobile has-large-gaps">
+      <div class="column is-full is-four-fifths-desktop" id="main-column">
+       <main class="content" data-bi-name="content" dir="ltr" id="main" lang="en-us" role="main">
+        <h1 id="details-of-the-iso-270012013-regulatory-compliance-built-in-initiative">
+         Details of the ISO 27001:2013 Regulatory Compliance built-in initiative
+        </h1>
+        <ul class="metadata page-metadata" data-bi-name="page info" dir="ltr" lang="en-us">
+         <li>
+          <time aria-label="Article review date" class="is-invisible" data-article-date="" data-article-date-source="ms.date" datetime="2021-03-05T00:00:00.000Z">
+           03/05/2021
+          </time>
+         </li>
+         <li class="readingTime">
+          23 minutes to read
+         </li>
+         <li class="contributors-holder">
+          <ul class="facepile has-margin-left-none is-small" data-bi-name="contributors">
+           <li class="facepile-item">
+            <a aria-label="DCtheGeekGithub profile" class="facepile-item-coin" data-contributor-name="DCtheGeek" data-src="https://github.com/DCtheGeek.png?size=32" href="https://github.com/DCtheGeek" title="DCtheGeek">
+             <img aria-hidden="true" class="facepile-item-coin-image durable-image" onerror="this.className='facepile-item-coin-image durable-image has-error';" role="presentation" src="https://github.com/DCtheGeek.png?size=32"/>
+             <span aria-hidden="true" class="facepile-item-coin-text durable-image-fallback facepile-item-teal">
+              D
+             </span>
+            </a>
+           </li>
+          </ul>
+         </li>
+        </ul>
+        <nav aria-label="Article Outline" class="doc-outline is-hidden-desktop" data-bi-name="intopic toc" id="center-doc-outline" role="navigation">
+         <h3>
+          In this article
+         </h3>
+        </nav>
+        <!-- <content> -->
+        <p>
+         The following article details how the Azure Policy Regulatory Compliance built-in initiative
+definition maps to
+         <strong>
+          compliance domains
+         </strong>
+         and
+         <strong>
+          controls
+         </strong>
+         in ISO 27001:2013.
+For more information about this compliance standard, see
+         <a data-linktype="external" href="https://www.iso.org/isoiec-27001-information-security.html">
+          ISO 27001:2013
+         </a>
+         . To understand
+         <em>
+          Ownership
+         </em>
+         , see
+         <a data-linktype="relative-path" href="../concepts/definition-structure#type">
+          Azure Policy policy definition
+         </a>
+         and
+         <a data-linktype="relative-path" href="../../../security/fundamentals/shared-responsibility">
+          Shared responsibility in the cloud
+         </a>
+         .
+        </p>
+        <p>
+         The following mappings are to the
+         <strong>
+          ISO 27001:2013
+         </strong>
+         controls. Use the
+navigation on the right to jump directly to a specific
+         <strong>
+          compliance domain
+         </strong>
+         . Many of the controls
+are implemented with an
+         <a data-linktype="relative-path" href="../overview">
+          Azure Policy
+         </a>
+         initiative definition. To review the complete
+initiative definition, open
+         <strong>
+          Policy
+         </strong>
+         in the Azure portal and select the
+         <strong>
+          Definitions
+         </strong>
+         page.
+Then, find and select the
+         <strong>
+          ISO 27001:2013
+         </strong>
+         Regulatory Compliance built-in
+initiative definition.
+        </p>
+        <p>
+         This built-in initiative is deployed as part of the
+         <a data-linktype="relative-path" href="../../blueprints/samples/iso-27001-2013">
+          ISO 27001:2013 blueprint sample
+         </a>
+         .
+        </p>
+        <div class="IMPORTANT">
+         <p>
+          Important
+         </p>
+         <p>
+          Each control below is associated with one or more
+          <a data-linktype="relative-path" href="../overview">
+           Azure Policy
+          </a>
+          definitions.
+These policies may help you
+          <a data-linktype="relative-path" href="../how-to/get-compliance-data">
+           assess compliance
+          </a>
+          with the
+control; however, there often is not a one-to-one or complete match between a control and one or
+more policies. As such,
+          <strong>
+           Compliant
+          </strong>
+          in Azure Policy refers only to the policy definitions
+themselves; this doesn't ensure you're fully compliant with all requirements of a control. In
+addition, the compliance standard includes controls that aren't addressed by any Azure Policy
+definitions at this time. Therefore, compliance in Azure Policy is only a partial view of your
+overall compliance status. The associations between compliance domains, controls, and Azure Policy
+definitions for this compliance standard may change over time. To view the change history, see the
+          <a data-linktype="external" href="https://github.com/Azure/azure-policy/commits/master/built-in-policies/policySetDefinitions/Regulatory%20Compliance/ISO27001_2013_audit.json">
+           GitHub Commit History
+          </a>
+          .
+         </p>
+        </div>
+        <h2 id="organization-of-information-security">
+         Organization of information security
+        </h2>
+        <h3 id="segregation-of-duties">
+         Segregation of Duties
+        </h3>
+        <p>
+         <strong>
+          ID
+         </strong>
+         : ISO 27001:2013 A.6.1.2
+         <strong>
+          Ownership
+         </strong>
+         : Customer
+        </p>
+        <table>
+         <thead>
+          <tr>
+           <th>
+            Name
+            <br/>
+            <sub>
+             (Azure portal)
+            </sub>
+           </th>
+           <th>
+            Description
+           </th>
+           <th>
+            Effect(s)
+           </th>
+           <th>
+            Version
+            <br/>
+            <sub>
+             (GitHub)
+            </sub>
+           </th>
+          </tr>
+         </thead>
+         <tbody>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F4f11b553-d42e-4e3a-89be-32ca364cad4c">
+             A maximum of 3 owners should be designated for your subscription
+            </a>
+           </td>
+           <td>
+            It is recommended to designate up to 3 subscription owners in order to reduce the potential for breach by a compromised owner.
+           </td>
+           <td>
+            AuditIfNotExists, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Security%20Center/ASC_DesignateLessThanXOwners_Audit.json">
+             3.0.0
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F09024ccc-0c5f-475e-9457-b7c0d9ed487b">
+             There should be more than one owner assigned to your subscription
+            </a>
+           </td>
+           <td>
+            It is recommended to designate more than one subscription owner in order to have administrator access redundancy.
+           </td>
+           <td>
+            AuditIfNotExists, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Security%20Center/ASC_DesignateMoreThanOneOwner_Audit.json">
+             3.0.0
+            </a>
+           </td>
+          </tr>
+         </tbody>
+        </table>
+        <h2 id="asset-management">
+         Asset management
+        </h2>
+        <h3 id="classification-of-information">
+         Classification of information
+        </h3>
+        <p>
+         <strong>
+          ID
+         </strong>
+         : ISO 27001:2013 A.8.2.1
+         <strong>
+          Ownership
+         </strong>
+         : Customer
+        </p>
+        <table>
+         <thead>
+          <tr>
+           <th>
+            Name
+            <br/>
+            <sub>
+             (Azure portal)
+            </sub>
+           </th>
+           <th>
+            Description
+           </th>
+           <th>
+            Effect(s)
+           </th>
+           <th>
+            Version
+            <br/>
+            <sub>
+             (GitHub)
+            </sub>
+           </th>
+          </tr>
+         </thead>
+         <tbody>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2Ffeedbf84-6b99-488c-acc2-71c829aa5ffc">
+             Vulnerabilities on your SQL databases should be remediated
+            </a>
+           </td>
+           <td>
+            Monitor Vulnerability Assessment scan results and recommendations for how to remediate database vulnerabilities.
+           </td>
+           <td>
+            AuditIfNotExists, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Security%20Center/ASC_SQLDbVulnerabilities_Audit.json">
+             4.0.0
+            </a>
+           </td>
+          </tr>
+         </tbody>
+        </table>
+        <h2 id="access-control">
+         Access control
+        </h2>
+        <h3 id="access-to-networks-and-network-services">
+         Access to networks and network services
+        </h3>
+        <p>
+         <strong>
+          ID
+         </strong>
+         : ISO 27001:2013 A.9.1.2
+         <strong>
+          Ownership
+         </strong>
+         : Customer
+        </p>
+        <table>
+         <thead>
+          <tr>
+           <th>
+            Name
+            <br/>
+            <sub>
+             (Azure portal)
+            </sub>
+           </th>
+           <th>
+            Description
+           </th>
+           <th>
+            Effect(s)
+           </th>
+           <th>
+            Version
+            <br/>
+            <sub>
+             (GitHub)
+            </sub>
+           </th>
+          </tr>
+         </thead>
+         <tbody>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F3cf2ab00-13f1-4d0c-8971-2ac904541a7e">
+             Add system-assigned managed identity to enable Guest Configuration assignments on virtual machines with no identities
+            </a>
+           </td>
+           <td>
+            This policy adds a system-assigned managed identity to virtual machines hosted in Azure that are supported by Guest Configuration but do not have any managed identities. A system-assigned managed identity is a prerequisite for all Guest Configuration assignments and must be added to machines before using any Guest Configuration policy definitions. For more information on Guest Configuration, visit
+            <a data-linktype="external" href="https://aka.ms/gcpol">
+             https://aka.ms/gcpol
+            </a>
+            .
+           </td>
+           <td>
+            modify
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Guest%20Configuration/GuestConfiguration_AddSystemIdentityWhenNone_Prerequisite.json">
+             1.0.0
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F497dff13-db2a-4c0f-8603-28fa3b331ab6">
+             Add system-assigned managed identity to enable Guest Configuration assignments on VMs with a user-assigned identity
+            </a>
+           </td>
+           <td>
+            This policy adds a system-assigned managed identity to virtual machines hosted in Azure that are supported by Guest Configuration and have at least one user-assigned identity but do not have a system-assigned managed identity. A system-assigned managed identity is a prerequisite for all Guest Configuration assignments and must be added to machines before using any Guest Configuration policy definitions. For more information on Guest Configuration, visit
+            <a data-linktype="external" href="https://aka.ms/gcpol">
+             https://aka.ms/gcpol
+            </a>
+            .
+           </td>
+           <td>
+            modify
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Guest%20Configuration/GuestConfiguration_AddSystemIdentityWhenUser_Prerequisite.json">
+             1.0.0
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2Fea53dbee-c6c9-4f0e-9f9e-de0039b78023">
+             Audit Linux machines that allow remote connections from accounts without passwords
+            </a>
+           </td>
+           <td>
+            Requires that prerequisites are deployed to the policy assignment scope. For details, visit
+            <a data-linktype="external" href="https://aka.ms/gcpol">
+             https://aka.ms/gcpol
+            </a>
+            . Machines are non-compliant if Linux machines that allow remote connections from accounts without passwords
+           </td>
+           <td>
+            AuditIfNotExists, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Guest%20Configuration/GuestConfiguration_LinuxPassword110_AINE.json">
+             1.0.0
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2Ff6ec09a3-78bf-4f8f-99dc-6c77182d0f99">
+             Audit Linux machines that have accounts without passwords
+            </a>
+           </td>
+           <td>
+            Requires that prerequisites are deployed to the policy assignment scope. For details, visit
+            <a data-linktype="external" href="https://aka.ms/gcpol">
+             https://aka.ms/gcpol
+            </a>
+            . Machines are non-compliant if Linux machines that have accounts without passwords
+           </td>
+           <td>
+            AuditIfNotExists, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Guest%20Configuration/GuestConfiguration_LinuxPassword232_AINE.json">
+             1.0.0
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F06a78e20-9358-41c9-923c-fb736d382a4d">
+             Audit VMs that do not use managed disks
+            </a>
+           </td>
+           <td>
+            This policy audits VMs that do not use managed disks
+           </td>
+           <td>
+            audit
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Compute/VMRequireManagedDisk_Audit.json">
+             1.0.0
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F331e8ea8-378a-410f-a2e5-ae22f38bb0da">
+             Deploy the Linux Guest Configuration extension to enable Guest Configuration assignments on Linux VMs
+            </a>
+           </td>
+           <td>
+            This policy deploys the Linux Guest Configuration extension to Linux virtual machines hosted in Azure that are supported by Guest Configuration. The Linux Guest Configuration extension is a prerequisite for all Linux Guest Configuration assignments and must deployed to machines before using any Linux Guest Configuration policy definition. For more information on Guest Configuration, visit
+            <a data-linktype="external" href="https://aka.ms/gcpol">
+             https://aka.ms/gcpol
+            </a>
+            .
+           </td>
+           <td>
+            deployIfNotExists
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Guest%20Configuration/GuestConfiguration_DeployExtensionLinux_Prerequisite.json">
+             1.0.0
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F37e0d2fe-28a5-43d6-a273-67d37d1f5606">
+             Storage accounts should be migrated to new Azure Resource Manager resources
+            </a>
+           </td>
+           <td>
+            Use new Azure Resource Manager for your storage accounts to provide security enhancements such as: stronger access control (RBAC), better auditing, Azure Resource Manager based deployment and governance, access to managed identities, access to key vault for secrets, Azure AD-based authentication and support for tags and resource groups for easier security management
+           </td>
+           <td>
+            Audit, Deny, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Storage/Classic_AuditForClassicStorages_Audit.json">
+             1.0.0
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F1d84d5fb-01f6-4d12-ba4f-4a26081d403d">
+             Virtual machines should be migrated to new Azure Resource Manager resources
+            </a>
+           </td>
+           <td>
+            Use new Azure Resource Manager for your virtual machines to provide security enhancements such as: stronger access control (RBAC), better auditing, Azure Resource Manager based deployment and governance, access to managed identities, access to key vault for secrets, Azure AD-based authentication and support for tags and resource groups for easier security management
+           </td>
+           <td>
+            Audit, Deny, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Compute/ClassicCompute_Audit.json">
+             1.0.0
+            </a>
+           </td>
+          </tr>
+         </tbody>
+        </table>
+        <h3 id="management-of-privileged-access-rights">
+         Management of privileged access rights
+        </h3>
+        <p>
+         <strong>
+          ID
+         </strong>
+         : ISO 27001:2013 A.9.2.3
+         <strong>
+          Ownership
+         </strong>
+         : Customer
+        </p>
+        <table>
+         <thead>
+          <tr>
+           <th>
+            Name
+            <br/>
+            <sub>
+             (Azure portal)
+            </sub>
+           </th>
+           <th>
+            Description
+           </th>
+           <th>
+            Effect(s)
+           </th>
+           <th>
+            Version
+            <br/>
+            <sub>
+             (GitHub)
+            </sub>
+           </th>
+          </tr>
+         </thead>
+         <tbody>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F1f314764-cb73-4fc9-b863-8eca98ac36e9">
+             An Azure Active Directory administrator should be provisioned for SQL servers
+            </a>
+           </td>
+           <td>
+            Audit provisioning of an Azure Active Directory administrator for your SQL server to enable Azure AD authentication. Azure AD authentication enables simplified permission management and centralized identity management of database users and other Microsoft services
+           </td>
+           <td>
+            AuditIfNotExists, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/SQL/SQL_DB_AuditServerADAdmins_Audit.json">
+             1.0.0
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2Fa451c1ef-c6ca-483d-87ed-f49761e3ffb5">
+             Audit usage of custom RBAC rules
+            </a>
+           </td>
+           <td>
+            Audit built-in roles such as 'Owner, Contributer, Reader' instead of custom RBAC roles, which are error prone. Using custom roles is treated as an exception and requires a rigorous review and threat modeling
+           </td>
+           <td>
+            Audit, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/General/Subscription_AuditCustomRBACRoles_Audit.json">
+             1.0.0
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2Ff8456c1c-aa66-4dfb-861a-25d127b775c9">
+             External accounts with owner permissions should be removed from your subscription
+            </a>
+           </td>
+           <td>
+            External accounts with owner permissions should be removed from your subscription in order to prevent unmonitored access.
+           </td>
+           <td>
+            AuditIfNotExists, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Security%20Center/ASC_RemoveExternalAccountsWithOwnerPermissions_Audit.json">
+             3.0.0
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F5c607a2e-c700-4744-8254-d77e7c9eb5e4">
+             External accounts with write permissions should be removed from your subscription
+            </a>
+           </td>
+           <td>
+            External accounts with write privileges should be removed from your subscription in order to prevent unmonitored access.
+           </td>
+           <td>
+            AuditIfNotExists, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Security%20Center/ASC_RemoveExternalAccountsWritePermissions_Audit.json">
+             3.0.0
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F9297c21d-2ed6-4474-b48f-163f75654ce3">
+             MFA should be enabled accounts with write permissions on your subscription
+            </a>
+           </td>
+           <td>
+            Multi-Factor Authentication (MFA) should be enabled for all subscription accounts with write privileges to prevent a breach of accounts or resources.
+           </td>
+           <td>
+            AuditIfNotExists, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Security%20Center/ASC_EnableMFAForWritePermissions_Audit.json">
+             3.0.0
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2Faa633080-8b72-40c4-a2d7-d00c03e80bed">
+             MFA should be enabled on accounts with owner permissions on your subscription
+            </a>
+           </td>
+           <td>
+            Multi-Factor Authentication (MFA) should be enabled for all subscription accounts with owner permissions to prevent a breach of accounts or resources.
+           </td>
+           <td>
+            AuditIfNotExists, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Security%20Center/ASC_EnableMFAForOwnerPermissions_Audit.json">
+             3.0.0
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2Fb54ed75b-3e1a-44ac-a333-05ba39b99ff0">
+             Service Fabric clusters should only use Azure Active Directory for client authentication
+            </a>
+           </td>
+           <td>
+            Audit usage of client authentication only via Azure Active Directory in Service Fabric
+           </td>
+           <td>
+            Audit, Deny, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Service%20Fabric/ServiceFabric_AuditADAuth_Audit.json">
+             1.1.0
+            </a>
+           </td>
+          </tr>
+         </tbody>
+        </table>
+        <h3 id="management-of-secret-authentication-information-of-users">
+         Management of secret authentication information of users
+        </h3>
+        <p>
+         <strong>
+          ID
+         </strong>
+         : ISO 27001:2013 A.9.2.4
+         <strong>
+          Ownership
+         </strong>
+         : Customer
+        </p>
+        <table>
+         <thead>
+          <tr>
+           <th>
+            Name
+            <br/>
+            <sub>
+             (Azure portal)
+            </sub>
+           </th>
+           <th>
+            Description
+           </th>
+           <th>
+            Effect(s)
+           </th>
+           <th>
+            Version
+            <br/>
+            <sub>
+             (GitHub)
+            </sub>
+           </th>
+          </tr>
+         </thead>
+         <tbody>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F3cf2ab00-13f1-4d0c-8971-2ac904541a7e">
+             Add system-assigned managed identity to enable Guest Configuration assignments on virtual machines with no identities
+            </a>
+           </td>
+           <td>
+            This policy adds a system-assigned managed identity to virtual machines hosted in Azure that are supported by Guest Configuration but do not have any managed identities. A system-assigned managed identity is a prerequisite for all Guest Configuration assignments and must be added to machines before using any Guest Configuration policy definitions. For more information on Guest Configuration, visit
+            <a data-linktype="external" href="https://aka.ms/gcpol">
+             https://aka.ms/gcpol
+            </a>
+            .
+           </td>
+           <td>
+            modify
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Guest%20Configuration/GuestConfiguration_AddSystemIdentityWhenNone_Prerequisite.json">
+             1.0.0
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F497dff13-db2a-4c0f-8603-28fa3b331ab6">
+             Add system-assigned managed identity to enable Guest Configuration assignments on VMs with a user-assigned identity
+            </a>
+           </td>
+           <td>
+            This policy adds a system-assigned managed identity to virtual machines hosted in Azure that are supported by Guest Configuration and have at least one user-assigned identity but do not have a system-assigned managed identity. A system-assigned managed identity is a prerequisite for all Guest Configuration assignments and must be added to machines before using any Guest Configuration policy definitions. For more information on Guest Configuration, visit
+            <a data-linktype="external" href="https://aka.ms/gcpol">
+             https://aka.ms/gcpol
+            </a>
+            .
+           </td>
+           <td>
+            modify
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Guest%20Configuration/GuestConfiguration_AddSystemIdentityWhenUser_Prerequisite.json">
+             1.0.0
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2Fe6955644-301c-44b5-a4c4-528577de6861">
+             Audit Linux machines that do not have the passwd file permissions set to 0644
+            </a>
+           </td>
+           <td>
+            Requires that prerequisites are deployed to the policy assignment scope. For details, visit
+            <a data-linktype="external" href="https://aka.ms/gcpol">
+             https://aka.ms/gcpol
+            </a>
+            . Machines are non-compliant if Linux machines that do not have the passwd file permissions set to 0644
+           </td>
+           <td>
+            AuditIfNotExists, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Guest%20Configuration/GuestConfiguration_LinuxPassword121_AINE.json">
+             1.0.0
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F331e8ea8-378a-410f-a2e5-ae22f38bb0da">
+             Deploy the Linux Guest Configuration extension to enable Guest Configuration assignments on Linux VMs
+            </a>
+           </td>
+           <td>
+            This policy deploys the Linux Guest Configuration extension to Linux virtual machines hosted in Azure that are supported by Guest Configuration. The Linux Guest Configuration extension is a prerequisite for all Linux Guest Configuration assignments and must deployed to machines before using any Linux Guest Configuration policy definition. For more information on Guest Configuration, visit
+            <a data-linktype="external" href="https://aka.ms/gcpol">
+             https://aka.ms/gcpol
+            </a>
+            .
+           </td>
+           <td>
+            deployIfNotExists
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Guest%20Configuration/GuestConfiguration_DeployExtensionLinux_Prerequisite.json">
+             1.0.0
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F9297c21d-2ed6-4474-b48f-163f75654ce3">
+             MFA should be enabled accounts with write permissions on your subscription
+            </a>
+           </td>
+           <td>
+            Multi-Factor Authentication (MFA) should be enabled for all subscription accounts with write privileges to prevent a breach of accounts or resources.
+           </td>
+           <td>
+            AuditIfNotExists, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Security%20Center/ASC_EnableMFAForWritePermissions_Audit.json">
+             3.0.0
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2Faa633080-8b72-40c4-a2d7-d00c03e80bed">
+             MFA should be enabled on accounts with owner permissions on your subscription
+            </a>
+           </td>
+           <td>
+            Multi-Factor Authentication (MFA) should be enabled for all subscription accounts with owner permissions to prevent a breach of accounts or resources.
+           </td>
+           <td>
+            AuditIfNotExists, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Security%20Center/ASC_EnableMFAForOwnerPermissions_Audit.json">
+             3.0.0
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2Fe3576e28-8b17-4677-84c3-db2990658d64">
+             MFA should be enabled on accounts with read permissions on your subscription
+            </a>
+           </td>
+           <td>
+            Multi-Factor Authentication (MFA) should be enabled for all subscription accounts with read privileges to prevent a breach of accounts or resources.
+           </td>
+           <td>
+            AuditIfNotExists, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Security%20Center/ASC_EnableMFAForReadPermissions_Audit.json">
+             3.0.0
+            </a>
+           </td>
+          </tr>
+         </tbody>
+        </table>
+        <h3 id="review-of-user-access-rights">
+         Review of user access rights
+        </h3>
+        <p>
+         <strong>
+          ID
+         </strong>
+         : ISO 27001:2013 A.9.2.5
+         <strong>
+          Ownership
+         </strong>
+         : Customer
+        </p>
+        <table>
+         <thead>
+          <tr>
+           <th>
+            Name
+            <br/>
+            <sub>
+             (Azure portal)
+            </sub>
+           </th>
+           <th>
+            Description
+           </th>
+           <th>
+            Effect(s)
+           </th>
+           <th>
+            Version
+            <br/>
+            <sub>
+             (GitHub)
+            </sub>
+           </th>
+          </tr>
+         </thead>
+         <tbody>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F6b1cbf55-e8b6-442f-ba4c-7246b6381474">
+             Deprecated accounts should be removed from your subscription
+            </a>
+           </td>
+           <td>
+            Deprecated accounts should be removed from your subscriptions.  Deprecated accounts are accounts that have been blocked from signing in.
+           </td>
+           <td>
+            AuditIfNotExists, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Security%20Center/ASC_RemoveDeprecatedAccounts_Audit.json">
+             3.0.0
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2Febb62a0c-3560-49e1-89ed-27e074e9f8ad">
+             Deprecated accounts with owner permissions should be removed from your subscription
+            </a>
+           </td>
+           <td>
+            Deprecated accounts with owner permissions should be removed from your subscription.  Deprecated accounts are accounts that have been blocked from signing in.
+           </td>
+           <td>
+            AuditIfNotExists, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Security%20Center/ASC_RemoveDeprecatedAccountsWithOwnerPermissions_Audit.json">
+             3.0.0
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2Ff8456c1c-aa66-4dfb-861a-25d127b775c9">
+             External accounts with owner permissions should be removed from your subscription
+            </a>
+           </td>
+           <td>
+            External accounts with owner permissions should be removed from your subscription in order to prevent unmonitored access.
+           </td>
+           <td>
+            AuditIfNotExists, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Security%20Center/ASC_RemoveExternalAccountsWithOwnerPermissions_Audit.json">
+             3.0.0
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F5c607a2e-c700-4744-8254-d77e7c9eb5e4">
+             External accounts with write permissions should be removed from your subscription
+            </a>
+           </td>
+           <td>
+            External accounts with write privileges should be removed from your subscription in order to prevent unmonitored access.
+           </td>
+           <td>
+            AuditIfNotExists, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Security%20Center/ASC_RemoveExternalAccountsWritePermissions_Audit.json">
+             3.0.0
+            </a>
+           </td>
+          </tr>
+         </tbody>
+        </table>
+        <h3 id="removal-or-adjustment-of-access-rights">
+         Removal or adjustment of access rights
+        </h3>
+        <p>
+         <strong>
+          ID
+         </strong>
+         : ISO 27001:2013 A.9.2.6
+         <strong>
+          Ownership
+         </strong>
+         : Customer
+        </p>
+        <table>
+         <thead>
+          <tr>
+           <th>
+            Name
+            <br/>
+            <sub>
+             (Azure portal)
+            </sub>
+           </th>
+           <th>
+            Description
+           </th>
+           <th>
+            Effect(s)
+           </th>
+           <th>
+            Version
+            <br/>
+            <sub>
+             (GitHub)
+            </sub>
+           </th>
+          </tr>
+         </thead>
+         <tbody>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F6b1cbf55-e8b6-442f-ba4c-7246b6381474">
+             Deprecated accounts should be removed from your subscription
+            </a>
+           </td>
+           <td>
+            Deprecated accounts should be removed from your subscriptions.  Deprecated accounts are accounts that have been blocked from signing in.
+           </td>
+           <td>
+            AuditIfNotExists, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Security%20Center/ASC_RemoveDeprecatedAccounts_Audit.json">
+             3.0.0
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2Febb62a0c-3560-49e1-89ed-27e074e9f8ad">
+             Deprecated accounts with owner permissions should be removed from your subscription
+            </a>
+           </td>
+           <td>
+            Deprecated accounts with owner permissions should be removed from your subscription.  Deprecated accounts are accounts that have been blocked from signing in.
+           </td>
+           <td>
+            AuditIfNotExists, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Security%20Center/ASC_RemoveDeprecatedAccountsWithOwnerPermissions_Audit.json">
+             3.0.0
+            </a>
+           </td>
+          </tr>
+         </tbody>
+        </table>
+        <h3 id="secure-log-on-procedures">
+         Secure log-on procedures
+        </h3>
+        <p>
+         <strong>
+          ID
+         </strong>
+         : ISO 27001:2013 A.9.4.2
+         <strong>
+          Ownership
+         </strong>
+         : Customer
+        </p>
+        <table>
+         <thead>
+          <tr>
+           <th>
+            Name
+            <br/>
+            <sub>
+             (Azure portal)
+            </sub>
+           </th>
+           <th>
+            Description
+           </th>
+           <th>
+            Effect(s)
+           </th>
+           <th>
+            Version
+            <br/>
+            <sub>
+             (GitHub)
+            </sub>
+           </th>
+          </tr>
+         </thead>
+         <tbody>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F9297c21d-2ed6-4474-b48f-163f75654ce3">
+             MFA should be enabled accounts with write permissions on your subscription
+            </a>
+           </td>
+           <td>
+            Multi-Factor Authentication (MFA) should be enabled for all subscription accounts with write privileges to prevent a breach of accounts or resources.
+           </td>
+           <td>
+            AuditIfNotExists, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Security%20Center/ASC_EnableMFAForWritePermissions_Audit.json">
+             3.0.0
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2Faa633080-8b72-40c4-a2d7-d00c03e80bed">
+             MFA should be enabled on accounts with owner permissions on your subscription
+            </a>
+           </td>
+           <td>
+            Multi-Factor Authentication (MFA) should be enabled for all subscription accounts with owner permissions to prevent a breach of accounts or resources.
+           </td>
+           <td>
+            AuditIfNotExists, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Security%20Center/ASC_EnableMFAForOwnerPermissions_Audit.json">
+             3.0.0
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2Fe3576e28-8b17-4677-84c3-db2990658d64">
+             MFA should be enabled on accounts with read permissions on your subscription
+            </a>
+           </td>
+           <td>
+            Multi-Factor Authentication (MFA) should be enabled for all subscription accounts with read privileges to prevent a breach of accounts or resources.
+           </td>
+           <td>
+            AuditIfNotExists, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Security%20Center/ASC_EnableMFAForReadPermissions_Audit.json">
+             3.0.0
+            </a>
+           </td>
+          </tr>
+         </tbody>
+        </table>
+        <h3 id="password-management-system">
+         Password management system
+        </h3>
+        <p>
+         <strong>
+          ID
+         </strong>
+         : ISO 27001:2013 A.9.4.3
+         <strong>
+          Ownership
+         </strong>
+         : Customer
+        </p>
+        <table>
+         <thead>
+          <tr>
+           <th>
+            Name
+            <br/>
+            <sub>
+             (Azure portal)
+            </sub>
+           </th>
+           <th>
+            Description
+           </th>
+           <th>
+            Effect(s)
+           </th>
+           <th>
+            Version
+            <br/>
+            <sub>
+             (GitHub)
+            </sub>
+           </th>
+          </tr>
+         </thead>
+         <tbody>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F3cf2ab00-13f1-4d0c-8971-2ac904541a7e">
+             Add system-assigned managed identity to enable Guest Configuration assignments on virtual machines with no identities
+            </a>
+           </td>
+           <td>
+            This policy adds a system-assigned managed identity to virtual machines hosted in Azure that are supported by Guest Configuration but do not have any managed identities. A system-assigned managed identity is a prerequisite for all Guest Configuration assignments and must be added to machines before using any Guest Configuration policy definitions. For more information on Guest Configuration, visit
+            <a data-linktype="external" href="https://aka.ms/gcpol">
+             https://aka.ms/gcpol
+            </a>
+            .
+           </td>
+           <td>
+            modify
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Guest%20Configuration/GuestConfiguration_AddSystemIdentityWhenNone_Prerequisite.json">
+             1.0.0
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F497dff13-db2a-4c0f-8603-28fa3b331ab6">
+             Add system-assigned managed identity to enable Guest Configuration assignments on VMs with a user-assigned identity
+            </a>
+           </td>
+           <td>
+            This policy adds a system-assigned managed identity to virtual machines hosted in Azure that are supported by Guest Configuration and have at least one user-assigned identity but do not have a system-assigned managed identity. A system-assigned managed identity is a prerequisite for all Guest Configuration assignments and must be added to machines before using any Guest Configuration policy definitions. For more information on Guest Configuration, visit
+            <a data-linktype="external" href="https://aka.ms/gcpol">
+             https://aka.ms/gcpol
+            </a>
+            .
+           </td>
+           <td>
+            modify
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Guest%20Configuration/GuestConfiguration_AddSystemIdentityWhenUser_Prerequisite.json">
+             1.0.0
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F5b054a0d-39e2-4d53-bea3-9734cad2c69b">
+             Audit Windows machines that allow re-use of the previous 24 passwords
+            </a>
+           </td>
+           <td>
+            Requires that prerequisites are deployed to the policy assignment scope. For details, visit
+            <a data-linktype="external" href="https://aka.ms/gcpol">
+             https://aka.ms/gcpol
+            </a>
+            . Machines are non-compliant if Windows machines that allow re-use of the previous 24 passwords
+           </td>
+           <td>
+            AuditIfNotExists, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Guest%20Configuration/GuestConfiguration_WindowsPasswordEnforce_AINE.json">
+             1.0.0
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F4ceb8dc2-559c-478b-a15b-733fbf1e3738">
+             Audit Windows machines that do not have a maximum password age of 70 days
+            </a>
+           </td>
+           <td>
+            Requires that prerequisites are deployed to the policy assignment scope. For details, visit
+            <a data-linktype="external" href="https://aka.ms/gcpol">
+             https://aka.ms/gcpol
+            </a>
+            . Machines are non-compliant if Windows machines that do not have a maximum password age of 70 days
+           </td>
+           <td>
+            AuditIfNotExists, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Guest%20Configuration/GuestConfiguration_WindowsMaximumPassword_AINE.json">
+             1.0.0
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F237b38db-ca4d-4259-9e47-7882441ca2c0">
+             Audit Windows machines that do not have a minimum password age of 1 day
+            </a>
+           </td>
+           <td>
+            Requires that prerequisites are deployed to the policy assignment scope. For details, visit
+            <a data-linktype="external" href="https://aka.ms/gcpol">
+             https://aka.ms/gcpol
+            </a>
+            . Machines are non-compliant if Windows machines that do not have a minimum password age of 1 day
+           </td>
+           <td>
+            AuditIfNotExists, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Guest%20Configuration/GuestConfiguration_WindowsMinimumPassword_AINE.json">
+             1.0.0
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2Fbf16e0bb-31e1-4646-8202-60a235cc7e74">
+             Audit Windows machines that do not have the password complexity setting enabled
+            </a>
+           </td>
+           <td>
+            Requires that prerequisites are deployed to the policy assignment scope. For details, visit
+            <a data-linktype="external" href="https://aka.ms/gcpol">
+             https://aka.ms/gcpol
+            </a>
+            . Machines are non-compliant if Windows machines that do not have the password complexity setting enabled
+           </td>
+           <td>
+            AuditIfNotExists, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Guest%20Configuration/GuestConfiguration_WindowsPasswordComplexity_AINE.json">
+             1.0.0
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2Fa2d0e922-65d0-40c4-8f87-ea6da2d307a2">
+             Audit Windows machines that do not restrict the minimum password length to 14 characters
+            </a>
+           </td>
+           <td>
+            Requires that prerequisites are deployed to the policy assignment scope. For details, visit
+            <a data-linktype="external" href="https://aka.ms/gcpol">
+             https://aka.ms/gcpol
+            </a>
+            . Machines are non-compliant if Windows machines that do not restrict the minimum password length to 14 characters
+           </td>
+           <td>
+            AuditIfNotExists, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Guest%20Configuration/GuestConfiguration_WindowsPasswordLength_AINE.json">
+             1.0.0
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F385f5831-96d4-41db-9a3c-cd3af78aaae6">
+             Deploy the Windows Guest Configuration extension to enable Guest Configuration assignments on Windows VMs
+            </a>
+           </td>
+           <td>
+            This policy deploys the Windows Guest Configuration extension to Windows virtual machines hosted in Azure that are supported by Guest Configuration. The Windows Guest Configuration extension is a prerequisite for all Windows Guest Configuration assignments and must deployed to machines before using any Windows Guest Configuration policy definition. For more information on Guest Configuration, visit
+            <a data-linktype="external" href="https://aka.ms/gcpol">
+             https://aka.ms/gcpol
+            </a>
+            .
+           </td>
+           <td>
+            deployIfNotExists
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Guest%20Configuration/GuestConfiguration_DeployExtensionWindows_Prerequisite.json">
+             1.0.0
+            </a>
+           </td>
+          </tr>
+         </tbody>
+        </table>
+        <h2 id="cryptography">
+         Cryptography
+        </h2>
+        <h3 id="policy-on-the-use-of-cryptographic-controls">
+         Policy on the use of cryptographic controls
+        </h3>
+        <p>
+         <strong>
+          ID
+         </strong>
+         : ISO 27001:2013 A.10.1.1
+         <strong>
+          Ownership
+         </strong>
+         : Customer
+        </p>
+        <table>
+         <thead>
+          <tr>
+           <th>
+            Name
+            <br/>
+            <sub>
+             (Azure portal)
+            </sub>
+           </th>
+           <th>
+            Description
+           </th>
+           <th>
+            Effect(s)
+           </th>
+           <th>
+            Version
+            <br/>
+            <sub>
+             (GitHub)
+            </sub>
+           </th>
+          </tr>
+         </thead>
+         <tbody>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F3cf2ab00-13f1-4d0c-8971-2ac904541a7e">
+             Add system-assigned managed identity to enable Guest Configuration assignments on virtual machines with no identities
+            </a>
+           </td>
+           <td>
+            This policy adds a system-assigned managed identity to virtual machines hosted in Azure that are supported by Guest Configuration but do not have any managed identities. A system-assigned managed identity is a prerequisite for all Guest Configuration assignments and must be added to machines before using any Guest Configuration policy definitions. For more information on Guest Configuration, visit
+            <a data-linktype="external" href="https://aka.ms/gcpol">
+             https://aka.ms/gcpol
+            </a>
+            .
+           </td>
+           <td>
+            modify
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Guest%20Configuration/GuestConfiguration_AddSystemIdentityWhenNone_Prerequisite.json">
+             1.0.0
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F497dff13-db2a-4c0f-8603-28fa3b331ab6">
+             Add system-assigned managed identity to enable Guest Configuration assignments on VMs with a user-assigned identity
+            </a>
+           </td>
+           <td>
+            This policy adds a system-assigned managed identity to virtual machines hosted in Azure that are supported by Guest Configuration and have at least one user-assigned identity but do not have a system-assigned managed identity. A system-assigned managed identity is a prerequisite for all Guest Configuration assignments and must be added to machines before using any Guest Configuration policy definitions. For more information on Guest Configuration, visit
+            <a data-linktype="external" href="https://aka.ms/gcpol">
+             https://aka.ms/gcpol
+            </a>
+            .
+           </td>
+           <td>
+            modify
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Guest%20Configuration/GuestConfiguration_AddSystemIdentityWhenUser_Prerequisite.json">
+             1.0.0
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2Fb7ddfbdc-1260-477d-91fd-98bd9be789a6">
+             API App should only be accessible over HTTPS
+            </a>
+           </td>
+           <td>
+            Use of HTTPS ensures server/service authentication and protects data in transit from network layer eavesdropping attacks.
+           </td>
+           <td>
+            Audit, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/App%20Service/AppServiceApiApp_AuditHTTP_Audit.json">
+             1.0.0
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2Fda0f98fe-a24b-4ad5-af69-bd0400233661">
+             Audit Windows machines that do not store passwords using reversible encryption
+            </a>
+           </td>
+           <td>
+            Requires that prerequisites are deployed to the policy assignment scope. For details, visit
+            <a data-linktype="external" href="https://aka.ms/gcpol">
+             https://aka.ms/gcpol
+            </a>
+            . Machines are non-compliant if Windows machines that do not store passwords using reversible encryption
+           </td>
+           <td>
+            AuditIfNotExists, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Guest%20Configuration/GuestConfiguration_WindowsPasswordEncryption_AINE.json">
+             1.0.0
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F3657f5a0-770e-44a3-b44e-9431ba1e9735">
+             Automation account variables should be encrypted
+            </a>
+           </td>
+           <td>
+            It is important to enable encryption of Automation account variable assets when storing sensitive data
+           </td>
+           <td>
+            Audit, Deny, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Automation/Automation_AuditUnencryptedVars_Audit.json">
+             1.1.0
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F385f5831-96d4-41db-9a3c-cd3af78aaae6">
+             Deploy the Windows Guest Configuration extension to enable Guest Configuration assignments on Windows VMs
+            </a>
+           </td>
+           <td>
+            This policy deploys the Windows Guest Configuration extension to Windows virtual machines hosted in Azure that are supported by Guest Configuration. The Windows Guest Configuration extension is a prerequisite for all Windows Guest Configuration assignments and must deployed to machines before using any Windows Guest Configuration policy definition. For more information on Guest Configuration, visit
+            <a data-linktype="external" href="https://aka.ms/gcpol">
+             https://aka.ms/gcpol
+            </a>
+            .
+           </td>
+           <td>
+            deployIfNotExists
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Guest%20Configuration/GuestConfiguration_DeployExtensionWindows_Prerequisite.json">
+             1.0.0
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F0961003e-5a0a-4549-abde-af6a37f2724d">
+             Disk encryption should be applied on virtual machines
+            </a>
+           </td>
+           <td>
+            Virtual machines without an enabled disk encryption will be monitored by Azure Security Center as recommendations.
+           </td>
+           <td>
+            AuditIfNotExists, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Security%20Center/ASC_UnencryptedVMDisks_Audit.json">
+             2.0.0
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F6d555dd1-86f2-4f1c-8ed7-5abae7c6cbab">
+             Function App should only be accessible over HTTPS
+            </a>
+           </td>
+           <td>
+            Use of HTTPS ensures server/service authentication and protects data in transit from network layer eavesdropping attacks.
+           </td>
+           <td>
+            Audit, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/App%20Service/AppServiceFunctionApp_AuditHTTP_Audit.json">
+             1.0.0
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F22bee202-a82f-4305-9a2a-6d7f44d4dedb">
+             Only secure connections to your Azure Cache for Redis should be enabled
+            </a>
+           </td>
+           <td>
+            Audit enabling of only connections via SSL to Azure Cache for Redis. Use of secure connections ensures authentication between the server and the service and protects data in transit from network layer attacks such as man-in-the-middle, eavesdropping, and session-hijacking
+           </td>
+           <td>
+            Audit, Deny, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Cache/RedisCache_AuditSSLPort_Audit.json">
+             1.0.0
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F404c3081-a854-4457-ae30-26a93ef643f9">
+             Secure transfer to storage accounts should be enabled
+            </a>
+           </td>
+           <td>
+            Audit requirement of Secure transfer in your storage account. Secure transfer is an option that forces your storage account to accept requests only from secure connections (HTTPS). Use of HTTPS ensures authentication between the server and the service and protects data in transit from network layer attacks such as man-in-the-middle, eavesdropping, and session-hijacking
+           </td>
+           <td>
+            Audit, Deny, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Storage/Storage_AuditForHTTPSEnabled_Audit.json">
+             2.0.0
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F617c02be-7f02-4efd-8836-3180d47b6c68">
+             Service Fabric clusters should have the ClusterProtectionLevel property set to EncryptAndSign
+            </a>
+           </td>
+           <td>
+            Service Fabric provides three levels of protection (None, Sign and EncryptAndSign) for node-to-node communication using a primary cluster certificate. Set the protection level to ensure that all node-to-node messages are encrypted and digitally signed
+           </td>
+           <td>
+            Audit, Deny, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Service%20Fabric/ServiceFabric_AuditClusterProtectionLevel_Audit.json">
+             1.1.0
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F17k78e20-9358-41c9-923c-fb736d382a12">
+             Transparent Data Encryption on SQL databases should be enabled
+            </a>
+           </td>
+           <td>
+            Transparent data encryption should be enabled to protect data-at-rest and meet compliance requirements
+           </td>
+           <td>
+            AuditIfNotExists, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/SQL/SqlDBEncryption_Audit.json">
+             1.0.0
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F17k78e20-9358-41c9-923c-fb736d382a12">
+             Transparent Data Encryption on SQL databases should be enabled
+            </a>
+           </td>
+           <td>
+            Transparent data encryption should be enabled to protect data-at-rest and meet compliance requirements
+           </td>
+           <td>
+            AuditIfNotExists, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/SQL/SqlDBEncryption_Audit.json">
+             1.0.0
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2Fa4af4a39-4135-47fb-b175-47fbdf85311d">
+             Web Application should only be accessible over HTTPS
+            </a>
+           </td>
+           <td>
+            Use of HTTPS ensures server/service authentication and protects data in transit from network layer eavesdropping attacks.
+           </td>
+           <td>
+            Audit, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/App%20Service/AppServiceWebapp_AuditHTTP_Audit.json">
+             1.0.0
+            </a>
+           </td>
+          </tr>
+         </tbody>
+        </table>
+        <h2 id="operations-security">
+         Operations security
+        </h2>
+        <h3 id="event-logging">
+         Event Logging
+        </h3>
+        <p>
+         <strong>
+          ID
+         </strong>
+         : ISO 27001:2013 A.12.4.1
+         <strong>
+          Ownership
+         </strong>
+         : Customer
+        </p>
+        <table>
+         <thead>
+          <tr>
+           <th>
+            Name
+            <br/>
+            <sub>
+             (Azure portal)
+            </sub>
+           </th>
+           <th>
+            Description
+           </th>
+           <th>
+            Effect(s)
+           </th>
+           <th>
+            Version
+            <br/>
+            <sub>
+             (GitHub)
+            </sub>
+           </th>
+          </tr>
+         </thead>
+         <tbody>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F32133ab0-ee4b-4b44-98d6-042180979d50">
+             [Preview]: Audit Log Analytics Agent Deployment - VM Image (OS) unlisted
+            </a>
+           </td>
+           <td>
+            Reports VMs as non-compliant if the VM Image (OS) is not in the list defined and the agent is not installed. The list of OS images will be updated over time as support is updated.
+           </td>
+           <td>
+            auditIfNotExists
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Monitoring/LogAnalytics_OSImage_Audit.json">
+             1.0.0-preview
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F11ac78e3-31bc-4f0c-8434-37ab963cea07">
+             Audit Dependency agent deployment - VM Image (OS) unlisted
+            </a>
+           </td>
+           <td>
+            Reports VMs as non-compliant if the VM Image (OS) is not in the list defined and the agent is not installed. The list of OS images will be updated over time as support is updated.
+           </td>
+           <td>
+            auditIfNotExists
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Monitoring/DependencyAgent_OSImage_Audit.json">
+             1.0.1
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2Fe2dd799a-a932-4e9d-ac17-d473bc3c6c10">
+             Audit Dependency agent deployment in virtual machine scale sets - VM Image (OS) unlisted
+            </a>
+           </td>
+           <td>
+            Reports virtual machine scale sets as non-compliant if the VM Image (OS) is not in the list defined and the agent is not installed. The list of OS images will be updated over time as support is updated.
+           </td>
+           <td>
+            auditIfNotExists
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Monitoring/DependencyAgent_OSImage_VMSS_Audit.json">
+             1.0.1
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F7f89b1eb-583c-429a-8828-af049802c1d9">
+             Audit diagnostic setting
+            </a>
+           </td>
+           <td>
+            Audit diagnostic setting for selected resource types
+           </td>
+           <td>
+            AuditIfNotExists
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Monitoring/DiagnosticSettingsForTypes_Audit.json">
+             1.0.0
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F5c3bc7b8-a64c-4e08-a9cd-7ff0f31e1138">
+             Audit Log Analytics agent deployment in virtual machine scale sets - VM Image (OS) unlisted
+            </a>
+           </td>
+           <td>
+            Reports virtual machine scale sets as non-compliant if the VM Image (OS) is not in the list defined and the agent is not installed. The list of OS images will be updated over time as support is updated.
+           </td>
+           <td>
+            auditIfNotExists
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Monitoring/LogAnalytics_OSImage_VMSS_Audit.json">
+             1.0.1
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2Fa6fb4358-5bf4-4ad7-ba82-2cd2f41ce5e9">
+             Auditing on SQL server should be enabled
+            </a>
+           </td>
+           <td>
+            Auditing on your SQL Server should be enabled to track database activities across all databases on the server and save them in an audit log.
+           </td>
+           <td>
+            AuditIfNotExists, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/SQL/SqlServerAuditing_Audit.json">
+             2.0.0
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2Fa6fb4358-5bf4-4ad7-ba82-2cd2f41ce5e9">
+             Auditing on SQL server should be enabled
+            </a>
+           </td>
+           <td>
+            Auditing on your SQL Server should be enabled to track database activities across all databases on the server and save them in an audit log.
+           </td>
+           <td>
+            AuditIfNotExists, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/SQL/SqlServerAuditing_Audit.json">
+             2.0.0
+            </a>
+           </td>
+          </tr>
+         </tbody>
+        </table>
+        <h3 id="administrator-and-operator-logs">
+         Administrator and operator logs
+        </h3>
+        <p>
+         <strong>
+          ID
+         </strong>
+         : ISO 27001:2013 A.12.4.3
+         <strong>
+          Ownership
+         </strong>
+         : Customer
+        </p>
+        <table>
+         <thead>
+          <tr>
+           <th>
+            Name
+            <br/>
+            <sub>
+             (Azure portal)
+            </sub>
+           </th>
+           <th>
+            Description
+           </th>
+           <th>
+            Effect(s)
+           </th>
+           <th>
+            Version
+            <br/>
+            <sub>
+             (GitHub)
+            </sub>
+           </th>
+          </tr>
+         </thead>
+         <tbody>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F32133ab0-ee4b-4b44-98d6-042180979d50">
+             [Preview]: Audit Log Analytics Agent Deployment - VM Image (OS) unlisted
+            </a>
+           </td>
+           <td>
+            Reports VMs as non-compliant if the VM Image (OS) is not in the list defined and the agent is not installed. The list of OS images will be updated over time as support is updated.
+           </td>
+           <td>
+            auditIfNotExists
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Monitoring/LogAnalytics_OSImage_Audit.json">
+             1.0.0-preview
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F11ac78e3-31bc-4f0c-8434-37ab963cea07">
+             Audit Dependency agent deployment - VM Image (OS) unlisted
+            </a>
+           </td>
+           <td>
+            Reports VMs as non-compliant if the VM Image (OS) is not in the list defined and the agent is not installed. The list of OS images will be updated over time as support is updated.
+           </td>
+           <td>
+            auditIfNotExists
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Monitoring/DependencyAgent_OSImage_Audit.json">
+             1.0.1
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2Fe2dd799a-a932-4e9d-ac17-d473bc3c6c10">
+             Audit Dependency agent deployment in virtual machine scale sets - VM Image (OS) unlisted
+            </a>
+           </td>
+           <td>
+            Reports virtual machine scale sets as non-compliant if the VM Image (OS) is not in the list defined and the agent is not installed. The list of OS images will be updated over time as support is updated.
+           </td>
+           <td>
+            auditIfNotExists
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Monitoring/DependencyAgent_OSImage_VMSS_Audit.json">
+             1.0.1
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F7f89b1eb-583c-429a-8828-af049802c1d9">
+             Audit diagnostic setting
+            </a>
+           </td>
+           <td>
+            Audit diagnostic setting for selected resource types
+           </td>
+           <td>
+            AuditIfNotExists
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Monitoring/DiagnosticSettingsForTypes_Audit.json">
+             1.0.0
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F5c3bc7b8-a64c-4e08-a9cd-7ff0f31e1138">
+             Audit Log Analytics agent deployment in virtual machine scale sets - VM Image (OS) unlisted
+            </a>
+           </td>
+           <td>
+            Reports virtual machine scale sets as non-compliant if the VM Image (OS) is not in the list defined and the agent is not installed. The list of OS images will be updated over time as support is updated.
+           </td>
+           <td>
+            auditIfNotExists
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Monitoring/LogAnalytics_OSImage_VMSS_Audit.json">
+             1.0.1
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2Fa6fb4358-5bf4-4ad7-ba82-2cd2f41ce5e9">
+             Auditing on SQL server should be enabled
+            </a>
+           </td>
+           <td>
+            Auditing on your SQL Server should be enabled to track database activities across all databases on the server and save them in an audit log.
+           </td>
+           <td>
+            AuditIfNotExists, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/SQL/SqlServerAuditing_Audit.json">
+             2.0.0
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2Fa6fb4358-5bf4-4ad7-ba82-2cd2f41ce5e9">
+             Auditing on SQL server should be enabled
+            </a>
+           </td>
+           <td>
+            Auditing on your SQL Server should be enabled to track database activities across all databases on the server and save them in an audit log.
+           </td>
+           <td>
+            AuditIfNotExists, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/SQL/SqlServerAuditing_Audit.json">
+             2.0.0
+            </a>
+           </td>
+          </tr>
+         </tbody>
+        </table>
+        <h3 id="clock-synchronization">
+         Clock Synchronization
+        </h3>
+        <p>
+         <strong>
+          ID
+         </strong>
+         : ISO 27001:2013 A.12.4.4
+         <strong>
+          Ownership
+         </strong>
+         : Customer
+        </p>
+        <table>
+         <thead>
+          <tr>
+           <th>
+            Name
+            <br/>
+            <sub>
+             (Azure portal)
+            </sub>
+           </th>
+           <th>
+            Description
+           </th>
+           <th>
+            Effect(s)
+           </th>
+           <th>
+            Version
+            <br/>
+            <sub>
+             (GitHub)
+            </sub>
+           </th>
+          </tr>
+         </thead>
+         <tbody>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F32133ab0-ee4b-4b44-98d6-042180979d50">
+             [Preview]: Audit Log Analytics Agent Deployment - VM Image (OS) unlisted
+            </a>
+           </td>
+           <td>
+            Reports VMs as non-compliant if the VM Image (OS) is not in the list defined and the agent is not installed. The list of OS images will be updated over time as support is updated.
+           </td>
+           <td>
+            auditIfNotExists
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Monitoring/LogAnalytics_OSImage_Audit.json">
+             1.0.0-preview
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F11ac78e3-31bc-4f0c-8434-37ab963cea07">
+             Audit Dependency agent deployment - VM Image (OS) unlisted
+            </a>
+           </td>
+           <td>
+            Reports VMs as non-compliant if the VM Image (OS) is not in the list defined and the agent is not installed. The list of OS images will be updated over time as support is updated.
+           </td>
+           <td>
+            auditIfNotExists
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Monitoring/DependencyAgent_OSImage_Audit.json">
+             1.0.1
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2Fe2dd799a-a932-4e9d-ac17-d473bc3c6c10">
+             Audit Dependency agent deployment in virtual machine scale sets - VM Image (OS) unlisted
+            </a>
+           </td>
+           <td>
+            Reports virtual machine scale sets as non-compliant if the VM Image (OS) is not in the list defined and the agent is not installed. The list of OS images will be updated over time as support is updated.
+           </td>
+           <td>
+            auditIfNotExists
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Monitoring/DependencyAgent_OSImage_VMSS_Audit.json">
+             1.0.1
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F7f89b1eb-583c-429a-8828-af049802c1d9">
+             Audit diagnostic setting
+            </a>
+           </td>
+           <td>
+            Audit diagnostic setting for selected resource types
+           </td>
+           <td>
+            AuditIfNotExists
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Monitoring/DiagnosticSettingsForTypes_Audit.json">
+             1.0.0
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F5c3bc7b8-a64c-4e08-a9cd-7ff0f31e1138">
+             Audit Log Analytics agent deployment in virtual machine scale sets - VM Image (OS) unlisted
+            </a>
+           </td>
+           <td>
+            Reports virtual machine scale sets as non-compliant if the VM Image (OS) is not in the list defined and the agent is not installed. The list of OS images will be updated over time as support is updated.
+           </td>
+           <td>
+            auditIfNotExists
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Monitoring/LogAnalytics_OSImage_VMSS_Audit.json">
+             1.0.1
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2Fa6fb4358-5bf4-4ad7-ba82-2cd2f41ce5e9">
+             Auditing on SQL server should be enabled
+            </a>
+           </td>
+           <td>
+            Auditing on your SQL Server should be enabled to track database activities across all databases on the server and save them in an audit log.
+           </td>
+           <td>
+            AuditIfNotExists, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/SQL/SqlServerAuditing_Audit.json">
+             2.0.0
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2Fa6fb4358-5bf4-4ad7-ba82-2cd2f41ce5e9">
+             Auditing on SQL server should be enabled
+            </a>
+           </td>
+           <td>
+            Auditing on your SQL Server should be enabled to track database activities across all databases on the server and save them in an audit log.
+           </td>
+           <td>
+            AuditIfNotExists, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/SQL/SqlServerAuditing_Audit.json">
+             2.0.0
+            </a>
+           </td>
+          </tr>
+         </tbody>
+        </table>
+        <h3 id="installation-of-software-on-operational-systems">
+         Installation of software on operational systems
+        </h3>
+        <p>
+         <strong>
+          ID
+         </strong>
+         : ISO 27001:2013 A.12.5.1
+         <strong>
+          Ownership
+         </strong>
+         : Customer
+        </p>
+        <table>
+         <thead>
+          <tr>
+           <th>
+            Name
+            <br/>
+            <sub>
+             (Azure portal)
+            </sub>
+           </th>
+           <th>
+            Description
+           </th>
+           <th>
+            Effect(s)
+           </th>
+           <th>
+            Version
+            <br/>
+            <sub>
+             (GitHub)
+            </sub>
+           </th>
+          </tr>
+         </thead>
+         <tbody>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F47a6b606-51aa-4496-8bb7-64b11cf66adc">
+             Adaptive application controls for defining safe applications should be enabled on your machines
+            </a>
+           </td>
+           <td>
+            Enable application controls to define the list of known-safe applications running on your machines, and alert you when other applications run. This helps harden your machines against malware. To simplify the process of configuring and maintaining your rules, Security Center uses machine learning to analyze the applications running on each machine and suggest the list of known-safe applications.
+           </td>
+           <td>
+            AuditIfNotExists, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Security%20Center/ASC_AdaptiveApplicationControls_Audit.json">
+             3.0.0
+            </a>
+           </td>
+          </tr>
+         </tbody>
+        </table>
+        <h3 id="management-of-technical-vulnerabilities">
+         Management of technical vulnerabilities
+        </h3>
+        <p>
+         <strong>
+          ID
+         </strong>
+         : ISO 27001:2013 A.12.6.1
+         <strong>
+          Ownership
+         </strong>
+         : Customer
+        </p>
+        <table>
+         <thead>
+          <tr>
+           <th>
+            Name
+            <br/>
+            <sub>
+             (Azure portal)
+            </sub>
+           </th>
+           <th>
+            Description
+           </th>
+           <th>
+            Effect(s)
+           </th>
+           <th>
+            Version
+            <br/>
+            <sub>
+             (GitHub)
+            </sub>
+           </th>
+          </tr>
+         </thead>
+         <tbody>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F501541f7-f7e7-4cd6-868c-4190fdad3ac9">
+             A vulnerability assessment solution should be enabled on your virtual machines
+            </a>
+           </td>
+           <td>
+            Audits virtual machines to detect whether they are running a supported vulnerability assessment solution. A core component of every cyber risk and security program is the identification and analysis of vulnerabilities. Azure Security Center's standard pricing tier includes vulnerability scanning for your virtual machines at no extra cost. Additionally, Security Center can automatically deploy this tool for you.
+           </td>
+           <td>
+            AuditIfNotExists, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Security%20Center/ASC_ServerVulnerabilityAssessment_Audit.json">
+             3.0.0
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2Faf6cd1bd-1635-48cb-bde7-5b15693900b9">
+             Monitor missing Endpoint Protection in Azure Security Center
+            </a>
+           </td>
+           <td>
+            Servers without an installed Endpoint Protection agent will be monitored by Azure Security Center as recommendations
+           </td>
+           <td>
+            AuditIfNotExists, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Security%20Center/ASC_MissingEndpointProtection_Audit.json">
+             3.0.0
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F86b3d65f-7626-441e-b690-81a8b71cff60">
+             System updates should be installed on your machines
+            </a>
+           </td>
+           <td>
+            Missing security system updates on your servers will be monitored by Azure Security Center as recommendations
+           </td>
+           <td>
+            AuditIfNotExists, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Security%20Center/ASC_MissingSystemUpdates_Audit.json">
+             3.0.0
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2Fe1e5fd5d-3e4c-4ce1-8661-7d1873ae6b15">
+             Vulnerabilities in security configuration on your machines should be remediated
+            </a>
+           </td>
+           <td>
+            Servers which do not satisfy the configured baseline will be monitored by Azure Security Center as recommendations
+           </td>
+           <td>
+            AuditIfNotExists, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Security%20Center/ASC_OSVulnerabilities_Audit.json">
+             3.0.0
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2Ffeedbf84-6b99-488c-acc2-71c829aa5ffc">
+             Vulnerabilities on your SQL databases should be remediated
+            </a>
+           </td>
+           <td>
+            Monitor Vulnerability Assessment scan results and recommendations for how to remediate database vulnerabilities.
+           </td>
+           <td>
+            AuditIfNotExists, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Security%20Center/ASC_SQLDbVulnerabilities_Audit.json">
+             4.0.0
+            </a>
+           </td>
+          </tr>
+         </tbody>
+        </table>
+        <h3 id="restrictions-on-software-installation">
+         Restrictions on software installation
+        </h3>
+        <p>
+         <strong>
+          ID
+         </strong>
+         : ISO 27001:2013 A.12.6.2
+         <strong>
+          Ownership
+         </strong>
+         : Customer
+        </p>
+        <table>
+         <thead>
+          <tr>
+           <th>
+            Name
+            <br/>
+            <sub>
+             (Azure portal)
+            </sub>
+           </th>
+           <th>
+            Description
+           </th>
+           <th>
+            Effect(s)
+           </th>
+           <th>
+            Version
+            <br/>
+            <sub>
+             (GitHub)
+            </sub>
+           </th>
+          </tr>
+         </thead>
+         <tbody>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F47a6b606-51aa-4496-8bb7-64b11cf66adc">
+             Adaptive application controls for defining safe applications should be enabled on your machines
+            </a>
+           </td>
+           <td>
+            Enable application controls to define the list of known-safe applications running on your machines, and alert you when other applications run. This helps harden your machines against malware. To simplify the process of configuring and maintaining your rules, Security Center uses machine learning to analyze the applications running on each machine and suggest the list of known-safe applications.
+           </td>
+           <td>
+            AuditIfNotExists, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Security%20Center/ASC_AdaptiveApplicationControls_Audit.json">
+             3.0.0
+            </a>
+           </td>
+          </tr>
+         </tbody>
+        </table>
+        <h2 id="communications-security">
+         Communications security
+        </h2>
+        <h3 id="network-controls">
+         Network controls
+        </h3>
+        <p>
+         <strong>
+          ID
+         </strong>
+         : ISO 27001:2013 A.13.1.1
+         <strong>
+          Ownership
+         </strong>
+         : Customer
+        </p>
+        <table>
+         <thead>
+          <tr>
+           <th>
+            Name
+            <br/>
+            <sub>
+             (Azure portal)
+            </sub>
+           </th>
+           <th>
+            Description
+           </th>
+           <th>
+            Effect(s)
+           </th>
+           <th>
+            Version
+            <br/>
+            <sub>
+             (GitHub)
+            </sub>
+           </th>
+          </tr>
+         </thead>
+         <tbody>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F9daedab3-fb2d-461e-b861-71790eead4f6">
+             All network ports should be restricted on network security groups associated to your virtual machine
+            </a>
+           </td>
+           <td>
+            Azure Security Center has identified some of your network security groups' inbound rules to be too permissive. Inbound rules should not allow access from 'Any' or 'Internet' ranges. This can potentially enable attackers to target your resources.
+           </td>
+           <td>
+            AuditIfNotExists, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Security%20Center/ASC_UnprotectedEndpoints_Audit.json">
+             3.0.0
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F34c877ad-507e-4c82-993e-3452a6e0ad3c">
+             Storage accounts should restrict network access
+            </a>
+           </td>
+           <td>
+            Network access to storage accounts should be restricted. Configure network rules so only applications from allowed networks can access the storage account. To allow connections from specific internet or on-premises clients, access can be granted to traffic from specific Azure virtual networks or to public internet IP address ranges
+           </td>
+           <td>
+            Audit, Deny, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Storage/Storage_NetworkAcls_Audit.json">
+             1.1.1
+            </a>
+           </td>
+          </tr>
+         </tbody>
+        </table>
+        <h3 id="information-transfer-policies-and-procedures">
+         Information transfer policies and procedures
+        </h3>
+        <p>
+         <strong>
+          ID
+         </strong>
+         : ISO 27001:2013 A.13.2.1
+         <strong>
+          Ownership
+         </strong>
+         : Customer
+        </p>
+        <table>
+         <thead>
+          <tr>
+           <th>
+            Name
+            <br/>
+            <sub>
+             (Azure portal)
+            </sub>
+           </th>
+           <th>
+            Description
+           </th>
+           <th>
+            Effect(s)
+           </th>
+           <th>
+            Version
+            <br/>
+            <sub>
+             (GitHub)
+            </sub>
+           </th>
+          </tr>
+         </thead>
+         <tbody>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F22bee202-a82f-4305-9a2a-6d7f44d4dedb">
+             Only secure connections to your Azure Cache for Redis should be enabled
+            </a>
+           </td>
+           <td>
+            Audit enabling of only connections via SSL to Azure Cache for Redis. Use of secure connections ensures authentication between the server and the service and protects data in transit from network layer attacks such as man-in-the-middle, eavesdropping, and session-hijacking
+           </td>
+           <td>
+            Audit, Deny, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Cache/RedisCache_AuditSSLPort_Audit.json">
+             1.0.0
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <a data-linktype="external" href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F404c3081-a854-4457-ae30-26a93ef643f9">
+             Secure transfer to storage accounts should be enabled
+            </a>
+           </td>
+           <td>
+            Audit requirement of Secure transfer in your storage account. Secure transfer is an option that forces your storage account to accept requests only from secure connections (HTTPS). Use of HTTPS ensures authentication between the server and the service and protects data in transit from network layer attacks such as man-in-the-middle, eavesdropping, and session-hijacking
+           </td>
+           <td>
+            Audit, Deny, Disabled
+           </td>
+           <td>
+            <a data-linktype="external" href="https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Storage/Storage_AuditForHTTPSEnabled_Audit.json">
+             2.0.0
+            </a>
+           </td>
+          </tr>
+         </tbody>
+        </table>
+        <div class="NOTE">
+         <p>
+          Note
+         </p>
+         <p>
+          Availability of specific Azure Policy definitions may vary in Azure Government and other national
+clouds.
+         </p>
+        </div>
+        <h2 id="next-steps">
+         Next steps
+        </h2>
+        <p>
+         Additional articles about Azure Policy:
+        </p>
+        <ul>
+         <li>
+          <a data-linktype="relative-path" href="../concepts/regulatory-compliance">
+           Regulatory Compliance
+          </a>
+          overview.
+         </li>
+         <li>
+          See the
+          <a data-linktype="relative-path" href="../concepts/initiative-definition-structure">
+           initiative definition structure
+          </a>
+          .
+         </li>
+         <li>
+          Review other examples at
+          <a data-linktype="relative-path" href="./">
+           Azure Policy samples
+          </a>
+          .
+         </li>
+         <li>
+          Review
+          <a data-linktype="relative-path" href="../concepts/effects">
+           Understanding policy effects
+          </a>
+          .
+         </li>
+         <li>
+          Learn how to
+          <a data-linktype="relative-path" href="../how-to/remediate-resources">
+           remediate non-compliant resources
+          </a>
+          .
+         </li>
+        </ul>
+        <!-- </content> -->
+       </main>
+       <!-- page rating section -->
+       <div class="is-hidden-desktop has-border-top has-margin-top-large has-padding-top-large binary-rating-holder">
+        <div class="feedback-verbatim has-border-bottom has-padding-bottom-large has-margin-bottom-small" data-bi-name="rating">
+         <div class="binary-rating">
+          <div class="binary-rating-buttons">
+           <h3 class="has-text-weight-semibold has-margin-top-none has-margin-bottom-small is-size-h4 has-margin-bottom-medium">
+            Is this page helpful?
+           </h3>
+           <div>
+            <button aria-controls="rating-container-desktop" aria-expanded="false" class="thumb-rating like has-inner-focus" data-bi-name="rating-yes" data-bi-sat="1" title="Yes">
+             <span aria-hidden="true" class="icon docon docon-like">
+             </span>
+             <span>
+              Yes
+             </span>
+            </button>
+            <button aria-controls="rating-container-desktop" aria-expanded="false" class="thumb-rating dislike has-inner-focus" data-bi-name="rating-no" data-bi-sat="0" title="No">
+             <span aria-hidden="true" class="icon docon docon-dislike">
+             </span>
+             <span>
+              No
+             </span>
+            </button>
+           </div>
+          </div>
+          <form class="feedback-verbatim-form is-hidden" id="rating-container-desktop">
+           <div class="verbatim-textarea box is-relative has-box-shadow-none has-border has-margin-top-small has-padding-extra-small is-size-extra-small">
+            <label class="visually-hidden" for="rating-textarea-desktop">
+             Any additional feedback?
+            </label>
+            <textarea class="textarea has-border-none has-box-shadow-none has-inner-focus" id="rating-textarea-desktop" maxlength="999" placeholder="Any additional feedback?" required="" rows="4"></textarea>
+           </div>
+           <div class="buttons is-right has-margin-top-medium has-margin-right-extra-small">
+            <button class="skip-rating button is-transparent has-text-primary is-small has-border-none" type="button">
+             Skip
+            </button>
+            <button class="submit-rating button is-primary is-small" data-bi-name="rating-verbatim" disabled="" type="submit">
+             Submit
+            </button>
+           </div>
+          </form>
+         </div>
+         <div class="thankyou-rating is-hidden" tabindex="-1">
+          <p>
+           Thank you.
+          </p>
+         </div>
+        </div>
+       </div>
+       <!-- end page rating section -->
+       <!-- recommendations section -->
+       <!-- end recommendations section -->
+       <!-- feedback section -->
+       <section class="feedback-section is-relative" data-bi-name="feedback-section">
+        <h2 class="title is-3 has-margin-top-large" id="feedback">
+         Feedback
+        </h2>
+        <div class="alert choose-feedback-type">
+         <p aria-hidden="true" id="send-feedback-about">
+          Submit and view feedback for
+         </p>
+         <div class="choose-feedback-buttons has-margin-top-medium">
+          <a aria-label="Send feedback about this product" class="button has-external-link-indicator feedback-type-product has-margin-bottom-small" data-bi-name="product-feedback" href="https://feedback.azure.com/forums/915958-azure-governance">
+           <span>
+            This product
+           </span>
+          </a>
+          <a aria-label="Send feedback about this page" class="button feedback-type-product has-margin-bottom-small github-link" data-bi-name="create-issue-on-github">
+           <span aria-hidden="true" class="docon docon-brand-github has-padding-right-extra-small">
+           </span>
+           <span>
+            This page
+           </span>
+          </a>
+         </div>
+        </div>
+        <div class="action-container is-flex has-flex-justify-content-end has-margin-top-small has-margin-bottom-small">
+         <a class="view-on-github has-external-link-indicator" data-bi-name="view-on-github" href="https://github.com/MicrosoftDocs/azure-docs/issues">
+          <span aria-hidden="true" class="docon docon-brand-github">
+          </span>
+          <span>
+           View all page feedback
+          </span>
+         </a>
+        </div>
+       </section>
+       <!-- end feedback section -->
+       <!-- feedback report section -->
+       <!-- end feedback report section -->
+       <div class="footerContainer is-visible-interactive has-default-focus">
+        <footer class="footer-layout" data-bi-name="footer" id="footer-interactive">
+         <div class="is-flex is-full-height has-padding-right-extra-large-desktop">
+          <a class="locale-selector-link has-flex-shrink-none" data-bi-name="select-locale" data-mscc-ic="false" href="#">
+           <span aria-hidden="true" class="icon docon docon-world is-size-large has-margin-right-small">
+           </span>
+           <span class="local-selector-link-text">
+           </span>
+          </a>
+          <div class="has-margin-left-medium has-margin-right-medium has-flex-shrink-none">
+           <div class="dropdown has-caret-up">
+            <button aria-controls="theme-menu-interactive" aria-expanded="false" class="dropdown-trigger button is-transparent is-small is-icon-only-touch has-inner-focus theme-dropdown-trigger" data-bi-name="theme" title="Theme">
+             <span class="icon">
+              <span aria-hidden="true" class="docon docon-sun">
+              </span>
+             </span>
+             <span>
+              Theme
+             </span>
+            </button>
+            <div class="dropdown-menu" id="theme-menu-interactive" role="menu">
+             <ul class="theme-selector has-padding-small">
+              <li class="theme is-block">
+               <button class="button is-text is-small theme-control is-fullwidth has-flex-justify-content-start" data-theme-to="light">
+                <span class="theme-light has-margin-right-small">
+                 <span aria-hidden="true" class="theme-selector-icon css-variable-support has-border is-inline-block has-body-background">
+                  <svg class="svg" viewbox="0 0 22 14" xmlns="http://www.w3.org/2000/svg">
+                   <rect class="has-fill-body-background" height="14" width="22">
+                   </rect>
+                   <rect class="has-fill-secondary" height="4" width="12" x="5" y="5">
+                   </rect>
+                   <rect class="has-fill-secondary" height="1" width="2" x="5" y="2">
+                   </rect>
+                   <rect class="has-fill-secondary" height="1" width="2" x="8" y="2">
+                   </rect>
+                   <rect class="has-fill-secondary" height="1" width="3" x="11" y="2">
+                   </rect>
+                   <rect class="has-fill-secondary" height="2" width="2" x="1" y="1">
+                   </rect>
+                   <rect class="has-fill-primary" height="2" rx="0.3" width="7" x="5" y="10">
+                   </rect>
+                   <rect class="has-fill-secondary" height="2" rx="1" width="2" x="19" y="1">
+                   </rect>
+                  </svg>
+                 </span>
+                </span>
+                <span role="menuitem">
+                 Light
+                </span>
+               </button>
+              </li>
+              <li class="theme is-block">
+               <button class="button is-text is-small theme-control is-fullwidth has-flex-justify-content-start" data-theme-to="dark">
+                <span class="theme-dark has-margin-right-small">
+                 <span aria-hidden="true" class="has-border theme-selector-icon css-variable-support is-inline-block has-body-background">
+                  <svg class="svg" viewbox="0 0 22 14" xmlns="http://www.w3.org/2000/svg">
+                   <rect class="has-fill-body-background" height="14" width="22">
+                   </rect>
+                   <rect class="has-fill-secondary" height="4" width="12" x="5" y="5">
+                   </rect>
+                   <rect class="has-fill-secondary" height="1" width="2" x="5" y="2">
+                   </rect>
+                   <rect class="has-fill-secondary" height="1" width="2" x="8" y="2">
+                   </rect>
+                   <rect class="has-fill-secondary" height="1" width="3" x="11" y="2">
+                   </rect>
+                   <rect class="has-fill-secondary" height="2" width="2" x="1" y="1">
+                   </rect>
+                   <rect class="has-fill-primary" height="2" rx="0.3" width="7" x="5" y="10">
+                   </rect>
+                   <rect class="has-fill-secondary" height="2" rx="1" width="2" x="19" y="1">
+                   </rect>
+                  </svg>
+                 </span>
+                </span>
+                <span role="menuitem">
+                 Dark
+                </span>
+               </button>
+              </li>
+              <li class="theme is-block">
+               <button class="button is-text is-small theme-control is-fullwidth has-flex-justify-content-start" data-theme-to="high-contrast">
+                <span class="theme-high-contrast has-margin-right-small">
+                 <span aria-hidden="true" class="has-border theme-selector-icon css-variable-support is-inline-block has-body-background">
+                  <svg class="svg" viewbox="0 0 22 14" xmlns="http://www.w3.org/2000/svg">
+                   <rect class="has-fill-body-background" height="14" width="22">
+                   </rect>
+                   <rect class="has-fill-secondary" height="4" width="12" x="5" y="5">
+                   </rect>
+                   <rect class="has-fill-secondary" height="1" width="2" x="5" y="2">
+                   </rect>
+                   <rect class="has-fill-secondary" height="1" width="2" x="8" y="2">
+                   </rect>
+                   <rect class="has-fill-secondary" height="1" width="3" x="11" y="2">
+                   </rect>
+                   <rect class="has-fill-secondary" height="2" width="2" x="1" y="1">
+                   </rect>
+                   <rect class="has-fill-primary" height="2" rx="0.3" width="7" x="5" y="10">
+                   </rect>
+                   <rect class="has-fill-secondary" height="2" rx="1" width="2" x="19" y="1">
+                   </rect>
+                  </svg>
+                 </span>
+                </span>
+                <span role="menuitem">
+                 High contrast
+                </span>
+               </button>
+              </li>
+             </ul>
+            </div>
+           </div>
+          </div>
+         </div>
+         <ul class="links" data-bi-name="footerlinks">
+          <li class="manage-cookies-holder" hidden="">
+          </li>
+          <li>
+           <a data-bi-name="archivelink" data-mscc-ic="false" href="https://docs.microsoft.com/en-us/previous-versions/">
+            Previous Version Docs
+           </a>
+          </li>
+          <li>
+           <a data-bi-name="bloglink" data-mscc-ic="false" href="https://docs.microsoft.com/en-us/teamblog">
+            Blog
+           </a>
+          </li>
+          <li>
+           <a data-bi-name="contributorGuide" data-mscc-ic="false" href="https://docs.microsoft.com/en-us/contribute">
+            Contribute
+           </a>
+          </li>
+          <li>
+           <a data-bi-name="privacy" data-mscc-ic="false" href="https://go.microsoft.com/fwlink/?LinkId=521839">
+            Privacy &amp; Cookies
+           </a>
+          </li>
+          <li>
+           <a data-bi-name="termsofuse" data-mscc-ic="false" href="https://docs.microsoft.com/en-us/legal/termsofuse">
+            Terms of Use
+           </a>
+          </li>
+          <li>
+           <a data-bi-name="feedback" data-mscc-ic="false" href="https://aka.ms/sitefeedback">
+            Site Feedback
+           </a>
+          </li>
+          <li>
+           <a data-bi-name="trademarks" data-mscc-ic="false" href="https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/EN-US.aspx">
+            Trademarks
+           </a>
+          </li>
+          <li>
+           © Microsoft 2021
+          </li>
+         </ul>
+        </footer>
+       </div>
+      </div>
+      <div aria-label="Page Actions" class="is-size-small right-container column is-one-quarter is-one-fifth-desktop is-hidden-mobile is-hidden-tablet-only" data-bi-name="pageactions" role="complementary">
+       <div class="doc-outline is-fixed is-vertically-scrollable" id="affixed-right-container">
+        <div class="feedback-verbatim has-border-bottom has-padding-bottom-small has-margin-bottom-small" data-bi-name="rating">
+         <div class="binary-rating">
+          <div class="binary-rating-buttons">
+           <h3 class="has-text-weight-semibold has-margin-top-none has-margin-bottom-small">
+            Is this page helpful?
+           </h3>
+           <div>
+            <button aria-controls="rating-container-mobile" aria-expanded="false" class="thumb-rating like has-inner-focus" data-bi-name="rating-yes" data-bi-sat="1" title="Yes">
+             <span aria-hidden="true" class="icon docon docon-like">
+             </span>
+             <span>
+              Yes
+             </span>
+            </button>
+            <button aria-controls="rating-container-mobile" aria-expanded="false" class="thumb-rating dislike has-inner-focus" data-bi-name="rating-no" data-bi-sat="0" title="No">
+             <span aria-hidden="true" class="icon docon docon-dislike">
+             </span>
+             <span>
+              No
+             </span>
+            </button>
+           </div>
+          </div>
+          <form class="feedback-verbatim-form is-hidden" id="rating-container-mobile">
+           <div class="verbatim-textarea box is-relative has-box-shadow-none has-border has-margin-top-small has-padding-extra-small is-size-extra-small">
+            <label class="visually-hidden" for="rating-textarea-mobile">
+             Any additional feedback?
+            </label>
+            <textarea class="textarea has-border-none has-box-shadow-none has-inner-focus" id="rating-textarea-mobile" maxlength="999" placeholder="Any additional feedback?" required="" rows="4"></textarea>
+           </div>
+           <div class="buttons is-right has-margin-top-medium has-margin-right-extra-small">
+            <button class="skip-rating button is-transparent has-text-primary is-small has-border-none" type="button">
+             Skip
+            </button>
+            <button class="submit-rating button is-primary is-small" data-bi-name="rating-verbatim" disabled="" type="submit">
+             Submit
+            </button>
+           </div>
+          </form>
+         </div>
+         <div class="thankyou-rating is-hidden" tabindex="-1">
+          <p>
+           Thank you.
+          </p>
+         </div>
+        </div>
+        <nav aria-label="Article Outline" data-bi-name="intopic toc" id="side-doc-outline" role="navigation">
+         <h3>
+          In this article
+         </h3>
+        </nav>
+       </div>
+      </div>
+      <!--end of div.columns -->
+     </div>
+     <!--end of .primary-holder -->
+    </section>
+    <aside class="interactive-container is-visible-interactive column has-body-background-dark" id="interactive-container">
+    </aside>
+   </div>
+   <!--end of .mainContainer -->
+  </div>
+  <div class="footerContainer has-default-focus is-hidden-interactive">
+   <footer class="footer-layout uhf-container has-padding" data-bi-name="footer" id="footer" role="contentinfo">
+    <div class="is-flex is-full-height has-padding-right-extra-large-desktop">
+     <a class="locale-selector-link has-flex-shrink-none" data-bi-name="select-locale" data-mscc-ic="false" href="#">
+      <span aria-hidden="true" class="icon docon docon-world is-size-large has-margin-right-small">
+      </span>
+      <span class="local-selector-link-text">
+      </span>
+     </a>
+     <div class="has-margin-left-medium has-margin-right-medium has-flex-shrink-none">
+      <div class="dropdown has-caret-up">
+       <button aria-controls="theme-menu" aria-expanded="false" class="dropdown-trigger button is-transparent is-small is-icon-only-touch has-inner-focus theme-dropdown-trigger" data-bi-name="theme" title="Theme">
+        <span class="icon">
+         <span aria-hidden="true" class="docon docon-sun">
+         </span>
+        </span>
+        <span>
+         Theme
+        </span>
+       </button>
+       <div class="dropdown-menu" id="theme-menu" role="menu">
+        <ul class="theme-selector has-padding-small">
+         <li class="theme is-block">
+          <button class="button is-text is-small theme-control is-fullwidth has-flex-justify-content-start" data-theme-to="light">
+           <span class="theme-light has-margin-right-small">
+            <span aria-hidden="true" class="theme-selector-icon css-variable-support has-border is-inline-block has-body-background">
+             <svg class="svg" viewbox="0 0 22 14" xmlns="http://www.w3.org/2000/svg">
+              <rect class="has-fill-body-background" height="14" width="22">
+              </rect>
+              <rect class="has-fill-secondary" height="4" width="12" x="5" y="5">
+              </rect>
+              <rect class="has-fill-secondary" height="1" width="2" x="5" y="2">
+              </rect>
+              <rect class="has-fill-secondary" height="1" width="2" x="8" y="2">
+              </rect>
+              <rect class="has-fill-secondary" height="1" width="3" x="11" y="2">
+              </rect>
+              <rect class="has-fill-secondary" height="2" width="2" x="1" y="1">
+              </rect>
+              <rect class="has-fill-primary" height="2" rx="0.3" width="7" x="5" y="10">
+              </rect>
+              <rect class="has-fill-secondary" height="2" rx="1" width="2" x="19" y="1">
+              </rect>
+             </svg>
+            </span>
+           </span>
+           <span role="menuitem">
+            Light
+           </span>
+          </button>
+         </li>
+         <li class="theme is-block">
+          <button class="button is-text is-small theme-control is-fullwidth has-flex-justify-content-start" data-theme-to="dark">
+           <span class="theme-dark has-margin-right-small">
+            <span aria-hidden="true" class="has-border theme-selector-icon css-variable-support is-inline-block has-body-background">
+             <svg class="svg" viewbox="0 0 22 14" xmlns="http://www.w3.org/2000/svg">
+              <rect class="has-fill-body-background" height="14" width="22">
+              </rect>
+              <rect class="has-fill-secondary" height="4" width="12" x="5" y="5">
+              </rect>
+              <rect class="has-fill-secondary" height="1" width="2" x="5" y="2">
+              </rect>
+              <rect class="has-fill-secondary" height="1" width="2" x="8" y="2">
+              </rect>
+              <rect class="has-fill-secondary" height="1" width="3" x="11" y="2">
+              </rect>
+              <rect class="has-fill-secondary" height="2" width="2" x="1" y="1">
+              </rect>
+              <rect class="has-fill-primary" height="2" rx="0.3" width="7" x="5" y="10">
+              </rect>
+              <rect class="has-fill-secondary" height="2" rx="1" width="2" x="19" y="1">
+              </rect>
+             </svg>
+            </span>
+           </span>
+           <span role="menuitem">
+            Dark
+           </span>
+          </button>
+         </li>
+         <li class="theme is-block">
+          <button class="button is-text is-small theme-control is-fullwidth has-flex-justify-content-start" data-theme-to="high-contrast">
+           <span class="theme-high-contrast has-margin-right-small">
+            <span aria-hidden="true" class="has-border theme-selector-icon css-variable-support is-inline-block has-body-background">
+             <svg class="svg" viewbox="0 0 22 14" xmlns="http://www.w3.org/2000/svg">
+              <rect class="has-fill-body-background" height="14" width="22">
+              </rect>
+              <rect class="has-fill-secondary" height="4" width="12" x="5" y="5">
+              </rect>
+              <rect class="has-fill-secondary" height="1" width="2" x="5" y="2">
+              </rect>
+              <rect class="has-fill-secondary" height="1" width="2" x="8" y="2">
+              </rect>
+              <rect class="has-fill-secondary" height="1" width="3" x="11" y="2">
+              </rect>
+              <rect class="has-fill-secondary" height="2" width="2" x="1" y="1">
+              </rect>
+              <rect class="has-fill-primary" height="2" rx="0.3" width="7" x="5" y="10">
+              </rect>
+              <rect class="has-fill-secondary" height="2" rx="1" width="2" x="19" y="1">
+              </rect>
+             </svg>
+            </span>
+           </span>
+           <span role="menuitem">
+            High contrast
+           </span>
+          </button>
+         </li>
+        </ul>
+       </div>
+      </div>
+     </div>
+    </div>
+    <ul class="links" data-bi-name="footerlinks">
+     <li class="manage-cookies-holder" hidden="">
+     </li>
+     <li>
+      <a data-bi-name="archivelink" data-mscc-ic="false" href="https://docs.microsoft.com/en-us/previous-versions/">
+       Previous Version Docs
+      </a>
+     </li>
+     <li>
+      <a data-bi-name="bloglink" data-mscc-ic="false" href="https://docs.microsoft.com/en-us/teamblog">
+       Blog
+      </a>
+     </li>
+     <li>
+      <a data-bi-name="contributorGuide" data-mscc-ic="false" href="https://docs.microsoft.com/en-us/contribute">
+       Contribute
+      </a>
+     </li>
+     <li>
+      <a data-bi-name="privacy" data-mscc-ic="false" href="https://go.microsoft.com/fwlink/?LinkId=521839">
+       Privacy &amp; Cookies
+      </a>
+     </li>
+     <li>
+      <a data-bi-name="termsofuse" data-mscc-ic="false" href="https://docs.microsoft.com/en-us/legal/termsofuse">
+       Terms of Use
+      </a>
+     </li>
+     <li>
+      <a data-bi-name="feedback" data-mscc-ic="false" href="https://aka.ms/sitefeedback">
+       Site Feedback
+      </a>
+     </li>
+     <li>
+      <a data-bi-name="trademarks" data-mscc-ic="false" href="https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/EN-US.aspx">
+       Trademarks
+      </a>
+     </li>
+     <li>
+      © Microsoft 2021
+     </li>
+    </ul>
+   </footer>
+  </div>
+  <div aria-label="Action Panel" class="action-panel has-default-focus" id="action-panel" role="region" tabindex="-1">
+  </div>
+ </body>
+</html>
