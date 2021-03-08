@@ -225,7 +225,7 @@ class ComplianceCoverage:
             for benchmark in self.matching_metadata[policy_definition_name]:
                 service_name = self.policy_compliance_data.policy_definition_metadata[name][benchmark].service_name
                 github_link = self.policy_compliance_data.policy_definition_metadata[name][benchmark].github_link
-                benchmark_strings.append(self.matching_metadata[policy_definition_name][benchmark][benchmark])
+                benchmark_strings.append(f"* {self.matching_metadata[policy_definition_name][benchmark][benchmark]}")
                 policy_definition_string = f"[{policy_definition_name}]({github_link})"
             results.append([service_name, policy_definition_string, "<br>".join(benchmark_strings)])
         results = sorted(results, key=itemgetter(0, 1, 2))
