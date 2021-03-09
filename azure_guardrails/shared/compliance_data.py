@@ -221,8 +221,7 @@ class ComplianceCoverage:
         results = []
         for policy_definition_name in self.matching_metadata:
             name = policy_definition_name.replace("[Preview]: ", "")
-            benchmark_strings = []
-            benchmark_strings.append("<ul>")
+            benchmark_strings = ["<ul>"]
             for benchmark in self.matching_metadata[policy_definition_name]:
                 service_name = self.policy_compliance_data.policy_definition_metadata[name][benchmark].service_name
                 github_link = self.policy_compliance_data.policy_definition_metadata[name][benchmark].github_link

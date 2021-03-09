@@ -18,7 +18,7 @@ class PolicyComplianceDataTestCase(unittest.TestCase):
     def test_get_benchmark_data_matching_policy_definition(self):
         display_name = "A maximum of 3 owners should be designated for your subscription"
         results = self.policy_compliance_data.get_benchmark_data_matching_policy_definition(display_name)
-        print(json.dumps(results, indent=4))
+        # print(json.dumps(results, indent=4))
 
 
 class ComplianceCoverageTestCase(unittest.TestCase):
@@ -32,7 +32,7 @@ class ComplianceCoverageTestCase(unittest.TestCase):
         results = compliance_coverage.matching_metadata
         # print(json.dumps(results, indent=4))
         markdown_table = compliance_coverage.markdown_table()
-        print(markdown_table)
+        # print(markdown_table)
         # print(tabulate(results, headers=headers, tablefmt="github"))
 
     def test_compliance_coverage_response_full(self):
@@ -42,5 +42,5 @@ class ComplianceCoverageTestCase(unittest.TestCase):
         # results = compliance_coverage.matching_metadata
         # print(json.dumps(results, indent=4))
         markdown_table = compliance_coverage.markdown_table()
-        print(markdown_table)
+        # print(markdown_table)
         # print(tabulate(results, headers=headers, tablefmt="github"))

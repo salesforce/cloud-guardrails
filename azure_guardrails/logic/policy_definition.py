@@ -19,6 +19,7 @@ class PolicyDefinition:
         self.category = policy_content.get("properties").get("metadata").get("category", None)
         self.properties = Properties(properties_json=policy_content.get("properties"))
         self.display_name = self.properties.display_name
+        self.parameters = self.properties.parameters
 
     def __repr__(self):
         return json.dumps(self.content)
@@ -47,14 +48,17 @@ class PolicyDefinition:
         return result
 
     @property
-    def includes_parameters_without_default_values(self) -> bool:
+    def parameters_have_defaults(self) -> bool:
         """Determines if the policy requires parameters that do not have defaultValues"""
-        result = False
+        result = True
         for parameter in self.properties.parameters:
             if parameter.name == "effect":
-                pass
-            if not parameter.default_value:
-                result = True
+                continue
+            # TODO: This currently allows empty lists, which will throw an error when you try to apply it.
+            # We should allow you to print out the options to a YAML file and fill it out like a form.
+            # So right now, it will create a long Kubernetes policy, but it will have lots of empty lists that we have to fill out. Oh well.
+            if not parameter.default_value and parameter.default_value != [] and parameter.default_value != "":
+                result = False
                 break
         return result
 
@@ -115,6 +119,17 @@ class Parameter:
         self.name = name
         self.parameter_json = parameter_json
         self.type = self.parameter_json.get("type")
+        # Do some weird stuff because in this case, [] vs None has different implications
+        if "defaultValue" in str(self.parameter_json):
+            default_value = self.parameter_json.get("defaultValue", None)
+            if default_value:
+                self.default_value = default_value
+            else:
+                if self.type == "Array":
+                    self.default_value = []
+                else:
+                    self.default_value = None
+
         self.default_value = self.parameter_json.get("defaultValue", None)
         self.allowed_values = self.parameter_json.get("allowedValues", None)
 
@@ -125,6 +140,29 @@ class Parameter:
         self.category = self.metadata_json.get("category", None)
         self.strong_type = self.metadata_json.get("strongType", None)
         self.assign_permissions = self.metadata_json.get("assignPermissions", None)
+
+    def __repr__(self):
+        return json.dumps(self.json())
+
+    def json(self) -> dict:
+        result = dict(
+            name=self.name,
+            type=self.type,
+            description=self.description,
+            display_name=self.display_name,
+        )
+        # Return default value only if it has a value, or if it is an empty list or empty string
+        if self.default_value or self.default_value == [] or self.default_value == "":
+            result["default_value"] = self.default_value
+        if self.allowed_values:
+            result["allowed_values"] = self.allowed_values
+        if self.category:
+            result["category"] = self.category
+        if self.strong_type:
+            result["strong_type"] = self.strong_type
+        if self.assign_permissions:
+            result["assign_permissions"] = self.assign_permissions
+        return result
 
     def _allowed_values(self):
         allowed_values = self.parameter_json.get("allowedValues", None)

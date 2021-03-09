@@ -1,0 +1,3 @@
+{% for service_entry in t.service_entries %}
+{{ service_entry }}
+{% endfor %}

@@ -1,0 +1,493 @@
+Do not allow privileged containers in Kubernetes cluster:
+  excludedNamespaces:
+    name: excludedNamespaces
+    type: Array
+    description: List of Kubernetes namespaces to exclude from policy evaluation.
+    display_name: Namespace exclusions
+    default_value:
+    - kube-system
+    - gatekeeper-system
+    - azure-arc
+  namespaces:
+    name: namespaces
+    type: Array
+    description: List of Kubernetes namespaces to only include in policy evaluation.
+      An empty list means the policy is applied to all resources in all namespaces.
+    display_name: Namespace inclusions
+    default_value: []
+Enforce internal load balancers in Kubernetes cluster:
+  excludedNamespaces:
+    name: excludedNamespaces
+    type: Array
+    description: List of Kubernetes namespaces to exclude from policy evaluation.
+    display_name: Namespace exclusions
+    default_value:
+    - kube-system
+    - gatekeeper-system
+    - azure-arc
+  namespaces:
+    name: namespaces
+    type: Array
+    description: List of Kubernetes namespaces to only include in policy evaluation.
+      An empty list means the policy is applied to all resources in all namespaces.
+    display_name: Namespace inclusions
+    default_value: []
+Kubernetes cluster containers should not share host process ID or host IPC namespace:
+  excludedNamespaces:
+    name: excludedNamespaces
+    type: Array
+    description: List of Kubernetes namespaces to exclude from policy evaluation.
+    display_name: Namespace exclusions
+    default_value:
+    - kube-system
+    - gatekeeper-system
+    - azure-arc
+  namespaces:
+    name: namespaces
+    type: Array
+    description: List of Kubernetes namespaces to only include in policy evaluation.
+      An empty list means the policy is applied to all resources in all namespaces.
+    display_name: Namespace inclusions
+    default_value: []
+Kubernetes cluster containers should only use allowed AppArmor profiles:
+  excludedNamespaces:
+    name: excludedNamespaces
+    type: Array
+    description: List of Kubernetes namespaces to exclude from policy evaluation.
+    display_name: Namespace exclusions
+    default_value:
+    - kube-system
+    - gatekeeper-system
+    - azure-arc
+  namespaces:
+    name: namespaces
+    type: Array
+    description: List of Kubernetes namespaces to only include in policy evaluation.
+      An empty list means the policy is applied to all resources in all namespaces.
+    display_name: Namespace inclusions
+    default_value: []
+  allowedProfiles:
+    name: allowedProfiles
+    type: Array
+    description: The list of AppArmor profiles that containers are allowed to use.
+      E.g. 'runtime/default;docker/default'. Provide empty list as input to block
+      everything.
+    display_name: Allowed AppArmor profiles
+    default_value: []
+Kubernetes cluster containers should only use allowed ProcMountType:
+  excludedNamespaces:
+    name: excludedNamespaces
+    type: Array
+    description: List of Kubernetes namespaces to exclude from policy evaluation.
+    display_name: Namespace exclusions
+    default_value:
+    - kube-system
+    - gatekeeper-system
+    - azure-arc
+  namespaces:
+    name: namespaces
+    type: Array
+    description: List of Kubernetes namespaces to only include in policy evaluation.
+      An empty list means the policy is applied to all resources in all namespaces.
+    display_name: Namespace inclusions
+    default_value: []
+  procMountType:
+    name: procMountType
+    type: String
+    description: The ProcMountType that containers are allowed to use in the cluster.
+    display_name: ProcMountType
+    default_value: Default
+    allowed_values:
+    - Unmasked
+    - Default
+Kubernetes cluster containers should only use allowed capabilities:
+  excludedNamespaces:
+    name: excludedNamespaces
+    type: Array
+    description: List of Kubernetes namespaces to exclude from policy evaluation.
+    display_name: Namespace exclusions
+    default_value:
+    - kube-system
+    - gatekeeper-system
+    - azure-arc
+  namespaces:
+    name: namespaces
+    type: Array
+    description: List of Kubernetes namespaces to only include in policy evaluation.
+      An empty list means the policy is applied to all resources in all namespaces.
+    display_name: Namespace inclusions
+    default_value: []
+  allowedCapabilities:
+    name: allowedCapabilities
+    type: Array
+    description: The list of capabilities that are allowed to be added to a container.
+      Provide empty list as input to block everything.
+    display_name: Allowed capabilities
+    default_value: []
+  requiredDropCapabilities:
+    name: requiredDropCapabilities
+    type: Array
+    description: The list of capabilities that must be dropped by a container.
+    display_name: Required drop capabilities
+    default_value: []
+Kubernetes cluster containers should only use allowed seccomp profiles:
+  excludedNamespaces:
+    name: excludedNamespaces
+    type: Array
+    description: List of Kubernetes namespaces to exclude from policy evaluation.
+    display_name: Namespace exclusions
+    default_value:
+    - kube-system
+    - gatekeeper-system
+    - azure-arc
+  namespaces:
+    name: namespaces
+    type: Array
+    description: List of Kubernetes namespaces to only include in policy evaluation.
+      An empty list means the policy is applied to all resources in all namespaces.
+    display_name: Namespace inclusions
+    default_value: []
+  allowedProfiles:
+    name: allowedProfiles
+    type: Array
+    description: The list of seccomp profiles that containers are allowed to use.
+      E.g. 'runtime/default;docker/default'. Provide empty list as input to block
+      everything.
+    display_name: Allowed seccomp profiles
+    default_value: []
+Kubernetes cluster containers should run with a read only root file system:
+  excludedNamespaces:
+    name: excludedNamespaces
+    type: Array
+    description: List of Kubernetes namespaces to exclude from policy evaluation.
+    display_name: Namespace exclusions
+    default_value:
+    - kube-system
+    - gatekeeper-system
+    - azure-arc
+  namespaces:
+    name: namespaces
+    type: Array
+    description: List of Kubernetes namespaces to only include in policy evaluation.
+      An empty list means the policy is applied to all resources in all namespaces.
+    display_name: Namespace inclusions
+    default_value: []
+Kubernetes cluster pod FlexVolume volumes should only use allowed drivers:
+  excludedNamespaces:
+    name: excludedNamespaces
+    type: Array
+    description: List of Kubernetes namespaces to exclude from policy evaluation.
+    display_name: Namespace exclusions
+    default_value:
+    - kube-system
+    - gatekeeper-system
+    - azure-arc
+  namespaces:
+    name: namespaces
+    type: Array
+    description: List of Kubernetes namespaces to only include in policy evaluation.
+      An empty list means the policy is applied to all resources in all namespaces.
+    display_name: Namespace inclusions
+    default_value: []
+  allowedFlexVolumeDrivers:
+    name: allowedFlexVolumeDrivers
+    type: Array
+    description: The list of drivers that FlexVolume volumes are allowed to use. Provide
+      empty list as input to block everything.
+    display_name: Allowed FlexVolume drivers
+    default_value: []
+Kubernetes cluster pod hostPath volumes should only use allowed host paths:
+  excludedNamespaces:
+    name: excludedNamespaces
+    type: Array
+    description: List of Kubernetes namespaces to exclude from policy evaluation.
+    display_name: Namespace exclusions
+    default_value:
+    - kube-system
+    - gatekeeper-system
+    - azure-arc
+  namespaces:
+    name: namespaces
+    type: Array
+    description: List of Kubernetes namespaces to only include in policy evaluation.
+      An empty list means the policy is applied to all resources in all namespaces.
+    display_name: Namespace inclusions
+    default_value: []
+  allowedHostPaths:
+    name: allowedHostPaths
+    type: Object
+    description: The host paths allowed for pod hostPath volumes to use. Provide an
+      empty paths list to block all host paths.
+    display_name: Allowed host paths
+    default_value:
+      paths: []
+Kubernetes cluster pods and containers should only run with approved user and group IDs:
+  excludedNamespaces:
+    name: excludedNamespaces
+    type: Array
+    description: List of Kubernetes namespaces to exclude from policy evaluation.
+    display_name: Namespace exclusions
+    default_value:
+    - kube-system
+    - gatekeeper-system
+    - azure-arc
+  namespaces:
+    name: namespaces
+    type: Array
+    description: List of Kubernetes namespaces to only include in policy evaluation.
+      An empty list means the policy is applied to all resources in all namespaces.
+    display_name: Namespace inclusions
+    default_value: []
+  runAsUserRule:
+    name: runAsUserRule
+    type: String
+    description: The 'RunAsUser' rule that containers are allowed to run with.
+    display_name: Run as user rule
+    default_value: MustRunAsNonRoot
+    allowed_values:
+    - MustRunAs
+    - MustRunAsNonRoot
+    - RunAsAny
+  runAsUserRanges:
+    name: runAsUserRanges
+    type: Object
+    description: The user ID ranges that are allowed for containers to use.
+    display_name: Allowed user ID ranges
+    default_value:
+      ranges: []
+  runAsGroupRule:
+    name: runAsGroupRule
+    type: String
+    description: The 'RunAsGroup' rule that containers are allowed to run with.
+    display_name: Run as group rule
+    default_value: RunAsAny
+    allowed_values:
+    - MustRunAs
+    - MayRunAs
+    - RunAsAny
+  runAsGroupRanges:
+    name: runAsGroupRanges
+    type: Object
+    description: The group ID ranges that are allowed for containers to use.
+    display_name: Allowed group ID ranges
+    default_value:
+      ranges: []
+  supplementalGroupsRule:
+    name: supplementalGroupsRule
+    type: String
+    description: The 'SupplementalGroups' rule that containers are allowed to run
+      with.
+    display_name: Supplemental group rule
+    default_value: RunAsAny
+    allowed_values:
+    - MustRunAs
+    - MayRunAs
+    - RunAsAny
+  supplementalGroupsRanges:
+    name: supplementalGroupsRanges
+    type: Object
+    description: The supplemental group ID ranges that are allowed for containers
+      to use.
+    display_name: Allowed supplemental group ID ranges
+    default_value:
+      ranges: []
+  fsGroupRule:
+    name: fsGroupRule
+    type: String
+    description: The 'FSGroup' rule that containers are allowed to run with.
+    display_name: File system group rule
+    default_value: RunAsAny
+    allowed_values:
+    - MustRunAs
+    - MayRunAs
+    - RunAsAny
+  fsGroupRanges:
+    name: fsGroupRanges
+    type: Object
+    description: The file system group ranges that are allowed for pods to use.
+    display_name: Allowed file system group ID ranges
+    default_value:
+      ranges: []
+Kubernetes cluster pods and containers should only use allowed SELinux options:
+  excludedNamespaces:
+    name: excludedNamespaces
+    type: Array
+    description: List of Kubernetes namespaces to exclude from policy evaluation.
+    display_name: Namespace exclusions
+    default_value:
+    - kube-system
+    - gatekeeper-system
+    - azure-arc
+  namespaces:
+    name: namespaces
+    type: Array
+    description: List of Kubernetes namespaces to only include in policy evaluation.
+      An empty list means the policy is applied to all resources in all namespaces.
+    display_name: Namespace inclusions
+    default_value: []
+  allowedSELinuxOptions:
+    name: allowedSELinuxOptions
+    type: Object
+    description: The allowed configurations for pod and container level SELinux Options.
+      Provide empty options list as input to block everything.
+    display_name: Allowed SELinux options
+    default_value:
+      options: []
+Kubernetes cluster pods should only use allowed volume types:
+  excludedNamespaces:
+    name: excludedNamespaces
+    type: Array
+    description: List of Kubernetes namespaces to exclude from policy evaluation.
+    display_name: Namespace exclusions
+    default_value:
+    - kube-system
+    - gatekeeper-system
+    - azure-arc
+  namespaces:
+    name: namespaces
+    type: Array
+    description: List of Kubernetes namespaces to only include in policy evaluation.
+      An empty list means the policy is applied to all resources in all namespaces.
+    display_name: Namespace inclusions
+    default_value: []
+  allowedVolumeTypes:
+    name: allowedVolumeTypes
+    type: Array
+    description: The list of volume types that can be used by a pod. Provide empty
+      list as input to block everything.
+    display_name: Allowed volume types
+    default_value: []
+Kubernetes clusters should be accessible only over HTTPS:
+  excludedNamespaces:
+    name: excludedNamespaces
+    type: Array
+    description: List of Kubernetes namespaces to exclude from policy evaluation.
+    display_name: Namespace exclusions
+    default_value:
+    - kube-system
+    - gatekeeper-system
+    - azure-arc
+  namespaces:
+    name: namespaces
+    type: Array
+    description: List of Kubernetes namespaces to only include in policy evaluation.
+      An empty list means the policy is applied to all resources in all namespaces.
+    display_name: Namespace inclusions
+    default_value: []
+Kubernetes clusters should not allow container privilege escalation:
+  excludedNamespaces:
+    name: excludedNamespaces
+    type: Array
+    description: List of Kubernetes namespaces to exclude from policy evaluation.
+    display_name: Namespace exclusions
+    default_value:
+    - kube-system
+    - gatekeeper-system
+    - azure-arc
+  namespaces:
+    name: namespaces
+    type: Array
+    description: List of Kubernetes namespaces to only include in policy evaluation.
+      An empty list means the policy is applied to all resources in all namespaces.
+    display_name: Namespace inclusions
+    default_value: []
+'[Preview]: Kubernetes cluster services should only use allowed external IPs':
+  excludedNamespaces:
+    name: excludedNamespaces
+    type: Array
+    description: List of Kubernetes namespaces to exclude from policy evaluation.
+      Providing a value for this parameter is optional.
+    display_name: Namespace exclusions
+    default_value:
+    - kube-system
+    - gatekeeper-system
+    - azure-arc
+  namespaces:
+    name: namespaces
+    type: Array
+    description: List of Kubernetes namespaces to only include in policy evaluation.
+      An empty list means the policy is applied to all resources in all namespaces.
+    display_name: Namespace inclusions
+    default_value: []
+  allowedExternalIPs:
+    name: allowedExternalIPs
+    type: Array
+    description: List of External IPs that services are allowed to use. Empty array
+      means all external IPs are disallowed.
+    display_name: Allowed External IPs
+    default_value: []
+'[Preview]: Kubernetes clusters should disable automounting API credentials':
+  excludedNamespaces:
+    name: excludedNamespaces
+    type: Array
+    description: List of Kubernetes namespaces to exclude from policy evaluation.
+    display_name: Namespace exclusions
+    default_value:
+    - kube-system
+    - gatekeeper-system
+    - azure-arc
+  namespaces:
+    name: namespaces
+    type: Array
+    description: List of Kubernetes namespaces to only include in policy evaluation.
+      An empty list means the policy is applied to all resources in all namespaces.
+    display_name: Namespace inclusions
+    default_value: []
+'[Preview]: Kubernetes clusters should not grant CAP_SYS_ADMIN security capabilities':
+  excludedNamespaces:
+    name: excludedNamespaces
+    type: Array
+    description: List of Kubernetes namespaces to exclude from policy evaluation.
+    display_name: Namespace exclusions
+    default_value:
+    - kube-system
+    - gatekeeper-system
+    - azure-arc
+  namespaces:
+    name: namespaces
+    type: Array
+    description: List of Kubernetes namespaces to only include in policy evaluation.
+      An empty list means the policy is applied to all resources in all namespaces.
+    display_name: Namespace inclusions
+    default_value: []
+'[Preview]: Kubernetes clusters should not use specific security capabilities':
+  excludedNamespaces:
+    name: excludedNamespaces
+    type: Array
+    description: List of Kubernetes namespaces to exclude from policy evaluation.
+    display_name: Namespace exclusions
+    default_value:
+    - kube-system
+    - gatekeeper-system
+    - azure-arc
+  namespaces:
+    name: namespaces
+    type: Array
+    description: List of Kubernetes namespaces to only include in policy evaluation.
+      An empty list means the policy is applied to all resources in all namespaces.
+    display_name: Namespace inclusions
+    default_value: []
+  disallowedCapabilities:
+    name: disallowedCapabilities
+    type: Array
+    description: List of capabilities that containers are not able to use
+    display_name: Blocked capabilities
+    default_value: []
+'[Preview]: Kubernetes clusters should not use the default namespace':
+  excludedNamespaces:
+    name: excludedNamespaces
+    type: Array
+    description: List of Kubernetes namespaces to exclude from policy evaluation.
+    display_name: Namespace exclusions
+    default_value:
+    - kube-system
+    - gatekeeper-system
+    - azure-arc
+  namespaces:
+    name: namespaces
+    type: Array
+    description: List of Kubernetes namespaces to only include in policy evaluation.
+      An empty list means the policy is applied to all resources in all namespaces.
+    display_name: Namespace inclusions
+    default_value: []
+

@@ -28,7 +28,7 @@ class GenerateTerraformClickUnitTests(unittest.TestCase):
         """command.generate_terraform: with config file"""
         result = self.runner.invoke(generate_terraform, ["--service", "all", "--config-file", default_config_file])
         self.assertTrue(result.exit_code == 0)
-        print(result.output)
+        # print(result.output)
 
     def test_generate_terraform_with_explicit_matches(self):
         """command.generate_terraform: with config file that matches keywords"""

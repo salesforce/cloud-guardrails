@@ -9,12 +9,11 @@ import yaml
 import click
 from colorama import Fore, Back
 from azure_guardrails import set_log_level, set_stream_logger
-from azure_guardrails.logic.terraform import get_terraform_template
+from azure_guardrails.logic.terraform import get_terraform_template, TerraformTemplate
 from azure_guardrails.shared import utils, validate
 from azure_guardrails.shared.compliance_data import ComplianceCoverage
 from azure_guardrails.shared.config import get_default_config, get_config_from_file
 from azure_guardrails.logic.services import Services, Service
-
 
 logger = logging.getLogger(__name__)
 
@@ -123,7 +122,8 @@ def generate_terraform(service: str, with_parameters: bool, target_name: str, ta
         set_stream_logger(level=log_level)
 
     if not config_file:
-        logger.info("You did not supply an config file. Consider creating one to exclude different policies. We will use the default one.")
+        logger.info(
+            "You did not supply an config file. Consider creating one to exclude different policies. We will use the default one.")
         config = get_default_config()
     else:
         config = get_config_from_file(config_file=config_file)
@@ -135,6 +135,13 @@ def generate_terraform(service: str, with_parameters: bool, target_name: str, ta
     else:
         management_group = target_name
 
+    # # TODO: Move this back properly
+    # if with_parameters:
+    #     services = Services(config=config)
+    #     policy_names = services.get_display_names_sorted_by_service(with_parameters=with_parameters)
+    #     # Get the parameters for each of them
+    #
+    # else:
     if generate_summary:
         if service == "all":
             services = Services(config=config)
@@ -148,13 +155,30 @@ def generate_terraform(service: str, with_parameters: bool, target_name: str, ta
     else:
         if service == "all":
             services = Services(config=config)
-            policy_names = services.get_display_names_sorted_by_service(with_parameters=with_parameters)
-            result = get_terraform_template(name=policy_set_name, policy_names=policy_names, subscription_name=subscription_name,
-                                            management_group=management_group, enforcement_mode=enforcement_mode, module_source=terraform_module_source)
         else:
-            services = Service(service_name=service, config=config)
-            policy_names = services.get_display_names_sorted_by_service(with_parameters=with_parameters)
+            services = Services(service_names=[service], config=config)
+        if with_parameters:
+            display_names = services.get_display_names_by_service_with_parameters(has_defaults=True)
+            terraform_template = TerraformTemplate(name=policy_set_name, parameters=display_names,
+                                                   subscription_name=subscription_name,
+                                                   management_group=management_group,
+                                                   enforcement_mode=enforcement_mode,
+                                                   module_source=terraform_module_source)
+            result = terraform_template.rendered()
+        else:
+            display_names = services.get_display_names_sorted_by_service(with_parameters=with_parameters)
+            result = get_terraform_template(name=policy_set_name, policy_names=display_names,
+                                            subscription_name=subscription_name,
+                                            management_group=management_group, enforcement_mode=enforcement_mode,
+                                            module_source=terraform_module_source)
+            # services = Service(service_name=service, config=config)
 
-            result = get_terraform_template(name=policy_set_name, policy_names=policy_names, subscription_name=subscription_name,
-                                            management_group=management_group, enforcement_mode=enforcement_mode, module_source=terraform_module_source)
+            # display_names = services.get_display_names_sorted_by_service(with_parameters=with_parameters)
+            # result = get_terraform_template(name=policy_set_name, policy_names=display_names,
+            #                                 subscription_name=subscription_name,
+            #                                 management_group=management_group, enforcement_mode=enforcement_mode,
+            #                                 module_source=terraform_module_source)
+        # policy_names = services.get_display_names_sorted_by_service(with_parameters=with_parameters)
+        # result = get_terraform_template(name=policy_set_name, policy_names=policy_names, subscription_name=subscription_name,
+        #                                 management_group=management_group, enforcement_mode=enforcement_mode, module_source=terraform_module_source)
         print(result)

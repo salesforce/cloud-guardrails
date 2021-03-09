@@ -71,3 +71,4 @@ config.yml
 **/state.tf
 azure-guardrails-*
 **/~$*.xlsx
+research.py

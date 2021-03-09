@@ -7,7 +7,6 @@ from azure_guardrails.shared import utils
 
 logger = logging.getLogger(__name__)
 
-
 DEFAULT_CONFIG_FILE = os.path.abspath(os.path.join(
     os.path.dirname(__file__),
     "default-config.yml"
@@ -139,10 +138,13 @@ def get_default_config() -> Config:
     exclude_policies = config_cfg.get("exclude_policies", None)
     exclude_services = config_cfg.get("exclude_services", None)
     match_only_keywords = config_cfg.get("match_only_keywords", None)
-    config = Config(exclude_policies=exclude_policies, exclude_services=exclude_services, match_only_keywords=match_only_keywords)
+    config = Config(exclude_policies=exclude_policies, exclude_services=exclude_services,
+                    match_only_keywords=match_only_keywords)
     return config
 
+
 DEFAULT_CONFIG = get_default_config()
+
 
 def get_config_from_file(config_file: str) -> Config:
     with open(config_file, "r") as yaml_file:
@@ -153,5 +155,6 @@ def get_config_from_file(config_file: str) -> Config:
     exclude_policies = config_cfg.get("exclude_policies", None)
     exclude_services = config_cfg.get("exclude_services", None)
     match_only_keywords = config_cfg.get("match_only_keywords", None)
-    config = Config(exclude_policies=exclude_policies, exclude_services=exclude_services, match_only_keywords=match_only_keywords)
+    config = Config(exclude_policies=exclude_policies, exclude_services=exclude_services,
+                    match_only_keywords=match_only_keywords)
     return config
