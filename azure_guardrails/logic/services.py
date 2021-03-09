@@ -126,9 +126,10 @@ class Service:
 
 
 class Services:
-    def __init__(self, config: Config = DEFAULT_CONFIG):
-        service_names = utils.get_service_names()
-        service_names.sort()
+    default_service_names = utils.get_service_names()
+    default_service_names.sort()
+
+    def __init__(self, service_names: list = default_service_names, config: Config = DEFAULT_CONFIG):
         self.service_names = service_names
         self.config = config
         self.services = self._services()
@@ -167,7 +168,7 @@ class Services:
     def get_display_names_by_service_with_parameters(self, has_defaults: bool = True) -> dict:
         display_names = {}
         for service in self.services:
-            service_display_names_with_params = service.get_display_names_by_service_with_parameters()
+            service_display_names_with_params = service.get_display_names_by_service_with_parameters(has_defaults=has_defaults)
             if service_display_names_with_params:
                 display_names[service.service_name] = service_display_names_with_params
         return display_names
