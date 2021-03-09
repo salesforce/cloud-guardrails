@@ -98,6 +98,9 @@ Tweaks:
 Enhancement:
 * Add ability to supply the values that you want to put in the policy?
 
+Bug
+* Maximum size of 100 per initiative is reached. Need to adapt to that.
+
 # References
 
 * [Azure Policy Definition Structure](https://docs.microsoft.com/en-us/azure/governance/policy/concepts/definition-structure)
