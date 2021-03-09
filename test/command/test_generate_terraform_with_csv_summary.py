@@ -17,4 +17,4 @@ class CsvSummaryTestCase(unittest.TestCase):
         # policy_names = service.get_display_names_sorted_by_service(with_parameters=with_parameters)
 
         results = get_compliance_table()
-        print(json.dumps(results, indent=4))
+        # print(json.dumps(results, indent=4))

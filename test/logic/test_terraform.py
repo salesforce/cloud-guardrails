@@ -14,7 +14,7 @@ class TerraformTestCase(unittest.TestCase):
         enforcement_mode = False
         result = get_terraform_template(name=policy_set_name, policy_names=policy_names, subscription_name=subscription_name,
                                         management_group=management_group, enforcement_mode=enforcement_mode)
-        print(result)
+        # print(result)
 
     def test_terraform_all_services(self):
         services = Services()
@@ -25,4 +25,4 @@ class TerraformTestCase(unittest.TestCase):
         display_names = services.get_display_names_sorted_by_service(with_parameters=False)
         result = get_terraform_template(name=policy_set_name, policy_names=display_names, subscription_name=subscription_name,
                                         management_group=management_group, enforcement_mode=enforcement_mode)
-        print(result)
+        # print(result)

@@ -3,7 +3,7 @@ import logging
 from typing import List
 from azure_guardrails.shared import utils
 from azure_guardrails.shared.config import DEFAULT_CONFIG, Config
-from azure_guardrails.logic.policy_definition import PolicyDefinition
+from azure_guardrails.logic.policy_definition import PolicyDefinition, Parameter
 
 logger = logging.getLogger(__name__)
 
@@ -89,6 +89,41 @@ class Service:
             display_names[self.service_name] = service_display_names
         return display_names
 
+    def get_policy_definition_parameters(self, display_name: str, has_defaults: bool = True) -> dict:
+        """Return a dictionary of parameters objects"""
+        parameters = {}
+        for policy_definition in self.policy_definitions:
+            if policy_definition.display_name == display_name:
+                if has_defaults:
+                    if policy_definition.parameters_have_defaults:
+                        for parameter in policy_definition.parameters:
+                            if parameter.name == "effect":
+                                continue
+                            if not parameter.default_value and parameter.default_value != [] and parameter.default_value != "":
+                                # If it doesn't have default values, then we want to skip it and return an empty dict
+                                return {}
+                            parameters[parameter.name] = parameter.json()
+                else:
+                    for parameter in policy_definition.parameters:
+                        if parameter.name == "effect":
+                            continue
+                        parameters[parameter.name] = parameter.json()
+                break
+        return parameters
+
+    def get_display_names_by_service_with_parameters(self, has_defaults: bool = True) -> dict:
+        # TODO: Figure out if I should change these methods?
+        service_display_names = self.get_display_names(with_parameters=True,
+                                                       with_modify_capabilities=False,
+                                                       all_policies=False)
+        service_display_names = list(dict.fromkeys(service_display_names))  # remove duplicates
+        service_parameters = {}
+        for service_display_name in service_display_names:
+            parameters = self.get_policy_definition_parameters(display_name=service_display_name, has_defaults=has_defaults)
+            if parameters:
+                service_parameters[service_display_name] = parameters
+        return service_parameters
+
 
 class Services:
     def __init__(self, config: Config = DEFAULT_CONFIG):
@@ -127,4 +162,12 @@ class Services:
             service_display_names = list(dict.fromkeys(service_display_names))  # remove duplicates
             if service_display_names:
                 display_names[service.service_name] = service_display_names
+        return display_names
+
+    def get_display_names_by_service_with_parameters(self, has_defaults: bool = True) -> dict:
+        display_names = {}
+        for service in self.services:
+            service_display_names_with_params = service.get_display_names_by_service_with_parameters()
+            if service_display_names_with_params:
+                display_names[service.service_name] = service_display_names_with_params
         return display_names

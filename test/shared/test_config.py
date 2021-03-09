@@ -18,7 +18,7 @@ example_config_file = os.path.abspath(os.path.join(
 class ConfigTestCase(unittest.TestCase):
     def test_default_config_template(self):
         result = get_config_template()
-        print(result)
+        # print(result)
 
     def test_config_object(self):
         exclude_policies = {}
@@ -75,8 +75,8 @@ class ConfigTestCase(unittest.TestCase):
 
     def test_read_config(self):
         default_config_template = get_config_template()
-        print(default_config_template)
+        # print(default_config_template)
 
     def test_default_config(self):
         config = get_default_config()
-        print(config)
+        # print(config)

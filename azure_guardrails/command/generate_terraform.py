@@ -135,26 +135,33 @@ def generate_terraform(service: str, with_parameters: bool, target_name: str, ta
     else:
         management_group = target_name
 
-    if generate_summary:
-        if service == "all":
-            services = Services(config=config)
-            policy_names = services.get_display_names(with_parameters=with_parameters)
-        else:
-            services = Service(service_name=service, config=config)
-            policy_names = services.get_display_names(with_parameters=with_parameters)
-        compliance_coverage = ComplianceCoverage(display_names=policy_names)
-        markdown_table = compliance_coverage.markdown_table()
-        print(markdown_table)
-    else:
-        if service == "all":
-            services = Services(config=config)
-            policy_names = services.get_display_names_sorted_by_service(with_parameters=with_parameters)
-            result = get_terraform_template(name=policy_set_name, policy_names=policy_names, subscription_name=subscription_name,
-                                            management_group=management_group, enforcement_mode=enforcement_mode, module_source=terraform_module_source)
-        else:
-            services = Service(service_name=service, config=config)
-            policy_names = services.get_display_names_sorted_by_service(with_parameters=with_parameters)
+    # TODO: Move this back properly
+    if with_parameters:
+        services = Services(config=config)
+        policy_names = services.get_display_names_sorted_by_service(with_parameters=with_parameters)
+        # Get the parameters for each of them
 
-            result = get_terraform_template(name=policy_set_name, policy_names=policy_names, subscription_name=subscription_name,
-                                            management_group=management_group, enforcement_mode=enforcement_mode, module_source=terraform_module_source)
-        print(result)
+    else:
+        if generate_summary:
+            if service == "all":
+                services = Services(config=config)
+                policy_names = services.get_display_names(with_parameters=with_parameters)
+            else:
+                services = Service(service_name=service, config=config)
+                policy_names = services.get_display_names(with_parameters=with_parameters)
+            compliance_coverage = ComplianceCoverage(display_names=policy_names)
+            markdown_table = compliance_coverage.markdown_table()
+            print(markdown_table)
+        else:
+            if service == "all":
+                services = Services(config=config)
+                policy_names = services.get_display_names_sorted_by_service(with_parameters=with_parameters)
+                result = get_terraform_template(name=policy_set_name, policy_names=policy_names, subscription_name=subscription_name,
+                                                management_group=management_group, enforcement_mode=enforcement_mode, module_source=terraform_module_source)
+            else:
+                services = Service(service_name=service, config=config)
+                policy_names = services.get_display_names_sorted_by_service(with_parameters=with_parameters)
+
+                result = get_terraform_template(name=policy_set_name, policy_names=policy_names, subscription_name=subscription_name,
+                                                management_group=management_group, enforcement_mode=enforcement_mode, module_source=terraform_module_source)
+            print(result)
