@@ -57,7 +57,8 @@ class PolicyDefinition:
             # TODO: This currently allows empty lists, which will throw an error when you try to apply it.
             # We should allow you to print out the options to a YAML file and fill it out like a form.
             # So right now, it will create a long Kubernetes policy, but it will have lots of empty lists that we have to fill out. Oh well.
-            if not parameter.default_value and parameter.default_value != [] and parameter.default_value != "":
+            if not parameter.default_value:
+                # if not parameter.default_value and parameter.default_value != [] and parameter.default_value != "":
                 result = False
                 break
         return result

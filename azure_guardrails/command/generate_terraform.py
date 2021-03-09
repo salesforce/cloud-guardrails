@@ -80,7 +80,7 @@ supported_services_argument_values.append("all")
 )
 @click.option(
     "--config-file",
-    "-e",
+    "-c",
     type=click.Path(exists=False),
     required=False,
     help="The config file",
@@ -100,6 +100,14 @@ supported_services_argument_values.append("all")
     help="Include Policies with Parameters",
 )
 @click.option(
+    "--empty-defaults",
+    "-d",
+    "include_empty_defaults",
+    is_flag=True,
+    default=False,
+    help="Include parameters with empty defaults",
+)
+@click.option(
     "--quiet",
     "-q",
     is_flag=True,
@@ -107,7 +115,7 @@ supported_services_argument_values.append("all")
 )
 def generate_terraform(service: str, with_parameters: bool, target_name: str, target_type: str,
                        policy_set_name: str, terraform_module_source: str, config_file: str, enforcement_mode: bool,
-                       generate_summary: bool, quiet: bool):
+                       generate_summary: bool, include_empty_defaults: bool, quiet: bool):
     """
     Get Azure Policies
     """
@@ -135,13 +143,6 @@ def generate_terraform(service: str, with_parameters: bool, target_name: str, ta
     else:
         management_group = target_name
 
-    # # TODO: Move this back properly
-    # if with_parameters:
-    #     services = Services(config=config)
-    #     policy_names = services.get_display_names_sorted_by_service(with_parameters=with_parameters)
-    #     # Get the parameters for each of them
-    #
-    # else:
     if generate_summary:
         if service == "all":
             services = Services(config=config)
@@ -158,7 +159,7 @@ def generate_terraform(service: str, with_parameters: bool, target_name: str, ta
         else:
             services = Services(service_names=[service], config=config)
         if with_parameters:
-            display_names = services.get_display_names_by_service_with_parameters(has_defaults=True)
+            display_names = services.get_display_names_by_service_with_parameters(include_empty_defaults=include_empty_defaults)
             terraform_template = TerraformTemplate(name=policy_set_name, parameters=display_names,
                                                    subscription_name=subscription_name,
                                                    management_group=management_group,
@@ -171,14 +172,4 @@ def generate_terraform(service: str, with_parameters: bool, target_name: str, ta
                                             subscription_name=subscription_name,
                                             management_group=management_group, enforcement_mode=enforcement_mode,
                                             module_source=terraform_module_source)
-            # services = Service(service_name=service, config=config)
-
-            # display_names = services.get_display_names_sorted_by_service(with_parameters=with_parameters)
-            # result = get_terraform_template(name=policy_set_name, policy_names=display_names,
-            #                                 subscription_name=subscription_name,
-            #                                 management_group=management_group, enforcement_mode=enforcement_mode,
-            #                                 module_source=terraform_module_source)
-        # policy_names = services.get_display_names_sorted_by_service(with_parameters=with_parameters)
-        # result = get_terraform_template(name=policy_set_name, policy_names=policy_names, subscription_name=subscription_name,
-        #                                 management_group=management_group, enforcement_mode=enforcement_mode, module_source=terraform_module_source)
         print(result)

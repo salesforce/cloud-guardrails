@@ -89,17 +89,18 @@ class Service:
             display_names[self.service_name] = service_display_names
         return display_names
 
-    def get_policy_definition_parameters(self, display_name: str, has_defaults: bool = True) -> dict:
+    def get_policy_definition_parameters(self, display_name: str, include_empty_defaults: bool = False) -> dict:
         """Return a dictionary of parameters objects"""
         parameters = {}
         for policy_definition in self.policy_definitions:
             if policy_definition.display_name == display_name:
-                if has_defaults:
+                if not include_empty_defaults:
                     if policy_definition.parameters_have_defaults:
                         for parameter in policy_definition.parameters:
                             if parameter.name == "effect":
                                 continue
-                            if not parameter.default_value and parameter.default_value != [] and parameter.default_value != "":
+                            # if not parameter.default_value and parameter.default_value != [] and parameter.default_value != "":
+                            if not parameter.default_value:
                                 # If it doesn't have default values, then we want to skip it and return an empty dict
                                 return {}
                             parameters[parameter.name] = parameter.json()
@@ -111,7 +112,7 @@ class Service:
                 break
         return parameters
 
-    def get_display_names_by_service_with_parameters(self, has_defaults: bool = True) -> dict:
+    def get_display_names_by_service_with_parameters(self, include_empty_defaults: bool = False) -> dict:
         # TODO: Figure out if I should change these methods?
         service_display_names = self.get_display_names(with_parameters=True,
                                                        with_modify_capabilities=False,
@@ -119,7 +120,7 @@ class Service:
         service_display_names = list(dict.fromkeys(service_display_names))  # remove duplicates
         service_parameters = {}
         for service_display_name in service_display_names:
-            parameters = self.get_policy_definition_parameters(display_name=service_display_name, has_defaults=has_defaults)
+            parameters = self.get_policy_definition_parameters(display_name=service_display_name, include_empty_defaults=include_empty_defaults)
             if parameters:
                 service_parameters[service_display_name] = parameters
         return service_parameters
@@ -165,10 +166,10 @@ class Services:
                 display_names[service.service_name] = service_display_names
         return display_names
 
-    def get_display_names_by_service_with_parameters(self, has_defaults: bool = True) -> dict:
+    def get_display_names_by_service_with_parameters(self, include_empty_defaults: bool = False) -> dict:
         display_names = {}
         for service in self.services:
-            service_display_names_with_params = service.get_display_names_by_service_with_parameters(has_defaults=has_defaults)
+            service_display_names_with_params = service.get_display_names_by_service_with_parameters(include_empty_defaults=include_empty_defaults)
             if service_display_names_with_params:
                 display_names[service.service_name] = service_display_names_with_params
         return display_names
