@@ -54,7 +54,6 @@ class PolicyDefinition:
         for parameter in self.properties.parameters:
             if parameter.name == "effect":
                 continue
-            # TODO: This currently allows empty lists, which will throw an error when you try to apply it.
             # We should allow you to print out the options to a YAML file and fill it out like a form.
             # So right now, it will create a long Kubernetes policy, but it will have lots of empty lists that we have to fill out. Oh well.
             if not parameter.default_value:
@@ -95,7 +94,6 @@ class PolicyDefinition:
                 logger.debug(error)
 
         if allowed_effects:
-            # TODO: Determine if the effect is supposed to be case sensitive
             lowercase_allowed_effects = [x.lower() for x in allowed_effects]
             return lowercase_allowed_effects
         else:
