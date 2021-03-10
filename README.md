@@ -2,6 +2,37 @@
 
 Command-line tool that generates Azure Policies based on requirements and transforms them into Terraform.
 
+# Cheatsheet
+
+## Generating Terraform
+
+```bash
+# No parameters required
+azure-guardrails generate-terraform --service all --quiet
+
+# With Parameters
+azure-guardrails generate-terraform --with-parameters --service all --quiet --exclude-services "Guest Configuration"
+
+# With Parameters and Empty Defaults
+azure-guardrails generate-terraform --with-parameters --empty-defaults --service Kubernetes --quiet
+```
+
+## Configuration
+
+```bash
+azure-guardrails create-config-file
+```
+
+## Other commands
+
+```bash
+# List all the existing built-in Azure Policies
+azure-guardrails list-policies
+
+# List all the services supported by Azure built-in Policies
+azure-guardrails list-services
+```
+
 # Instructions
 
 ## Installation
@@ -90,10 +121,6 @@ module "name" {
 ```
 
 # TODO
-
-Tweaks:
-* Add ability to use policies with parameters as long as they have default values
-* Config: Should be able to specify explicit match strings in the command line
 
 Enhancement:
 * Add ability to supply the values that you want to put in the policy?
