@@ -1,7 +1,7 @@
 import unittest
 from azure_guardrails.shared import utils
-from azure_guardrails.logic.policy_definition import Parameter, PolicyDefinition, Properties
-from azure_guardrails.logic.services import Service, Services
+from azure_guardrails.guardrails.policy_definition import Parameter, PolicyDefinition, Properties
+from azure_guardrails.guardrails.services import Service, Services
 import yaml
 import ruamel.yaml
 import json
@@ -16,7 +16,7 @@ example_config_file = os.path.abspath(os.path.join(
 class ServiceTestCase(unittest.TestCase):
     def test_service_get_display_names_by_service_with_parameters(self):
         services = Service(service_name="Kubernetes")
-        display_names = services.get_display_names_by_service_with_parameters(has_defaults=True)
+        display_names = services.get_display_names_by_service_with_parameters(include_empty_defaults=True)
         expected_keys = [
             "Do not allow privileged containers in Kubernetes cluster",
             "Enforce internal load balancers in Kubernetes cluster",

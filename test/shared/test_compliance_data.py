@@ -2,7 +2,7 @@ import os
 import unittest
 import json
 from azure_guardrails.shared import utils
-from azure_guardrails.shared.compliance_data import PolicyComplianceData, ComplianceCoverage, PolicyDefinitionMetadata, \
+from azure_guardrails.scrapers.compliance_data import PolicyComplianceData, ComplianceCoverage, PolicyDefinitionMetadata, \
     BenchmarkEntry
 
 
