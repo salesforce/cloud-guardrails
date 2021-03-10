@@ -26,7 +26,7 @@ cd examples/simple
 
 
 ```bash
-az account set --subscription "redscar-dev"
+az account set --subscription "example"
 ```
 
 
@@ -44,7 +44,7 @@ terraform apply -auto-apply
 locals { name = "example" }
 
 module "acr_policies" {
-  source                         = "git@github.com:kmcquade/azure-guardrails.git//azure_guardrails/shared/terraform/policy-initiative-with-builtins"
+  source                         = "git@github.com:salesforce/azure-guardrails.git//azure_guardrails/shared/terraform/policy-initiative-with-builtins"
   description                    = local.name
   display_name                   = local.name
   subscription_name              = "example"

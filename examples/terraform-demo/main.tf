@@ -19,18 +19,18 @@ module "example" {
     "Azure API for FHIR should use a customer-managed key to encrypt data at rest",
     "Azure API for FHIR should use private link",
     "CORS should not allow every domain to access your API for FHIR",
-    
+
     # -----------------------------------------------------------------------------------------------------------------
     # App Configuration
     # -----------------------------------------------------------------------------------------------------------------
     "App Configuration should use a customer-managed key",
     "App Configuration should use private link",
-    
+
     # -----------------------------------------------------------------------------------------------------------------
     # App Platform
     # -----------------------------------------------------------------------------------------------------------------
     "[Preview]: Audit Azure Spring Cloud instances where distributed tracing is not enabled",
-    
+
     # -----------------------------------------------------------------------------------------------------------------
     # App Service
     # -----------------------------------------------------------------------------------------------------------------
@@ -62,18 +62,18 @@ module "example" {
     "Remote debugging should be turned off for Function Apps",
     "Remote debugging should be turned off for Web Applications",
     "Web Application should only be accessible over HTTPS",
-    
+
     # -----------------------------------------------------------------------------------------------------------------
     # Attestation
     # -----------------------------------------------------------------------------------------------------------------
     "Azure Attestation providers should use private endpoints",
-    
+
     # -----------------------------------------------------------------------------------------------------------------
     # Automation
     # -----------------------------------------------------------------------------------------------------------------
     "Automation account variables should be encrypted",
     "Azure Automation accounts should use customer-managed keys to encrypt data at rest",
-    
+
     # -----------------------------------------------------------------------------------------------------------------
     # Azure Data Explorer
     # -----------------------------------------------------------------------------------------------------------------
@@ -81,35 +81,35 @@ module "example" {
     "Disk encryption should be enabled on Azure Data Explorer",
     "Double encryption should be enabled on Azure Data Explorer",
     "Virtual network injection should be enabled for Azure Data Explorer",
-    
+
     # -----------------------------------------------------------------------------------------------------------------
     # Azure Stack Edge
     # -----------------------------------------------------------------------------------------------------------------
     "Azure Stack Edge devices should use double-encryption",
-    
+
     # -----------------------------------------------------------------------------------------------------------------
     # Backup
     # -----------------------------------------------------------------------------------------------------------------
     "Azure Backup should be enabled for Virtual Machines",
-    
+
     # -----------------------------------------------------------------------------------------------------------------
     # Batch
     # -----------------------------------------------------------------------------------------------------------------
     "Azure Batch account should use customer-managed keys to encrypt data",
     "Public network access should be disabled for Batch accounts",
-    
+
     # -----------------------------------------------------------------------------------------------------------------
     # Bot Service
     # -----------------------------------------------------------------------------------------------------------------
     "Bot Service endpoint should be a valid HTTPS URI",
     "Bot Service should be encrypted with a customer-managed key",
-    
+
     # -----------------------------------------------------------------------------------------------------------------
     # Cache
     # -----------------------------------------------------------------------------------------------------------------
     "Azure Cache for Redis should reside within a virtual network",
     "Only secure connections to your Azure Cache for Redis should be enabled",
-    
+
     # -----------------------------------------------------------------------------------------------------------------
     # Cognitive Services
     # -----------------------------------------------------------------------------------------------------------------
@@ -119,7 +119,7 @@ module "example" {
     "Cognitive Services accounts should use customer owned storage",
     "Cognitive Services accounts should use customer owned storage or enable data encryption.",
     "Public network access should be disabled for Cognitive Services accounts",
-    
+
     # -----------------------------------------------------------------------------------------------------------------
     # Compute
     # -----------------------------------------------------------------------------------------------------------------
@@ -130,21 +130,21 @@ module "example" {
     "Require automatic OS image patching on Virtual Machine Scale Sets",
     "Unattached disks should be encrypted",
     "Virtual machines should be migrated to new Azure Resource Manager resources",
-    
+
     # -----------------------------------------------------------------------------------------------------------------
     # Container Registry
     # -----------------------------------------------------------------------------------------------------------------
     "Container registries should be encrypted with a customer-managed key",
     "Container registries should not allow unrestricted network access",
     "Container registries should use private link",
-    
+
     # -----------------------------------------------------------------------------------------------------------------
     # Cosmos DB
     # -----------------------------------------------------------------------------------------------------------------
     "Azure Cosmos DB accounts should have firewall rules",
     "Azure Cosmos DB accounts should use customer-managed keys to encrypt data at rest",
     "Azure Cosmos DB key based metadata write access should be disabled",
-    
+
     # -----------------------------------------------------------------------------------------------------------------
     # Data Factory
     # -----------------------------------------------------------------------------------------------------------------
@@ -153,12 +153,12 @@ module "example" {
     "[Preview]: Azure Data Factory linked services should use Key Vault for storing secrets",
     "[Preview]: Azure Data Factory linked services should use system-assigned managed identity authentication when it is supported",
     "[Preview]: Azure Data Factory should use a Git repository for source control",
-    
+
     # -----------------------------------------------------------------------------------------------------------------
     # Data Lake
     # -----------------------------------------------------------------------------------------------------------------
     "Require encryption on Data Lake Store accounts",
-    
+
     # -----------------------------------------------------------------------------------------------------------------
     # Event Grid
     # -----------------------------------------------------------------------------------------------------------------
@@ -166,28 +166,28 @@ module "example" {
     "Azure Event Grid domains should use private link",
     "Azure Event Grid topics should disable public network access",
     "Azure Event Grid topics should use private link",
-    
+
     # -----------------------------------------------------------------------------------------------------------------
     # Event Hub
     # -----------------------------------------------------------------------------------------------------------------
     "All authorization rules except RootManageSharedAccessKey should be removed from Event Hub namespace",
     "Authorization rules on the Event Hub instance should be defined",
     "Event Hub namespaces should use a customer-managed key for encryption",
-    
+
     # -----------------------------------------------------------------------------------------------------------------
     # General
     # -----------------------------------------------------------------------------------------------------------------
     "Audit resource location matches resource group location",
     "Audit usage of custom RBAC rules",
     "Custom subscription owner roles should not exist",
-    
+
     # -----------------------------------------------------------------------------------------------------------------
     # HDInsight
     # -----------------------------------------------------------------------------------------------------------------
     "Azure HDInsight clusters should use customer-managed keys to encrypt data at rest",
     "Azure HDInsight clusters should use encryption at host to encrypt data at rest",
     "Azure HDInsight clusters should use encryption in transit to encrypt communication between Azure HDInsight cluster nodes",
-    
+
     # -----------------------------------------------------------------------------------------------------------------
     # Key Vault
     # -----------------------------------------------------------------------------------------------------------------
@@ -200,30 +200,30 @@ module "example" {
     "[Preview]: Keys should be backed by a hardware security module (HSM)",
     "[Preview]: Private endpoint should be configured for Key Vault",
     "[Preview]: Secrets should have content type set",
-    
+
     # -----------------------------------------------------------------------------------------------------------------
     # Kubernetes
     # -----------------------------------------------------------------------------------------------------------------
     "Azure Policy Add-on for Kubernetes service (AKS) should be installed and enabled on your clusters",
     "Both operating systems and data disks in Azure Kubernetes Service clusters should be encrypted by customer-managed keys",
     "Temp disks and cache for agent node pools in Azure Kubernetes Service clusters should be encrypted at host",
-    
+
     # -----------------------------------------------------------------------------------------------------------------
     # Lighthouse
     # -----------------------------------------------------------------------------------------------------------------
     "Audit delegation of scopes to a managing tenant",
-    
+
     # -----------------------------------------------------------------------------------------------------------------
     # Machine Learning
     # -----------------------------------------------------------------------------------------------------------------
     "Azure Machine Learning workspaces should be encrypted with a customer-managed key",
     "Azure Machine Learning workspaces should use private link",
-    
+
     # -----------------------------------------------------------------------------------------------------------------
     # Managed Application
     # -----------------------------------------------------------------------------------------------------------------
     "Application definition for Managed Application should use customer provided storage account",
-    
+
     # -----------------------------------------------------------------------------------------------------------------
     # Monitoring
     # -----------------------------------------------------------------------------------------------------------------
@@ -240,15 +240,11 @@ module "example" {
     "The Log Analytics agent should be installed on Virtual Machine Scale Sets",
     "The Log Analytics agent should be installed on virtual machines",
     "Workbooks should be saved to storage accounts that you control",
-    "[Preview]: Deploy - Configure Linux Azure Monitor agent to enable Azure Monitor assignments on Linux virtual machines",
-    "[Preview]: Deploy - Configure Windows Azure Monitor agent to enable Azure Monitor assignments on Windows virtual machines",
-    "[Preview]: Deploy Dependency agent to Windows Azure Arc machines",
-    "[Preview]: Deploy Dependency agent to hybrid Linux Azure Arc machines",
     "[Preview]: Log Analytics agent should be installed on your Linux Azure Arc machines",
     "[Preview]: Log Analytics agent should be installed on your Windows Azure Arc machines",
     "[Preview]: Network traffic data collection agent should be installed on Linux virtual machines",
     "[Preview]: Network traffic data collection agent should be installed on Windows virtual machines",
-    
+
     # -----------------------------------------------------------------------------------------------------------------
     # Network
     # -----------------------------------------------------------------------------------------------------------------
@@ -270,12 +266,12 @@ module "example" {
     "Web Application Firewall (WAF) should be enabled for Azure Front Door Service service",
     "[Preview]: All Internet traffic should be routed via your deployed Azure Firewall",
     "[Preview]: Container Registry should use a virtual network service endpoint",
-    
+
     # -----------------------------------------------------------------------------------------------------------------
     # Portal
     # -----------------------------------------------------------------------------------------------------------------
     "Shared dashboards should not have markdown tiles with inline content",
-    
+
     # -----------------------------------------------------------------------------------------------------------------
     # SQL
     # -----------------------------------------------------------------------------------------------------------------
@@ -322,7 +318,7 @@ module "example" {
     "Vulnerability Assessment settings for SQL server should contain an email address to receive scan reports",
     "Vulnerability assessment should be enabled on SQL Managed Instance",
     "Vulnerability assessment should be enabled on your SQL servers",
-    
+
     # -----------------------------------------------------------------------------------------------------------------
     # Security Center
     # -----------------------------------------------------------------------------------------------------------------
@@ -348,8 +344,6 @@ module "example" {
     "Disk encryption should be applied on virtual machines",
     "Email notification for high severity alerts should be enabled",
     "Email notification to subscription owner for high severity alerts should be enabled",
-    "Enable Azure Security Center on your subscription",
-    "Enable Security Center's auto provisioning of the Log Analytics agent on your subscriptions with default workspace.",
     "Endpoint protection solution should be installed on virtual machine scale sets",
     "External accounts with owner permissions should be removed from your subscription",
     "External accounts with read permissions should be removed from your subscription",
@@ -384,27 +378,25 @@ module "example" {
     "Vulnerabilities in security configuration on your virtual machine scale sets should be remediated",
     "Vulnerabilities on your SQL databases should be remediated",
     "Vulnerabilities on your SQL servers on machine should be remediated",
-    "[Preview]: Deploy - Configure Linux machines to automatically install the Azure Security agent",
-    "[Preview]: Deploy - Configure Windows machines to automatically install the Azure Security agent",
     "[Preview]: Sensitive data in your SQL databases should be classified",
-    
+
     # -----------------------------------------------------------------------------------------------------------------
     # Service Bus
     # -----------------------------------------------------------------------------------------------------------------
     "All authorization rules except RootManageSharedAccessKey should be removed from Service Bus namespace",
     "Service Bus Premium namespaces should use a customer-managed key for encryption",
-    
+
     # -----------------------------------------------------------------------------------------------------------------
     # Service Fabric
     # -----------------------------------------------------------------------------------------------------------------
     "Service Fabric clusters should have the ClusterProtectionLevel property set to EncryptAndSign",
     "Service Fabric clusters should only use Azure Active Directory for client authentication",
-    
+
     # -----------------------------------------------------------------------------------------------------------------
     # SignalR
     # -----------------------------------------------------------------------------------------------------------------
     "Azure SignalR Service should use private link",
-    
+
     # -----------------------------------------------------------------------------------------------------------------
     # Storage
     # -----------------------------------------------------------------------------------------------------------------
@@ -418,12 +410,12 @@ module "example" {
     "Storage accounts should restrict network access using virtual network rules",
     "Storage accounts should use customer-managed key for encryption",
     "[Preview]: Storage account public access should be disallowed",
-    
+
     # -----------------------------------------------------------------------------------------------------------------
     # Stream Analytics
     # -----------------------------------------------------------------------------------------------------------------
     "Azure Stream Analytics jobs should use customer-managed keys to encrypt data",
-    
+
     # -----------------------------------------------------------------------------------------------------------------
     # Synapse
     # -----------------------------------------------------------------------------------------------------------------
@@ -433,11 +425,30 @@ module "example" {
     "Managed workspace virtual network on Azure Synapse workspaces should be enabled",
     "Private endpoint connections on Azure Synapse workspaces should be enabled",
     "Vulnerability assessment should be enabled on your Synapse workspaces",
-    
+
     # -----------------------------------------------------------------------------------------------------------------
     # VM Image Builder
     # -----------------------------------------------------------------------------------------------------------------
     "VM Image Builder templates should use private link",
-    
+
   ]
 }
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Outputs
+# ---------------------------------------------------------------------------------------------------------------------
+output "policy_set_definition_ids" {
+  description = "The ID of the Policy Set Definition."
+  value = module.example.policy_set_definition_id
+}
+
+output "policy_assignment_ids" {
+  description = "The IDs of the Policy Assignments."
+  value = module.example.policy_set_definition_id
+}
+
+output "scope" {
+  description = "The target scope - either the management group or subscription, depending on which parameters were supplied"
+  value = module.example.scope
+}
+

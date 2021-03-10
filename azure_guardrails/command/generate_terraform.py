@@ -115,26 +115,18 @@ supported_services_argument_values.append("all")
     callback=validate.click_validate_comma_separated_excluded_services
 )
 @click.option(
-    "--quiet",
-    "-q",
-    is_flag=True,
-    default=False,
+    "-v",
+    "--verbose",
+    "verbosity",
+    count=True,
 )
 def generate_terraform(service: str, with_parameters: bool, target_name: str, target_type: str,
                        policy_set_name: str, terraform_module_source: str, config_file: str, enforcement_mode: bool,
-                       generate_summary: bool, include_empty_defaults: bool, exclude_services: list, quiet: bool):
+                       generate_summary: bool, include_empty_defaults: bool, exclude_services: list, verbosity: int):
     """
     Get Azure Policies
     """
-
-    # For the Generate Terraform example, we will deviate from the -vvv behavior
-    # and just force the user to use the quiet flag if they want to output via stdout
-    if quiet:
-        log_level = getattr(logging, "WARNING")
-        set_stream_logger(level=log_level)
-    else:
-        log_level = getattr(logging, "INFO")
-        set_stream_logger(level=log_level)
+    set_log_level(verbosity)
 
     if not config_file:
         logger.info(

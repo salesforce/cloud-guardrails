@@ -20,3 +20,26 @@ module "{{ t.name }}" {
     {% endfor %}
   ]
 }
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Outputs
+# ---------------------------------------------------------------------------------------------------------------------
+output "policy_set_definition_ids" {
+  description = "The ID of the Policy Set Definition."
+  value = module.{{ t.name }}.policy_set_definition_id
+}
+
+output "policy_assignment_ids" {
+  description = "The IDs of the Policy Assignments."
+  value = module.{{ t.name }}.policy_set_definition_id
+}
+
+output "scope" {
+  description = "The target scope - either the management group or subscription, depending on which parameters were supplied"
+  value = module.{{ t.name }}.scope
+}
+
+output "count_of_policies_applied" {
+  description = "The number of Policies applied as part of the Policy Initiative"
+  value       = module.{{ t.name }}.count_of_policies_applied
+}

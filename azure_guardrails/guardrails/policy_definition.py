@@ -12,8 +12,9 @@ class PolicyDefinition:
 
     https://docs.microsoft.com/en-us/azure/governance/policy/concepts/definition-structure
     """
-    def __init__(self, policy_content: dict):
+    def __init__(self, policy_content: dict, service_name: str):
         self.content = policy_content
+        self.service_name = service_name
         self.id = policy_content.get("id")
         self.name = policy_content.get("name")
         self.category = policy_content.get("properties").get("metadata").get("category", None)
@@ -80,14 +81,14 @@ class PolicyDefinition:
             # This just means that there is no effect in there.
             logger.debug(error)
             # Sometimes that is because deployIfNotExists or Modify is in the rule somewhere. Let's search it as a string
-            if 'deployIfNotExists' in str(self.properties.policy_rule) and 'modify' in str(self.properties.policy_rule):
+            if 'deployifnotexists' in str(self.properties.policy_rule).lower() and 'modify' in str(self.properties.policy_rule):
                 logger.debug(f"Found BOTH deployIfNotExists and modify in the policy content for the policy: {self.display_name}")
                 allowed_effects.append("deployIfNotExists")
                 allowed_effects.append("modify")
-            elif 'deployIfNotExists' in str(self.properties.policy_rule):
+            elif 'deployifnotexists' in str(self.properties.policy_rule).lower():
                 logger.debug(f"Found deployIfNotExists in the policy content for the policy: {self.display_name}")
                 allowed_effects.append("deployIfNotExists")
-            elif 'modify' in str(self.properties.policy_rule):
+            elif 'modify' in str(self.properties.policy_rule).lower():
                 logger.debug(f"Found Modify in the policy content for the policy: {self.display_name}")
                 allowed_effects.append("modify")
             else:
@@ -102,7 +103,15 @@ class PolicyDefinition:
     @property
     def modifies_resources(self) -> bool:
         # Effects: https://docs.microsoft.com/en-us/azure/governance/policy/concepts/effects
-        if "append" in self.allowed_effects or "modify" in self.allowed_effects:
+        if (
+            "append" in self.allowed_effects
+            or "modify" in self.allowed_effects
+            or "Modify" in self.allowed_effects
+            or "deployifnotexists" in self.allowed_effects
+            or "DeployIfNotExists" in self.allowed_effects
+            or "deployIfNotExists" in self.allowed_effects
+        ):
+            logger.debug(f"{self.service_name} - modifies_resources: The policy definition {self.display_name} has the allowed_effects: {self.allowed_effects}")
             return True
         else:
             return False
