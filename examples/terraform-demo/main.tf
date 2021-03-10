@@ -1,9 +1,9 @@
-variable "name" { default = "example" }
+variable "name" { default = "GrdRlz-example-noparams" }
 variable "subscription_name" { default = "example" }
 variable "management_group" { default = "" }
 variable "enforcement_mode" { default = false }
 
-module "example" {
+module "GrdRlz_example_noparams" {
   source                         = "../../azure_guardrails/shared/terraform/policy-initiative-with-builtins"
   description                    = var.name
   display_name                   = var.name
@@ -439,16 +439,20 @@ module "example" {
 # ---------------------------------------------------------------------------------------------------------------------
 output "policy_set_definition_ids" {
   description = "The ID of the Policy Set Definition."
-  value = module.example.policy_set_definition_id
+  value = module.GrdRlz_example_noparams.policy_set_definition_id
 }
 
 output "policy_assignment_ids" {
   description = "The IDs of the Policy Assignments."
-  value = module.example.policy_set_definition_id
+  value = module.GrdRlz_example_noparams.policy_set_definition_id
 }
 
 output "scope" {
   description = "The target scope - either the management group or subscription, depending on which parameters were supplied"
-  value = module.example.scope
+  value = module.GrdRlz_example_noparams.scope
 }
 
+output "count_of_policies_applied" {
+  description = "The number of Policies applied as part of the Policy Initiative"
+  value       = module.GrdRlz_example_noparams.count_of_policies_applied
+}

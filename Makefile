@@ -81,12 +81,12 @@ count-loc:
 	echo "Website: https://github.com/XAMPPRocky/tokei#installation'"
 	tokei ./* --exclude --exclude '**/*.html' --exclude '**/*.json'
 
-LOCAL_MODULE_SOURCE := "../../azure_guardrails/shared/terraform/policy-initiative-with-builtins"
+MODULE_SOURCE := "../../azure_guardrails/shared/terraform/policy-initiative-with-builtins"
 
 .PHONY: terraform-demo
 terraform-demo: install
 	azure-guardrails --help
-	azure-guardrails generate-terraform --module-source ${LOCAL_MODULE_SOURCE} --service all --quiet > examples/terraform-demo/main.tf
+	azure-guardrails generate-terraform --module-source ${MODULE_SOURCE} --service all --subscription-name example > examples/terraform-demo/main.tf
 
 .PHONY: update-policy-table
 update-policy-table: install

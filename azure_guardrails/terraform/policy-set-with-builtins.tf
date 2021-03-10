@@ -3,7 +3,7 @@ variable "subscription_name" { default = "{{ t.subscription_name }}" }
 variable "management_group" { default = "{{ t.management_group }}" }
 variable "enforcement_mode" { default = {{ t.enforcement_mode }} }
 
-module "{{ t.name }}" {
+module "{{ t.name | replace('-', '_')}}" {
   source                         = "{{ t.module_source }}"
   description                    = var.name
   display_name                   = var.name
@@ -26,20 +26,20 @@ module "{{ t.name }}" {
 # ---------------------------------------------------------------------------------------------------------------------
 output "policy_set_definition_ids" {
   description = "The ID of the Policy Set Definition."
-  value = module.{{ t.name }}.policy_set_definition_id
+  value = module.{{ t.name | replace('-', '_')}}.policy_set_definition_id
 }
 
 output "policy_assignment_ids" {
   description = "The IDs of the Policy Assignments."
-  value = module.{{ t.name }}.policy_set_definition_id
+  value = module.{{ t.name | replace('-', '_')}}.policy_set_definition_id
 }
 
 output "scope" {
   description = "The target scope - either the management group or subscription, depending on which parameters were supplied"
-  value = module.{{ t.name }}.scope
+  value = module.{{ t.name | replace('-', '_')}}.scope
 }
 
 output "count_of_policies_applied" {
   description = "The number of Policies applied as part of the Policy Initiative"
-  value       = module.{{ t.name }}.count_of_policies_applied
+  value       = module.{{ t.name | replace('-', '_')}}.count_of_policies_applied
 }

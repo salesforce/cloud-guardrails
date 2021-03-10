@@ -18,6 +18,12 @@ def get_terraform_template(name: str, policy_names: dict, subscription_name: str
         enforcement_string = "true"
     else:
         enforcement_string = "false"
+    # TODO: Shorten the subscription name if it is over X characters
+    if subscription_name:
+        name = f"GrdRlz-{subscription_name}-noparams"
+    # TODO: Shorten the management group name if it is over X characters
+    else:
+        name = f"GrdRlz-{management_group}-noparams"
     template_contents = dict(
         name=name,
         policy_names=policy_names,
@@ -40,7 +46,13 @@ class TerraformTemplate:
                  subscription_name: str = "",
                  management_group: str = "", enforcement_mode: bool = False,
                  module_source: str = utils.DEFAULT_TERRAFORM_MODULE_SOURCE):
-        self.name = name
+        # TODO: Shorten the subscription name if it is over X characters
+        if subscription_name:
+            self.name = f"GrdRlz-{subscription_name}-params"
+        # TODO: Shorten the management group name if it is over X characters
+        else:
+            self.name = f"GrdRlz-{management_group}-params"
+        # self.name = name
         self.service_parameters = self._parameters(parameters)
         self.module_source = module_source
 
