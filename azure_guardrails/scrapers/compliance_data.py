@@ -6,6 +6,8 @@ from tabulate import tabulate
 
 COMPLIANCE_DATA_FILE = os.path.abspath(os.path.join(
     os.path.dirname(__file__),
+    os.path.pardir,
+    "shared",
     "data",
     "results.json"
 ))

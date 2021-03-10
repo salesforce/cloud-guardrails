@@ -1,7 +1,7 @@
 import unittest
 from azure_guardrails.shared import utils
-from azure_guardrails.logic.policy_definition import Parameter, PolicyDefinition, Properties
-from azure_guardrails.logic.services import Service, Services
+from azure_guardrails.guardrails.policy_definition import Parameter, PolicyDefinition, Properties
+from azure_guardrails.guardrails.services import Service, Services
 
 
 class PolicyDefinitionTestCase(unittest.TestCase):

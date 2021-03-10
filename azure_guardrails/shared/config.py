@@ -133,10 +133,12 @@ class Config:
             return False
 
 
-def get_default_config() -> Config:
+def get_default_config(exclude_services: list = None) -> Config:
     config_cfg = yaml.safe_load(DEFAULT_CONFIG_TEMPLATE)
     exclude_policies = config_cfg.get("exclude_policies", None)
-    exclude_services = config_cfg.get("exclude_services", None)
+    cfg_exclude_services = config_cfg.get("exclude_services", None)
+    if exclude_services:
+        cfg_exclude_services.extend(exclude_services)
     match_only_keywords = config_cfg.get("match_only_keywords", None)
     config = Config(exclude_policies=exclude_policies, exclude_services=exclude_services,
                     match_only_keywords=match_only_keywords)
@@ -146,15 +148,17 @@ def get_default_config() -> Config:
 DEFAULT_CONFIG = get_default_config()
 
 
-def get_config_from_file(config_file: str) -> Config:
+def get_config_from_file(config_file: str, exclude_services: list = None) -> Config:
     with open(config_file, "r") as yaml_file:
         try:
             config_cfg = yaml.safe_load(yaml_file)
         except yaml.YAMLError as exc:
             logger.critical(exc)
-    exclude_policies = config_cfg.get("exclude_policies", None)
-    exclude_services = config_cfg.get("exclude_services", None)
+    cfg_exclude_policies = config_cfg.get("exclude_policies", None)
+    cfg_exclude_services = config_cfg.get("exclude_services", None)
+    if exclude_services:
+        cfg_exclude_services.extend(exclude_services)
     match_only_keywords = config_cfg.get("match_only_keywords", None)
-    config = Config(exclude_policies=exclude_policies, exclude_services=exclude_services,
+    config = Config(exclude_policies=cfg_exclude_policies, exclude_services=cfg_exclude_services,
                     match_only_keywords=match_only_keywords)
     return config

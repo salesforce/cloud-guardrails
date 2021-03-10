@@ -9,11 +9,11 @@ import yaml
 import click
 from colorama import Fore, Back
 from azure_guardrails import set_log_level, set_stream_logger
-from azure_guardrails.logic.terraform import get_terraform_template, TerraformTemplate
+from azure_guardrails.terraform.terraform import get_terraform_template, TerraformTemplate
 from azure_guardrails.shared import utils, validate
-from azure_guardrails.shared.compliance_data import ComplianceCoverage
+from azure_guardrails.scrapers.compliance_data import ComplianceCoverage
 from azure_guardrails.shared.config import get_default_config, get_config_from_file
-from azure_guardrails.logic.services import Services, Service
+from azure_guardrails.guardrails.services import Services, Service
 
 logger = logging.getLogger(__name__)
 
@@ -108,6 +108,13 @@ supported_services_argument_values.append("all")
     help="Include parameters with empty defaults",
 )
 @click.option(
+    "--exclude-services",
+    "exclude_services",
+    type=str,
+    help="Exclude specific services (comma-separated) without using a config file.",
+    callback=validate.click_validate_comma_separated_excluded_services
+)
+@click.option(
     "--quiet",
     "-q",
     is_flag=True,
@@ -115,7 +122,7 @@ supported_services_argument_values.append("all")
 )
 def generate_terraform(service: str, with_parameters: bool, target_name: str, target_type: str,
                        policy_set_name: str, terraform_module_source: str, config_file: str, enforcement_mode: bool,
-                       generate_summary: bool, include_empty_defaults: bool, quiet: bool):
+                       generate_summary: bool, include_empty_defaults: bool, exclude_services: list, quiet: bool):
     """
     Get Azure Policies
     """
@@ -132,9 +139,9 @@ def generate_terraform(service: str, with_parameters: bool, target_name: str, ta
     if not config_file:
         logger.info(
             "You did not supply an config file. Consider creating one to exclude different policies. We will use the default one.")
-        config = get_default_config()
+        config = get_default_config(exclude_services=exclude_services)
     else:
-        config = get_config_from_file(config_file=config_file)
+        config = get_config_from_file(config_file=config_file, exclude_services=exclude_services)
 
     subscription_name = ""
     management_group = ""

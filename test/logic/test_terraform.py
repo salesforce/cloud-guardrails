@@ -1,8 +1,8 @@
 import unittest
 import json
 from azure_guardrails.shared import utils
-from azure_guardrails.logic.terraform import get_terraform_template, TerraformTemplate
-from azure_guardrails.logic.services import Services, Service
+from azure_guardrails.terraform.terraform import get_terraform_template, TerraformTemplate
+from azure_guardrails.guardrails.services import Services, Service
 
 
 class TerraformTestCase(unittest.TestCase):

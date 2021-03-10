@@ -7,7 +7,7 @@ import json
 import yaml
 import click
 from azure_guardrails import set_log_level
-from azure_guardrails.logic.services import Services, Service
+from azure_guardrails.guardrails.services import Services, Service
 from azure_guardrails.shared import utils, validate
 
 logger = logging.getLogger(__name__)
