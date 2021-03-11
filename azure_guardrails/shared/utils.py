@@ -3,7 +3,6 @@ import re
 import json
 import csv
 from pathlib import Path
-from colorama import Fore
 END = "\033[0m"
 
 AZURE_POLICY_SERVICE_DIRECTORY = os.path.abspath(
@@ -16,6 +15,8 @@ AZURE_POLICY_SERVICE_DIRECTORY = os.path.abspath(
 )
 
 DEFAULT_TERRAFORM_MODULE_SOURCE = "git@github.com:salesforce/azure-guardrails.git//azure_guardrails/shared/terraform/policy-initiative-with-builtins"
+
+PREFIX = "GrdRlz"
 
 
 def get_service_names():

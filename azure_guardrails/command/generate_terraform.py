@@ -1,13 +1,9 @@
 """
 Generate Terraform for the Azure Policies
 """
-import os
 import logging
-import json
-from pathlib import Path
-import yaml
 import click
-from colorama import Fore, Back
+from click_option_group import optgroup, RequiredMutuallyExclusiveOptionGroup
 from azure_guardrails import set_log_level, set_stream_logger
 from azure_guardrails.terraform.terraform import get_terraform_template, TerraformTemplate
 from azure_guardrails.shared import utils, validate
@@ -22,53 +18,33 @@ supported_services_argument_values.append("all")
 
 
 @click.command(name="generate-terraform", short_help="")
-@click.option(
+@optgroup.group("Azure Policy selection", help="Selection of Azure Policies and Services according to this criteria")
+@optgroup.option(
     "--service",
     "-s",
-    type=click.Choice(supported_services_argument_values),
+    type=str,
+    # type=click.Choice(supported_services_argument_values),
     required=True,
+    default="all",
     help="Services supported by Azure Policy definitions. Set to 'all' for all policies",
     callback=validate.click_validate_supported_azure_service,
 )
-@click.option(
+@optgroup.option(
     "--exclude-services",
     "exclude_services",
     type=str,
     help="Exclude specific services (comma-separated) without using a config file.",
     callback=validate.click_validate_comma_separated_excluded_services
 )
-# TODO: Mutually exclusive option groups
-# https://github.com/click-contrib/click-option-group
-# https://stackoverflow.com/questions/37310718/mutually-exclusive-option-groups-in-python-click
-@click.option(
-    "--subscription",
-    type=str,
-    help="The name of a subscription. Supply either this or --management-group",
+@optgroup.option(
+    "--config-file",
+    "-c",
+    "config_file",
+    type=click.Path(exists=False),
+    required=False,
+    help="The config file",
 )
-@click.option(
-    "--management-group",
-    type=str,
-    help="The name of a management group. Supply either this or --subscription",
-)
-@click.option(
-    "--enforce",
-    "-e",
-    "enforcement_mode",
-    is_flag=True,
-    default=False,
-    help="Enforce Azure Policies instead of just auditing them.",
-)
-@click.option(
-    "--module",
-    "-m",
-    "module_source",
-    type=str,
-    required=True,
-    help="The source to use for the Terraform remote module. You can set this to your own fork or private Git Repo if you don't want to rely on this source code.",
-    envvar="MODULE_SOURCE",
-    default=utils.DEFAULT_TERRAFORM_MODULE_SOURCE
-)
-@click.option(
+@optgroup.option(
     "--parameter-options",
     "-o",
     type=click.Choice(["defaults", "empty"], case_sensitive=True),
@@ -78,15 +54,51 @@ supported_services_argument_values.append("all")
     help="Include Policies with Parameters that have default values (defaults) and/or Policies that have empty defaults that you must fill in (empty).",
     # callback=validate.click_validate_supported_azure_service,  # TODO: Write this validation
 )
-@click.option(
-    "--config",
-    "-c",
-    "config_file",
-    type=click.Path(exists=False),
-    required=False,
-    help="The config file",
+# Mutually exclusive option groups
+# https://github.com/click-contrib/click-option-group
+# https://stackoverflow.com/questions/37310718/mutually-exclusive-option-groups-in-python-click
+@optgroup.group(
+    "Policy Scope Targets",
+    cls=RequiredMutuallyExclusiveOptionGroup,
+    help="Supply the name of a subscription OR a management group.",
 )
-@click.option(
+@optgroup.option(
+    "--subscription",
+    type=str,
+    help="The name of a subscription. Supply either this or --management-group",
+)
+@optgroup.option(
+    "--management-group",
+    type=str,
+    help="The name of a management group. Supply either this or --subscription",
+)
+@optgroup.group(
+    "Terraform output options",
+    help="Terraform specific options",
+)
+@optgroup.option(
+    "--module",
+    "-m",
+    "module_source",
+    type=str,
+    required=True,
+    help="The git source to use for the Terraform remote module",
+    envvar="MODULE_SOURCE",
+    default=utils.DEFAULT_TERRAFORM_MODULE_SOURCE
+)
+@optgroup.group(
+    "Other toggle options",
+    help="Other toggle options",
+)
+@optgroup.option(
+    "--enforce",
+    "-e",
+    "enforcement_mode",
+    is_flag=True,
+    default=False,
+    help="Deny bad actions instead of auditing them.",
+)
+@optgroup.option(
     "--no-summary",
     "-n",
     is_flag=True,
