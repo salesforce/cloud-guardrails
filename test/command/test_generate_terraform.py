@@ -22,7 +22,7 @@ class GenerateTerraformClickUnitTests(unittest.TestCase):
         result = self.runner.invoke(generate_terraform, ["--help"])
         self.assertTrue(result.exit_code == 0)
         result = self.runner.invoke(generate_terraform, ["--service", "all", "--subscription", "example"])
-        # print(result.output)
+        print(result.output)
         self.assertTrue(result.exit_code == 0)
 
     def test_generate_terraform_command_with_config(self):

@@ -18,7 +18,7 @@ supported_services_argument_values.append("all")
 
 
 @click.command(name="generate-terraform", short_help="")
-@optgroup.group("Azure Policy selection", help="Selection of Azure Policies and Services according to this criteria")
+@optgroup.group("Azure Policy selection", help="")
 @optgroup.option(
     "--service",
     "-s",
@@ -37,6 +37,15 @@ supported_services_argument_values.append("all")
     callback=validate.click_validate_comma_separated_excluded_services
 )
 @optgroup.option(
+    "--enforce",
+    "-e",
+    "enforcement_mode",
+    is_flag=True,
+    default=False,
+    help="Deny bad actions instead of auditing them.",
+)
+@optgroup.group("Config Section", help="")
+@optgroup.option(
     "--config-file",
     "-c",
     "config_file",
@@ -44,6 +53,7 @@ supported_services_argument_values.append("all")
     required=False,
     help="The config file",
 )
+@optgroup.group("Parameter Options", help="")
 @optgroup.option(
     "--parameter-options",
     "-o",
@@ -60,7 +70,7 @@ supported_services_argument_values.append("all")
 @optgroup.group(
     "Policy Scope Targets",
     cls=RequiredMutuallyExclusiveOptionGroup,
-    help="Supply the name of a subscription OR a management group.",
+    help="",
 )
 @optgroup.option(
     "--subscription",
@@ -73,30 +83,8 @@ supported_services_argument_values.append("all")
     help="The name of a management group. Supply either this or --subscription",
 )
 @optgroup.group(
-    "Terraform output options",
-    help="Terraform specific options",
-)
-@optgroup.option(
-    "--module",
-    "-m",
-    "module_source",
-    type=str,
-    required=True,
-    help="The git source to use for the Terraform remote module",
-    envvar="MODULE_SOURCE",
-    default=utils.DEFAULT_TERRAFORM_MODULE_SOURCE
-)
-@optgroup.group(
-    "Other toggle options",
-    help="Other toggle options",
-)
-@optgroup.option(
-    "--enforce",
-    "-e",
-    "enforcement_mode",
-    is_flag=True,
-    default=False,
-    help="Deny bad actions instead of auditing them.",
+    "Other options",
+    help="",
 )
 @optgroup.option(
     "--no-summary",
@@ -117,7 +105,6 @@ def generate_terraform(
         subscription: str,
         management_group: str,
         enforcement_mode: bool,
-        module_source: str,
         parameter_options: list,
         config_file: str,
         no_summary: bool,
@@ -169,16 +156,14 @@ def generate_terraform(
         services = Services(service_names=[service], config=config)
     if with_parameters:
         display_names = services.get_display_names_by_service_with_parameters(include_empty_defaults=include_empty_defaults)
-        terraform_template = TerraformTemplate(name=initiative, parameters=display_names,
+        terraform_template = TerraformTemplate(parameters=display_names,
                                                subscription_name=subscription,
                                                management_group=management_group,
-                                               enforcement_mode=enforcement_mode,
-                                               module_source=module_source)
+                                               enforcement_mode=enforcement_mode)
         result = terraform_template.rendered()
     else:
         display_names = services.get_display_names_sorted_by_service(with_parameters=with_parameters)
-        result = get_terraform_template(name=initiative, policy_names=display_names,
+        result = get_terraform_template(policy_names=display_names,
                                         subscription_name=subscription,
-                                        management_group=management_group, enforcement_mode=enforcement_mode,
-                                        module_source=module_source)
+                                        management_group=management_group, enforcement_mode=enforcement_mode)
     print(result)

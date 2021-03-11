@@ -1,18 +1,9 @@
-variable "name" { default = "GrdRlz-example-noparams" }
-variable "subscription_name" { default = "example" }
-variable "management_group" { default = "" }
-variable "enforcement_mode" { default = false }
-
-module "GrdRlz_example_noparams" {
-  source                         = "../../azure_guardrails/shared/terraform/policy-initiative-with-builtins"
-  description                    = var.name
-  display_name                   = var.name
-  subscription_name              = var.subscription_name
-  management_group               = var.management_group
-  enforcement_mode               = var.enforcement_mode
-  policy_set_definition_category = var.name
-  policy_set_name                = var.name
-  policy_names = [
+locals {
+  name_example_noparams = "example_noparams"
+  subscription_name_example_noparams = "redscar-dev"
+  management_group_example_noparams = ""
+  enforcement_mode_example_noparams = false
+  policy_names_example_noparams = [
     # -----------------------------------------------------------------------------------------------------------------
     # API for FHIR
     # -----------------------------------------------------------------------------------------------------------------
@@ -435,24 +426,86 @@ module "GrdRlz_example_noparams" {
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
-# Outputs
+# Azure Policy name lookups:
+# Because the policies are built-in, we can just look up their IDs by their names.
 # ---------------------------------------------------------------------------------------------------------------------
-output "policy_set_definition_ids" {
-  description = "The ID of the Policy Set Definition."
-  value = module.GrdRlz_example_noparams.policy_set_definition_id
+data "azurerm_policy_definition" "example_noparams" {
+  count        = length(local.policy_names_example_noparams)
+  display_name = element(local.policy_names_example_noparams, count.index)
 }
 
+locals {
+  example_noparams_policy_definitions = flatten([tolist([
+    for definition in data.azurerm_policy_definition.example_noparams.*.id :
+    map("policyDefinitionId", definition)
+    ])
+  ])
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Conditional data lookups: If the user supplies management group, look up the ID of the management group
+# ---------------------------------------------------------------------------------------------------------------------
+data "azurerm_management_group" "example_noparams" {
+  count = local.management_group_example_noparams != "" ? 1 : 0
+  display_name  = local.management_group_example_noparams
+}
+
+### If the user supplies subscription, look up the ID of the subscription
+data "azurerm_subscriptions" "example_noparams" {
+  count                 = local.subscription_name_example_noparams != "" ? 1 : 0
+  display_name_contains = local.subscription_name_example_noparams
+}
+
+locals {
+  example_noparams_scope = local.management_group_example_noparams != "" ? data.azurerm_management_group.example_noparams[0].id : element(data.azurerm_subscriptions.example_noparams[0].subscriptions.*.id, 0)
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Policy Initiative
+# ---------------------------------------------------------------------------------------------------------------------
+resource "azurerm_policy_set_definition" "example_noparams" {
+  name                  = local.name_example_noparams
+  policy_type           = "Custom"
+  display_name          = local.name_example_noparams
+  description           = local.name_example_noparams
+  management_group_name = local.management_group_example_noparams == "" ? null : local.management_group_example_noparams
+  policy_definitions    = tostring(jsonencode(local.example_noparams_policy_definitions))
+  metadata = tostring(jsonencode({
+    category = local.name_example_noparams
+  }))
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Azure Policy Assignments
+# Apply the Policy Initiative to the specified scope
+# ---------------------------------------------------------------------------------------------------------------------
+resource "azurerm_policy_assignment" "example_noparams" {
+  name                 = local.name_example_noparams
+  policy_definition_id = azurerm_policy_set_definition.example_noparams.id
+  scope                = local.example_noparams_scope
+  enforcement_mode     = local.enforcement_mode_example_noparams
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Outputs
+# ---------------------------------------------------------------------------------------------------------------------
 output "policy_assignment_ids" {
+  value       = azurerm_policy_assignment.example_noparams.*.id
   description = "The IDs of the Policy Assignments."
-  value = module.GrdRlz_example_noparams.policy_set_definition_id
 }
 
 output "scope" {
+  value       = local.example_noparams_scope
   description = "The target scope - either the management group or subscription, depending on which parameters were supplied"
-  value = module.GrdRlz_example_noparams.scope
+}
+
+output "policy_set_definition_id" {
+  value       = azurerm_policy_set_definition.example_noparams.id
+  description = "The ID of the Policy Set Definition."
 }
 
 output "count_of_policies_applied" {
   description = "The number of Policies applied as part of the Policy Initiative"
-  value       = module.GrdRlz_example_noparams.count_of_policies_applied
+  value       = length(local.policy_names_example_noparams)
 }
+

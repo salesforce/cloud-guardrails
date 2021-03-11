@@ -3,15 +3,11 @@ import json
 import logging
 from jinja2 import Template, Environment, FileSystemLoader
 from azure_guardrails.shared import utils
-from azure_guardrails import set_log_level, set_stream_logger
 logger = logging.getLogger(__name__)
 
-set_stream_logger("jinja2", logging.DEBUG)
 
-
-def get_terraform_template(name: str, policy_names: dict, subscription_name: str = "",
-                           management_group: str = "", enforcement_mode: bool = False,
-                           module_source: str = utils.DEFAULT_TERRAFORM_MODULE_SOURCE) -> str:
+def get_terraform_template(policy_names: dict, subscription_name: str = "",
+                           management_group: str = "", enforcement_mode: bool = False) -> str:
     if subscription_name == "" and management_group == "":
         raise Exception("Please supply a value for the subscription name or the management group")
     if enforcement_mode:
@@ -20,41 +16,40 @@ def get_terraform_template(name: str, policy_names: dict, subscription_name: str
         enforcement_string = "false"
     # TODO: Shorten the subscription name if it is over X characters
     if subscription_name:
-        name = f"{utils.PREFIX}-{subscription_name}-noparams"
+        name = f"{subscription_name}-noparams"
     # TODO: Shorten the management group name if it is over X characters
     else:
-        name = f"{utils.PREFIX}-{management_group}-noparams"
+        name = f"{management_group}-noparams"
+    name = name.replace("-", "_")
+    name = name.lower()
     template_contents = dict(
         name=name,
         policy_names=policy_names,
         subscription_name=subscription_name,
         management_group=management_group,
         enforcement_mode=enforcement_string,
-        module_source=module_source
     )
-    template_path = os.path.join(os.path.dirname(__file__))
+    template_path = os.path.join(os.path.dirname(__file__), "no-parameters")
     env = Environment(loader=FileSystemLoader(template_path))  # nosec
-    template = env.get_template("policy-set-with-builtins.tf")
+    template = env.get_template("policy-set-with-builtins-v2.tf")
     return template.render(t=template_contents)
 
 
 class TerraformTemplate:
     """Terraform Template with Parameters"""
 
-    def __init__(self, name: str,
+    def __init__(self,
                  parameters: dict,
                  subscription_name: str = "",
-                 management_group: str = "", enforcement_mode: bool = False,
-                 module_source: str = utils.DEFAULT_TERRAFORM_MODULE_SOURCE):
+                 management_group: str = "", enforcement_mode: bool = False):
         # TODO: Shorten the subscription name if it is over X characters
         if subscription_name:
-            self.name = f"{utils.PREFIX}-{subscription_name}-params"
+            self.name = f"{subscription_name}-params"
         # TODO: Shorten the management group name if it is over X characters
         else:
-            self.name = f"{utils.PREFIX}-{management_group}-params"
+            self.name = f"{management_group}-params"
         # self.name = name
         self.service_parameters = self._parameters(parameters)
-        self.module_source = module_source
 
         if subscription_name == "" and management_group == "":
             raise Exception("Please supply a value for the subscription name or the management group")
@@ -114,7 +109,6 @@ class TerraformTemplate:
             subscription_name=self.subscription_name,
             management_group=self.management_group,
             enforcement_mode=self.enforcement_string,
-            module_source=self.module_source
         )
         template_path = os.path.join(os.path.dirname(__file__), "parameters")
         env = Environment(loader=FileSystemLoader(template_path))  # nosec
