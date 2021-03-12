@@ -28,15 +28,15 @@ class ComplianceCoverageTestCase(unittest.TestCase):
         summary = self.compliance_coverage.table_summary()
         print(markdown_table)
 
-    def test_csv_table(self):
-        path = os.path.join(
-            os.path.pardir,
-            os.path.pardir,
-            "tmp",
-            "test.csv"
-        )
-        if os.path.exists(path):
-            print("Removing the previous file")
-            os.remove(path)
-        self.compliance_coverage.csv_table(path, verbosity=0)
-        print(f"CSV updated! Path: {path}")
+    # def test_csv_table(self):
+    #     path = os.path.join(
+    #         os.path.pardir,
+    #         os.path.pardir,
+    #         "tmp",
+    #         "test.csv"
+    #     )
+    #     if os.path.exists(path):
+    #         print("Removing the previous file")
+    #         os.remove(path)
+    #     self.compliance_coverage.csv_table(path, verbosity=0)
+    #     print(f"CSV updated! Path: {path}")

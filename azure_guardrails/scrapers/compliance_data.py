@@ -262,7 +262,6 @@ class ComplianceCoverage:
 
         for policy_definition_name in self.matching_metadata:
             name = policy_definition_name.replace("[Preview]: ", "")
-            # benchmark_strings = ["<ul>"]
 
             for policy in self.matching_metadata[policy_definition_name]:
                 service_name = self.policy_compliance_data.policy_definition_metadata[name][policy].service_name
@@ -287,11 +286,11 @@ class ComplianceCoverage:
                     azure_security_benchmark_id,
                     cis_id,
                     ccmc_id,
-                    hipaa_id,
                     iso_id,
                     nist_800_53_id,
                     nist_800_171_id,
-                    new_zealand_id
+                    hipaa_id,
+                    new_zealand_id,
                 ]
                 # If hyperlink format is not specified, that means it is not markdown and we want to include the github link in a separate column
                 if not hyperlink_format:
