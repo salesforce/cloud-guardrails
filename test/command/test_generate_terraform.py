@@ -29,7 +29,7 @@ class GenerateTerraformClickUnitTests(unittest.TestCase):
     def test_generate_terraform_command_with_config(self):
         """command.generate_terraform: with config file"""
         args = ["--service", "all", "--subscription", "example", "--no-params", "--config-file", default_config_file]
-        result = self.runner.invoke(generate_terraform, )
+        result = self.runner.invoke(generate_terraform, args)
         self.assertTrue(result.exit_code == 0)
         # print(result.output)
         self.assertTrue("private link" in result.output)
