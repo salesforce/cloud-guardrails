@@ -51,6 +51,7 @@ class PolicyDefinition:
     @property
     def parameters_have_defaults(self) -> bool:
         """Determines if the policy requires parameters that do not have defaultValues"""
+        # TODO: Rename this property to parameters_required, it is confusing
         result = True
         for parameter in self.properties.parameters:
             if parameter.name == "effect":
@@ -145,6 +146,7 @@ class Parameter:
         self.metadata_json = parameter_json.get("metadata")
         self.description = self.metadata_json.get("description")
         self.display_name = self.metadata_json.get("displayName")
+        self.schema = self.metadata_json.get("schema", None)
         self.category = self.metadata_json.get("category", None)
         self.strong_type = self.metadata_json.get("strongType", None)
         self.assign_permissions = self.metadata_json.get("assignPermissions", None)
@@ -206,6 +208,7 @@ class Properties:
         return self.properties_json
 
     def _parameters(self) -> List[Optional[Parameter]]:
+        # TODO: Parameters should be a dict, not a list. These methods are silly
         parameters = []
         parameter_json = self.properties_json.get("parameters")
         if parameter_json:
@@ -223,6 +226,14 @@ class Properties:
                 return False
         except:
             return False
+
+    @property
+    def parameter_names(self) -> list:
+        """Return the list of parameter names"""
+        parameters = []
+        for parameter in self.parameters:
+            parameters.append(parameter.name)
+        return parameters
 
     def get_parameter_by_name(self, parameter_name) -> Parameter:
         try:

@@ -76,16 +76,6 @@ supported_services_argument_values.append("all")
     default=False,
     help="Only generate policies where parameters are REQUIRED",
 )
-# @optgroup.option(
-#     "--parameter-options",
-#     "-o",
-#     type=click.Choice(["defaults", "empty"], case_sensitive=True),
-#     multiple=True,
-#     required=False,
-#     default=None,
-#     help="Include Policies with Parameters that have default values (defaults) and/or Policies that have empty defaults that you must fill in (empty).",
-#     # callback=validate.click_validate_supported_azure_service,  # TODO: Write this validation
-# )
 # Mutually exclusive option groups
 # https://github.com/click-contrib/click-option-group
 # https://stackoverflow.com/questions/37310718/mutually-exclusive-option-groups-in-python-click
