@@ -86,10 +86,18 @@ terraform-demo: install
 	azure-guardrails --help
 	azure-guardrails generate-terraform --service all --subscription-name example --no-params > examples/terraform-demo/main.tf
 
-#.PHONY: update-policy-table
-#update-policy-table: install
-#	azure-guardrails --help
-#	azure-guardrails generate-terraform --service all --quiet --generate-summary > policy-table.md
+.PHONY: update-policy-table
+update-policy-table: install
+	azure-guardrails --help
+	azure-guardrails generate-terraform --service all --subscription example --no-params
+	azure-guardrails generate-terraform --service all --subscription example --params-optional
+	azure-guardrails generate-terraform --service all --subscription example --params-required
+	cp no-params-all-table-example.csv docs/no-params.csv
+	cp no-params-all-table-example.md docs/no-params.md
+	cp params-optional-all-table-example.csv docs/params-optional.csv
+	cp params-optional-all-table-example.md docs/params-optional.md
+	cp params-required-all-table-example.csv docs/params-required.csv
+	cp params-required-all-table-example.md docs/params-required.md
 
 .PHONY: update-data
 update-data: setup-dev

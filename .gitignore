@@ -72,3 +72,5 @@ config.yml
 azure-guardrails-*
 **/~$*.xlsx
 research.py
+*-example.csv
+*-example.md
