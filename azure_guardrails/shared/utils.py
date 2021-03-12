@@ -14,8 +14,6 @@ AZURE_POLICY_SERVICE_DIRECTORY = os.path.abspath(
     )
 )
 
-DEFAULT_TERRAFORM_MODULE_SOURCE = "git@github.com:salesforce/azure-guardrails.git//azure_guardrails/shared/terraform/policy-initiative-with-builtins"
-
 PREFIX = "GrdRlz"
 
 
@@ -44,10 +42,6 @@ def get_policy_json(service_name: str, filename: str):
     file = os.path.join(AZURE_POLICY_SERVICE_DIRECTORY, service_name, filename)
     contents = read_json_file(file)
     return contents
-
-
-def print_red(string):
-    print(f"{Fore.RED}{string}{END}")
 
 
 def chomp_keep_single_spaces(string):
