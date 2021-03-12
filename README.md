@@ -8,13 +8,20 @@ Command-line tool that generates Azure Policies based on requirements and transf
 
 ```bash
 # No parameters required
-azure-guardrails generate-terraform --service all --quiet
+azure-guardrails generate-terraform --no-params
+    --service all \
+    --subscription example
 
 # With Parameters
-azure-guardrails generate-terraform --with-parameters --service all --quiet --exclude-services "Guest Configuration"
+azure-guardrails generate-terraform --params-optional
+    --service all \
+    --subscription example \
+    --exclude-services "Guest Configuration"
 
-# With Parameters and Empty Defaults
-azure-guardrails generate-terraform --with-parameters --empty-defaults --service Kubernetes --quiet
+# With Parameters and Empty Defaults - you will have to supply the values for these parameters
+azure-guardrails generate-terraform --params-required \
+    --service Kubernetes \
+    --subscription example
 ```
 
 ## Configuration
@@ -58,19 +65,9 @@ az account set --subscription my-subscription
 * Then generate the Terraform files:
 
 ```bash
-# TODO: This is temporary. We will just reference the default remote repository once this is public
-export TERRAFORM_MODULE_SOURCE="../../azure_guardrails/shared/terraform/policy-initiative-with-builtins"
-
-export TARGET_NAME="mysubscription" # TODO: Change this to your subscription name
-export TARGET_TYPE="subscription" # TODO: You can also set this to 'mg' to apply it to a management group
-
-azure-guardrails generate-terraform \
-    --module-source ${TERRAFORM_MODULE_SOURCE} \
+azure-guardrails generate-terraform --no-params
     --service all \
-    --policy-set-name example \
-    --target-type ${TARGET_TYPE} \
-    --target-name ${TARGET_NAME} \
-    --quiet > examples/terraform-demo/main.tf
+    --subscription example
 ```
 
 * Navigate to the Terraform directory and apply the policies:
@@ -85,51 +82,122 @@ terraform apply -auto-approve
 ### Full example
 
 ```bash
-azure-guardrails generate-terraform --service "Key Vault" --quiet
+azure-guardrails generate-terraform --no-params \
+    --service "Key Vault"
+    --subscription example
 ```
 
 * Output:
 
 ```hcl
-variable "name" { default = "example" }
-
-module "name" {
-  source                         = "git@github.com:kmcquade/azure-guardrails.git//azure_guardrails/shared/terraform/policy-initiative-with-builtins"
-  description                    = var.name
-  display_name                   = var.name
-  subscription_name              = "example-subscription"
-  management_group               = ""
-  enforcement_mode               = false
-  policy_set_definition_category = var.name
-  policy_set_name                = var.name
-  policy_names = [
+locals {
+  name_example_noparams = "example_noparams"
+  subscription_name_example_noparams = "example"
+  management_group_example_noparams = ""
+  enforcement_mode_example_noparams = false
+  policy_names_example_noparams = [
     # -----------------------------------------------------------------------------------------------------------------
     # Key Vault
     # -----------------------------------------------------------------------------------------------------------------
-
     "Azure Key Vault Managed HSM should have purge protection enabled",
-    "Firewall should be enabled on Key Vault",
-    "Key Vault keys should have an expiration date",
-    "Key Vault secrets should have an expiration date",
     "Key vaults should have purge protection enabled",
     "Key vaults should have soft delete enabled",
-    "Keys should be backed by a hardware security module (HSM)",
-    "Private endpoint should be configured for Key Vault",
-    "Secrets should have content type set",
+    "[Preview]: Firewall should be enabled on Key Vault",
+    "[Preview]: Key Vault keys should have an expiration date",
+    "[Preview]: Key Vault secrets should have an expiration date",
+    "[Preview]: Keys should be backed by a hardware security module (HSM)",
+    "[Preview]: Private endpoint should be configured for Key Vault",
+    "[Preview]: Secrets should have content type set",
+    
   ]
 }
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Azure Policy name lookups:
+# Because the policies are built-in, we can just look up their IDs by their names.
+# ---------------------------------------------------------------------------------------------------------------------
+data "azurerm_policy_definition" "example_noparams" {
+  count        = length(local.policy_names_example_noparams)
+  display_name = element(local.policy_names_example_noparams, count.index)
+}
+
+locals {
+  example_noparams_policy_definitions = flatten([tolist([
+    for definition in data.azurerm_policy_definition.example_noparams.*.id :
+    map("policyDefinitionId", definition)
+    ])
+  ])
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Conditional data lookups: If the user supplies management group, look up the ID of the management group
+# ---------------------------------------------------------------------------------------------------------------------
+data "azurerm_management_group" "example_noparams" {
+  count = local.management_group_example_noparams != "" ? 1 : 0
+  display_name  = local.management_group_example_noparams
+}
+
+### If the user supplies subscription, look up the ID of the subscription
+data "azurerm_subscriptions" "example_noparams" {
+  count                 = local.subscription_name_example_noparams != "" ? 1 : 0
+  display_name_contains = local.subscription_name_example_noparams
+}
+
+locals {
+  example_noparams_scope = local.management_group_example_noparams != "" ? data.azurerm_management_group.example_noparams[0].id : element(data.azurerm_subscriptions.example_noparams[0].subscriptions.*.id, 0)
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Policy Initiative
+# ---------------------------------------------------------------------------------------------------------------------
+resource "azurerm_policy_set_definition" "example_noparams" {
+  name                  = local.name_example_noparams
+  policy_type           = "Custom"
+  display_name          = local.name_example_noparams
+  description           = local.name_example_noparams
+  management_group_name = local.management_group_example_noparams == "" ? null : local.management_group_example_noparams
+  policy_definitions    = tostring(jsonencode(local.example_noparams_policy_definitions))
+  metadata = tostring(jsonencode({
+    category = local.name_example_noparams
+  }))
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Azure Policy Assignments
+# Apply the Policy Initiative to the specified scope
+# ---------------------------------------------------------------------------------------------------------------------
+resource "azurerm_policy_assignment" "example_noparams" {
+  name                 = local.name_example_noparams
+  policy_definition_id = azurerm_policy_set_definition.example_noparams.id
+  scope                = local.example_noparams_scope
+  enforcement_mode     = local.enforcement_mode_example_noparams
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Outputs
+# ---------------------------------------------------------------------------------------------------------------------
+output "policy_assignment_ids" {
+  value       = azurerm_policy_assignment.example_noparams.*.id
+  description = "The IDs of the Policy Assignments."
+}
+
+output "scope" {
+  value       = local.example_noparams_scope
+  description = "The target scope - either the management group or subscription, depending on which parameters were supplied"
+}
+
+output "policy_set_definition_id" {
+  value       = azurerm_policy_set_definition.example_noparams.id
+  description = "The ID of the Policy Set Definition."
+}
+
+output "count_of_policies_applied" {
+  description = "The number of Policies applied as part of the Policy Initiative"
+  value       = length(local.policy_names_example_noparams)
+}
 ```
-
-# TODO
-
-Enhancement:
-* Add ability to supply the values that you want to put in the policy?
-
-Bug
-* Maximum size of 100 per initiative is reached. Need to adapt to that.
 
 # References
 
 * [Azure Policy Definition Structure](https://docs.microsoft.com/en-us/azure/governance/policy/concepts/definition-structure)
 * [Authorization Schemas](https://github.com/Azure/azure-resource-manager-schemas/search?q=schemas+in%3Apath+filename%3AMicrosoft.Authorization.json)
-* [Pydantic Datamodel code generator](https://pydantic-docs.helpmanual.io/datamodel_code_generator/)
