@@ -13,7 +13,7 @@ class TerraformTestCase(unittest.TestCase):
         subscription_name = "example-subscription"
         management_group = ""
         enforcement_mode = False
-        result = get_terraform_template(name=policy_set_name, policy_names=policy_names,
+        result = get_terraform_template(policy_names=policy_names,
                                         subscription_name=subscription_name,
                                         management_group=management_group, enforcement_mode=enforcement_mode)
         # print(result)
@@ -25,7 +25,7 @@ class TerraformTestCase(unittest.TestCase):
         management_group = ""
         enforcement_mode = False
         display_names = services.get_display_names_sorted_by_service(with_parameters=False)
-        result = get_terraform_template(name=policy_set_name, policy_names=display_names,
+        result = get_terraform_template(policy_names=display_names,
                                         subscription_name=subscription_name,
                                         management_group=management_group, enforcement_mode=enforcement_mode)
         # print(result)
@@ -88,7 +88,7 @@ class TerraformTemplateClassTestCase(unittest.TestCase):
                 }
             }
         }
-        self.terraform_template = TerraformTemplate(name="example", parameters=self.example_parameters, subscription_name="example")
+        self.terraform_template = TerraformTemplate(parameters=self.example_parameters, subscription_name="example")
 
     def test_get_policy_parameters(self):
         results = self.terraform_template.get_policy_parameters("Kubernetes", "Kubernetes cluster containers should only use allowed capabilities")

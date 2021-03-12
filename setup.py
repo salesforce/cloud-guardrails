@@ -7,6 +7,16 @@ HERE = os.path.abspath(os.path.dirname(__file__))
 VERSION_RE = re.compile(r"""__version__ = ['"]([0-9.]+)['"]""")
 TESTS_REQUIRE = ["coverage", "nose", "pytest"]
 DESCRIPTION = ""
+REQUIRED_PACKAGES = [
+    "click",
+    "click_option_group",
+    "pyyaml",
+    "jinja2",
+    "tabulate",
+    "ruamel.yaml",
+    "beautifulsoup4",
+    "requests",
+]
 
 
 def get_version():
@@ -32,13 +42,7 @@ setuptools.setup(
     url="https://github.com/salesforce/azure-guardrails",
     packages=setuptools.find_packages(exclude=["test*"]),
     tests_require=TESTS_REQUIRE,
-    install_requires=[
-        "click",
-        "pyyaml",
-        "jinja2",
-        "colorama",
-        "tabulate"
-    ],
+    install_requires=REQUIRED_PACKAGES,
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",

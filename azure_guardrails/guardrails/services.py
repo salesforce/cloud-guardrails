@@ -25,7 +25,7 @@ class Service:
         policy_definitions = []
         for file in self.policy_files:
             policy_content = utils.get_policy_json(service_name=self.service_name, filename=file)
-            policy_definition = PolicyDefinition(policy_content)
+            policy_definition = PolicyDefinition(policy_content=policy_content, service_name=self.service_name)
             policy_definitions.append(policy_definition)
         return policy_definitions
 
@@ -55,6 +55,7 @@ class Service:
             # Case: Return all policies
             if all_policies:
                 display_names.append(policy_definition.display_name)
+                logger.info(f"Adding Policy. display_name: {policy_definition.display_name} effect: {policy_definition.allowed_effects}")
             # Case: Return only policies that do not have parameters or modify capabilities
             if not with_parameters and not with_modify_capabilities:
                 if (
@@ -62,6 +63,8 @@ class Service:
                     and not policy_definition.modifies_resources
                 ):
                     display_names.append(policy_definition.display_name)
+                    logger.warning(
+                        f"Adding Policy. display_name: {policy_definition.display_name} effect: {policy_definition.allowed_effects}")
             # Case: return policies with parameters only, as long as they do not include modify capabilities
             elif with_parameters and not with_modify_capabilities:
                 if (
@@ -69,6 +72,8 @@ class Service:
                     and not policy_definition.modifies_resources
                 ):
                     display_names.append(policy_definition.display_name)
+                    logger.info(
+                        f"Adding Policy. display_name: {policy_definition.display_name} effect: {policy_definition.allowed_effects}")
             # Case: return policies with parameters and modify capabilities
             elif with_parameters and with_modify_capabilities:
                 if (
@@ -76,6 +81,8 @@ class Service:
                     and policy_definition.includes_parameters
                 ):
                     display_names.append(policy_definition.display_name)
+                    logger.info(
+                        f"Adding Policy. display_name: {policy_definition.display_name} effect: {policy_definition.allowed_effects}")
         display_names.sort()
         return display_names
 

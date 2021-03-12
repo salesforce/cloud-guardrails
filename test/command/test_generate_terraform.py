@@ -21,18 +21,19 @@ class GenerateTerraformClickUnitTests(unittest.TestCase):
         """command.generate_terraform: should return exit code 0"""
         result = self.runner.invoke(generate_terraform, ["--help"])
         self.assertTrue(result.exit_code == 0)
-        result = self.runner.invoke(generate_terraform, ["--service", "all", "--quiet"])
+        result = self.runner.invoke(generate_terraform, ["--service", "all", "--subscription", "example", "--no-params"])
+        print(result.output)
         self.assertTrue(result.exit_code == 0)
 
     def test_generate_terraform_command_with_config(self):
         """command.generate_terraform: with config file"""
-        result = self.runner.invoke(generate_terraform, ["--service", "all", "--config-file", default_config_file])
+        result = self.runner.invoke(generate_terraform, ["--service", "all", "--subscription", "example", "--no-params", "--config-file", default_config_file])
         self.assertTrue(result.exit_code == 0)
         # print(result.output)
 
     def test_generate_terraform_with_explicit_matches(self):
         """command.generate_terraform: with config file that matches keywords"""
-        result = self.runner.invoke(generate_terraform, ["--service", "all", "--config-file", config_with_keyword_matches])
+        result = self.runner.invoke(generate_terraform, ["--service", "all", "--subscription", "example", "--no-params", "--config-file", config_with_keyword_matches])
         # print(result.output)
         # We know for sure that no policies that match "customer-managed key" will also
         # contain "private link" in it (which is what the config file above looks for)
