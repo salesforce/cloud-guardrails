@@ -6,59 +6,73 @@ from azure_guardrails.shared import utils
 logger = logging.getLogger(__name__)
 
 
-def get_terraform_template(policy_names: dict, subscription_name: str = "",
-                           management_group: str = "", enforcement_mode: bool = False) -> str:
-    if subscription_name == "" and management_group == "":
-        raise Exception("Please supply a value for the subscription name or the management group")
-    if enforcement_mode:
-        enforcement_string = "true"
-    else:
-        enforcement_string = "false"
-    # TODO: Shorten the subscription name if it is over X characters
-    if subscription_name:
-        name = f"{subscription_name}-noparams"
-    # TODO: Shorten the management group name if it is over X characters
-    else:
-        name = f"{management_group}-noparams"
-    name = name.replace("-", "_")
-    name = name.lower()
-    template_contents = dict(
-        name=name,
-        policy_names=policy_names,
-        subscription_name=subscription_name,
-        management_group=management_group,
-        enforcement_mode=enforcement_string,
-    )
-    template_path = os.path.join(os.path.dirname(__file__), "no-parameters")
-    env = Environment(loader=FileSystemLoader(template_path))  # nosec
-    template = env.get_template("policy-set-with-builtins-v2.tf")
-    return template.render(t=template_contents)
+class TerraformTemplateNoParams:
+    """Terraform Template for when there are no parameters"""
+    def __init__(self, policy_names: dict, subscription_name: str = "", management_group: str = "",
+                 enforcement_mode: bool = False):
+        self.name = self._name(subscription_name=subscription_name, management_group=management_group)
+        self.subscription_name = subscription_name
+        self.management_group = management_group
+        self.policy_names = policy_names
+        if enforcement_mode:
+            self.enforcement_string = "true"
+        else:
+            self.enforcement_string = "false"
+
+    def _name(self, subscription_name: str, management_group: str) -> str:
+        if subscription_name == "" and management_group == "":
+            raise Exception("Please supply a value for the subscription name or the management group")
+        # TODO: Shorten the subscription name if it is over X characters
+        if subscription_name:
+            name = f"{subscription_name}-noparams"
+        # TODO: Shorten the management group name if it is over X characters
+        else:
+            name = f"{management_group}-noparams"
+        name = name.replace("-", "_")
+        name = name.lower()
+        return name
+
+    def rendered(self) -> str:
+        template_contents = dict(
+            name=self.name,
+            policy_names=self.policy_names,
+            subscription_name=self.subscription_name,
+            management_group=self.management_group,
+            enforcement_mode=self.enforcement_string,
+        )
+        template_path = os.path.join(os.path.dirname(__file__), "no-parameters")
+        env = Environment(loader=FileSystemLoader(template_path))  # nosec
+        template = env.get_template("policy-set-with-builtins-v2.tf")
+        return template.render(t=template_contents)
 
 
-class TerraformTemplate:
+class TerraformTemplateWithParams:
     """Terraform Template with Parameters"""
 
     def __init__(self,
                  parameters: dict,
                  subscription_name: str = "",
                  management_group: str = "", enforcement_mode: bool = False):
-        # TODO: Shorten the subscription name if it is over X characters
-        if subscription_name:
-            self.name = f"{subscription_name}-params"
-        # TODO: Shorten the management group name if it is over X characters
-        else:
-            self.name = f"{management_group}-params"
-        # self.name = name
-        self.service_parameters = self._parameters(parameters)
 
-        if subscription_name == "" and management_group == "":
-            raise Exception("Please supply a value for the subscription name or the management group")
+        self.name = self._name(subscription_name=subscription_name, management_group=management_group)
+        self.service_parameters = self._parameters(parameters)
         self.subscription_name = subscription_name
         self.management_group = management_group
         if enforcement_mode:
             self.enforcement_string = "true"
         else:
             self.enforcement_string = "false"
+
+    def _name(self, subscription_name: str, management_group: str) -> str:
+        if subscription_name == "" and management_group == "":
+            raise Exception("Please supply a value for the subscription name or the management group")
+        # TODO: Shorten the subscription name if it is over X characters
+        if subscription_name:
+            name = f"{subscription_name}-params"
+        # TODO: Shorten the management group name if it is over X characters
+        else:
+            name = f"{management_group}-params"
+        return name
 
     def _parameters(self, parameters) -> dict:
         """Separated this out just in case we need to do more processing"""

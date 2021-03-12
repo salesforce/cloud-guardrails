@@ -4,7 +4,8 @@ PyYAML==5.4.1
 # Required for printing things
 jinja2==2.11.3
 tabulate==0.8.9
-ruamel.yaml
+ruamel.yaml==0.16.13
+colorama==0.4.4
 # Scrapers
 beautifulsoup4==4.9.3
 requests==2.25.1

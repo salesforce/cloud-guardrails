@@ -13,8 +13,8 @@ example_config_file = os.path.abspath(os.path.join(
 ))
 
 
-class ServiceTestCase(unittest.TestCase):
-    def test_service_get_display_names_by_service_with_parameters(self):
+class EmptyParamsPrintoutTestCase(unittest.TestCase):
+    def test_empty_params_printout(self):
         services = Service(service_name="Kubernetes")
         display_names = services.get_display_names_by_service_with_parameters(include_empty_defaults=True)
         expected_keys = [
@@ -69,32 +69,3 @@ class ServiceTestCase(unittest.TestCase):
         template = env.get_template("service-parameters-template.yml")
         result = template.render(t=template_contents)
         print(result)
-
-
-class ServicesTestCase(unittest.TestCase):
-    def setUp(self):
-        self.policy_json = utils.get_policy_json(service_name="Automation", filename="Automation_AuditUnencryptedVars_Audit.json")
-        self.services = Services()
-
-    def test_services(self):
-        services = Services()
-        # print(f"Service Names: {', '.join(services.service_names)}")
-
-        display_names = services.get_display_names(all_policies=True)
-        print(f"All Policies: {len(display_names)}")
-
-        display_names = services.get_display_names()
-        print(f"No parameters or modification: {len(display_names)}")
-
-        display_names = services.get_display_names(with_parameters=True)
-        print(f"With Parameters only: {len(display_names)}")
-
-        display_names = services.get_display_names(with_parameters=False, with_modify_capabilities=True)
-        print(f"With Modify capabilities only: {len(display_names)}")
-
-        display_names = services.get_display_names(with_parameters=True, with_modify_capabilities=True)
-        print(f"With Modify capabilities and Parameters only: {len(display_names)}")
-
-    def test_get_display_names_by_service_with_parameters(self):
-        results = self.services.get_display_names_sorted_by_service(with_parameters=True)
-        print(json.dumps(results, indent=4))

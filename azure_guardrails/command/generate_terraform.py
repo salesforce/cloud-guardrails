@@ -5,7 +5,7 @@ import logging
 import click
 from click_option_group import optgroup, RequiredMutuallyExclusiveOptionGroup
 from azure_guardrails import set_log_level, set_stream_logger
-from azure_guardrails.terraform.terraform import get_terraform_template, TerraformTemplate
+from azure_guardrails.terraform.terraform import TerraformTemplateNoParams, TerraformTemplateWithParams
 from azure_guardrails.shared import utils, validate
 from azure_guardrails.scrapers.compliance_data import ComplianceCoverage
 from azure_guardrails.shared.config import get_default_config, get_config_from_file
@@ -76,16 +76,6 @@ supported_services_argument_values.append("all")
     default=False,
     help="Only generate policies where parameters are REQUIRED",
 )
-# @optgroup.option(
-#     "--parameter-options",
-#     "-o",
-#     type=click.Choice(["defaults", "empty"], case_sensitive=True),
-#     multiple=True,
-#     required=False,
-#     default=None,
-#     help="Include Policies with Parameters that have default values (defaults) and/or Policies that have empty defaults that you must fill in (empty).",
-#     # callback=validate.click_validate_supported_azure_service,  # TODO: Write this validation
-# )
 # Mutually exclusive option groups
 # https://github.com/click-contrib/click-option-group
 # https://stackoverflow.com/questions/37310718/mutually-exclusive-option-groups-in-python-click
@@ -168,25 +158,30 @@ def generate_terraform(
     if no_params:
         include_empty_defaults = False
         with_parameters = False
-    elif params_required:
+    if params_required:
         include_empty_defaults = True
-    elif params_optional:
         with_parameters = True
+    if params_optional:
+        with_parameters = True
+        include_empty_defaults = False
 
     if service == "all":
         services = Services(config=config)
     else:
         services = Services(service_names=[service], config=config)
     if with_parameters:
-        display_names = services.get_display_names_by_service_with_parameters(include_empty_defaults=include_empty_defaults)
-        terraform_template = TerraformTemplate(parameters=display_names,
-                                               subscription_name=subscription,
-                                               management_group=management_group,
-                                               enforcement_mode=enforcement_mode)
+        display_names = services.get_display_names_by_service_with_parameters(
+            include_empty_defaults=include_empty_defaults)
+        terraform_template = TerraformTemplateWithParams(parameters=display_names,
+                                                         subscription_name=subscription,
+                                                         management_group=management_group,
+                                                         enforcement_mode=enforcement_mode)
         result = terraform_template.rendered()
     else:
         display_names = services.get_display_names_sorted_by_service(with_parameters=with_parameters)
-        result = get_terraform_template(policy_names=display_names,
-                                        subscription_name=subscription,
-                                        management_group=management_group, enforcement_mode=enforcement_mode)
+        terraform_template = TerraformTemplateNoParams(policy_names=display_names,
+                                                       subscription_name=subscription,
+                                                       management_group=management_group,
+                                                       enforcement_mode=enforcement_mode)
+        result = terraform_template.rendered()
     print(result)

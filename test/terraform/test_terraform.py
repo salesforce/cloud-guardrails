@@ -1,34 +1,45 @@
 import unittest
 import json
 from azure_guardrails.shared import utils
-from azure_guardrails.terraform.terraform import get_terraform_template, TerraformTemplate
+from azure_guardrails.terraform.terraform import TerraformTemplateWithParams, TerraformTemplateNoParams
 from azure_guardrails.guardrails.services import Services, Service
 
 
-class TerraformTestCase(unittest.TestCase):
+class TerraformTemplateNoParamsTestCase(unittest.TestCase):
     def test_terraform_single_service(self):
         service = Service(service_name="Key Vault")
         policy_names = service.get_display_names_sorted_by_service(with_parameters=False)
-        policy_set_name = "test"
-        subscription_name = "example-subscription"
+        subscription_name = "example"
         management_group = ""
         enforcement_mode = False
-        result = get_terraform_template(policy_names=policy_names,
-                                        subscription_name=subscription_name,
-                                        management_group=management_group, enforcement_mode=enforcement_mode)
+        terraform_template = TerraformTemplateNoParams(policy_names=policy_names, subscription_name=subscription_name,
+                                                       management_group=management_group,
+                                                       enforcement_mode=enforcement_mode)
+        result = terraform_template.rendered()
+        self.assertListEqual(list(terraform_template.policy_names.keys()), ["Key Vault"])
+        self.assertTrue("Key vaults should have soft delete enabled" in terraform_template.policy_names.get("Key Vault"))
+        self.assertTrue("name_example_noparams" in result)
         # print(result)
 
     def test_terraform_all_services(self):
         services = Services()
-        policy_set_name = "test"
-        subscription_name = "example-subscription"
+        subscription_name = "example"
         management_group = ""
         enforcement_mode = False
-        display_names = services.get_display_names_sorted_by_service(with_parameters=False)
-        result = get_terraform_template(policy_names=display_names,
-                                        subscription_name=subscription_name,
-                                        management_group=management_group, enforcement_mode=enforcement_mode)
+        policy_names = services.get_display_names_sorted_by_service(with_parameters=False)
+        terraform_template = TerraformTemplateNoParams(policy_names=policy_names, subscription_name=subscription_name,
+                                                       management_group=management_group,
+                                                       enforcement_mode=enforcement_mode)
+        result = terraform_template.rendered()
+        policy_name_keys = list(terraform_template.policy_names.keys())
+        all_services = utils.get_service_names()
+        print(f"Length of Policy name keys: {len(policy_name_keys)}")
+        print(f"Length of All Services list: {len(all_services)}")
+        self.assertTrue(len(policy_name_keys) >= 39)
+        for service in policy_name_keys:
+            self.assertTrue(service in all_services)
         # print(result)
+
 
 class TerraformTemplateClassTestCase(unittest.TestCase):
     def setUp(self):
@@ -88,10 +99,11 @@ class TerraformTemplateClassTestCase(unittest.TestCase):
                 }
             }
         }
-        self.terraform_template = TerraformTemplate(parameters=self.example_parameters, subscription_name="example")
+        self.terraform_template = TerraformTemplateWithParams(parameters=self.example_parameters, subscription_name="example")
 
     def test_get_policy_parameters(self):
-        results = self.terraform_template.get_policy_parameters("Kubernetes", "Kubernetes cluster containers should only use allowed capabilities")
+        results = self.terraform_template.get_policy_parameters("Kubernetes",
+                                                                "Kubernetes cluster containers should only use allowed capabilities")
         # print(json.dumps(results, indent=4))
         # print(json.dumps(list(results.keys()), indent=4))
         parameters = list(results.keys())
@@ -126,7 +138,9 @@ class TerraformTemplateClassTestCase(unittest.TestCase):
     def test_policy_definition_reference_parameters(self):
         expected_results = {
             'Do not allow privileged containers in Kubernetes cluster': ['excludedNamespaces', 'namespaces'],
-            'Kubernetes cluster containers should only use allowed capabilities': ['excludedNamespaces', 'namespaces', 'allowedCapabilities', 'requiredDropCapabilities']
+            'Kubernetes cluster containers should only use allowed capabilities': ['excludedNamespaces', 'namespaces',
+                                                                                   'allowedCapabilities',
+                                                                                   'requiredDropCapabilities']
         }
         print(self.terraform_template.policy_definition_reference_parameters())
         self.assertDictEqual(self.terraform_template.policy_definition_reference_parameters(), expected_results)
