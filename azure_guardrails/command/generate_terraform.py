@@ -205,7 +205,7 @@ def generate_terraform(
             target_name = subscription
         else:
             target_name = management_group
-        summary_file_prefix = f"{summary_file_prefix}-table-{target_name}"
+        summary_file_prefix = f"{summary_file_prefix}-{service}-table-{target_name}"
 
         # Write Markdown summary
         markdown_table = compliance_coverage.markdown_table()
