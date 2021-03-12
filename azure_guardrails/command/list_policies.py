@@ -33,7 +33,7 @@ logger = logging.getLogger(__name__)
     "--format",
     "-f",
     "fmt",
-    type=click.Choice(["stdout", "yaml", "terraform"]),
+    type=click.Choice(["stdout", "yaml"]),
     required=False,
     default="stdout",
     help="Output format",
@@ -54,24 +54,46 @@ def list_policies(service: str, with_parameters: bool, fmt: str, verbosity: int)
     service_names.append("all")
     if service not in service_names:
         raise Exception(f"Please provide a valid service name. Valid service names are {service_names}")
-    print("Getting policy names according to service\n")
+    if verbosity >= 1:
+        utils.print_grey("Getting policy names according to service\n")
     if fmt == "yaml":
-        print_policies_in_yaml(service=service, with_parameters=with_parameters)
+        print_policies_in_yaml(service=service, with_parameters=with_parameters, verbosity=verbosity)
+    else:
+        print_policies_in_stdout(service=service, with_parameters=with_parameters, verbosity=verbosity)
 
 
-def print_policies_in_yaml(service: str, with_parameters: bool):
+def get_display_names_sorted_by_service(service: str, with_parameters: bool) -> dict:
     if service == "all":
         services = Services()
         display_names = services.get_display_names_sorted_by_service(with_parameters=with_parameters)
-        result = yaml.dump(display_names)
-        total_policies = 0
-        for service_name in display_names.keys():
-            total_policies += len(display_names[service_name])
     else:
-        service = Service(service_name=service)
-        display_names = service.get_display_names(with_parameters=with_parameters)
-        result = yaml.dump(display_names)
-        total_policies = len(display_names)
+        services = Services(service_names=[service])
+        display_names = services.get_display_names_sorted_by_service(with_parameters=with_parameters)
+    return display_names
 
+
+def print_policies_in_yaml(service: str, with_parameters: bool, verbosity: int):
+    display_names = get_display_names_sorted_by_service(service=service, with_parameters=with_parameters)
+    result = yaml.dump(display_names)
+    total_policies = 0
+    for service_name in display_names.keys():
+        total_policies += len(display_names[service_name])
     print(result)
-    print(f"total policies: {str(total_policies)}")
+    if verbosity >= 1:
+        print(f"total policies: {str(total_policies)}")
+
+
+def print_policies_in_stdout(service: str, with_parameters: bool, verbosity: int):
+    # TODO: Figure out if I should just print all of the policies as a list or if they should be indented. If indented, uncomment the commented lines below.
+    display_names = get_display_names_sorted_by_service(service=service, with_parameters=with_parameters)
+    total_policies = 0
+    for service_name in display_names.keys():
+        # print(f"{service_name}:")
+        total_policies += len(display_names[service_name])
+        for policy_name in display_names.get(service_name):
+            print(policy_name)
+            # print(f"\t{policy_name}")
+        # print("\n")
+
+    if verbosity >= 1:
+        print(f"total policies: {str(total_policies)}")

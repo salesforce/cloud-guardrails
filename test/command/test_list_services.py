@@ -5,14 +5,6 @@ from click.testing import CliRunner
 from azure_guardrails.command.list_services import list_services
 from azure_guardrails.shared import utils
 
-test_files_directory = os.path.abspath(os.path.join(
-    os.path.dirname(__file__),
-    os.path.pardir,
-    "files",
-))
-default_config_file = os.path.join(test_files_directory, "example-config.yml")
-config_with_keyword_matches = os.path.join(test_files_directory, "config-match-keywords.yml")
-
 
 class ListServicesClickUnitTests(unittest.TestCase):
     def setUp(self):

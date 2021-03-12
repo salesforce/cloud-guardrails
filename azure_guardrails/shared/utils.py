@@ -3,7 +3,9 @@ import re
 import json
 import csv
 from pathlib import Path
+from colorama import Fore
 END = "\033[0m"
+GREY = "\33[90m"
 
 AZURE_POLICY_SERVICE_DIRECTORY = os.path.abspath(
     os.path.join(
@@ -63,3 +65,12 @@ def get_compliance_table() -> list:
         for row in csv_reader:
             results.append(row)
     return results
+
+
+def print_red(string):
+    print(f"{Fore.RED}{string}{END}")
+
+
+def print_grey(string):
+    print(f"{GREY}{string}{END}")
+    # Color code from here: https://stackoverflow.com/a/39452138

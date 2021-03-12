@@ -13,6 +13,7 @@ REQUIRED_PACKAGES = [
     "pyyaml",
     "jinja2",
     "tabulate",
+    "colorama",
     "ruamel.yaml",
     "beautifulsoup4",
     "requests",
