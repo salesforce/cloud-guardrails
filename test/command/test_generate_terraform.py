@@ -21,20 +21,25 @@ class GenerateTerraformClickUnitTests(unittest.TestCase):
         """command.generate_terraform: should return exit code 0"""
         result = self.runner.invoke(generate_terraform, ["--help"])
         self.assertTrue(result.exit_code == 0)
-        result = self.runner.invoke(generate_terraform, ["--service", "all", "--subscription", "example", "--no-params"])
+        args = ["--service", "all", "--subscription", "example", "--no-params"]
+        result = self.runner.invoke(generate_terraform, args)
         print(result.output)
         self.assertTrue(result.exit_code == 0)
 
     def test_generate_terraform_command_with_config(self):
         """command.generate_terraform: with config file"""
-        result = self.runner.invoke(generate_terraform, ["--service", "all", "--subscription", "example", "--no-params", "--config-file", default_config_file])
+        args = ["--service", "all", "--subscription", "example", "--no-params", "--config-file", default_config_file]
+        result = self.runner.invoke(generate_terraform, )
         self.assertTrue(result.exit_code == 0)
         # print(result.output)
+        self.assertTrue("private link" in result.output)
+        self.assertTrue("encrypt" not in result.output)
 
     def test_generate_terraform_with_explicit_matches(self):
         """command.generate_terraform: with config file that matches keywords"""
-        result = self.runner.invoke(generate_terraform, ["--service", "all", "--subscription", "example", "--no-params", "--config-file", config_with_keyword_matches])
-        # print(result.output)
+        args = ["--service", "all", "--subscription", "example", "--no-params", "--config-file", config_with_keyword_matches]
+        result = self.runner.invoke(generate_terraform, args)
+        print(result.output)
         # We know for sure that no policies that match "customer-managed key" will also
         # contain "private link" in it (which is what the config file above looks for)
         # We also know that by default, there will be a lot of ones that have customer-managed key.
@@ -42,3 +47,30 @@ class GenerateTerraformClickUnitTests(unittest.TestCase):
         # Let's search for it
         self.assertTrue("customer-managed key" not in result.output)
         self.assertTrue("private link" in result.output)
+
+    def test_generate_terraform_params_optional(self):
+        args = ["--service", "all",
+                "--subscription", "example",
+                "--params-optional"]
+        result = self.runner.invoke(generate_terraform, args)
+        # print(result.output)
+        # We expect that a certain parameter will be in the output. Assert that it exists in the output
+        self.assertTrue("modeRequirement" in result.output)
+
+        args = ["--service", "Key Vault",
+                "--subscription", "example",
+                "--params-optional"]
+        result = self.runner.invoke(generate_terraform, args)
+        print(result.output)
+        # We expect that a certain parameter will be in the output. Assert that it exists in the output
+        self.assertTrue("allowedECNames" in result.output)
+
+    def test_generate_terraform_params_required(self):
+        args = ["--service", "Kubernetes",
+                "--subscription", "example",
+                "--params-required"]
+        result = self.runner.invoke(generate_terraform, args)
+        print(result.output)
+        # We expect that a certain parameter will be in the output. Assert that it exists in the output
+        expected = "Do not allow privileged containers in Kubernetes cluster"
+        self.assertTrue(expected in result.output)

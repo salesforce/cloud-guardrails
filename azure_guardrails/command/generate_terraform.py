@@ -158,10 +158,12 @@ def generate_terraform(
     if no_params:
         include_empty_defaults = False
         with_parameters = False
-    elif params_required:
+    if params_required:
         include_empty_defaults = True
-    elif params_optional:
         with_parameters = True
+    if params_optional:
+        with_parameters = True
+        include_empty_defaults = False
 
     if service == "all":
         services = Services(config=config)
