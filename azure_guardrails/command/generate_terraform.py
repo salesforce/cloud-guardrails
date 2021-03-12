@@ -5,7 +5,7 @@ import logging
 import click
 from click_option_group import optgroup, RequiredMutuallyExclusiveOptionGroup
 from azure_guardrails import set_log_level, set_stream_logger
-from azure_guardrails.terraform.terraform import get_terraform_template, TerraformTemplate
+from azure_guardrails.terraform.terraform import TerraformTemplateNoParams, TerraformTemplateWithParams
 from azure_guardrails.shared import utils, validate
 from azure_guardrails.scrapers.compliance_data import ComplianceCoverage
 from azure_guardrails.shared.config import get_default_config, get_config_from_file
@@ -168,15 +168,18 @@ def generate_terraform(
     else:
         services = Services(service_names=[service], config=config)
     if with_parameters:
-        display_names = services.get_display_names_by_service_with_parameters(include_empty_defaults=include_empty_defaults)
-        terraform_template = TerraformTemplate(parameters=display_names,
-                                               subscription_name=subscription,
-                                               management_group=management_group,
-                                               enforcement_mode=enforcement_mode)
+        display_names = services.get_display_names_by_service_with_parameters(
+            include_empty_defaults=include_empty_defaults)
+        terraform_template = TerraformTemplateWithParams(parameters=display_names,
+                                                         subscription_name=subscription,
+                                                         management_group=management_group,
+                                                         enforcement_mode=enforcement_mode)
         result = terraform_template.rendered()
     else:
         display_names = services.get_display_names_sorted_by_service(with_parameters=with_parameters)
-        result = get_terraform_template(policy_names=display_names,
-                                        subscription_name=subscription,
-                                        management_group=management_group, enforcement_mode=enforcement_mode)
+        terraform_template = TerraformTemplateNoParams(policy_names=display_names,
+                                                       subscription_name=subscription,
+                                                       management_group=management_group,
+                                                       enforcement_mode=enforcement_mode)
+        result = terraform_template.rendered()
     print(result)
