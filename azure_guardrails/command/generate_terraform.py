@@ -1,6 +1,7 @@
 """
 Generate Terraform for the Azure Policies
 """
+import os
 import logging
 import click
 from click_option_group import optgroup, RequiredMutuallyExclusiveOptionGroup
@@ -105,6 +106,13 @@ supported_services_argument_values.append("all")
     default=False,
     help="Do not generate markdown or CSV summary files associated with the Terraform output",
 )
+# @optgroup.option(
+#     "--output",
+#     "-o",
+#     type=str,
+#     help="The path to the output directory. Defaults to the current directory.",
+#     default=os.path.curdir
+# )
 @click.option(
     "-v",
     "--verbose",
@@ -122,6 +130,7 @@ def generate_terraform(
         management_group: str,
         enforcement_mode: bool,
         no_summary: bool,
+        # output: str,
         verbosity: int
 ):
     """
@@ -154,16 +163,19 @@ def generate_terraform(
     # else:
     with_parameters = False
     include_empty_defaults = False
-
+    summary_file_prefix = ""
     if no_params:
         include_empty_defaults = False
         with_parameters = False
+        summary_file_prefix = "no-params"
     if params_required:
         include_empty_defaults = True
         with_parameters = True
+        summary_file_prefix = "params-required"
     if params_optional:
         with_parameters = True
         include_empty_defaults = False
+        summary_file_prefix = "params-optional"
 
     if service == "all":
         services = Services(config=config)
@@ -172,16 +184,42 @@ def generate_terraform(
     if with_parameters:
         display_names = services.get_display_names_by_service_with_parameters(
             include_empty_defaults=include_empty_defaults)
+        display_names_list = services.get_display_names(with_parameters=with_parameters)
         terraform_template = TerraformTemplateWithParams(parameters=display_names,
                                                          subscription_name=subscription,
                                                          management_group=management_group,
                                                          enforcement_mode=enforcement_mode)
-        result = terraform_template.rendered()
     else:
         display_names = services.get_display_names_sorted_by_service(with_parameters=with_parameters)
+        display_names_list = services.get_display_names(with_parameters=with_parameters)
         terraform_template = TerraformTemplateNoParams(policy_names=display_names,
                                                        subscription_name=subscription,
                                                        management_group=management_group,
                                                        enforcement_mode=enforcement_mode)
-        result = terraform_template.rendered()
+    result = terraform_template.rendered()
     print(result)
+
+    if not no_summary:
+        compliance_coverage = ComplianceCoverage(display_names=display_names_list)
+        if subscription:
+            target_name = subscription
+        else:
+            target_name = management_group
+        summary_file_prefix = f"{summary_file_prefix}-table-{target_name}"
+
+        # Write Markdown summary
+        markdown_table = compliance_coverage.markdown_table()
+        markdown_file = f"{summary_file_prefix}.md"
+        if os.path.exists(markdown_file):
+            if verbosity >= 1:
+                utils.print_grey(f"Removing the previous file: {markdown_file}")
+            os.remove(markdown_file)
+        with open(markdown_file, "w") as f:
+            f.write(markdown_table)
+
+        if verbosity >= 1:
+            utils.print_grey(f"CSV file written to: {markdown_file}")
+
+        # Write CSV summary
+        csv_file = f"{summary_file_prefix}.csv"
+        compliance_coverage.csv_table(csv_file, verbosity=verbosity)
