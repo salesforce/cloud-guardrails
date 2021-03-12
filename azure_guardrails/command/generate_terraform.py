@@ -44,7 +44,7 @@ supported_services_argument_values.append("all")
     default=False,
     help="Deny bad actions instead of auditing them.",
 )
-@optgroup.group("Config Section", help="")
+@optgroup.group("Configuration", help="")
 @optgroup.option(
     "--config-file",
     "-c",
@@ -53,17 +53,39 @@ supported_services_argument_values.append("all")
     required=False,
     help="The config file",
 )
-@optgroup.group("Parameter Options", help="")
-@optgroup.option(
-    "--parameter-options",
-    "-o",
-    type=click.Choice(["defaults", "empty"], case_sensitive=True),
-    multiple=True,
-    required=False,
-    default=None,
-    help="Include Policies with Parameters that have default values (defaults) and/or Policies that have empty defaults that you must fill in (empty).",
-    # callback=validate.click_validate_supported_azure_service,  # TODO: Write this validation
+@optgroup.group(
+    "Parameter Options",
+    cls=RequiredMutuallyExclusiveOptionGroup,
+    help="",
 )
+@optgroup.option(
+    "--no-params",
+    is_flag=True,
+    default=False,
+    help="Only generate policies that do NOT require parameters",
+)
+@optgroup.option(
+    "--params-optional",
+    is_flag=True,
+    default=False,
+    help="Only generate policies where parameters are OPTIONAL",
+)
+@optgroup.option(
+    "--params-required",
+    is_flag=True,
+    default=False,
+    help="Only generate policies where parameters are REQUIRED",
+)
+# @optgroup.option(
+#     "--parameter-options",
+#     "-o",
+#     type=click.Choice(["defaults", "empty"], case_sensitive=True),
+#     multiple=True,
+#     required=False,
+#     default=None,
+#     help="Include Policies with Parameters that have default values (defaults) and/or Policies that have empty defaults that you must fill in (empty).",
+#     # callback=validate.click_validate_supported_azure_service,  # TODO: Write this validation
+# )
 # Mutually exclusive option groups
 # https://github.com/click-contrib/click-option-group
 # https://stackoverflow.com/questions/37310718/mutually-exclusive-option-groups-in-python-click
@@ -102,11 +124,13 @@ supported_services_argument_values.append("all")
 def generate_terraform(
         service: str,
         exclude_services: list,
+        config_file: str,
+        no_params: bool,
+        params_optional: bool,
+        params_required: bool,
         subscription: str,
         management_group: str,
         enforcement_mode: bool,
-        parameter_options: list,
-        config_file: str,
         no_summary: bool,
         verbosity: int
 ):
@@ -114,9 +138,6 @@ def generate_terraform(
     Get Azure Policies
     """
     set_log_level(verbosity)
-
-    # TODO: Remove initiative
-    initiative = "example"
 
     if not config_file:
         logger.info(
@@ -143,12 +164,14 @@ def generate_terraform(
     # else:
     with_parameters = False
     include_empty_defaults = False
-    parameter_options = list(parameter_options)
-    if parameter_options:
-        if "defaults" in parameter_options:
-            with_parameters = True
-        if "empty" in parameter_options:
-            include_empty_defaults = True
+
+    if no_params:
+        include_empty_defaults = False
+        with_parameters = False
+    elif params_required:
+        include_empty_defaults = True
+    elif params_optional:
+        with_parameters = True
 
     if service == "all":
         services = Services(config=config)
