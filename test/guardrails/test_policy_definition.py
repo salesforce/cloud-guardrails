@@ -19,7 +19,7 @@ policy_definition_file = os.path.abspath(os.path.join(
     os.path.dirname(__file__),
     os.pardir,
     "files",
-    "SQLDBAuditing_Audit.json"
+    "SqlDBAuditing_Audit.json"
 ))
 with open(policy_definition_file) as json_file:
     params_optional_definition = json.load(json_file)
