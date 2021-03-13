@@ -2,6 +2,7 @@ import requests
 import os
 import logging
 from bs4 import BeautifulSoup
+
 logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
 
 
@@ -52,4 +53,3 @@ def get_azure_html(link, file_path):
         file.close()
     logger.info("%s downloaded", file_name)
     return file_path
-

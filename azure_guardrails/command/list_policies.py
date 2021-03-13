@@ -67,7 +67,15 @@ logger = logging.getLogger(__name__)
     "verbosity",
     count=True,
 )
-def list_policies(service: str, all_policies: bool, no_params: bool, params_optional: bool, params_required: bool, fmt: str, verbosity: int):
+def list_policies(
+    service: str,
+    all_policies: bool,
+    no_params: bool,
+    params_optional: bool,
+    params_required: bool,
+    fmt: str,
+    verbosity: int,
+):
     """
     List Azure Policies
     """
@@ -76,16 +84,38 @@ def list_policies(service: str, all_policies: bool, no_params: bool, params_opti
     service_names = utils.get_service_names()
     service_names.append("all")
     if service not in service_names:
-        raise Exception(f"Please provide a valid service name. Valid service names are {service_names}")
+        raise Exception(
+            f"Please provide a valid service name. Valid service names are {service_names}"
+        )
     if verbosity >= 1:
         utils.print_grey("Getting policy names according to service\n")
     if fmt == "yaml":
-        print_policies_in_yaml(service=service, all_policies=all_policies, no_params=no_params, params_optional=params_optional, params_required=params_required, verbosity=verbosity)
+        print_policies_in_yaml(
+            service=service,
+            all_policies=all_policies,
+            no_params=no_params,
+            params_optional=params_optional,
+            params_required=params_required,
+            verbosity=verbosity,
+        )
     else:
-        print_policies_in_stdout(service=service, all_policies=all_policies, no_params=no_params, params_optional=params_optional, params_required=params_required, verbosity=verbosity)
+        print_policies_in_stdout(
+            service=service,
+            all_policies=all_policies,
+            no_params=no_params,
+            params_optional=params_optional,
+            params_required=params_required,
+            verbosity=verbosity,
+        )
 
 
-def get_display_names_sorted_by_service(service: str, all_policies: bool, no_params: bool, params_optional: bool, params_required: bool) -> dict:
+def get_display_names_sorted_by_service(
+    service: str,
+    all_policies: bool,
+    no_params: bool,
+    params_optional: bool,
+    params_required: bool,
+) -> dict:
     if service == "all":
         services = Services()
     else:
@@ -96,14 +126,31 @@ def get_display_names_sorted_by_service(service: str, all_policies: bool, no_par
     elif no_params:
         display_names = services.get_display_names_sorted_by_service_no_params()
     elif params_optional:
-        display_names = services.get_display_names_sorted_by_service_with_params(params_required=False)
+        display_names = services.get_display_names_sorted_by_service_with_params(
+            params_required=False
+        )
     elif params_required:
-        display_names = services.get_display_names_sorted_by_service_with_params(params_required=True)
+        display_names = services.get_display_names_sorted_by_service_with_params(
+            params_required=True
+        )
     return display_names
 
 
-def print_policies_in_yaml(service: str, all_policies: bool, no_params: bool, params_optional: bool, params_required: bool, verbosity: int):
-    display_names = get_display_names_sorted_by_service(service=service, all_policies=all_policies, no_params=no_params, params_optional=params_optional, params_required=params_required)
+def print_policies_in_yaml(
+    service: str,
+    all_policies: bool,
+    no_params: bool,
+    params_optional: bool,
+    params_required: bool,
+    verbosity: int,
+):
+    display_names = get_display_names_sorted_by_service(
+        service=service,
+        all_policies=all_policies,
+        no_params=no_params,
+        params_optional=params_optional,
+        params_required=params_required,
+    )
     result = yaml.dump(display_names)
     total_policies = 0
     for service_name in display_names.keys():
@@ -113,9 +160,22 @@ def print_policies_in_yaml(service: str, all_policies: bool, no_params: bool, pa
         print(f"total policies: {str(total_policies)}")
 
 
-def print_policies_in_stdout(service: str, all_policies: bool, no_params: bool, params_optional: bool, params_required: bool, verbosity: int):
+def print_policies_in_stdout(
+    service: str,
+    all_policies: bool,
+    no_params: bool,
+    params_optional: bool,
+    params_required: bool,
+    verbosity: int,
+):
     # TODO: Figure out if I should just print all of the policies as a list or if they should be indented. If indented, uncomment the commented lines below.
-    display_names = get_display_names_sorted_by_service(service=service, all_policies=all_policies, no_params=no_params, params_optional=params_optional, params_required=params_required)
+    display_names = get_display_names_sorted_by_service(
+        service=service,
+        all_policies=all_policies,
+        no_params=no_params,
+        params_optional=params_optional,
+        params_required=params_required,
+    )
     total_policies = 0
     for service_name in display_names.keys():
         # print(f"{service_name}:")

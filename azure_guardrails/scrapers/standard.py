@@ -30,11 +30,15 @@ def scrape_standard(html_file_path: str, benchmark_name: str, replacement_string
     for table in tables:
         table_identifier_sibling = table.previous_sibling.previous_sibling
         # Get requirement ID
-        requirement_id = get_requirement_id(table_identifier_sibling.text, replacement_string)
+        requirement_id = get_requirement_id(
+            table_identifier_sibling.text, replacement_string
+        )
 
         if replacement_string in table_identifier_sibling.text:
             # Requirement Name
-            requirement_sibling = table_identifier_sibling.previous_sibling.previous_sibling
+            requirement_sibling = (
+                table_identifier_sibling.previous_sibling.previous_sibling
+            )
             requirement = chomp_keep_single_spaces(requirement_sibling.text)
 
             # Benchmark Category
@@ -55,7 +59,7 @@ def scrape_standard(html_file_path: str, benchmark_name: str, replacement_string
 
                 # Cell 0: Name with Azure Portal Link
                 name_cell = cells[0]
-                name_cell_href = cells[0].find_all('a', href=True)
+                name_cell_href = cells[0].find_all("a", href=True)
                 azure_portal_link = name_cell_href[0].attrs["href"]
                 name_text = chomp_keep_single_spaces(name_cell.text)
                 # Let's skip all the ones with Microsoft Managed Control; Azure be flexin', but that would unnecessarily
@@ -74,7 +78,7 @@ def scrape_standard(html_file_path: str, benchmark_name: str, replacement_string
 
                 # Cell 3: The Version and the GitHub link
                 github_link_cell = cells[3]
-                github_link_cell_href = cells[3].find_all('a', href=True)
+                github_link_cell_href = cells[3].find_all("a", href=True)
                 github_link = github_link_cell_href[0].attrs["href"]
                 github_version = chomp_keep_single_spaces(github_link_cell_href[0].text)
                 service_name = get_service_name(github_link)
@@ -90,7 +94,7 @@ def scrape_standard(html_file_path: str, benchmark_name: str, replacement_string
                     description=description,
                     effects=effects,
                     github_link=github_link,
-                    github_version=github_version
+                    github_version=github_version,
                 )
                 results.append(entry)
         else:

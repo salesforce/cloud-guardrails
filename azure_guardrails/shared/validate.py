@@ -25,9 +25,13 @@ def click_validate_comma_separated_excluded_services(ctx, param, value):
                 excluded_services = value.split(",")
                 for service in excluded_services:
                     if service not in supported_services:
-                        raise click.BadParameter(f"The service name {service} is invalid. Please provide a comma "
-                                                 f"separated list of supported services from the list: "
-                                                 f"{','.join(supported_services)}")
+                        raise click.BadParameter(
+                            f"The service name {service} is invalid. Please provide a comma "
+                            f"separated list of supported services from the list: "
+                            f"{','.join(supported_services)}"
+                        )
                 return excluded_services
         except ValueError:
-            raise click.BadParameter("Supply the list of resource names to exclude from results in a comma separated string.")
+            raise click.BadParameter(
+                "Supply the list of resource names to exclude from results in a comma separated string."
+            )

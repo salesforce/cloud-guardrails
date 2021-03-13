@@ -10,13 +10,16 @@ class PolicyDefinition:
 
     https://docs.microsoft.com/en-us/azure/governance/policy/concepts/definition-structure
     """
+
     def __init__(self, policy_content: dict, service_name: str):
         self.content = policy_content
         self.service_name = service_name
 
         self.id = policy_content.get("id")
         self.name = policy_content.get("name")
-        self.category = policy_content.get("properties").get("metadata").get("category", None)
+        self.category = (
+            policy_content.get("properties").get("metadata").get("category", None)
+        )
         self.properties = Properties(properties_json=policy_content.get("properties"))
         self.display_name = self.properties.display_name
         self.parameters = self.properties.parameters
@@ -35,7 +38,7 @@ class PolicyDefinition:
             display_name=self.display_name,
         )
         if self.parameters:
-            result["parameters"] = self.properties.parameter_json,
+            result["parameters"] = (self.properties.parameter_json,)
         return result
 
     @property
@@ -95,20 +98,28 @@ class PolicyDefinition:
         except AttributeError as error:
             # Weird cases: where deployifnotexists or modify are in the body of the policy definition instead of the "effect" parameter
             # In this case, we have an 'if' statement that greps for deployifnotexists in str(policy_definition.lower())
-            if 'deployifnotexists' in str(self.properties.policy_rule).lower() and 'modify' in str(
-                    self.properties.policy_rule):
+            if "deployifnotexists" in str(
+                self.properties.policy_rule
+            ).lower() and "modify" in str(self.properties.policy_rule):
                 logger.debug(
-                    f"Found BOTH deployIfNotExists and modify in the policy content for the policy: {self.display_name}")
+                    f"Found BOTH deployIfNotExists and modify in the policy content for the policy: {self.display_name}"
+                )
                 allowed_effects.append("deployIfNotExists")
                 allowed_effects.append("modify")
-            elif 'deployifnotexists' in str(self.properties.policy_rule).lower():
-                logger.debug(f"Found deployIfNotExists in the policy content for the policy: {self.display_name}")
+            elif "deployifnotexists" in str(self.properties.policy_rule).lower():
+                logger.debug(
+                    f"Found deployIfNotExists in the policy content for the policy: {self.display_name}"
+                )
                 allowed_effects.append("deployIfNotExists")
-            elif 'modify' in str(self.properties.policy_rule).lower():
-                logger.debug(f"Found Modify in the policy content for the policy: {self.display_name}")
+            elif "modify" in str(self.properties.policy_rule).lower():
+                logger.debug(
+                    f"Found Modify in the policy content for the policy: {self.display_name}"
+                )
                 allowed_effects.append("modify")
-            elif 'append' in str(self.properties.policy_rule).lower():
-                logger.debug(f"Found append in the policy content for the policy: {self.display_name}")
+            elif "append" in str(self.properties.policy_rule).lower():
+                logger.debug(
+                    f"Found append in the policy content for the policy: {self.display_name}"
+                )
                 allowed_effects.append("append")
             else:
                 logger.debug(error)
@@ -128,7 +139,9 @@ class PolicyDefinition:
             or "modify" in self.allowed_effects
             or "deployifnotexists" in self.allowed_effects
         ):
-            logger.debug(f"{self.service_name} - modifies_resources: The policy definition {self.display_name} has the allowed_effects: {self.allowed_effects}")
+            logger.debug(
+                f"{self.service_name} - modifies_resources: The policy definition {self.display_name} has the allowed_effects: {self.allowed_effects}"
+            )
             return True
         else:
             return False
@@ -148,6 +161,7 @@ class Parameter:
 
     https://docs.microsoft.com/en-us/azure/governance/policy/concepts/definition-structure#parameter-properties
     """
+
     def __init__(self, name: str, parameter_json: dict):
         self.name = name
         self.type = parameter_json.get("type")

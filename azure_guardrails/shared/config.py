@@ -7,10 +7,9 @@ from azure_guardrails.shared import utils
 
 logger = logging.getLogger(__name__)
 
-DEFAULT_CONFIG_FILE = os.path.abspath(os.path.join(
-    os.path.dirname(__file__),
-    "default-config.yml"
-))
+DEFAULT_CONFIG_FILE = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), "default-config.yml")
+)
 
 
 def get_config_template() -> str:
@@ -28,14 +27,23 @@ DEFAULT_CONFIG_TEMPLATE = get_config_template()
 
 
 class Config:
-    def __init__(self, exclude_policies: dict, match_only_keywords: list = None, exclude_services: list = None):
-        self.supported_services = utils.get_service_names()  # This is not really needed by the object - just used for data validation
+    def __init__(
+        self,
+        exclude_policies: dict,
+        match_only_keywords: list = None,
+        exclude_services: list = None,
+    ):
+        self.supported_services = (
+            utils.get_service_names()
+        )  # This is not really needed by the object - just used for data validation
 
         self.exclude_policies = self._exclude_policies(exclude_policies)
         if not match_only_keywords:
             self.match_only_keywords = []
         else:
-            self.match_only_keywords = [x.lower() for x in match_only_keywords if x != ""]
+            self.match_only_keywords = [
+                x.lower() for x in match_only_keywords if x != ""
+            ]
 
         # Get the list of services excluded by the user
         self.exclude_services = self._exclude_services(exclude_services)
@@ -45,7 +53,7 @@ class Config:
         result = dict(
             match_only_keywords=self.match_only_keywords,
             exclude_services=self.exclude_services,
-            exclude_policies=self.exclude_policies
+            exclude_policies=self.exclude_policies,
         )
         return json.dumps(result)
 
@@ -53,7 +61,7 @@ class Config:
         result = dict(
             match_only_keywords=self.match_only_keywords,
             exclude_services=self.exclude_services,
-            exclude_policies=self.exclude_policies
+            exclude_policies=self.exclude_policies,
         )
         return result
 
@@ -63,7 +71,10 @@ class Config:
             # Let's just loop through and validate the service names.
             for service, values in policies_dict.items():
                 if service not in self.supported_services:
-                    raise Exception("Error: the provided service %s is not in the list of supported services" % service)
+                    raise Exception(
+                        "Error: the provided service %s is not in the list of supported services"
+                        % service
+                    )
                 # Let's do some weird voodoo because the default template has empty strings as part of the dictionary
                 service_values = []
                 for value in values:
@@ -85,7 +96,10 @@ class Config:
                 elif service in self.supported_services:
                     exclude_services.append(service)
                 else:
-                    raise Exception("Error: the provided service %s is not in the list of supported services" % service)
+                    raise Exception(
+                        "Error: the provided service %s is not in the list of supported services"
+                        % service
+                    )
         return exclude_services
 
     def is_keyword_match(self, policy_display_name: str) -> bool:
@@ -127,7 +141,9 @@ class Config:
         # elif self.is_keyword_match(policy_display_name=display_name):
         #     return True
         # Case: The policy name is in the list of excluded policies, sorted by service
-        elif self.is_policy_excluded(service_name=service_name, display_name=display_name):
+        elif self.is_policy_excluded(
+            service_name=service_name, display_name=display_name
+        ):
             return True
         else:
             return False
@@ -140,8 +156,11 @@ def get_default_config(exclude_services: list = None) -> Config:
     if exclude_services:
         cfg_exclude_services.extend(exclude_services)
     match_only_keywords = config_cfg.get("match_only_keywords", None)
-    config = Config(exclude_policies=exclude_policies, exclude_services=exclude_services,
-                    match_only_keywords=match_only_keywords)
+    config = Config(
+        exclude_policies=exclude_policies,
+        exclude_services=exclude_services,
+        match_only_keywords=match_only_keywords,
+    )
     return config
 
 
@@ -159,6 +178,9 @@ def get_config_from_file(config_file: str, exclude_services: list = None) -> Con
     if exclude_services:
         cfg_exclude_services.extend(exclude_services)
     match_only_keywords = config_cfg.get("match_only_keywords", None)
-    config = Config(exclude_policies=cfg_exclude_policies, exclude_services=cfg_exclude_services,
-                    match_only_keywords=match_only_keywords)
+    config = Config(
+        exclude_policies=cfg_exclude_policies,
+        exclude_services=cfg_exclude_services,
+        match_only_keywords=match_only_keywords,
+    )
     return config

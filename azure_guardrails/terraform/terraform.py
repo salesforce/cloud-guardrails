@@ -3,14 +3,23 @@ import json
 import logging
 from jinja2 import Template, Environment, FileSystemLoader
 from azure_guardrails.shared import utils
+
 logger = logging.getLogger(__name__)
 
 
 class TerraformTemplateNoParams:
     """Terraform Template for when there are no parameters"""
-    def __init__(self, policy_names: dict, subscription_name: str = "", management_group: str = "",
-                 enforcement_mode: bool = False):
-        self.name = self._name(subscription_name=subscription_name, management_group=management_group)
+
+    def __init__(
+        self,
+        policy_names: dict,
+        subscription_name: str = "",
+        management_group: str = "",
+        enforcement_mode: bool = False,
+    ):
+        self.name = self._name(
+            subscription_name=subscription_name, management_group=management_group
+        )
         self.subscription_name = subscription_name
         self.management_group = management_group
         self.policy_names = policy_names
@@ -21,7 +30,9 @@ class TerraformTemplateNoParams:
 
     def _name(self, subscription_name: str, management_group: str) -> str:
         if subscription_name == "" and management_group == "":
-            raise Exception("Please supply a value for the subscription name or the management group")
+            raise Exception(
+                "Please supply a value for the subscription name or the management group"
+            )
         # TODO: Shorten the subscription name if it is over X characters
         if subscription_name:
             name = f"{subscription_name}-noparams"
@@ -49,12 +60,17 @@ class TerraformTemplateNoParams:
 class TerraformTemplateWithParams:
     """Terraform Template with Parameters"""
 
-    def __init__(self,
-                 parameters: dict,
-                 subscription_name: str = "",
-                 management_group: str = "", enforcement_mode: bool = False):
+    def __init__(
+        self,
+        parameters: dict,
+        subscription_name: str = "",
+        management_group: str = "",
+        enforcement_mode: bool = False,
+    ):
 
-        self.name = self._name(subscription_name=subscription_name, management_group=management_group)
+        self.name = self._name(
+            subscription_name=subscription_name, management_group=management_group
+        )
         self.service_parameters = self._parameters(parameters)
         self.subscription_name = subscription_name
         self.management_group = management_group
@@ -65,7 +81,9 @@ class TerraformTemplateWithParams:
 
     def _name(self, subscription_name: str, management_group: str) -> str:
         if subscription_name == "" and management_group == "":
-            raise Exception("Please supply a value for the subscription name or the management group")
+            raise Exception(
+                "Please supply a value for the subscription name or the management group"
+            )
         # TODO: Shorten the subscription name if it is over X characters
         if subscription_name:
             name = f"{subscription_name}-params"
@@ -126,8 +144,7 @@ class TerraformTemplateWithParams:
         )
         template_path = os.path.join(os.path.dirname(__file__), "parameters")
         env = Environment(loader=FileSystemLoader(template_path))  # nosec
-        env.filters['debug'] = print
+        env.filters["debug"] = print
         template = env.get_template("policy-set-with-parameters.tf")
         result = template.render(t=template_contents)
         return result
-

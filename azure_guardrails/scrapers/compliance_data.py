@@ -6,19 +6,19 @@ from operator import itemgetter
 from tabulate import tabulate
 from azure_guardrails.shared import utils
 
-COMPLIANCE_DATA_FILE = os.path.abspath(os.path.join(
-    os.path.dirname(__file__),
-    os.path.pardir,
-    "shared",
-    "data",
-    "results.json"
-))
+COMPLIANCE_DATA_FILE = os.path.abspath(
+    os.path.join(
+        os.path.dirname(__file__), os.path.pardir, "shared", "data", "results.json"
+    )
+)
 with open(COMPLIANCE_DATA_FILE) as json_file:
     COMPLIANCE_DATA = json.load(json_file)
 
 
 class BenchmarkEntry:
-    def __init__(self, benchmark: str, category: str, requirement: str, requirement_id: str):
+    def __init__(
+        self, benchmark: str, category: str, requirement: str, requirement_id: str
+    ):
         self.benchmark = benchmark
         self.category = category
         self.requirement = requirement
@@ -41,8 +41,20 @@ class BenchmarkEntry:
 
 
 class PolicyDefinitionMetadata:
-    def __init__(self, policy_id: str, service_name: str, effects: str, description: str, name: str, benchmark: str,
-                 category: str, requirement: str, requirement_id: str, github_link: str, github_version: str):
+    def __init__(
+        self,
+        policy_id: str,
+        service_name: str,
+        effects: str,
+        description: str,
+        name: str,
+        benchmark: str,
+        category: str,
+        requirement: str,
+        requirement_id: str,
+        github_link: str,
+        github_version: str,
+    ):
         self.policy_id = policy_id
         self.service_name = service_name
         self.effects = effects
@@ -50,8 +62,12 @@ class PolicyDefinitionMetadata:
         self.name = name
         self.github_link = github_link
         self.github_version = github_version
-        self.benchmarks = self._benchmarks(benchmark=benchmark, requirement=requirement, requirement_id=requirement_id,
-                                           category=category)
+        self.benchmarks = self._benchmarks(
+            benchmark=benchmark,
+            requirement=requirement,
+            requirement_id=requirement_id,
+            category=category,
+        )
 
     def __repr__(self) -> str:
         benchmark_response = {}
@@ -75,10 +91,16 @@ class PolicyDefinitionMetadata:
     def json(self) -> dict:
         return json.loads(self.__repr__())
 
-    def _benchmarks(self, benchmark: str, category: str, requirement: str, requirement_id: str) -> {BenchmarkEntry}:
+    def _benchmarks(
+        self, benchmark: str, category: str, requirement: str, requirement_id: str
+    ) -> {BenchmarkEntry}:
         result = {}
-        benchmark_entry = BenchmarkEntry(benchmark=benchmark, category=category, requirement=requirement,
-                                         requirement_id=requirement_id)
+        benchmark_entry = BenchmarkEntry(
+            benchmark=benchmark,
+            category=category,
+            requirement=requirement,
+            requirement_id=requirement_id,
+        )
         result[benchmark] = benchmark_entry
         return result
 
@@ -86,7 +108,9 @@ class PolicyDefinitionMetadata:
         result = {}
         for benchmark, benchmark_value in self.benchmarks.items():
             benchmark_name = benchmark_value.benchmark
-            benchmark_string = f"{benchmark_value.benchmark}: {benchmark_value.requirement_id}"
+            benchmark_string = (
+                f"{benchmark_value.benchmark}: {benchmark_value.requirement_id}"
+            )
             # benchmark_string = f"{benchmark_value.benchmark}: {benchmark_value.requirement_id} ({benchmark_value.requirement})"
             result[benchmark_name] = benchmark_string
         return result
@@ -138,8 +162,12 @@ class ComplianceResultsTransformer:
                 category = result.get("category")
                 requirement = result.get("requirement")
                 requirement_id = result.get("requirement_id")
-                benchmark_entry = BenchmarkEntry(benchmark=benchmark, category=category, requirement=requirement,
-                                                 requirement_id=requirement_id)
+                benchmark_entry = BenchmarkEntry(
+                    benchmark=benchmark,
+                    category=category,
+                    requirement=requirement,
+                    requirement_id=requirement_id,
+                )
                 results[result.get("name")].benchmarks[benchmark] = benchmark_entry
         return results
 
@@ -168,7 +196,9 @@ class PolicyComplianceData:
             description = metadata_values.get("description")
             github_link = metadata_values.get("github_link")
             github_version = metadata_values.get("github_version")
-            for benchmark_key, benchmark_values in metadata_values.get("benchmarks").items():
+            for benchmark_key, benchmark_values in metadata_values.get(
+                "benchmarks"
+            ).items():
                 benchmark = benchmark_key
                 category = benchmark_values.get("category")
                 requirement = benchmark_values.get("requirement")
@@ -198,11 +228,15 @@ class PolicyComplianceData:
         result.sort()
         return result
 
-    def get_benchmark_data_matching_policy_definition(self, policy_definition_name: str) -> dict:
+    def get_benchmark_data_matching_policy_definition(
+        self, policy_definition_name: str
+    ) -> dict:
         results = {}
         metadata = self.policy_definition_metadata.get(policy_definition_name)
         for benchmark in metadata:
-            results[benchmark] = metadata[benchmark].get_compliance_data_matching_policy_definition()
+            results[benchmark] = metadata[
+                benchmark
+            ].get_compliance_data_matching_policy_definition()
         return results
 
 
@@ -219,18 +253,32 @@ class ComplianceCoverage:
             # Trim [Preview]:
             name = display_name.replace("[Preview]: ", "")
             if name in policy_definition_names:
-                benchmark_data = self.policy_compliance_data.get_benchmark_data_matching_policy_definition(name)
+                benchmark_data = self.policy_compliance_data.get_benchmark_data_matching_policy_definition(
+                    name
+                )
                 results[display_name] = benchmark_data
         return results
 
     def csv_table(self, path: str, verbosity: int):
-        headers = ["Service", "Policy Definition", "Azure Security Benchmark", "CIS", "CCMC L3", "ISO 27001", "NIST SP 800-53 R4", "NIST SP 800-171 R2", "HIPAA HITRUST 9.2", "New Zealand ISM", "Link"]
+        headers = [
+            "Service",
+            "Policy Definition",
+            "Azure Security Benchmark",
+            "CIS",
+            "CCMC L3",
+            "ISO 27001",
+            "NIST SP 800-53 R4",
+            "NIST SP 800-171 R2",
+            "HIPAA HITRUST 9.2",
+            "New Zealand ISM",
+            "Link",
+        ]
 
         # results = headers.copy()
         results = self.table_summary(hyperlink_format=False)
         if os.path.exists(path):
             os.remove(path)
-        with open(path, 'w', newline='') as csv_file:
+        with open(path, "w", newline="") as csv_file:
             writer = csv.DictWriter(csv_file, fieldnames=headers)
             writer.writeheader()
             for row in results:
@@ -255,14 +303,20 @@ class ComplianceCoverage:
             return benchmark_id
 
         # Loop through the matching metadata only, then look within the policy_compliance_data that holds the master details
-        for policy_definition_name, policy_definition_details in self.matching_metadata.items():
+        for (
+            policy_definition_name,
+            policy_definition_details,
+        ) in self.matching_metadata.items():
             name = policy_definition_name.replace("[Preview]: ", "")
 
             # for policy in self.matching_metadata[policy_definition_name]:
             benchmarks = []
             github_link = ""
             service_name = ""
-            for benchmark, benchmark_details in self.policy_compliance_data.policy_definition_metadata[name].items():
+            for (
+                benchmark,
+                benchmark_details,
+            ) in self.policy_compliance_data.policy_definition_metadata[name].items():
                 benchmarks.append(benchmark)
                 service_name = benchmark_details.service_name
                 github_link = benchmark_details.github_link
@@ -271,14 +325,22 @@ class ComplianceCoverage:
             else:
                 policy_definition_string = policy_definition_name
 
-            azure_security_benchmark_id = get_benchmark_id("Azure Security Benchmark", policy_definition_details)
+            azure_security_benchmark_id = get_benchmark_id(
+                "Azure Security Benchmark", policy_definition_details
+            )
             cis_id = get_benchmark_id("CIS", policy_definition_details)
             ccmc_id = get_benchmark_id("CCMC L3", policy_definition_details)
             iso_id = get_benchmark_id("ISO 27001", policy_definition_details)
-            nist_800_171_id = get_benchmark_id("NIST SP 800-171 R2", policy_definition_details)
-            nist_800_53_id = get_benchmark_id("NIST SP 800-53 R4", policy_definition_details)
+            nist_800_171_id = get_benchmark_id(
+                "NIST SP 800-171 R2", policy_definition_details
+            )
+            nist_800_53_id = get_benchmark_id(
+                "NIST SP 800-53 R4", policy_definition_details
+            )
             hipaa_id = get_benchmark_id("HIPAA HITRUST 9.2", policy_definition_details)
-            new_zealand_id = get_benchmark_id("NZISM Security Benchmark", policy_definition_details)
+            new_zealand_id = get_benchmark_id(
+                "NZISM Security Benchmark", policy_definition_details
+            )
 
             result = {
                 "Service": service_name,

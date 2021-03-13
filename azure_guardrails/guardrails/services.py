@@ -13,7 +13,9 @@ class Service:
     def __init__(self, service_name: str, config: Config = DEFAULT_CONFIG):
         self.service_name = service_name
         self.config = config
-        service_policy_directory = os.path.join(utils.AZURE_POLICY_SERVICE_DIRECTORY, self.service_name)
+        service_policy_directory = os.path.join(
+            utils.AZURE_POLICY_SERVICE_DIRECTORY, self.service_name
+        )
         self.policy_files = self._policy_files(service_policy_directory)
         self.policy_definitions = self._policy_definitions()
 
@@ -27,21 +29,34 @@ class Service:
 
         if self.policy_definitions:
             policy_definitions_result = {}
-            for policy_definition, policy_definition_details in self.policy_definitions.items():
-                policy_definitions_result[policy_definition] = policy_definition_details.json()
+            for (
+                policy_definition,
+                policy_definition_details,
+            ) in self.policy_definitions.items():
+                policy_definitions_result[
+                    policy_definition
+                ] = policy_definition_details.json()
             result["policy_definitions"] = policy_definitions_result
         return result
 
     def _policy_files(self, service_policy_directory: str) -> list:
-        policy_files = [f for f in os.listdir(service_policy_directory) if os.path.isfile(os.path.join(service_policy_directory, f))]
+        policy_files = [
+            f
+            for f in os.listdir(service_policy_directory)
+            if os.path.isfile(os.path.join(service_policy_directory, f))
+        ]
         policy_files.sort()
         return policy_files
 
     def _policy_definitions(self) -> dict:
         policy_definitions = {}
         for file in self.policy_files:
-            policy_content = utils.get_policy_json(service_name=self.service_name, filename=file)
-            policy_definition = PolicyDefinition(policy_content=policy_content, service_name=self.service_name)
+            policy_content = utils.get_policy_json(
+                service_name=self.service_name, filename=file
+            )
+            policy_definition = PolicyDefinition(
+                policy_content=policy_content, service_name=self.service_name
+            )
             policy_definitions[policy_definition.display_name] = policy_definition
         return policy_definitions
 
@@ -49,19 +64,33 @@ class Service:
         # Quality control
         # First, if the display name starts with [Deprecated], skip it
         if policy_definition.display_name.startswith("[Deprecated]: "):
-            logger.debug("Deprecated Policy; skipping. Policy name: %s" % policy_definition.display_name)
+            logger.debug(
+                "Deprecated Policy; skipping. Policy name: %s"
+                % policy_definition.display_name
+            )
             return True
         # Some Policies with Modify capabilities don't have an Effect - only way to detect them is to see if the name starts with 'Deploy'
         elif policy_definition.display_name.startswith("Deploy "):
-            logger.debug("'Deploy' Policy detected; skipping. Policy name: %s" % policy_definition.display_name)
+            logger.debug(
+                "'Deploy' Policy detected; skipping. Policy name: %s"
+                % policy_definition.display_name
+            )
             return True
         # If the policy is deprecated, skip it
         elif policy_definition.is_deprecated:
-            logger.debug("Policy definition is deprecated; skipping. Policy name: %s" % policy_definition.display_name)
+            logger.debug(
+                "Policy definition is deprecated; skipping. Policy name: %s"
+                % policy_definition.display_name
+            )
             return True
         # If we have specified it in the Config config, skip it
-        elif self.config.is_excluded(service_name=self.service_name, display_name=policy_definition.display_name):
-            logger.debug("Policy definition is excluded; skipping. Policy name: %s" % policy_definition.display_name)
+        elif self.config.is_excluded(
+            service_name=self.service_name, display_name=policy_definition.display_name
+        ):
+            logger.debug(
+                "Policy definition is excluded; skipping. Policy name: %s"
+                % policy_definition.display_name
+            )
             return True
         else:
             return False
@@ -102,20 +131,28 @@ class Service:
         display_names.sort()
         return display_names
 
-    def get_policy_definition_parameters(self, display_name: str, params_required: bool = False) -> dict:
+    def get_policy_definition_parameters(
+        self, display_name: str, params_required: bool = False
+    ) -> dict:
         parameters = {}
         for this_display_name, policy_definition in self.policy_definitions.items():
             if this_display_name == display_name:
                 # Params required
                 if params_required and policy_definition.params_required:
-                    for parameter_name, parameter_details in policy_definition.parameters.items():
+                    for (
+                        parameter_name,
+                        parameter_details,
+                    ) in policy_definition.parameters.items():
                         if parameter_details.name == "effect":
                             continue
                         parameters[parameter_details.name] = parameter_details.json()
                     continue
                 # Params Optional
                 if not params_required and policy_definition.params_optional:
-                    for parameter_name, parameter_details in policy_definition.parameters.items():
+                    for (
+                        parameter_name,
+                        parameter_details,
+                    ) in policy_definition.parameters.items():
                         if parameter_details.name == "effect":
                             continue
                         parameters[parameter_details.name] = parameter_details.json()
@@ -127,7 +164,11 @@ class Services:
     default_service_names = utils.get_service_names()
     default_service_names.sort()
 
-    def __init__(self, service_names: list = default_service_names, config: Config = DEFAULT_CONFIG):
+    def __init__(
+        self,
+        service_names: list = default_service_names,
+        config: Config = DEFAULT_CONFIG,
+    ):
         if service_names == ["all"]:
             service_names = utils.get_service_names()
             service_names.sort()
@@ -172,12 +213,16 @@ class Services:
         for service_name, service_details in self.services.items():
             logger.debug("Getting display names for service: %s" % service_name)
             this_service_display_names = service_details.display_names_no_params
-            this_service_display_names = list(dict.fromkeys(this_service_display_names))  # remove duplicates
+            this_service_display_names = list(
+                dict.fromkeys(this_service_display_names)
+            )  # remove duplicates
             if this_service_display_names:
                 results[service_name] = this_service_display_names
         return results
 
-    def get_display_names_sorted_by_service_with_params(self, params_required: bool = False) -> dict:
+    def get_display_names_sorted_by_service_with_params(
+        self, params_required: bool = False
+    ) -> dict:
         results = {}
         for service_name, service_details in self.services.items():
             logger.debug("Getting display names for service: %s" % service_name)
@@ -185,13 +230,19 @@ class Services:
 
             # Get the display names depending on whether we are looking for Params Required or Params Optional
             if params_required:
-                this_service_display_names = service_details.display_names_params_required
+                this_service_display_names = (
+                    service_details.display_names_params_required
+                )
             else:
-                this_service_display_names = service_details.display_names_params_optional
+                this_service_display_names = (
+                    service_details.display_names_params_optional
+                )
 
             # Loop through the service's display names and get the parameters for each Policy Definition
             for display_name in this_service_display_names:
-                parameters = service_details.get_policy_definition_parameters(display_name=display_name, params_required=params_required)
+                parameters = service_details.get_policy_definition_parameters(
+                    display_name=display_name, params_required=params_required
+                )
                 if parameters:
                     service_parameters[display_name] = parameters
             results[service_name] = service_parameters
