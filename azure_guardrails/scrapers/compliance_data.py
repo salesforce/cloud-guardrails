@@ -223,78 +223,77 @@ class ComplianceCoverage:
                 results[display_name] = benchmark_data
         return results
 
-    def markdown_table(self) -> str:
-        headers = ["Service", "Policy Definition"]
-        benchmark_names = ["Azure Security Benchmark", "CIS", "CCMC L3", "ISO 27001", "NIST SP 800-53 R4",
-                           "NIST SP 800-171 R2", "HIPAA HITRUST 9.2", "New Zealand ISM"]
-        headers.extend(benchmark_names)
-        results = self.table_summary()
-        return tabulate(results, headers=headers, tablefmt="github")
-
     def csv_table(self, path: str, verbosity: int):
-        headers = ["Service", "Policy Definition"]
-        benchmark_names = ["Azure Security Benchmark", "CIS", "CCMC L3", "ISO 27001", "NIST SP 800-53 R4",
-                           "NIST SP 800-171 R2", "HIPAA HITRUST 9.2", "New Zealand ISM", "Policy Link"]
-        headers.extend(benchmark_names)
-        results = [headers]
-        results.extend(self.table_summary(hyperlink_format=False))
+        headers = ["Service", "Policy Definition", "Azure Security Benchmark", "CIS", "CCMC L3", "ISO 27001", "NIST SP 800-53 R4", "NIST SP 800-171 R2", "HIPAA HITRUST 9.2", "New Zealand ISM", "Link"]
+
+        # results = headers.copy()
+        results = self.table_summary(hyperlink_format=False)
         if os.path.exists(path):
             os.remove(path)
         with open(path, 'w', newline='') as csv_file:
-            writer = csv.writer(csv_file)
+            writer = csv.DictWriter(csv_file, fieldnames=headers)
+            writer.writeheader()
             for row in results:
                 writer.writerow(row)
-        # print(f"CSV updated! Wrote {len(results)} rows. Path: {path}")
         if verbosity >= 1:
             utils.print_grey(f"Removing the previous file: {path}")
+
+    def markdown_table(self) -> str:
+        results = self.table_summary()
+        return tabulate(results, headers="keys", tablefmt="github")
 
     def table_summary(self, hyperlink_format: bool = True) -> list:
         results = []
 
         def get_benchmark_id(benchmark_name: str, this_policy_metadata: dict) -> str:
-            if this_policy_metadata.benchmarks.get(benchmark_name, None):
-                # if benchmark_name in this_policy_metadata["benchmarks"].keys():
-                # this_policy_metadata.benchmarks['Azure Security Benchmark'].requirement_id
-                benchmark_id = this_policy_metadata.benchmarks[benchmark_name].requirement_id
+            if this_policy_metadata.get(benchmark_name, None):
+                benchmark_id = this_policy_metadata[benchmark_name][benchmark_name]
+                benchmark_id = benchmark_id.replace(f"{benchmark_name}: ", "")
+                benchmark_id = benchmark_id.replace(f"ID : ", "")
             else:
                 benchmark_id = ""
             return benchmark_id
 
-        for policy_definition_name in self.matching_metadata:
+        # Loop through the matching metadata only, then look within the policy_compliance_data that holds the master details
+        for policy_definition_name, policy_definition_details in self.matching_metadata.items():
             name = policy_definition_name.replace("[Preview]: ", "")
 
-            for policy in self.matching_metadata[policy_definition_name]:
-                service_name = self.policy_compliance_data.policy_definition_metadata[name][policy].service_name
-                github_link = self.policy_compliance_data.policy_definition_metadata[name][policy].github_link
-                if hyperlink_format:
-                    policy_definition_string = f"[{policy_definition_name}]({github_link})"
-                else:
-                    policy_definition_string = policy_definition_name
+            # for policy in self.matching_metadata[policy_definition_name]:
+            benchmarks = []
+            github_link = ""
+            service_name = ""
+            for benchmark, benchmark_details in self.policy_compliance_data.policy_definition_metadata[name].items():
+                benchmarks.append(benchmark)
+                service_name = benchmark_details.service_name
+                github_link = benchmark_details.github_link
+            if hyperlink_format:
+                policy_definition_string = f"[{policy_definition_name}]({github_link})"
+            else:
+                policy_definition_string = policy_definition_name
 
-                policy_metadata = self.policy_compliance_data.policy_definition_metadata[name][policy]
-                azure_security_benchmark_id = get_benchmark_id("Azure Security Benchmark", policy_metadata)
-                cis_id = get_benchmark_id("CIS", policy_metadata)
-                ccmc_id = get_benchmark_id("CCMC L3", policy_metadata)
-                iso_id = get_benchmark_id("ISO 27001", policy_metadata)
-                nist_800_171_id = get_benchmark_id("NIST SP 800-171 R2", policy_metadata)
-                nist_800_53_id = get_benchmark_id("NIST SP 800-53 R4", policy_metadata)
-                hipaa_id = get_benchmark_id("HIPAA HITRUST 9.2", policy_metadata)
-                new_zealand_id = get_benchmark_id("NZISM Security Benchmark", policy_metadata)
-                result = [
-                    service_name,
-                    policy_definition_string,
-                    azure_security_benchmark_id,
-                    cis_id,
-                    ccmc_id,
-                    iso_id,
-                    nist_800_53_id,
-                    nist_800_171_id,
-                    hipaa_id,
-                    new_zealand_id,
-                ]
-                # If hyperlink format is not specified, that means it is not markdown and we want to include the github link in a separate column
-                if not hyperlink_format:
-                    result.append(github_link)
-                results.append(result)
-        results = sorted(results, key=itemgetter(0, 1, 2, 3, 4, 5, 6, 7, 8, 9))
+            azure_security_benchmark_id = get_benchmark_id("Azure Security Benchmark", policy_definition_details)
+            cis_id = get_benchmark_id("CIS", policy_definition_details)
+            ccmc_id = get_benchmark_id("CCMC L3", policy_definition_details)
+            iso_id = get_benchmark_id("ISO 27001", policy_definition_details)
+            nist_800_171_id = get_benchmark_id("NIST SP 800-171 R2", policy_definition_details)
+            nist_800_53_id = get_benchmark_id("NIST SP 800-53 R4", policy_definition_details)
+            hipaa_id = get_benchmark_id("HIPAA HITRUST 9.2", policy_definition_details)
+            new_zealand_id = get_benchmark_id("NZISM Security Benchmark", policy_definition_details)
+
+            result = {
+                "Service": service_name,
+                "Policy Definition": policy_definition_string,
+                # "Name": policy_definition_name,
+                "Azure Security Benchmark": azure_security_benchmark_id,
+                "CIS": cis_id,
+                "CCMC L3": ccmc_id,
+                "ISO 27001": iso_id,
+                "NIST SP 800-171 R2": nist_800_171_id,
+                "NIST SP 800-53 R4": nist_800_53_id,
+                "HIPAA HITRUST 9.2": hipaa_id,
+                "New Zealand ISM": new_zealand_id,
+                "Link": github_link,
+            }
+            results.append(result)
+        results = sorted(results, key=itemgetter("Service", "Policy Definition"))
         return results
