@@ -1,7 +1,6 @@
 import unittest
 from azure_guardrails.shared import utils
-from azure_guardrails.guardrails.policy_definition import Parameter, PolicyDefinition, Properties
-from azure_guardrails.guardrails.services import Service, Services
+from azure_guardrails.guardrails.services import Services, Service
 import yaml
 import ruamel.yaml
 import json
@@ -15,8 +14,8 @@ example_config_file = os.path.abspath(os.path.join(
 
 class EmptyParamsPrintoutTestCase(unittest.TestCase):
     def test_empty_params_printout(self):
-        services = Service(service_name="Kubernetes")
-        display_names = services.get_display_names_by_service_with_parameters(include_empty_defaults=True)
+        services = Services(service_names=["Kubernetes"])
+        display_names = services.display_names_params_required
         expected_keys = [
             "Do not allow privileged containers in Kubernetes cluster",
             "Enforce internal load balancers in Kubernetes cluster",
@@ -39,12 +38,10 @@ class EmptyParamsPrintoutTestCase(unittest.TestCase):
             "[Preview]: Kubernetes clusters should not use specific security capabilities",
             "[Preview]: Kubernetes clusters should not use the default namespace"
         ]
-        keys = list(display_names.keys())
-        keys.sort()
         # print(json.dumps(keys, indent=4))
         # Doing this in a loop to future-proof the unit test
         for expected_key in expected_keys:
-            self.assertTrue(expected_key in keys)
+            self.assertTrue(expected_key in display_names)
         # print(ruamel.yaml.dump(display_names, Dumper=ruamel.yaml.RoundTripDumper))
 
         from jinja2 import Template, Environment, FileSystemLoader

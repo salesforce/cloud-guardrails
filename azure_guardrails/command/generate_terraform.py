@@ -5,12 +5,12 @@ import os
 import logging
 import click
 from click_option_group import optgroup, RequiredMutuallyExclusiveOptionGroup
-from azure_guardrails import set_log_level, set_stream_logger
+from azure_guardrails import set_log_level
 from azure_guardrails.terraform.terraform import TerraformTemplateNoParams, TerraformTemplateWithParams
 from azure_guardrails.shared import utils, validate
 from azure_guardrails.scrapers.compliance_data import ComplianceCoverage
 from azure_guardrails.shared.config import get_default_config, get_config_from_file
-from azure_guardrails.guardrails.services import Services, Service
+from azure_guardrails.guardrails.services import Services
 
 logger = logging.getLogger(__name__)
 
@@ -106,13 +106,6 @@ supported_services_argument_values.append("all")
     default=False,
     help="Do not generate markdown or CSV summary files associated with the Terraform output",
 )
-# @optgroup.option(
-#     "--output",
-#     "-o",
-#     type=str,
-#     help="The path to the output directory. Defaults to the current directory.",
-#     default=os.path.curdir
-# )
 @click.option(
     "-v",
     "--verbose",
@@ -130,7 +123,6 @@ def generate_terraform(
         management_group: str,
         enforcement_mode: bool,
         no_summary: bool,
-        # output: str,
         verbosity: int
 ):
     """
@@ -150,52 +142,38 @@ def generate_terraform(
     else:
         subscription = ""
 
-    # if generate_summary:
-    #     if service == "all":
-    #         services = Services(config=config)
-    #         policy_names = services.get_display_names(with_parameters=with_parameters)
-    #     else:
-    #         services = Service(service_name=service, config=config)
-    #         policy_names = services.get_display_names(with_parameters=with_parameters)
-    #     compliance_coverage = ComplianceCoverage(display_names=policy_names)
-    #     markdown_table = compliance_coverage.markdown_table()
-    #     print(markdown_table)
-    # else:
-    with_parameters = False
-    include_empty_defaults = False
     summary_file_prefix = ""
     if no_params:
-        include_empty_defaults = False
-        with_parameters = False
         summary_file_prefix = "no-params"
-    if params_required:
-        include_empty_defaults = True
-        with_parameters = True
+    elif params_required:
         summary_file_prefix = "params-required"
-    if params_optional:
-        with_parameters = True
-        include_empty_defaults = False
+    elif params_optional:
         summary_file_prefix = "params-optional"
 
     if service == "all":
         services = Services(config=config)
     else:
         services = Services(service_names=[service], config=config)
-    if with_parameters:
-        display_names = services.get_display_names_by_service_with_parameters(
-            include_empty_defaults=include_empty_defaults)
-        display_names_list = services.get_display_names(with_parameters=with_parameters)
-        terraform_template = TerraformTemplateWithParams(parameters=display_names,
-                                                         subscription_name=subscription,
-                                                         management_group=management_group,
-                                                         enforcement_mode=enforcement_mode)
-    else:
-        display_names = services.get_display_names_sorted_by_service(with_parameters=with_parameters)
-        display_names_list = services.get_display_names(with_parameters=with_parameters)
+
+    if no_params:
+        display_names = services.get_display_names_sorted_by_service_no_params()
+        display_names_list = services.display_names_no_params
         terraform_template = TerraformTemplateNoParams(policy_names=display_names,
                                                        subscription_name=subscription,
                                                        management_group=management_group,
                                                        enforcement_mode=enforcement_mode)
+    else:
+        display_names = services.get_display_names_sorted_by_service_with_params(params_required=params_required)
+
+        if params_required:
+            display_names_list = services.display_names_params_required
+        else:
+            display_names_list = services.display_names_params_optional
+
+        terraform_template = TerraformTemplateWithParams(parameters=display_names,
+                                                         subscription_name=subscription,
+                                                         management_group=management_group,
+                                                         enforcement_mode=enforcement_mode)
     result = terraform_template.rendered()
     print(result)
 

@@ -74,3 +74,16 @@ def print_red(string):
 def print_grey(string):
     print(f"{GREY}{string}{END}")
     # Color code from here: https://stackoverflow.com/a/39452138
+
+
+def normalize_display_name_string(string: str) -> str:
+    string = string.replace("[Preview]: ", "")
+    return string
+
+
+def normalize_display_names_list(display_names: list) -> list:
+    results = []
+    for name in display_names:
+        name = name.replace("[Preview]: ", "")
+        results.append(name)
+    return results
