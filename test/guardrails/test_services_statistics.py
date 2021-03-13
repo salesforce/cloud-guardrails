@@ -1,7 +1,6 @@
 import unittest
 from azure_guardrails.shared import utils
-from azure_guardrails.guardrails.policy_definition import Parameter, PolicyDefinition, Properties
-from azure_guardrails.guardrails.services_v2 import ServicesV2
+from azure_guardrails.guardrails.services import ServicesV2
 import yaml
 import ruamel.yaml
 import json

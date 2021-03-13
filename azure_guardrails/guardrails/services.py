@@ -4,12 +4,12 @@ import logging
 from typing import List, Dict, Optional
 from azure_guardrails.shared import utils
 from azure_guardrails.shared.config import DEFAULT_CONFIG, Config
-from azure_guardrails.guardrails.policy_definition_v2 import PolicyDefinitionV2, ParameterV2
+from azure_guardrails.guardrails.policy_definition import PolicyDefinition, Parameter
 
 logger = logging.getLogger(__name__)
 
 
-class ServiceV2:
+class Service:
     def __init__(self, service_name: str, config: Config = DEFAULT_CONFIG):
         self.service_name = service_name
         self.config = config
@@ -23,7 +23,6 @@ class ServiceV2:
     def json(self) -> dict:
         result = dict(
             service_name=self.service_name,
-            # display_names=self.display_names,
         )
 
         if self.policy_definitions:
@@ -38,17 +37,15 @@ class ServiceV2:
         policy_files.sort()
         return policy_files
 
-    # def _policy_definitions(self) -> Dict[Optional[PolicyDefinitionV2]]:
     def _policy_definitions(self) -> dict:
-        # def _policy_definitions(self) -> Dict[Optional[PolicyDefinition]]:
         policy_definitions = {}
         for file in self.policy_files:
             policy_content = utils.get_policy_json(service_name=self.service_name, filename=file)
-            policy_definition = PolicyDefinitionV2(policy_content=policy_content, service_name=self.service_name)
+            policy_definition = PolicyDefinition(policy_content=policy_content, service_name=self.service_name)
             policy_definitions[policy_definition.display_name] = policy_definition
         return policy_definitions
 
-    def skip_display_names(self, policy_definition: PolicyDefinitionV2) -> bool:
+    def skip_display_names(self, policy_definition: PolicyDefinition) -> bool:
         # Quality control
         # First, if the display name starts with [Deprecated], skip it
         if policy_definition.display_name.startswith("[Deprecated]: "):
@@ -139,11 +136,10 @@ class ServicesV2:
         self.services = self._services()
 
     def _services(self) -> dict:
-        # def _services(self) -> Dict[Optional[ServiceV2]]:
         services = {}
         service_names = self.service_names
         for service_name in service_names:
-            service = ServiceV2(service_name=service_name, config=self.config)
+            service = Service(service_name=service_name, config=self.config)
             services[service_name] = service
         return services
 

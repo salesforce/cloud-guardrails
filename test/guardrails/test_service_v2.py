@@ -1,7 +1,6 @@
 import unittest
 from azure_guardrails.shared import utils
-from azure_guardrails.guardrails.policy_definition import Parameter, PolicyDefinition, Properties
-from azure_guardrails.guardrails.services_v2 import ServiceV2
+from azure_guardrails.guardrails.services import Service
 import yaml
 import ruamel.yaml
 import json
@@ -15,8 +14,8 @@ example_config_file = os.path.abspath(os.path.join(
 
 class ServiceV2TestCase(unittest.TestCase):
     def setUp(self):
-        self.service = ServiceV2(service_name="App Platform")
-        self.key_vault_service = ServiceV2(service_name="Key Vault")
+        self.service = Service(service_name="App Platform")
+        self.key_vault_service = Service(service_name="Key Vault")
 
     def test_service_display_names(self):
         expected_files = [
@@ -112,18 +111,18 @@ class ServiceV2TestCase(unittest.TestCase):
             self.assertTrue(expected_result in params_required)
 
     def test_service_get_policy_definition_parameters_no_params(self):
-        """ServiceV2.get_policy_definition_parameters: No Params case"""
+        """Service.get_policy_definition_parameters: No Params case"""
         # No Params: "Automation account variables should be encrypted"
-        self.automation_service = ServiceV2(service_name="Automation")
+        self.automation_service = Service(service_name="Automation")
         display_name = "Automation account variables should be encrypted"
         parameters = self.automation_service.get_policy_definition_parameters(display_name=display_name, params_required=False)
         self.assertDictEqual(parameters, {})
 
     def test_service_get_policy_definition_parameters_params_optional(self):
-        """ServiceV2.get_policy_definition_parameters: Params Optional case"""
+        """Service.get_policy_definition_parameters: Params Optional case"""
         # Params Optional: "Auditing on SQL server should be enabled"
         display_name = "Auditing on SQL server should be enabled"
-        self.sql_service = ServiceV2(service_name="SQL")
+        self.sql_service = Service(service_name="SQL")
         parameters = self.sql_service.get_policy_definition_parameters(display_name=display_name, params_required=False)
         print(json.dumps(parameters, indent=4))
         expected_results = {
@@ -142,9 +141,9 @@ class ServiceV2TestCase(unittest.TestCase):
         self.assertDictEqual(parameters, expected_results)
 
     def test_service_get_policy_definition_parameters_params_required(self):
-        """ServiceV2.get_policy_definition_parameters: Params Required case"""
+        """Service.get_policy_definition_parameters: Params Required case"""
         # Params Required: "Kubernetes cluster pods and containers should only run with approved user and group IDs"
-        self.kubernetes_service = ServiceV2(service_name="Kubernetes")
+        self.kubernetes_service = Service(service_name="Kubernetes")
         display_name = "Kubernetes cluster pods and containers should only run with approved user and group IDs"
         parameters = self.kubernetes_service.get_policy_definition_parameters(display_name=display_name, params_required=True)
         print(json.dumps(parameters, indent=4))

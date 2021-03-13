@@ -1,20 +1,19 @@
-import os
 import logging
 import json
-from typing import Set, List, Optional
 
 logger = logging.getLogger(__name__)
 
 
 class PolicyDefinition:
     """
-    PolicyDefinition Definition structure
+    Policy Definition structure
 
     https://docs.microsoft.com/en-us/azure/governance/policy/concepts/definition-structure
     """
     def __init__(self, policy_content: dict, service_name: str):
         self.content = policy_content
         self.service_name = service_name
+
         self.id = policy_content.get("id")
         self.name = policy_content.get("name")
         self.category = policy_content.get("properties").get("metadata").get("category", None)
@@ -23,67 +22,83 @@ class PolicyDefinition:
         self.parameters = self.properties.parameters
 
     def __repr__(self):
-        return json.dumps(self.content)
+        return json.dumps(self.json())
 
     def __str__(self):
-        return json.dumps(self.content)
+        return json.dumps(self.json())
+
+    def json(self) -> dict:
+        result = dict(
+            id=self.id,
+            name=self.name,
+            category=self.category,
+            display_name=self.display_name,
+        )
+        if self.parameters:
+            result["parameters"] = self.properties.parameter_json,
+        return result
 
     @property
     def parameter_names(self) -> list:
         """Return the list of parameter names"""
         parameters = []
-        for parameter in self.properties.parameters:
-            parameters.append(parameter.name)
+        parameters.extend(self.properties.parameter_names)
         return parameters
 
     @property
-    def includes_parameters(self) -> bool:
-        """Determine whether the policy supports parameters other than 'effect'"""
-        result = False
-        for parameter in self.parameter_names:
-            if parameter == "effect":
-                pass
-            else:
-                result = True
-                break
+    def no_params(self) -> bool:
+        """Return true if there are no parameters for the Policy Definition or if the only parameter is 'effect'"""
+        result = True
+        if self.properties.parameters:
+            for parameter in self.properties.parameters:
+                if parameter == "effect":
+                    continue
+                else:
+                    result = False
+                    break
         return result
 
     @property
-    def parameters_have_defaults(self) -> bool:
-        """Determines if the policy requires parameters that do not have defaultValues"""
-        # TODO: Rename this property to parameters_required, it is confusing
+    def params_optional(self) -> bool:
+        """Return true if there are parameters for the Policy Definition and they have default values, making them optional"""
         result = True
-        for parameter in self.properties.parameters:
-            if parameter.name == "effect":
+        if self.no_params:
+            # We will return False, because there are no params at all - optional or not.
+            return False
+        for parameter, parameter_details in self.parameters.items():
+            if parameter == "effect":
                 continue
             # We should allow you to print out the options to a YAML file and fill it out like a form.
             # So right now, it will create a long Kubernetes policy, but it will have lots of empty lists that we have to fill out. Oh well.
-            if not parameter.default_value:
+            if not parameter_details.default_value:
                 # if not parameter.default_value and parameter.default_value != [] and parameter.default_value != "":
                 result = False
                 break
         return result
 
     @property
-    def is_deprecated(self) -> bool:
-        """Determine whether the policy is deprecated or not"""
-        if self.properties.deprecated:
-            return True
-        else:
+    def params_required(self) -> bool:
+        """Return true if there are parameters for the Policy Definition and they are not optional"""
+        if self.no_params or self.params_optional:
             return False
+        else:
+            return True
 
     @property
     def allowed_effects(self) -> list:
         allowed_effects = []
         try:
-            effect_parameter = self.properties.get_parameter_by_name("effect")
+            effect_parameter = self.properties.parameters.get("effect")
             allowed_effects = effect_parameter.allowed_values
+
+        # This just means that there is no effect in there.
         except AttributeError as error:
-            # This just means that there is no effect in there.
-            logger.debug(error)
-            # Sometimes that is because deployIfNotExists or Modify is in the rule somewhere. Let's search it as a string
-            if 'deployifnotexists' in str(self.properties.policy_rule).lower() and 'modify' in str(self.properties.policy_rule):
-                logger.debug(f"Found BOTH deployIfNotExists and modify in the policy content for the policy: {self.display_name}")
+            # Weird cases: where deployifnotexists or modify are in the body of the policy definition instead of the "effect" parameter
+            # In this case, we have an 'if' statement that greps for deployifnotexists in str(policy_definition.lower())
+            if 'deployifnotexists' in str(self.properties.policy_rule).lower() and 'modify' in str(
+                    self.properties.policy_rule):
+                logger.debug(
+                    f"Found BOTH deployIfNotExists and modify in the policy content for the policy: {self.display_name}")
                 allowed_effects.append("deployIfNotExists")
                 allowed_effects.append("modify")
             elif 'deployifnotexists' in str(self.properties.policy_rule).lower():
@@ -92,9 +107,13 @@ class PolicyDefinition:
             elif 'modify' in str(self.properties.policy_rule).lower():
                 logger.debug(f"Found Modify in the policy content for the policy: {self.display_name}")
                 allowed_effects.append("modify")
+            elif 'append' in str(self.properties.policy_rule).lower():
+                logger.debug(f"Found append in the policy content for the policy: {self.display_name}")
+                allowed_effects.append("append")
             else:
                 logger.debug(error)
 
+        # Normalize names
         if allowed_effects:
             lowercase_allowed_effects = [x.lower() for x in allowed_effects]
             return lowercase_allowed_effects
@@ -107,12 +126,17 @@ class PolicyDefinition:
         if (
             "append" in self.allowed_effects
             or "modify" in self.allowed_effects
-            or "Modify" in self.allowed_effects
             or "deployifnotexists" in self.allowed_effects
-            or "DeployIfNotExists" in self.allowed_effects
-            or "deployIfNotExists" in self.allowed_effects
         ):
             logger.debug(f"{self.service_name} - modifies_resources: The policy definition {self.display_name} has the allowed_effects: {self.allowed_effects}")
+            return True
+        else:
+            return False
+
+    @property
+    def is_deprecated(self) -> bool:
+        """Determine whether the policy is deprecated or not"""
+        if self.properties.deprecated:
             return True
         else:
             return False
@@ -124,13 +148,12 @@ class Parameter:
 
     https://docs.microsoft.com/en-us/azure/governance/policy/concepts/definition-structure#parameter-properties
     """
-    def __init__(self, name, parameter_json):
+    def __init__(self, name: str, parameter_json: dict):
         self.name = name
-        self.parameter_json = parameter_json
-        self.type = self.parameter_json.get("type")
+        self.type = parameter_json.get("type")
         # Do some weird stuff because in this case, [] vs None has different implications
-        if "defaultValue" in str(self.parameter_json):
-            default_value = self.parameter_json.get("defaultValue", None)
+        if "defaultValue" in str(parameter_json):
+            default_value = parameter_json.get("defaultValue", None)
             if default_value:
                 self.default_value = default_value
             else:
@@ -139,8 +162,8 @@ class Parameter:
                 else:
                     self.default_value = None
 
-        self.default_value = self.parameter_json.get("defaultValue", None)
-        self.allowed_values = self.parameter_json.get("allowedValues", None)
+        self.default_value = parameter_json.get("defaultValue", None)
+        self.allowed_values = parameter_json.get("allowedValues", None)
 
         # Metadata
         self.metadata_json = parameter_json.get("metadata")
@@ -174,8 +197,8 @@ class Parameter:
             result["assign_permissions"] = self.assign_permissions
         return result
 
-    def _allowed_values(self):
-        allowed_values = self.parameter_json.get("allowedValues", None)
+    def _allowed_values(self, parameter_json):
+        allowed_values = parameter_json.get("allowedValues", None)
         allowed_values = [x.lower() for x in allowed_values]
         return allowed_values
 
@@ -202,44 +225,50 @@ class Properties:
 
         # PolicyDefinition Rule and Parameters
         self.policy_rule = properties_json.get("policyRule")
-        self.parameters = self._parameters()
+        self.parameters = self._parameters(properties_json.get("parameters"))
 
     def __repr__(self):
-        return self.properties_json
+        return json.dumps(self.json())
 
-    def _parameters(self) -> List[Optional[Parameter]]:
-        # TODO: Parameters should be a dict, not a list. These methods are silly
-        parameters = []
-        parameter_json = self.properties_json.get("parameters")
-        if parameter_json:
-            for name, value in self.properties_json.get("parameters").items():
+    def json(self) -> dict:
+        result = dict(
+            policy_type=self.policy_type,
+            mode=self.mode,
+            description=self.description,
+            version=self.version,
+            preview=self.version,
+            display_name=self.version,
+            deprecated=self.version,
+            policy_rule=self.version,
+        )
+        if self.parameters:
+            parameters_result = {}
+            for parameter in self.parameters:
+                parameters_result[parameter.name] = parameter.json()
+            result["parameters"] = parameters_result
+        return result
+
+    def _parameters(self, parameters_json: dict) -> dict:
+        parameters = {}
+        if parameters_json:
+            for name, value in parameters_json.items():
                 parameter = Parameter(name=name, parameter_json=value)
-                parameters.append(parameter)
+                parameters[name] = parameter
         return parameters
-
-    def parameter_name_exists(self, parameter_name) -> bool:
-        try:
-            parameter_json = self.properties_json.get("parameters").get(parameter_name)
-            if parameter_json:
-                return True
-            else:
-                return False
-        except:
-            return False
 
     @property
     def parameter_names(self) -> list:
-        """Return the list of parameter names"""
-        parameters = []
-        for parameter in self.parameters:
-            parameters.append(parameter.name)
-        return parameters
+        if self.parameters:
+            return list(self.parameters.keys())
+        else:
+            return []
 
-    def get_parameter_by_name(self, parameter_name) -> Parameter:
-        try:
-            parameter_json = self.properties_json.get("parameters").get(parameter_name)
-            if parameter_json:
-                parameter = Parameter(name=parameter_name, parameter_json=parameter_json)
-                return parameter
-        except:
-            logger.debug("No parameter found with the name %s" % parameter_name)
+    @property
+    def parameter_json(self) -> dict:
+        result = {}
+        if self.parameters:
+            for name, value in self.parameters.items():
+                result[name] = value.json()
+            return result
+        else:
+            return {}

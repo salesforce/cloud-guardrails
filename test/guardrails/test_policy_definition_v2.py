@@ -3,7 +3,7 @@ import os
 import json
 from azure_guardrails.shared import utils
 # from azure_guardrails.guardrails.policy_definition import Parameter, PolicyDefinition, Properties
-from azure_guardrails.guardrails.policy_definition_v2 import PolicyDefinitionV2, PropertiesV2, ParameterV2
+from azure_guardrails.guardrails.policy_definition import PolicyDefinition, Properties, Parameter
 
 # No Params
 policy_definition_file = os.path.abspath(os.path.join(
@@ -39,7 +39,7 @@ with open(policy_definition_file) as json_file:
 class PropertiesTestCase(unittest.TestCase):
     def setUp(self):
         """Use 'Kubernetes cluster pods and containers should only run with approved user and group IDs'"""
-        self.properties = PropertiesV2(properties_json=params_required_definition.get("properties"))
+        self.properties = Properties(properties_json=params_required_definition.get("properties"))
 
     def test_properties_attributes(self):
         self.assertEqual(self.properties.display_name, "Kubernetes cluster pods and containers should only run with approved user and group IDs")
@@ -77,7 +77,7 @@ class ParameterTestCase(unittest.TestCase):
     def setUp(self):
         """Use 'Kubernetes cluster pods and containers should only run with approved user and group IDs'"""
         parameters = params_required_definition.get("properties").get("parameters")
-        self.array_parameter = ParameterV2(name="excludedNamespaces", parameter_json=parameters.get("excludedNamespaces"))
+        self.array_parameter = Parameter(name="excludedNamespaces", parameter_json=parameters.get("excludedNamespaces"))
 
     def test_parameter_attributes(self):
         print("Testing Parameter attributes for Array type")
@@ -103,9 +103,9 @@ class ParameterTestCase(unittest.TestCase):
 
 class PolicyDefinitionV2TestCase(unittest.TestCase):
     def setUp(self):
-        self.no_params_definition = PolicyDefinitionV2(policy_content=no_params_definition, service_name="Automation")
-        self.params_optional_definition = PolicyDefinitionV2(policy_content=params_optional_definition, service_name="SQL")
-        self.params_required_definition = PolicyDefinitionV2(policy_content=params_required_definition, service_name="Kubernetes")
+        self.no_params_definition = PolicyDefinition(policy_content=no_params_definition, service_name="Automation")
+        self.params_optional_definition = PolicyDefinition(policy_content=params_optional_definition, service_name="SQL")
+        self.params_required_definition = PolicyDefinition(policy_content=params_required_definition, service_name="Kubernetes")
 
     def test_policy_attributes(self):
         """PolicyDefinition: Attributes for --no-params"""
@@ -135,25 +135,25 @@ class PolicyDefinitionV2TestCase(unittest.TestCase):
         self.assertListEqual(self.params_required_definition.parameter_names, expected_results)
 
     def test_no_params(self):
-        """PolicyDefinitionV2.no_params"""
+        """PolicyDefinition.no_params"""
         self.assertTrue(self.no_params_definition.no_params)
         self.assertFalse(self.params_optional_definition.no_params)
         self.assertFalse(self.params_required_definition.no_params)
 
     def test_params_optional(self):
-        """PolicyDefinitionV2.params_optional"""
+        """PolicyDefinition.params_optional"""
         self.assertFalse(self.no_params_definition.params_optional)
         self.assertTrue(self.params_optional_definition.params_optional)
         self.assertFalse(self.params_required_definition.params_optional)
 
     def test_params_required(self):
-        """PolicyDefinitionV2.params_required"""
+        """PolicyDefinition.params_required"""
         self.assertFalse(self.no_params_definition.params_required)
         self.assertFalse(self.params_optional_definition.params_required)
         self.assertTrue(self.params_required_definition.params_required)
 
     def test_allowed_effects(self):
-        """PolicyDefinitionV2.allowed_effects"""
+        """PolicyDefinition.allowed_effects"""
         self.assertListEqual(self.no_params_definition.allowed_effects, ['audit', 'deny', 'disabled'])
         self.assertListEqual(self.params_optional_definition.allowed_effects, ['auditifnotexists', 'disabled'])
         self.assertListEqual(self.params_required_definition.allowed_effects, ['audit', 'deny', 'disabled'])
@@ -162,21 +162,21 @@ class PolicyDefinitionV2TestCase(unittest.TestCase):
         # We also need to test for some other weird cases, like deployIfNotExists and modify
         # DeployIfNotExists as the "effect" parameter
         weird_case_json = utils.get_policy_json(service_name="Cosmos DB", filename="CosmosDbAdvancedThreatProtection_Deploy.json")
-        self.weird_case = PolicyDefinitionV2(policy_content=weird_case_json, service_name="Cosmos DB")
+        self.weird_case = PolicyDefinition(policy_content=weird_case_json, service_name="Cosmos DB")
         self.assertListEqual(self.weird_case.allowed_effects, ['deployifnotexists', 'disabled'])
 
         # DeployIfNotExists is in the body of the policy definition instead of the "effect" parameter
         # In this case, we have an 'if' statement that greps for deployifnotexists in str(policy_definition.lower())
         weird_case_json = utils.get_policy_json(service_name="Guest Configuration", filename="GuestConfiguration_WindowsCertificateInTrustedRoot_Deploy.json")
-        self.weird_case = PolicyDefinitionV2(policy_content=weird_case_json, service_name="Guest Configuration")
+        self.weird_case = PolicyDefinition(policy_content=weird_case_json, service_name="Guest Configuration")
         self.assertListEqual(self.weird_case.allowed_effects, ['deployifnotexists'])
 
         # Modify is in the body of the policy definition instead of the "effect" parameter
         weird_case_json = utils.get_policy_json(service_name="Monitoring", filename="AzureMonitoring_AddSystemIdentity_Prerequisite.json")
-        self.weird_case = PolicyDefinitionV2(policy_content=weird_case_json, service_name="Monitoring")
+        self.weird_case = PolicyDefinition(policy_content=weird_case_json, service_name="Monitoring")
         self.assertListEqual(self.weird_case.allowed_effects, ['modify'])
 
         # Append is in the body of the policy definition instead of the "effect" parameter
         weird_case_json = utils.get_policy_json(service_name="Cosmos DB", filename="Cosmos_DisableMetadata_Append.json")
-        self.weird_case = PolicyDefinitionV2(policy_content=weird_case_json, service_name="Cosmos DB")
+        self.weird_case = PolicyDefinition(policy_content=weird_case_json, service_name="Cosmos DB")
         self.assertListEqual(self.weird_case.allowed_effects, ['append'])

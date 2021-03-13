@@ -10,7 +10,7 @@ from azure_guardrails.terraform.terraform import TerraformTemplateNoParams, Terr
 from azure_guardrails.shared import utils, validate
 from azure_guardrails.scrapers.compliance_data import ComplianceCoverage
 from azure_guardrails.shared.config import get_default_config, get_config_from_file
-from azure_guardrails.guardrails.services_v2 import ServicesV2
+from azure_guardrails.guardrails.services import ServicesV2
 
 logger = logging.getLogger(__name__)
 

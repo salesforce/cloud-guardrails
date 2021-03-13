@@ -8,7 +8,7 @@ import yaml
 import click
 from click_option_group import optgroup, RequiredMutuallyExclusiveOptionGroup
 from azure_guardrails import set_log_level
-from azure_guardrails.guardrails.services_v2 import ServicesV2
+from azure_guardrails.guardrails.services import ServicesV2
 from azure_guardrails.shared import utils, validate
 
 logger = logging.getLogger(__name__)

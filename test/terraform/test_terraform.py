@@ -2,7 +2,7 @@ import unittest
 import json
 from azure_guardrails.shared import utils
 from azure_guardrails.terraform.terraform import TerraformTemplateWithParams, TerraformTemplateNoParams
-from azure_guardrails.guardrails.services_v2 import ServicesV2, ServiceV2
+from azure_guardrails.guardrails.services import ServicesV2, Service
 
 
 class TerraformTemplateNoParamsTestCase(unittest.TestCase):
