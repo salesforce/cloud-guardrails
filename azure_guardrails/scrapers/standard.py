@@ -2,19 +2,21 @@ from bs4 import BeautifulSoup
 from azure_guardrails.shared.utils import chomp_keep_single_spaces
 
 
+def get_requirement_id(input_text: str, replacement_string: str) -> str:
+    """Pass in table.previous_sibling.previous_sibling.text and get the Azure Benchmark ID"""
+    id_ownership_string = chomp_keep_single_spaces(input_text)
+    this_id = id_ownership_string
+    this_id = this_id.replace(f"ID : {replacement_string} ", "")
+    this_id = this_id.replace(f"ID : {replacement_string}", "")
+    this_id = this_id.replace(" Ownership : Customer", "")
+    this_id = this_id.replace(" Ownership : Shared", "")
+    return this_id
+
+
 def scrape_standard(html_file_path: str, benchmark_name: str, replacement_string: str):
     with open(html_file_path, "r") as f:
         soup = BeautifulSoup(f.read(), "html.parser")
     tables = soup.find_all("table")
-
-    def get_iso_id(input_text: str) -> str:
-        """Pass in table.previous_sibling.previous_sibling.text and get the Azure Benchmark ID"""
-        id_ownership_string = chomp_keep_single_spaces(input_text)
-        this_id = id_ownership_string
-        this_id = this_id.replace(f"ID : {replacement_string} ", "")
-        this_id = this_id.replace(" Ownership : Customer", "")
-        this_id = this_id.replace(" Ownership : Shared", "")
-        return this_id
 
     def get_service_name(github_link: str) -> str:
         """Pass in the github link and get the name of the service based on folder name"""
@@ -27,8 +29,8 @@ def scrape_standard(html_file_path: str, benchmark_name: str, replacement_string
     categories = []
     for table in tables:
         table_identifier_sibling = table.previous_sibling.previous_sibling
-        # Azure Security Benchmark ID
-        requirement_id = get_iso_id(table_identifier_sibling.text)
+        # Get requirement ID
+        requirement_id = get_requirement_id(table_identifier_sibling.text, replacement_string)
 
         if replacement_string in table_identifier_sibling.text:
             # Requirement Name
