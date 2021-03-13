@@ -24,10 +24,23 @@ class PolicyDefinitionV2:
         self.parameters = self.properties.parameters
 
     def __repr__(self):
-        return json.dumps(self.content)
+        return json.dumps(self.json())
+        # return json.dumps(self.content)
 
     def __str__(self):
-        return json.dumps(self.content)
+        return json.dumps(self.json())
+        # return json.dumps(self.content)
+
+    def json(self) -> dict:
+        result = dict(
+            id=self.id,
+            name=self.name,
+            category=self.category,
+            display_name=self.display_name,
+        )
+        if self.parameters:
+            result["parameters"] = self.properties.parameter_json,
+        return result
 
     @property
     def parameter_names(self) -> list:
@@ -124,6 +137,14 @@ class PolicyDefinitionV2:
         else:
             return False
 
+    @property
+    def is_deprecated(self) -> bool:
+        """Determine whether the policy is deprecated or not"""
+        if self.properties.deprecated:
+            return True
+        else:
+            return False
+
 
 class ParameterV2:
     """
@@ -131,13 +152,12 @@ class ParameterV2:
 
     https://docs.microsoft.com/en-us/azure/governance/policy/concepts/definition-structure#parameter-properties
     """
-    def __init__(self, name, parameter_json):
+    def __init__(self, name: str, parameter_json: dict):
         self.name = name
-        self.parameter_json = parameter_json
-        self.type = self.parameter_json.get("type")
+        self.type = parameter_json.get("type")
         # Do some weird stuff because in this case, [] vs None has different implications
-        if "defaultValue" in str(self.parameter_json):
-            default_value = self.parameter_json.get("defaultValue", None)
+        if "defaultValue" in str(parameter_json):
+            default_value = parameter_json.get("defaultValue", None)
             if default_value:
                 self.default_value = default_value
             else:
@@ -146,8 +166,8 @@ class ParameterV2:
                 else:
                     self.default_value = None
 
-        self.default_value = self.parameter_json.get("defaultValue", None)
-        self.allowed_values = self.parameter_json.get("allowedValues", None)
+        self.default_value = parameter_json.get("defaultValue", None)
+        self.allowed_values = parameter_json.get("allowedValues", None)
 
         # Metadata
         self.metadata_json = parameter_json.get("metadata")
@@ -181,8 +201,8 @@ class ParameterV2:
             result["assign_permissions"] = self.assign_permissions
         return result
 
-    def _allowed_values(self):
-        allowed_values = self.parameter_json.get("allowedValues", None)
+    def _allowed_values(self, parameter_json):
+        allowed_values = parameter_json.get("allowedValues", None)
         allowed_values = [x.lower() for x in allowed_values]
         return allowed_values
 
@@ -209,18 +229,11 @@ class PropertiesV2:
 
         # PolicyDefinition Rule and Parameters
         self.policy_rule = properties_json.get("policyRule")
-        self.parameters_json = properties_json.get("parameters")
-        self.parameters = self._parameters()
+        # self.parameters_json = properties_json.get("parameters")
+        self.parameters = self._parameters(properties_json.get("parameters"))
 
     def __repr__(self):
         return json.dumps(self.json())
-
-    @property
-    def parameter_names(self) -> list:
-        if self.parameters:
-            return list(self.parameters.keys())
-        else:
-            return []
 
     def json(self) -> dict:
         result = dict(
@@ -238,15 +251,31 @@ class PropertiesV2:
             for parameter in self.parameters:
                 parameters_result[parameter.name] = parameter.json()
             result["parameters"] = parameters_result
-        # else:
-        #     result["parameters"] = {}
         return result
 
-    def _parameters(self) -> dict:
+    # def _parameters(self, parameters_json: dict) -> Dict[Optional[ParameterV2]]:
+    def _parameters(self, parameters_json: dict) -> dict:
+        # def _parameters(self) -> dict:
         parameters = {}
-        parameter_json = self.properties_json.get("parameters")
-        if parameter_json:
-            for name, value in self.properties_json.get("parameters").items():
+        if parameters_json:
+            for name, value in parameters_json.items():
                 parameter = ParameterV2(name=name, parameter_json=value)
                 parameters[name] = parameter
         return parameters
+
+    @property
+    def parameter_names(self) -> list:
+        if self.parameters:
+            return list(self.parameters.keys())
+        else:
+            return []
+
+    @property
+    def parameter_json(self) -> dict:
+        result = {}
+        if self.parameters:
+            for name, value in self.parameters.items():
+                result[name] = value.json()
+            return result
+        else:
+            return {}
