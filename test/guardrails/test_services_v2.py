@@ -72,3 +72,54 @@ class ServicesV2TestCase(unittest.TestCase):
         no_params = self.kubernetes_service.display_names_no_params
         print(f"No Params: {len(no_params)}")
         self.assertTrue(len(no_params) >= 3)
+
+    def test_get_display_names_sorted_by_service_no_params(self):
+        no_params = self.key_vault_service.get_display_names_sorted_by_service_no_params()
+        print(json.dumps(no_params, indent=4))
+        expected_results = {
+            "Key Vault": [
+                "Azure Key Vault Managed HSM should have purge protection enabled",
+                "Key vaults should have purge protection enabled",
+                "Key vaults should have soft delete enabled",
+                "[Preview]: Firewall should be enabled on Key Vault",
+                "[Preview]: Key Vault keys should have an expiration date",
+                "[Preview]: Key Vault secrets should have an expiration date",
+                "[Preview]: Keys should be backed by a hardware security module (HSM)",
+                "[Preview]: Private endpoint should be configured for Key Vault",
+                "[Preview]: Secrets should have content type set"
+            ]
+        }
+        self.assertDictEqual(no_params, expected_results)
+
+    def test_get_display_names_sorted_by_service_with_params(self):
+        # Params Required
+        params_required = self.key_vault_service.get_display_names_sorted_by_service_with_params(params_required=True)
+        first_params = params_required['Key Vault']['[Preview]: Certificates should be issued by the specified non-integrated certificate authority']
+        print(json.dumps(first_params, indent=4))
+        expected_results = {
+            "caCommonName": {
+                "name": "caCommonName",
+                "type": "string",
+                "description": "The common name (CN) of the Certificate Authority (CA) provider. For example, for an issuer CN = Contoso, OU = .., DC = .., you can specify Contoso",
+                "display_name": "The common name of the certificate authority"
+            }
+        }
+        self.assertDictEqual(first_params, expected_results)
+
+        # Params Optional
+        params_optional = self.key_vault_service.get_display_names_sorted_by_service_with_params(params_required=False)
+        params_optional_keys = list(params_optional.get("Key Vault").keys())
+        first_params = params_optional["Key Vault"][params_optional_keys[0]]
+        print(json.dumps(first_params, indent=4))
+        expected_results = {
+            "requiredRetentionDays": {
+                "name": "requiredRetentionDays",
+                "type": "String",
+                "description": "The required resource logs retention in days",
+                "display_name": "Required retention (days)",
+                "default_value": "365"
+            }
+        }
+        self.assertDictEqual(first_params, expected_results)
+
+        # print(params_required.get("Key Vault"))

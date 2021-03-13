@@ -170,3 +170,33 @@ class ServicesV2:
             display_names.extend(service_details.display_names_params_required)
         display_names.sort()
         return display_names
+
+    def get_display_names_sorted_by_service_no_params(self) -> dict:
+        results = {}
+        for service_name, service_details in self.services.items():
+            logger.debug("Getting display names for service: %s" % service_name)
+            this_service_display_names = service_details.display_names_no_params
+            this_service_display_names = list(dict.fromkeys(this_service_display_names))  # remove duplicates
+            if this_service_display_names:
+                results[service_name] = this_service_display_names
+        return results
+
+    def get_display_names_sorted_by_service_with_params(self, params_required: bool = False) -> dict:
+        results = {}
+        for service_name, service_details in self.services.items():
+            logger.debug("Getting display names for service: %s" % service_name)
+            service_parameters = {}
+
+            # Get the display names depending on whether we are looking for Params Required or Params Optional
+            if params_required:
+                this_service_display_names = service_details.display_names_params_required
+            else:
+                this_service_display_names = service_details.display_names_params_optional
+
+            # Loop through the service's display names and get the parameters for each Policy Definition
+            for display_name in this_service_display_names:
+                parameters = service_details.get_policy_definition_parameters(display_name=display_name, params_required=params_required)
+                if parameters:
+                    service_parameters[display_name] = parameters
+            results[service_name] = service_parameters
+        return results
