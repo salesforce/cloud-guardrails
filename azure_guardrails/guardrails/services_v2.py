@@ -124,3 +124,49 @@ class ServiceV2:
                         parameters[parameter_details.name] = parameter_details.json()
                     continue
         return parameters
+
+
+class ServicesV2:
+    default_service_names = utils.get_service_names()
+    default_service_names.sort()
+
+    def __init__(self, service_names: list = default_service_names, config: Config = DEFAULT_CONFIG):
+        if service_names == ["all"]:
+            service_names = utils.get_service_names()
+            service_names.sort()
+        self.service_names = service_names
+        self.config = config
+        self.services = self._services()
+
+    def _services(self) -> dict:
+        # def _services(self) -> Dict[Optional[ServiceV2]]:
+        services = {}
+        service_names = self.service_names
+        for service_name in service_names:
+            service = ServiceV2(service_name=service_name, config=self.config)
+            services[service_name] = service
+        return services
+
+    @property
+    def display_names_no_params(self) -> list:
+        display_names = []
+        for service_name, service_details in self.services.items():
+            display_names.extend(service_details.display_names_no_params)
+        display_names.sort()
+        return display_names
+
+    @property
+    def display_names_params_optional(self) -> list:
+        display_names = []
+        for service_name, service_details in self.services.items():
+            display_names.extend(service_details.display_names_params_optional)
+        display_names.sort()
+        return display_names
+
+    @property
+    def display_names_params_required(self) -> list:
+        display_names = []
+        for service_name, service_details in self.services.items():
+            display_names.extend(service_details.display_names_params_required)
+        display_names.sort()
+        return display_names
