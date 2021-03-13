@@ -4,7 +4,6 @@ import json
 from azure_guardrails.shared import utils
 # from azure_guardrails.guardrails.policy_definition import Parameter, PolicyDefinition, Properties
 from azure_guardrails.guardrails.policy_definition_v2 import PolicyDefinitionV2, PropertiesV2, ParameterV2
-from azure_guardrails.guardrails.services import Service, Services
 
 # No Params
 policy_definition_file = os.path.abspath(os.path.join(

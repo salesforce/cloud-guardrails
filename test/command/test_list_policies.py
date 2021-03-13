@@ -17,7 +17,7 @@ class ListPoliciesClickUnitTests(unittest.TestCase):
         self.assertTrue(result.exit_code == 0)
 
     def test_list_services_command_with_click_output_stdout(self):
-        result = self.runner.invoke(list_policies, ["--service", "Key Vault"])
+        result = self.runner.invoke(list_policies, ["--service", "Key Vault", "--all-policies"])
         self.assertTrue(result.exit_code == 0)
         print(result.output)
         # Ensure that it is not formatted in YAML
@@ -26,7 +26,7 @@ class ListPoliciesClickUnitTests(unittest.TestCase):
         self.assertTrue("Key vaults should have purge protection enabled" in result.output)
 
     def test_list_services_command_with_click_output_yaml(self):
-        result = self.runner.invoke(list_policies, ["--service", "Key Vault", "--format", "yaml"])
+        result = self.runner.invoke(list_policies, ["--service", "Key Vault", "--format", "yaml", "--all-policies"])
         self.assertTrue(result.exit_code == 0)
         print(result.output)
         # Ensure that IS not formatted in YAML, where we expect "Key Vault:" to be one of the keys
@@ -38,7 +38,8 @@ class ListPoliciesClickUnitTests(unittest.TestCase):
         self.assertTrue("Key vaults should have purge protection enabled" in yaml_results.get("Key Vault"))
 
     def test_list_services_command_with_click_with_parameters(self):
-        result = self.runner.invoke(list_policies, ["--service", "Kubernetes", "--format", "yaml", "--with-parameters"])
+        result = self.runner.invoke(list_policies, ["--service", "Kubernetes", "--format", "yaml", "--params-optional"])
+        print(result.output)
         self.assertTrue(result.exit_code == 0)
         print(result.output)
         # # Ensure that IS not formatted in YAML, where we expect "Key Vault:" to be one of the keys

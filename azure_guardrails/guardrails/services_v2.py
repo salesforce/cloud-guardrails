@@ -200,3 +200,16 @@ class ServicesV2:
                     service_parameters[display_name] = parameters
             results[service_name] = service_parameters
         return results
+
+    def get_all_display_names_sorted_by_service(self) -> dict:
+        results = {}
+        for service_name, service_details in self.services.items():
+            service_results = []
+            service_results.extend(service_details.display_names_no_params)
+            service_results.extend(service_details.display_names_params_optional)
+            service_results.extend(service_details.display_names_params_required)
+            service_results.sort()
+            service_results = list(dict.fromkeys(service_results))  # remove duplicates
+            if service_results:
+                results[service_name] = service_results
+        return results

@@ -122,4 +122,9 @@ class ServicesV2TestCase(unittest.TestCase):
         }
         self.assertDictEqual(first_params, expected_results)
 
-        # print(params_required.get("Key Vault"))
+    def test_get_all_display_names_sorted_by_service(self):
+        results = self.all_services.get_all_display_names_sorted_by_service()
+        # print(json.dumps(results, indent=4))
+        import yaml
+        results = yaml.dump(results)
+        print(results)
