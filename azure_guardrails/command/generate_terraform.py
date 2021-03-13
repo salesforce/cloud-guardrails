@@ -10,7 +10,7 @@ from azure_guardrails.terraform.terraform import TerraformTemplateNoParams, Terr
 from azure_guardrails.shared import utils, validate
 from azure_guardrails.scrapers.compliance_data import ComplianceCoverage
 from azure_guardrails.shared.config import get_default_config, get_config_from_file
-from azure_guardrails.guardrails.services import ServicesV2
+from azure_guardrails.guardrails.services import Services
 
 logger = logging.getLogger(__name__)
 
@@ -151,9 +151,9 @@ def generate_terraform(
         summary_file_prefix = "params-optional"
 
     if service == "all":
-        services = ServicesV2(config=config)
+        services = Services(config=config)
     else:
-        services = ServicesV2(service_names=[service], config=config)
+        services = Services(service_names=[service], config=config)
 
     if no_params:
         display_names = services.get_display_names_sorted_by_service_no_params()

@@ -1,6 +1,6 @@
 import unittest
 from azure_guardrails.shared import utils
-from azure_guardrails.guardrails.services import ServicesV2, Service
+from azure_guardrails.guardrails.services import Services, Service
 import yaml
 import ruamel.yaml
 import json
@@ -14,7 +14,7 @@ example_config_file = os.path.abspath(os.path.join(
 
 class EmptyParamsPrintoutTestCase(unittest.TestCase):
     def test_empty_params_printout(self):
-        services = ServicesV2(service_names=["Kubernetes"])
+        services = Services(service_names=["Kubernetes"])
         display_names = services.display_names_params_required
         expected_keys = [
             "Do not allow privileged containers in Kubernetes cluster",

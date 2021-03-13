@@ -8,7 +8,7 @@ import yaml
 import click
 from click_option_group import optgroup, RequiredMutuallyExclusiveOptionGroup
 from azure_guardrails import set_log_level
-from azure_guardrails.guardrails.services import ServicesV2
+from azure_guardrails.guardrails.services import Services
 from azure_guardrails.shared import utils, validate
 
 logger = logging.getLogger(__name__)
@@ -87,9 +87,9 @@ def list_policies(service: str, all_policies: bool, no_params: bool, params_opti
 
 def get_display_names_sorted_by_service(service: str, all_policies: bool, no_params: bool, params_optional: bool, params_required: bool) -> dict:
     if service == "all":
-        services = ServicesV2()
+        services = Services()
     else:
-        services = ServicesV2(service_names=[service])
+        services = Services(service_names=[service])
     display_names = []
     if all_policies:
         display_names = services.get_all_display_names_sorted_by_service()

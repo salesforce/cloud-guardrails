@@ -2,12 +2,12 @@ import unittest
 import json
 from azure_guardrails.shared import utils
 from azure_guardrails.terraform.terraform import TerraformTemplateWithParams, TerraformTemplateNoParams
-from azure_guardrails.guardrails.services import ServicesV2, Service
+from azure_guardrails.guardrails.services import Services, Service
 
 
 class TerraformTemplateNoParamsTestCase(unittest.TestCase):
     def test_terraform_single_service(self):
-        service = ServicesV2(service_names=["Key Vault"])
+        service = Services(service_names=["Key Vault"])
         policy_names = service.get_display_names_sorted_by_service_no_params()
         subscription_name = "example"
         management_group = ""
@@ -22,7 +22,7 @@ class TerraformTemplateNoParamsTestCase(unittest.TestCase):
         # print(result)
 
     def test_terraform_all_services(self):
-        services = ServicesV2()
+        services = Services()
         subscription_name = "example"
         management_group = ""
         enforcement_mode = False

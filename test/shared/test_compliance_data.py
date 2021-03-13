@@ -6,7 +6,7 @@ from azure_guardrails.scrapers.compliance_data import PolicyComplianceData, Comp
     BenchmarkEntry
 import unittest
 from azure_guardrails.shared import utils
-from azure_guardrails.guardrails.services import ServicesV2, Service
+from azure_guardrails.guardrails.services import Services, Service
 from azure_guardrails.scrapers.compliance_data import ComplianceCoverage
 from azure_guardrails.shared.config import get_default_config, get_config_from_file
 
@@ -57,7 +57,7 @@ class ComplianceCoverageTestCase(unittest.TestCase):
 #         config = get_default_config(exclude_services=None)
 #         with_parameters = False
 #         if service == "all":
-#             self.services = ServicesV2(config=config)
+#             self.services = Services(config=config)
 #             self.policy_names = self.services.di
 #         else:
 #             self.services = Service(service_name=service, config=config)

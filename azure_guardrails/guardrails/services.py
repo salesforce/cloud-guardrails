@@ -123,7 +123,7 @@ class Service:
         return parameters
 
 
-class ServicesV2:
+class Services:
     default_service_names = utils.get_service_names()
     default_service_names.sort()
 

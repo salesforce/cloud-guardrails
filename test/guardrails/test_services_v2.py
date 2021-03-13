@@ -1,6 +1,6 @@
 import unittest
 from azure_guardrails.shared import utils
-from azure_guardrails.guardrails.services import ServicesV2
+from azure_guardrails.guardrails.services import Services
 import json
 import os
 
@@ -10,13 +10,13 @@ example_config_file = os.path.abspath(os.path.join(
 ))
 
 
-class ServicesV2TestCase(unittest.TestCase):
+class ServicesTestCase(unittest.TestCase):
     def setUp(self):
-        self.service = ServicesV2(service_names=["App Platform"])
-        self.key_vault_service = ServicesV2(service_names=["Key Vault"])
-        self.automation_service = ServicesV2(service_names=["Automation"])
-        self.kubernetes_service = ServicesV2(service_names=["Kubernetes"])
-        self.all_services = ServicesV2(service_names=["all"])
+        self.service = Services(service_names=["App Platform"])
+        self.key_vault_service = Services(service_names=["Key Vault"])
+        self.automation_service = Services(service_names=["Automation"])
+        self.kubernetes_service = Services(service_names=["Kubernetes"])
+        self.all_services = Services(service_names=["all"])
 
     def test_display_names_no_params(self):
         """Services.display_names_no_params"""
