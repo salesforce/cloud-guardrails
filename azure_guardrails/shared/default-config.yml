@@ -16,6 +16,7 @@ match_only_keywords:
 # Uncomment the services mentioned below if you want to exclude them.
 exclude_services:
   - ""
+  - "Guest Configuration"
 {% for service in t.service_names %}  #- "{{ service }}"
 {% endfor %}
 
