@@ -104,3 +104,23 @@ class ServiceV2:
                     display_names.append(display_name)
         display_names.sort()
         return display_names
+
+    def get_policy_definition_parameters(self, display_name: str, params_required: bool = False) -> dict:
+        parameters = {}
+        for this_display_name, policy_definition in self.policy_definitions.items():
+            if this_display_name == display_name:
+                # Params required
+                if params_required and policy_definition.params_required:
+                    for parameter_name, parameter_details in policy_definition.parameters.items():
+                        if parameter_details.name == "effect":
+                            continue
+                        parameters[parameter_details.name] = parameter_details.json()
+                    continue
+                # Params Optional
+                if not params_required and policy_definition.params_optional:
+                    for parameter_name, parameter_details in policy_definition.parameters.items():
+                        if parameter_details.name == "effect":
+                            continue
+                        parameters[parameter_details.name] = parameter_details.json()
+                    continue
+        return parameters

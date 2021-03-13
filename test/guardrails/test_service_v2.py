@@ -87,7 +87,6 @@ class ServiceV2TestCase(unittest.TestCase):
         for expected_result in expected_results:
             self.assertTrue(expected_result in params_optional)
 
-
     def test_service_display_names_params_required(self):
         # App Platform Example
         self.assertListEqual(self.service.display_names_params_required, [])
@@ -111,3 +110,55 @@ class ServiceV2TestCase(unittest.TestCase):
         # Future proof this test
         for expected_result in expected_results:
             self.assertTrue(expected_result in params_required)
+
+    def test_service_get_policy_definition_parameters_no_params(self):
+        """ServiceV2.get_policy_definition_parameters: No Params case"""
+        # No Params: "Automation account variables should be encrypted"
+        self.automation_service = ServiceV2(service_name="Automation")
+        display_name = "Automation account variables should be encrypted"
+        parameters = self.automation_service.get_policy_definition_parameters(display_name=display_name, params_required=False)
+        self.assertDictEqual(parameters, {})
+
+    def test_service_get_policy_definition_parameters_params_optional(self):
+        """ServiceV2.get_policy_definition_parameters: Params Optional case"""
+        # Params Optional: "Auditing on SQL server should be enabled"
+        display_name = "Auditing on SQL server should be enabled"
+        self.sql_service = ServiceV2(service_name="SQL")
+        parameters = self.sql_service.get_policy_definition_parameters(display_name=display_name, params_required=False)
+        print(json.dumps(parameters, indent=4))
+        expected_results = {
+            "setting": {
+                "name": "setting",
+                "type": "String",
+                "description": None,
+                "display_name": "Desired Auditing setting",
+                "default_value": "enabled",
+                "allowed_values": [
+                    "enabled",
+                    "disabled"
+                ]
+            }
+        }
+        self.assertDictEqual(parameters, expected_results)
+
+    def test_service_get_policy_definition_parameters_params_required(self):
+        """ServiceV2.get_policy_definition_parameters: Params Required case"""
+        # Params Required: "Kubernetes cluster pods and containers should only run with approved user and group IDs"
+        self.kubernetes_service = ServiceV2(service_name="Kubernetes")
+        display_name = "Kubernetes cluster pods and containers should only run with approved user and group IDs"
+        parameters = self.kubernetes_service.get_policy_definition_parameters(display_name=display_name, params_required=True)
+        print(json.dumps(parameters, indent=4))
+        parameter_names = list(parameters.keys())
+        expected_parameter_names = [
+            "excludedNamespaces",
+            "namespaces",
+            "runAsUserRule",
+            "runAsUserRanges",
+            "runAsGroupRule",
+            "runAsGroupRanges",
+            "supplementalGroupsRule",
+            "supplementalGroupsRanges",
+            "fsGroupRule",
+            "fsGroupRanges"
+        ]
+        self.assertListEqual(parameter_names, expected_parameter_names)
