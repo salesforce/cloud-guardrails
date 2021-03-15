@@ -1,0 +1,73 @@
+import json
+from azure_guardrails.guardrails.parameter import Parameter
+
+
+class Properties:
+    def __init__(self, properties_json: dict):
+        self.properties_json = properties_json
+        # Values
+        display_name = properties_json.get("displayName")
+        self.policy_type = properties_json.get("policyType")
+        self.mode = properties_json.get("mode")
+        self.description = properties_json.get("description")
+
+        # Metadata
+        self.metadata_json = properties_json.get("metadata")
+        self.version = self.metadata_json.get("version", None)
+        self.category = self.metadata_json.get("category", None)
+        self.preview = self.metadata_json.get("preview", None)
+        if self.preview:
+            self.display_name = f"[Preview]: {display_name}"
+        else:
+            self.display_name = display_name
+        self.deprecated = self.metadata_json.get("deprecated", None)
+
+        # PolicyDefinition Rule and Parameters
+        self.policy_rule = properties_json.get("policyRule")
+        self.parameters = self._parameters(properties_json.get("parameters"))
+
+    def __repr__(self):
+        return json.dumps(self.json())
+
+    def json(self) -> dict:
+        result = dict(
+            policy_type=self.policy_type,
+            mode=self.mode,
+            description=self.description,
+            version=self.version,
+            preview=self.version,
+            display_name=self.version,
+            deprecated=self.version,
+            policy_rule=self.version,
+        )
+        if self.parameters:
+            parameters_result = {}
+            for parameter in self.parameters:
+                parameters_result[parameter.name] = parameter.json()
+            result["parameters"] = parameters_result
+        return result
+
+    def _parameters(self, parameters_json: dict) -> dict:
+        parameters = {}
+        if parameters_json:
+            for name, value in parameters_json.items():
+                parameter = Parameter(name=name, parameter_json=value)
+                parameters[name] = parameter
+        return parameters
+
+    @property
+    def parameter_names(self) -> list:
+        if self.parameters:
+            return list(self.parameters.keys())
+        else:
+            return []
+
+    @property
+    def parameter_json(self) -> dict:
+        result = {}
+        if self.parameters:
+            for name, value in self.parameters.items():
+                result[name] = value.json()
+            return result
+        else:
+            return {}

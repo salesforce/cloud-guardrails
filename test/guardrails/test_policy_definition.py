@@ -2,7 +2,9 @@ import unittest
 import os
 import json
 from azure_guardrails.shared import utils
-from azure_guardrails.guardrails.policy_definition import PolicyDefinition, Properties, Parameter
+from azure_guardrails.guardrails.policy_definition import PolicyDefinition
+from azure_guardrails.guardrails.properties import Properties
+from azure_guardrails.guardrails.parameter import Parameter
 
 # No Params
 policy_definition_file = os.path.abspath(os.path.join(

@@ -4,7 +4,8 @@ import logging
 from typing import List, Dict, Optional
 from azure_guardrails.shared import utils
 from azure_guardrails.shared.config import DEFAULT_CONFIG, Config
-from azure_guardrails.guardrails.policy_definition import PolicyDefinition, Parameter
+from azure_guardrails.guardrails.policy_definition import PolicyDefinition
+from azure_guardrails.guardrails.parameter import Parameter
 
 logger = logging.getLogger(__name__)
 
