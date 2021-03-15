@@ -28,7 +28,7 @@ class TerraformParameterV2:
         self.initiative_parameters_json = initiative_parameters_json
         self.parameter_type = parameter_type
         self.default_value = default_value
-        self.value = value
+        self.value = self._value(value)
 
     def _value(self, value):
         """If value is not set, set it to default_value. Default value can be overridden later."""

@@ -42,7 +42,7 @@ class TerraformParameterV2TestCase(unittest.TestCase):
 class TerraformTemplateV2TestCase(unittest.TestCase):
     def setUp(self) -> None:
         # the output of Services.get_display_names_sorted_by_service_with_params
-        parameters = {
+        self.kubernetes_parameters = {
             "Kubernetes": {
                 "Do not allow privileged containers in Kubernetes cluster": {
                     "excludedNamespaces": {
@@ -101,15 +101,48 @@ class TerraformTemplateV2TestCase(unittest.TestCase):
         subscription_name = "example"
         management_group = ""
         enforcement_mode = False
-        self.terraform_template = TerraformTemplateWithParamsV2(
-            parameters=parameters,
+        self.kubernetes_terraform_template = TerraformTemplateWithParamsV2(
+            parameters=self.kubernetes_parameters,
             subscription_name=subscription_name,
             management_group=management_group,
             enforcement_mode=enforcement_mode
         )
         # print(self.terraform_template)
+        self.key_vault_parameters = {
+            "Key Vault": {
+                "Certificates should use allowed key types": {
+                    "allowedKeyTypes": {
+                        "type": "Array",
+                        "metadata": {
+                            "displayName": "Allowed key types",
+                            "description": "The list of allowed certificate key types."
+                        },
+                        "allowedValues": [
+                            "RSA",
+                            "RSA-HSM",
+                            "EC",
+                            "EC-HSM"
+                        ],
+                        "defaultValue": [
+                            "RSA",
+                            "RSA-HSM"
+                        ]
+                    },
+                },
+            }
+        }
+        self.key_vault_terraform_template = TerraformTemplateWithParamsV2(
+            parameters=self.key_vault_parameters,
+            subscription_name=subscription_name,
+            management_group=management_group,
+            enforcement_mode=enforcement_mode
+        )
+
+    def test_terraform_template_render_key_vault(self):
+        results = self.key_vault_terraform_template.rendered()
+        print(results)
 
     def test_terraform_template_render(self):
         # for service_name, policies_with_params in self.terraform_template.policy_definition_reference_parameters()
-        results = self.terraform_template.rendered()
+        results = self.kubernetes_terraform_template.rendered()
         print(results)
