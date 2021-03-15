@@ -92,12 +92,13 @@ update-policy-table: install
 	azure-guardrails generate-terraform --service all --subscription example --no-params
 	azure-guardrails generate-terraform --service all --subscription example --params-optional
 	azure-guardrails generate-terraform --service all --subscription example --params-required
-	cp no-params-all-table-example.csv docs/no-params.csv
-	cp no-params-all-table-example.md docs/no-params.md
-	cp params-optional-all-table-example.csv docs/params-optional.csv
-	cp params-optional-all-table-example.md docs/params-optional.md
-	cp params-required-all-table-example.csv docs/params-required.csv
-	cp params-required-all-table-example.md docs/params-required.md
+	cp no-params-all-table.csv docs/no-params.csv
+	cp no-params-all-table.md docs/no-params.md
+	cp params-optional-all-table.csv docs/params-optional.csv
+	cp params-optional-all-table.md docs/params-optional.md
+	cp params-required-all-table.csv docs/params-required.csv
+	cp params-required-all-table.md docs/params-required.md
+	python3 ./utils/combine_csvs.py
 
 .PHONY: update-data
 update-data: setup-dev

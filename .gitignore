@@ -74,3 +74,5 @@ azure-guardrails-*
 research.py
 *-example.csv
 *-example.md
+*-all-table.csv
+*-all-table.md
