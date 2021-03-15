@@ -139,8 +139,9 @@ class TerraformTemplateWithParamsV2:
         results = {}
         for service_name, policy_definitions_with_params in self.service_parameters.items():
             keys = list(policy_definitions_with_params.keys())
-            keys.sort()
-            results[service_name] = keys
+            if keys:
+                keys.sort()
+                results[service_name] = keys
         return results
 
     @property
@@ -153,6 +154,19 @@ class TerraformTemplateWithParamsV2:
                     results[parameter_details.name] = parameter_details.initiative_parameters_json
         return results
 
+    @property
+    def policy_assignment_parameters(self) -> str:
+        lines = []
+        parameters_used = []
+        for service_name, service_policy_details in self.service_parameters.items():
+            for policy_definition_name, policy_definition_params in service_policy_details.items():
+                for key, value in policy_definition_params.items():
+                    if value.name not in parameters_used:
+                        lines.append(value.policy_assignment_parameter_value)
+                        parameters_used.append(value.name)
+        result = "\n\t".join(lines)
+        return result
+
     def rendered(self) -> str:
         initiative_parameters = json.dumps(self.initiative_parameters, indent=4)
         template_contents = dict(
@@ -162,7 +176,8 @@ class TerraformTemplateWithParamsV2:
             enforcement_mode=self.enforcement_string,
             initiative_parameters=initiative_parameters,
             policies_sorted_by_service=self.policies_sorted_by_service,
-            policy_definition_reference_parameters=self.service_parameters
+            policy_definition_reference_parameters=self.service_parameters,
+            policy_assignment_parameters=self.policy_assignment_parameters
         )
         template_path = os.path.join(os.path.dirname(__file__), "parameters-v2")
         env = Environment(loader=FileSystemLoader(template_path))  # nosec

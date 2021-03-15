@@ -34,7 +34,7 @@ class TerraformParameterV2TestCase(unittest.TestCase):
 
     def test_policy_assignment_parameter_value(self):
         self.parameter.value = ["Standard"]
-        expected_result = 'evaluatedSkuNames = { "value": ["Standard"] }'
+        expected_result = 'evaluatedSkuNames = { "value" = ["Standard"] }'
         result = self.parameter.policy_assignment_parameter_value
         self.assertEqual(result, expected_result)
 

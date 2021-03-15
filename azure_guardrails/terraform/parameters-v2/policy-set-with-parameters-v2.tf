@@ -90,8 +90,8 @@ resource "azurerm_policy_assignment" "{{ t.name }}_guardrails" {
   policy_definition_id = azurerm_policy_set_definition.{{ t.name }}_guardrails.id
   scope                = local.scope
   enforcement_mode     = var.enforcement_mode
-  parameters = jsonencode({ {% for service_name, service_policy_details in t.policy_definition_reference_parameters.items() %}{% for policy_definition_name, policy_definition_params in service_policy_details.items() %}{% for key, value in policy_definition_params.items() %}
-    {{value.policy_assignment_parameter_value}}{% endfor %}{% endfor %}{% endfor %}
+  parameters = jsonencode({
+    {{ t.policy_assignment_parameters }}
 })
 }
 
@@ -99,17 +99,17 @@ resource "azurerm_policy_assignment" "{{ t.name }}_guardrails" {
 # ---------------------------------------------------------------------------------------------------------------------
 # Outputs
 # ---------------------------------------------------------------------------------------------------------------------
-//output "policy_assignment_ids" {
-//  value       = azurerm_policy_assignment.{{ t.name }}_guardrails.*.id
-//  description = "The IDs of the Policy Assignments."
-//}
-//
-//output "scope" {
-//  value       = local.scope
-//  description = "The target scope - either the management group or subscription, depending on which parameters were supplied"
-//}
-//
-//output "policy_set_definition_id" {
-//  value       = azurerm_policy_set_definition.{{ t.name }}_guardrails.id
-//  description = "The ID of the Policy Set Definition."
-//}
+output "policy_assignment_ids" {
+  value       = azurerm_policy_assignment.{{ t.name }}_guardrails.*.id
+  description = "The IDs of the Policy Assignments."
+}
+
+output "scope" {
+  value       = local.scope
+  description = "The target scope - either the management group or subscription, depending on which parameters were supplied"
+}
+
+output "policy_set_definition_id" {
+  value       = azurerm_policy_set_definition.{{ t.name }}_guardrails.id
+  description = "The ID of the Policy Set Definition."
+}

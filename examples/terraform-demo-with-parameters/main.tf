@@ -14,6 +14,52 @@ provider "azurerm" {
 locals {
   policy_names = [
     # -----------------------------------------------------------------------------------------------------------------
+    # API Management
+    # -----------------------------------------------------------------------------------------------------------------
+    "API Management services should use a virtual network",
+    # -----------------------------------------------------------------------------------------------------------------
+    # App Platform
+    # -----------------------------------------------------------------------------------------------------------------
+    "Azure Spring Cloud should use network injection",
+    # -----------------------------------------------------------------------------------------------------------------
+    # App Service
+    # -----------------------------------------------------------------------------------------------------------------
+    "Ensure that 'Java version' is the latest, if used as a part of the API app",
+    "Ensure that 'Java version' is the latest, if used as a part of the Function app",
+    "Ensure that 'Java version' is the latest, if used as a part of the Web app",
+    "Ensure that 'PHP version' is the latest, if used as a part of the API app",
+    "Ensure that 'PHP version' is the latest, if used as a part of the WEB app",
+    "Ensure that 'Python version' is the latest, if used as a part of the API app",
+    "Ensure that 'Python version' is the latest, if used as a part of the Function app",
+    "Ensure that 'Python version' is the latest, if used as a part of the Web app",
+    "Resource logs in App Services should be enabled",
+    # -----------------------------------------------------------------------------------------------------------------
+    # Batch
+    # -----------------------------------------------------------------------------------------------------------------
+    "Resource logs in Batch accounts should be enabled",
+    # -----------------------------------------------------------------------------------------------------------------
+    # Data Box
+    # -----------------------------------------------------------------------------------------------------------------
+    "Azure Data Box jobs should enable double encryption for data at rest on the device",
+    "Azure Data Box jobs should use a customer-managed key to encrypt the device unlock password",
+    # -----------------------------------------------------------------------------------------------------------------
+    # Data Factory
+    # -----------------------------------------------------------------------------------------------------------------
+    "[Preview]: Azure Data Factory integration runtime should have a limit for number of cores",
+    # -----------------------------------------------------------------------------------------------------------------
+    # Data Lake
+    # -----------------------------------------------------------------------------------------------------------------
+    "Resource logs in Azure Data Lake Store should be enabled",
+    "Resource logs in Data Lake Analytics should be enabled",
+    # -----------------------------------------------------------------------------------------------------------------
+    # Event Hub
+    # -----------------------------------------------------------------------------------------------------------------
+    "Resource logs in Event Hub should be enabled",
+    # -----------------------------------------------------------------------------------------------------------------
+    # Internet of Things
+    # -----------------------------------------------------------------------------------------------------------------
+    "Resource logs in IoT Hub should be enabled",
+    # -----------------------------------------------------------------------------------------------------------------
     # Key Vault
     # -----------------------------------------------------------------------------------------------------------------
     "Resource logs in Azure Key Vault Managed HSM should be enabled",
@@ -24,6 +70,31 @@ locals {
     "[Preview]: Certificates using elliptic curve cryptography should have allowed curve names",
     "[Preview]: Keys should be the specified cryptographic type RSA or EC",
     "[Preview]: Keys using elliptic curve cryptography should have the specified curve names",
+    # -----------------------------------------------------------------------------------------------------------------
+    # Logic Apps
+    # -----------------------------------------------------------------------------------------------------------------
+    "Resource logs in Logic Apps should be enabled",
+    # -----------------------------------------------------------------------------------------------------------------
+    # Network
+    # -----------------------------------------------------------------------------------------------------------------
+    "Web Application Firewall (WAF) should use the specified mode for Application Gateway",
+    "Web Application Firewall (WAF) should use the specified mode for Azure Front Door Service",
+    # -----------------------------------------------------------------------------------------------------------------
+    # SQL
+    # -----------------------------------------------------------------------------------------------------------------
+    "Auditing on SQL server should be enabled",
+    # -----------------------------------------------------------------------------------------------------------------
+    # Search
+    # -----------------------------------------------------------------------------------------------------------------
+    "Resource logs in Search services should be enabled",
+    # -----------------------------------------------------------------------------------------------------------------
+    # Service Bus
+    # -----------------------------------------------------------------------------------------------------------------
+    "Resource logs in Service Bus should be enabled",
+    # -----------------------------------------------------------------------------------------------------------------
+    # Stream Analytics
+    # -----------------------------------------------------------------------------------------------------------------
+    "Resource logs in Azure Stream Analytics should be enabled",
   ]
   policy_definition_map = zipmap(
     data.azurerm_policy_definition.example-params_definition_lookups.*.display_name,
@@ -72,81 +143,401 @@ resource "azurerm_policy_set_definition" "example-params_guardrails" {
     category = var.category
   }))
 
-  
-  
+
+
+  policy_definition_reference {
+    policy_definition_id = lookup(local.policy_definition_map, "API Management services should use a virtual network")
+    parameter_values = jsonencode({
+      evaluatedSkuNames = { "value" : "[parameters('evaluatedSkuNames')]" }
+    })
+    reference_id = null
+  }
+
+
+
+
+  policy_definition_reference {
+    policy_definition_id = lookup(local.policy_definition_map, "Azure Spring Cloud should use network injection")
+    parameter_values = jsonencode({
+      evaluatedSkuNames = { "value" : "[parameters('evaluatedSkuNames')]" }
+    })
+    reference_id = null
+  }
+
+
+  policy_definition_reference {
+    policy_definition_id = lookup(local.policy_definition_map, "Ensure that 'Java version' is the latest, if used as a part of the API app")
+    parameter_values = jsonencode({
+      JavaLatestVersion = { "value" : "[parameters('JavaLatestVersion')]" }
+    })
+    reference_id = null
+  }
+
+  policy_definition_reference {
+    policy_definition_id = lookup(local.policy_definition_map, "Ensure that 'Java version' is the latest, if used as a part of the Function app")
+    parameter_values = jsonencode({
+      JavaLatestVersion = { "value" : "[parameters('JavaLatestVersion')]" }
+    })
+    reference_id = null
+  }
+
+  policy_definition_reference {
+    policy_definition_id = lookup(local.policy_definition_map, "Ensure that 'Java version' is the latest, if used as a part of the Web app")
+    parameter_values = jsonencode({
+      JavaLatestVersion = { "value" : "[parameters('JavaLatestVersion')]" }
+    })
+    reference_id = null
+  }
+
+  policy_definition_reference {
+    policy_definition_id = lookup(local.policy_definition_map, "Ensure that 'PHP version' is the latest, if used as a part of the API app")
+    parameter_values = jsonencode({
+      PHPLatestVersion = { "value" : "[parameters('PHPLatestVersion')]" }
+    })
+    reference_id = null
+  }
+
+  policy_definition_reference {
+    policy_definition_id = lookup(local.policy_definition_map, "Ensure that 'PHP version' is the latest, if used as a part of the WEB app")
+    parameter_values = jsonencode({
+      PHPLatestVersion = { "value" : "[parameters('PHPLatestVersion')]" }
+    })
+    reference_id = null
+  }
+
+  policy_definition_reference {
+    policy_definition_id = lookup(local.policy_definition_map, "Ensure that 'Python version' is the latest, if used as a part of the API app")
+    parameter_values = jsonencode({
+      WindowsPythonLatestVersion = { "value" : "[parameters('WindowsPythonLatestVersion')]" }
+      LinuxPythonLatestVersion = { "value" : "[parameters('LinuxPythonLatestVersion')]" }
+    })
+    reference_id = null
+  }
+
+  policy_definition_reference {
+    policy_definition_id = lookup(local.policy_definition_map, "Ensure that 'Python version' is the latest, if used as a part of the Function app")
+    parameter_values = jsonencode({
+      WindowsPythonLatestVersion = { "value" : "[parameters('WindowsPythonLatestVersion')]" }
+      LinuxPythonLatestVersion = { "value" : "[parameters('LinuxPythonLatestVersion')]" }
+    })
+    reference_id = null
+  }
+
+  policy_definition_reference {
+    policy_definition_id = lookup(local.policy_definition_map, "Ensure that 'Python version' is the latest, if used as a part of the Web app")
+    parameter_values = jsonencode({
+      WindowsPythonLatestVersion = { "value" : "[parameters('WindowsPythonLatestVersion')]" }
+      LinuxPythonLatestVersion = { "value" : "[parameters('LinuxPythonLatestVersion')]" }
+    })
+    reference_id = null
+  }
+
+  policy_definition_reference {
+    policy_definition_id = lookup(local.policy_definition_map, "Resource logs in App Services should be enabled")
+    parameter_values = jsonencode({
+      requiredRetentionDays = { "value" : "[parameters('requiredRetentionDays')]" }
+    })
+    reference_id = null
+  }
+
+
+
+
+
+
+
+
+  policy_definition_reference {
+    policy_definition_id = lookup(local.policy_definition_map, "Resource logs in Batch accounts should be enabled")
+    parameter_values = jsonencode({
+      requiredRetentionDays = { "value" : "[parameters('requiredRetentionDays')]" }
+    })
+    reference_id = null
+  }
+
+
+
+
+
+
+
+
+
+  policy_definition_reference {
+    policy_definition_id = lookup(local.policy_definition_map, "Azure Data Box jobs should enable double encryption for data at rest on the device")
+    parameter_values = jsonencode({
+      supportedSKUs = { "value" : "[parameters('supportedSKUs')]" }
+    })
+    reference_id = null
+  }
+
+  policy_definition_reference {
+    policy_definition_id = lookup(local.policy_definition_map, "Azure Data Box jobs should use a customer-managed key to encrypt the device unlock password")
+    parameter_values = jsonencode({
+      supportedSKUs = { "value" : "[parameters('supportedSKUs')]" }
+    })
+    reference_id = null
+  }
+
+
+  policy_definition_reference {
+    policy_definition_id = lookup(local.policy_definition_map, "[Preview]: Azure Data Factory integration runtime should have a limit for number of cores")
+    parameter_values = jsonencode({
+      maxCores = { "value" : "[parameters('maxCores')]" }
+    })
+    reference_id = null
+  }
+
+
+  policy_definition_reference {
+    policy_definition_id = lookup(local.policy_definition_map, "Resource logs in Azure Data Lake Store should be enabled")
+    parameter_values = jsonencode({
+      requiredRetentionDays = { "value" : "[parameters('requiredRetentionDays')]" }
+    })
+    reference_id = null
+  }
+
+  policy_definition_reference {
+    policy_definition_id = lookup(local.policy_definition_map, "Resource logs in Data Lake Analytics should be enabled")
+    parameter_values = jsonencode({
+      requiredRetentionDays = { "value" : "[parameters('requiredRetentionDays')]" }
+    })
+    reference_id = null
+  }
+
+
+
+  policy_definition_reference {
+    policy_definition_id = lookup(local.policy_definition_map, "Resource logs in Event Hub should be enabled")
+    parameter_values = jsonencode({
+      requiredRetentionDays = { "value" : "[parameters('requiredRetentionDays')]" }
+    })
+    reference_id = null
+  }
+
+
+
+
+
+  policy_definition_reference {
+    policy_definition_id = lookup(local.policy_definition_map, "Resource logs in IoT Hub should be enabled")
+    parameter_values = jsonencode({
+      requiredRetentionDays = { "value" : "[parameters('requiredRetentionDays')]" }
+    })
+    reference_id = null
+  }
+
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Resource logs in Azure Key Vault Managed HSM should be enabled")
-    parameter_values = jsonencode({ 
+    parameter_values = jsonencode({
       requiredRetentionDays = { "value" : "[parameters('requiredRetentionDays')]" }
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Resource logs in Key Vault should be enabled")
-    parameter_values = jsonencode({ 
+    parameter_values = jsonencode({
       requiredRetentionDays = { "value" : "[parameters('requiredRetentionDays')]" }
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "[Preview]: Certificates should be issued by the specified integrated certificate authority")
-    parameter_values = jsonencode({ 
+    parameter_values = jsonencode({
       allowedCAs = { "value" : "[parameters('allowedCAs')]" }
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "[Preview]: Certificates should have the specified maximum validity period")
-    parameter_values = jsonencode({ 
+    parameter_values = jsonencode({
       maximumValidityInMonths = { "value" : "[parameters('maximumValidityInMonths')]" }
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "[Preview]: Certificates should use allowed key types")
-    parameter_values = jsonencode({ 
+    parameter_values = jsonencode({
       allowedKeyTypes = { "value" : "[parameters('allowedKeyTypes')]" }
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "[Preview]: Certificates using elliptic curve cryptography should have allowed curve names")
-    parameter_values = jsonencode({ 
+    parameter_values = jsonencode({
       allowedECNames = { "value" : "[parameters('allowedECNames')]" }
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "[Preview]: Keys should be the specified cryptographic type RSA or EC")
-    parameter_values = jsonencode({ 
+    parameter_values = jsonencode({
       allowedKeyTypes = { "value" : "[parameters('allowedKeyTypes')]" }
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "[Preview]: Keys using elliptic curve cryptography should have the specified curve names")
-    parameter_values = jsonencode({ 
+    parameter_values = jsonencode({
       allowedECNames = { "value" : "[parameters('allowedECNames')]" }
     })
     reference_id = null
   }
-  
+
+
+
+
+
+  policy_definition_reference {
+    policy_definition_id = lookup(local.policy_definition_map, "Resource logs in Logic Apps should be enabled")
+    parameter_values = jsonencode({
+      requiredRetentionDays = { "value" : "[parameters('requiredRetentionDays')]" }
+    })
+    reference_id = null
+  }
+
+
+
+
+
+  policy_definition_reference {
+    policy_definition_id = lookup(local.policy_definition_map, "Web Application Firewall (WAF) should use the specified mode for Application Gateway")
+    parameter_values = jsonencode({
+      modeRequirement = { "value" : "[parameters('modeRequirement')]" }
+    })
+    reference_id = null
+  }
+
+  policy_definition_reference {
+    policy_definition_id = lookup(local.policy_definition_map, "Web Application Firewall (WAF) should use the specified mode for Azure Front Door Service")
+    parameter_values = jsonencode({
+      modeRequirement = { "value" : "[parameters('modeRequirement')]" }
+    })
+    reference_id = null
+  }
+
+
+
+  policy_definition_reference {
+    policy_definition_id = lookup(local.policy_definition_map, "Auditing on SQL server should be enabled")
+    parameter_values = jsonencode({
+      setting = { "value" : "[parameters('setting')]" }
+    })
+    reference_id = null
+  }
+
+
+  policy_definition_reference {
+    policy_definition_id = lookup(local.policy_definition_map, "Resource logs in Search services should be enabled")
+    parameter_values = jsonencode({
+      requiredRetentionDays = { "value" : "[parameters('requiredRetentionDays')]" }
+    })
+    reference_id = null
+  }
+
+
+
+  policy_definition_reference {
+    policy_definition_id = lookup(local.policy_definition_map, "Resource logs in Service Bus should be enabled")
+    parameter_values = jsonencode({
+      requiredRetentionDays = { "value" : "[parameters('requiredRetentionDays')]" }
+    })
+    reference_id = null
+  }
+
+
+
+
+
+  policy_definition_reference {
+    policy_definition_id = lookup(local.policy_definition_map, "Resource logs in Azure Stream Analytics should be enabled")
+    parameter_values = jsonencode({
+      requiredRetentionDays = { "value" : "[parameters('requiredRetentionDays')]" }
+    })
+    reference_id = null
+  }
+
+
+
+
 
   parameters = <<PARAMETERS
 {
+    "evaluatedSkuNames": {
+        "name": "evaluatedSkuNames",
+        "type": "Array",
+        "description": "List of Azure Spring Cloud SKUs against which this policy will be evaluated.",
+        "display_name": "Azure Spring Cloud SKU Names",
+        "default_value": [
+            "Standard"
+        ],
+        "allowed_values": [
+            "Standard"
+        ]
+    },
+    "JavaLatestVersion": {
+        "name": "JavaLatestVersion",
+        "type": "String",
+        "description": "Latest supported Java version for App Services",
+        "display_name": "Latest Java version",
+        "default_value": "11"
+    },
+    "PHPLatestVersion": {
+        "name": "PHPLatestVersion",
+        "type": "String",
+        "description": "Latest supported PHP version for App Services",
+        "display_name": "Latest PHP version",
+        "default_value": "7.3"
+    },
+    "WindowsPythonLatestVersion": {
+        "name": "WindowsPythonLatestVersion",
+        "type": "String",
+        "description": "Latest supported Python version for App Services",
+        "display_name": "Latest Windows Python version",
+        "default_value": "3.6"
+    },
+    "LinuxPythonLatestVersion": {
+        "name": "LinuxPythonLatestVersion",
+        "type": "String",
+        "description": "Latest supported Python version for App Services",
+        "display_name": "Linux Latest Python version",
+        "default_value": "3.8"
+    },
     "requiredRetentionDays": {
         "name": "requiredRetentionDays",
         "type": "String",
         "description": "The required resource logs retention in days",
         "display_name": "Required retention (days)",
         "default_value": "365"
+    },
+    "supportedSKUs": {
+        "name": "supportedSKUs",
+        "type": "Array",
+        "description": "The list of SKUs that support customer-managed key encryption key",
+        "display_name": "Supported SKUs",
+        "default_value": [
+            "DataBox",
+            "DataBoxHeavy"
+        ],
+        "allowed_values": [
+            "DataBox",
+            "DataBoxHeavy"
+        ]
+    },
+    "maxCores": {
+        "name": "maxCores",
+        "type": "Integer",
+        "description": "The max number of cores allowed for dataflow.",
+        "display_name": "Allowed max number of cores",
+        "default_value": 32
     },
     "allowedCAs": {
         "name": "allowedCAs",
@@ -204,6 +595,28 @@ resource "azurerm_policy_set_definition" "example-params_guardrails" {
             "P-384",
             "P-521"
         ]
+    },
+    "modeRequirement": {
+        "name": "modeRequirement",
+        "type": "String",
+        "description": "Mode required for all WAF policies",
+        "display_name": "Mode Requirement",
+        "default_value": "Detection",
+        "allowed_values": [
+            "Prevention",
+            "Detection"
+        ]
+    },
+    "setting": {
+        "name": "setting",
+        "type": "String",
+        "description": null,
+        "display_name": "Desired Auditing setting",
+        "default_value": "enabled",
+        "allowed_values": [
+            "enabled",
+            "disabled"
+        ]
     }
 }
 PARAMETERS
@@ -219,15 +632,20 @@ resource "azurerm_policy_assignment" "example-params_guardrails" {
   scope                = local.scope
   enforcement_mode     = var.enforcement_mode
   parameters = jsonencode({
-    requiredRetentionDays = { "value" = "365" }
-    requiredRetentionDays = { "value" = "365" }
-    allowedCAs = { "value" = ["DigiCert", "GlobalSign"] }
-    maximumValidityInMonths = { "value" = 12 }
-    allowedKeyTypes = { "value" = ["RSA", "RSA-HSM"] }
-    allowedECNames = { "value" = ["P-256", "P-256K", "P-384", "P-521"] }
-    allowedKeyTypes = { "value" = ["RSA", "RSA-HSM", "EC", "EC-HSM"] }
-    allowedECNames = { "value" = ["P-256", "P-256K", "P-384", "P-521"] }
-
+    evaluatedSkuNames = { "value" = ["Developer", "Premium"] }
+	JavaLatestVersion = { "value" = "11" }
+	PHPLatestVersion = { "value" = "7.3" }
+	WindowsPythonLatestVersion = { "value" = "3.6" }
+	LinuxPythonLatestVersion = { "value" = "3.8" }
+	requiredRetentionDays = { "value" = "365" }
+	supportedSKUs = { "value" = ["DataBox", "DataBoxHeavy"] }
+	maxCores = { "value" = 32 }
+	allowedCAs = { "value" = ["DigiCert", "GlobalSign"] }
+	maximumValidityInMonths = { "value" = 12 }
+	allowedKeyTypes = { "value" = ["RSA", "RSA-HSM"] }
+	allowedECNames = { "value" = ["P-256", "P-256K", "P-384", "P-521"] }
+	modeRequirement = { "value" = "Detection" }
+	setting = { "value" = "enabled" }
 })
 }
 
@@ -235,17 +653,17 @@ resource "azurerm_policy_assignment" "example-params_guardrails" {
 # ---------------------------------------------------------------------------------------------------------------------
 # Outputs
 # ---------------------------------------------------------------------------------------------------------------------
-//output "policy_assignment_ids" {
-//  value       = azurerm_policy_assignment.example-params_guardrails.*.id
-//  description = "The IDs of the Policy Assignments."
-//}
-//
-//output "scope" {
-//  value       = local.scope
-//  description = "The target scope - either the management group or subscription, depending on which parameters were supplied"
-//}
-//
-//output "policy_set_definition_id" {
-//  value       = azurerm_policy_set_definition.example-params_guardrails.id
-//  description = "The ID of the Policy Set Definition."
-//}
+output "policy_assignment_ids" {
+  value       = azurerm_policy_assignment.example-params_guardrails.*.id
+  description = "The IDs of the Policy Assignments."
+}
+
+output "scope" {
+  value       = local.scope
+  description = "The target scope - either the management group or subscription, depending on which parameters were supplied"
+}
+
+output "policy_set_definition_id" {
+  value       = azurerm_policy_set_definition.example-params_guardrails.id
+  description = "The ID of the Policy Set Definition."
+}

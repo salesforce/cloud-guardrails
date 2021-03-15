@@ -76,3 +76,7 @@ research.py
 *-example.md
 *-all-table.csv
 *-all-table.md
+params*.csv
+params*.md
+no-params*.md
+no-params*.csv

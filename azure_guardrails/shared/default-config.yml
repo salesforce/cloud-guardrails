@@ -30,6 +30,10 @@ exclude_policies:
   Tags:
     - "Allow resource creation if 'department' tag set"
     - "Allow resource creation if 'environment' tag value in allowed values"
+  API Management:
+    - "API Management services should use a virtual network" # This collides with the same one from App Platform
+  App Platform:
+    - "Azure Spring Cloud should use network injection"
 {% for service in t.service_names %}{% if (service != "General") and (service != "Tags") %}
   {{ service }}:
     - ""
