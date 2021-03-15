@@ -119,18 +119,20 @@ class TerraformTemplateWithParamsV2:
             results[service_name] = {}
             # results["Kubernetes"] = {  "Do not allow privileged containers in Kubernetes cluster": { "excludedNamespaces": {stuff} }}
             for policy_definition_name, parameters in policy_definitions_with_params.items():
-                results[service_name][policy_definition_name] = []
+                results[service_name][policy_definition_name] = {}
                 for parameter_name, parameter_details in parameters.items():
+                    # TODO: Figure out what to do if there are duplicates here.
                     parameter = TerraformParameterV2(
                         name=parameter_name,
                         service=service_name,
                         policy_definition_name=policy_definition_name,
                         initiative_parameters_json=parameter_details,
                         parameter_type=parameter_details.get("type"),
-                        default_value=parameter_details.get("defaultValue", None),
-                        value=parameter_details.get("value", None),
+                        default_value=parameter_details.get("default_value"),
+                        value=parameter_details.get("value"),
                     )
-                    results[service_name][policy_definition_name].append(parameter)
+                    results[service_name][policy_definition_name][parameter_name] = parameter
+                    # results[service_name][policy_definition_name].append(parameter)
         return results
 
     @property
@@ -149,8 +151,8 @@ class TerraformTemplateWithParamsV2:
         results = {}
         for service_name, policy_definitions_with_params in self.service_parameters.items():
             for policy_definition_name, parameters in policy_definitions_with_params.items():
-                for parameter in parameters:
-                    results[parameter.name] = parameter.initiative_parameters_json
+                for parameter_name, parameter_details in parameters.items():
+                    results[parameter_details.name] = parameter_details.initiative_parameters_json
         return results
 
     def rendered(self) -> str:

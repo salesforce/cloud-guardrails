@@ -90,9 +90,9 @@ resource "azurerm_policy_assignment" "{{ t.name }}_guardrails" {
   policy_definition_id = azurerm_policy_set_definition.{{ t.name }}_guardrails.id
   scope                = local.scope
   enforcement_mode     = var.enforcement_mode
-  parameters = jsonencode({% for service_name, service_policy_details in t.policy_definition_reference_parameters.items() %}{% for policy_definition_name, policy_definition_params in service_policy_details.items() %}{% for key in policy_definition_params %}
+  parameters = jsonencode({% for service_name, service_policy_details in t.policy_definition_reference_parameters.items() %}{% for policy_definition_name, policy_definition_params in service_policy_details.items() %}{% for key, value in policy_definition_params.items() %}
     {
-      {{ key.policy_assignment_parameter_value }}
+      {{ value.policy_assignment_parameter_value }}
     },{% endfor %}{% endfor %}{% endfor %}
   )
 }
