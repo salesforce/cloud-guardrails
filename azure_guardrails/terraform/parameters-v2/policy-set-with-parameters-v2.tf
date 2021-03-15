@@ -69,8 +69,8 @@ resource "azurerm_policy_set_definition" "{{ t.name }}_guardrails" {
   {% for policy_definition_name, policy_definition_params in service_policy_details.items() %}
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "{{ policy_definition_name }}")
-    parameter_values = jsonencode({ {% for key in policy_definition_params %}
-      {{ key.name }} = { "value" : "{{ key.policy_definition_reference_value }}" }{% endfor %}
+    parameter_values = jsonencode({ {% for key, value in policy_definition_params.items() %}
+      {{ value.name }} = { "value" : "{{ value.policy_definition_reference_value }}" }{% endfor %}
     })
     reference_id = null
   }
