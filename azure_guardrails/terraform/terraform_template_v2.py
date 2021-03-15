@@ -65,7 +65,7 @@ class TerraformParameterV2:
     def policy_assignment_parameter_value(self) -> str:
         """Produces the string ' evaluatedSkuNames = { "value" : ["Standard"] }' for use in the Policy Assignment parameters section"""
         value = json.dumps(self.value)
-        result = f"{self.name} = {{ \"value\": {value} }}"
+        result = f"{self.name} = {{ \"value\" = {value} }}"
         return result
 
     def __repr__(self) -> str:
@@ -121,7 +121,6 @@ class TerraformTemplateWithParamsV2:
             for policy_definition_name, parameters in policy_definitions_with_params.items():
                 results[service_name][policy_definition_name] = {}
                 for parameter_name, parameter_details in parameters.items():
-                    # TODO: Figure out what to do if there are duplicates here.
                     parameter = TerraformParameterV2(
                         name=parameter_name,
                         service=service_name,
@@ -132,7 +131,6 @@ class TerraformTemplateWithParamsV2:
                         value=parameter_details.get("value"),
                     )
                     results[service_name][policy_definition_name][parameter_name] = parameter
-                    # results[service_name][policy_definition_name].append(parameter)
         return results
 
     @property
