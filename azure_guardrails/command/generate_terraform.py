@@ -191,11 +191,7 @@ def generate_terraform(
 
     if not no_summary:
         compliance_coverage = ComplianceCoverage(display_names=display_names_list)
-        if subscription:
-            target_name = subscription
-        else:
-            target_name = management_group
-        summary_file_prefix = f"{summary_file_prefix}-{service}-table-{target_name}"
+        summary_file_prefix = f"{summary_file_prefix}-{service}-table"
 
         # Write Markdown summary
         markdown_table = compliance_coverage.markdown_table()
