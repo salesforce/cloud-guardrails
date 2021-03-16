@@ -67,7 +67,7 @@ class ServiceV2TestCase(unittest.TestCase):
 
     def test_service_display_names_params_optional(self):
         # App Platform Example
-        self.assertListEqual(self.service.display_names_params_optional, ['Azure Spring Cloud should use network injection'])
+        self.assertListEqual(self.service.display_names_params_optional, [])
 
         # Key Vault Example
         params_optional = utils.normalize_display_names_list(self.key_vault_service.display_names_params_optional)

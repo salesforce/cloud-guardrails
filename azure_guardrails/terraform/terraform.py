@@ -86,10 +86,12 @@ class TerraformTemplateWithParams:
             )
         # TODO: Shorten the subscription name if it is over X characters
         if subscription_name:
-            name = f"{subscription_name}-params"
+            name = f"{subscription_name}-noparams"
         # TODO: Shorten the management group name if it is over X characters
         else:
-            name = f"{management_group}-params"
+            name = f"{management_group}-noparams"
+        name = name.replace("-", "_")
+        name = name.lower()
         return name
 
     def _parameters(self, parameters) -> dict:

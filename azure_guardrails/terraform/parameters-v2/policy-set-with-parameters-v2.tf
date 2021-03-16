@@ -12,10 +12,10 @@ provider "azurerm" {
 }
 
 locals {
-  policy_names = [{% for service_name, policies_with_params in t.sorted_policies.items() %}
+  policy_names = [{% for service_name, policies_with_params in t.policies_sorted_by_service.items() %}
     # -----------------------------------------------------------------------------------------------------------------
     # {{ service_name }}
-    # -----------------------------------------------------------------------------------------------------------------{% for key, value in policies_with_params.items() %}
+    # -----------------------------------------------------------------------------------------------------------------{% for key in policies_with_params %}
     "{{ key }}",{% endfor %}{% endfor %}
   ]
   policy_definition_map = zipmap(
@@ -65,18 +65,19 @@ resource "azurerm_policy_set_definition" "{{ t.name }}_guardrails" {
     category = var.category
   }))
 
-  {% for service_name, policies_with_params in t.policy_definition_reference_parameters.items() %}
+  {% for service_name, service_policy_details in t.policy_definition_reference_parameters.items() %}
+  {% for policy_definition_name, policy_definition_params in service_policy_details.items() %}
   policy_definition_reference {
-    policy_definition_id = lookup(local.policy_definition_map, "{{ service_name }}")
-    parameter_values = jsonencode({ {% for key in policies_with_params %}
-      {{ key }} = { "value" : "[parameters('{{ key }}')]" }{% endfor %}
+    policy_definition_id = lookup(local.policy_definition_map, "{{ policy_definition_name }}")
+    parameter_values = jsonencode({ {% for key, value in policy_definition_params.items() %}
+      {{ value.name }} = { "value" : "{{ value.policy_definition_reference_value }}" }{% endfor %}
     })
     reference_id = null
   }
-  {% endfor %}
+  {% endfor %}{% endfor %}
 
   parameters = <<PARAMETERS
-{{ t.all_parameters }}
+{{ t.initiative_parameters }}
 PARAMETERS
 }
 
@@ -84,28 +85,31 @@ PARAMETERS
 # Azure Policy Assignments
 # Apply the Policy Initiative to the specified scope
 # ---------------------------------------------------------------------------------------------------------------------
-//resource "azurerm_policy_assignment" "{{ t.name }}_guardrails" {
-//  name                 = var.name
-//  policy_definition_id = azurerm_policy_set_definition.{{ t.name }}_guardrails.id
-//  scope                = local.scope
-//  enforcement_mode     = var.enforcement_mode
-//}
+resource "azurerm_policy_assignment" "{{ t.name }}_guardrails" {
+  name                 = var.name
+  policy_definition_id = azurerm_policy_set_definition.{{ t.name }}_guardrails.id
+  scope                = local.scope
+  enforcement_mode     = var.enforcement_mode
+  parameters = jsonencode({
+    {{ t.policy_assignment_parameters }}
+})
+}
 
 
 # ---------------------------------------------------------------------------------------------------------------------
 # Outputs
 # ---------------------------------------------------------------------------------------------------------------------
-//output "policy_assignment_ids" {
-//  value       = azurerm_policy_assignment.{{ t.name }}_guardrails.*.id
-//  description = "The IDs of the Policy Assignments."
-//}
-//
-//output "scope" {
-//  value       = local.scope
-//  description = "The target scope - either the management group or subscription, depending on which parameters were supplied"
-//}
-//
-//output "policy_set_definition_id" {
-//  value       = azurerm_policy_set_definition.{{ t.name }}_guardrails.id
-//  description = "The ID of the Policy Set Definition."
-//}
+output "policy_assignment_ids" {
+  value       = azurerm_policy_assignment.{{ t.name }}_guardrails.*.id
+  description = "The IDs of the Policy Assignments."
+}
+
+output "scope" {
+  value       = local.scope
+  description = "The target scope - either the management group or subscription, depending on which parameters were supplied"
+}
+
+output "policy_set_definition_id" {
+  value       = azurerm_policy_set_definition.{{ t.name }}_guardrails.id
+  description = "The ID of the Policy Set Definition."
+}

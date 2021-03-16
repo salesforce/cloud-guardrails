@@ -30,7 +30,14 @@ exclude_policies:
   Tags:
     - "Allow resource creation if 'department' tag set"
     - "Allow resource creation if 'environment' tag value in allowed values"
-{% for service in t.service_names %}{% if (service != "General") and (service != "Tags") %}
+  API Management:
+    # This collides with the same one from App Platform
+    - "API Management services should use a virtual network"
+  App Platform:
+    # This collides with the same one from API Management
+    - "Azure Spring Cloud should use network injection"
+{% set existing_exclusions = ["General", "Tags", "API Management", "App Platform"] %}
+{% for service in t.service_names %}{% if service not in existing_exclusions %}
   {{ service }}:
     - ""
 {% endif %}{% endfor %}
