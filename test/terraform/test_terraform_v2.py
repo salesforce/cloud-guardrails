@@ -1,5 +1,5 @@
 import unittest
-from azure_guardrails.terraform.terraform_template_v2 import TerraformParameterV2, TerraformTemplateWithParamsV2
+from azure_guardrails.terraform.terraform import TerraformParameterV2, TerraformTemplateWithParamsV2
 
 
 class TerraformParameterV2TestCase(unittest.TestCase):
