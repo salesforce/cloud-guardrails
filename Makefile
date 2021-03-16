@@ -9,7 +9,7 @@ update-submodule:
 	git submodule update
 
 .PHONY: update-submodule-with-merge
-update-submodule:
+update-submodule-with-merge:
 	git submodule init
 	git submodule update --remote --merge
 
