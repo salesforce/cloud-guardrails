@@ -17,12 +17,17 @@ class EmptyParamsPrintoutTestCase(unittest.TestCase):
         services = Services(service_names=["Kubernetes"])
         display_names = services.display_names_params_required
         expected_keys = [
-            "Do not allow privileged containers in Kubernetes cluster",
-            "Enforce internal load balancers in Kubernetes cluster",
+            "Configure Kubernetes clusters with specified GitOps configuration using HTTPS secrets",
+            "Configure Kubernetes clusters with specified GitOps configuration using SSH secrets",
+            "Configure Kubernetes clusters with specified GitOps configuration using no secrets",
+            "Kubernetes cluster containers CPU and memory resource limits should not exceed the specified limits",
             "Kubernetes cluster containers should not share host process ID or host IPC namespace",
+            "Kubernetes cluster containers should not use forbidden sysctl interfaces",
+            "Kubernetes cluster containers should only listen on allowed ports",
             "Kubernetes cluster containers should only use allowed AppArmor profiles",
             "Kubernetes cluster containers should only use allowed ProcMountType",
             "Kubernetes cluster containers should only use allowed capabilities",
+            "Kubernetes cluster containers should only use allowed images",
             "Kubernetes cluster containers should only use allowed seccomp profiles",
             "Kubernetes cluster containers should run with a read only root file system",
             "Kubernetes cluster pod FlexVolume volumes should only use allowed drivers",
@@ -30,16 +35,23 @@ class EmptyParamsPrintoutTestCase(unittest.TestCase):
             "Kubernetes cluster pods and containers should only run with approved user and group IDs",
             "Kubernetes cluster pods and containers should only use allowed SELinux options",
             "Kubernetes cluster pods should only use allowed volume types",
+            "Kubernetes cluster pods should only use approved host network and port range",
+            "Kubernetes cluster pods should use specified labels",
+            "Kubernetes cluster services should listen only on allowed ports",
+            "Kubernetes cluster should not allow privileged containers",
             "Kubernetes clusters should be accessible only over HTTPS",
             "Kubernetes clusters should not allow container privilege escalation",
+            "Kubernetes clusters should use internal load balancers",
             "[Preview]: Kubernetes cluster services should only use allowed external IPs",
             "[Preview]: Kubernetes clusters should disable automounting API credentials",
             "[Preview]: Kubernetes clusters should not grant CAP_SYS_ADMIN security capabilities",
             "[Preview]: Kubernetes clusters should not use specific security capabilities",
             "[Preview]: Kubernetes clusters should not use the default namespace"
         ]
-        # print(json.dumps(keys, indent=4))
+        # print(json.dumps(display_names, indent=4))
+        self.maxDiff = None
         # Doing this in a loop to future-proof the unit test
+        # self.assertListEqual(display_names, expected_keys)
         for expected_key in expected_keys:
             self.assertTrue(expected_key in display_names)
         # print(ruamel.yaml.dump(display_names, Dumper=ruamel.yaml.RoundTripDumper))

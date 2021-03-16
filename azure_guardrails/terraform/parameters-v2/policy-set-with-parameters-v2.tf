@@ -7,9 +7,6 @@ variable "category" {
   type    = string
   default = "Testing"
 }
-provider "azurerm" {
-  features {}
-}
 
 locals {
   policy_names = [{% for service_name, policies_with_params in t.policies_sorted_by_service.items() %}

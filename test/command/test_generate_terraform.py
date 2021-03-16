@@ -72,5 +72,5 @@ class GenerateTerraformClickUnitTests(unittest.TestCase):
         result = self.runner.invoke(generate_terraform, args)
         print(result.output)
         # We expect that a certain parameter will be in the output. Assert that it exists in the output
-        expected = "Do not allow privileged containers in Kubernetes cluster"
+        expected = "Kubernetes cluster should not allow privileged containers"
         self.assertTrue(expected in result.output)

@@ -146,11 +146,12 @@ class ServiceV2TestCase(unittest.TestCase):
         self.kubernetes_service = Service(service_name="Kubernetes")
         display_name = "Kubernetes cluster pods and containers should only run with approved user and group IDs"
         parameters = self.kubernetes_service.get_policy_definition_parameters(display_name=display_name, params_required=True)
-        print(json.dumps(parameters, indent=4))
+        # print(json.dumps(parameters, indent=4))
         parameter_names = list(parameters.keys())
         expected_parameter_names = [
             "excludedNamespaces",
             "namespaces",
+            "labelSelector",
             "runAsUserRule",
             "runAsUserRanges",
             "runAsGroupRule",
