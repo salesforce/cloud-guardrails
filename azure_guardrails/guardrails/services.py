@@ -38,7 +38,8 @@ class Service:
             result["policy_definitions"] = policy_definitions_result
         return result
 
-    def _policy_files(self, service_policy_directory: str) -> list:
+    @staticmethod
+    def _policy_files(service_policy_directory: str) -> list:
         policy_files = [
             f
             for f in os.listdir(service_policy_directory)
@@ -64,21 +65,21 @@ class Service:
         # First, if the display name starts with [Deprecated], skip it
         if policy_definition.display_name.startswith("[Deprecated]: "):
             logger.debug(
-                "Deprecated Policy; skipping. Policy name: %s"
+                "Skipping Policy (Deprecated). Policy name: %s"
                 % policy_definition.display_name
             )
             return True
         # Some Policies with Modify capabilities don't have an Effect - only way to detect them is to see if the name starts with 'Deploy'
         elif policy_definition.display_name.startswith("Deploy "):
             logger.debug(
-                "'Deploy' Policy detected; skipping. Policy name: %s"
+                "Skipping Policy (Deploy). Policy name: %s"
                 % policy_definition.display_name
             )
             return True
         # If the policy is deprecated, skip it
         elif policy_definition.is_deprecated:
             logger.debug(
-                "Policy definition is deprecated; skipping. Policy name: %s"
+                "Skipping Policy (Deprecated). Policy name: %s"
                 % policy_definition.display_name
             )
             return True
@@ -87,7 +88,7 @@ class Service:
             service_name=self.service_name, display_name=policy_definition.display_name
         ):
             logger.debug(
-                "Policy definition is excluded; skipping. Policy name: %s"
+                "Skipping Policy (Excluded by user). Policy name: %s"
                 % policy_definition.display_name
             )
             return True

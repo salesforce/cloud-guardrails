@@ -303,20 +303,14 @@ class ComplianceCoverage:
             return benchmark_id
 
         # Loop through the matching metadata only, then look within the policy_compliance_data that holds the master details
-        for (
-            policy_definition_name,
-            policy_definition_details,
-        ) in self.matching_metadata.items():
+        for policy_definition_name, policy_definition_details in self.matching_metadata.items():
             name = policy_definition_name.replace("[Preview]: ", "")
 
             # for policy in self.matching_metadata[policy_definition_name]:
             benchmarks = []
             github_link = ""
             service_name = ""
-            for (
-                benchmark,
-                benchmark_details,
-            ) in self.policy_compliance_data.policy_definition_metadata[name].items():
+            for benchmark, benchmark_details in self.policy_compliance_data.policy_definition_metadata[name].items():
                 benchmarks.append(benchmark)
                 service_name = benchmark_details.service_name
                 github_link = benchmark_details.github_link

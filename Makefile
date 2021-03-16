@@ -8,6 +8,11 @@ update-submodule:
 	git submodule init
 	git submodule update
 
+.PHONY: update-submodule-with-merge
+update-submodule:
+	git submodule init
+	git submodule update --remote --merge
+
 .PHONY: setup-env
 setup-env: update-submodule
 	python3 -m venv ./venv && source venv/bin/activate

@@ -5,11 +5,12 @@ import pandas as pd
 
 
 def combine_csvs():
-    csv_folder = os.path.join(os.path.dirname(__file__), os.path.pardir, "docs")
+    csv_folder = os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir, "docs"))
+    file = os.path.join(csv_folder, "all_policies.csv")
     os.chdir(csv_folder)
     extension = 'csv'
     # Remove the existing file first
-    file = "all_policies.csv"
+    # file = "all_policies.csv"
     if os.path.exists(file):
         print(f"Removing the previous file: {file}")
         os.remove(file)
