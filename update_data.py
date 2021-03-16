@@ -77,7 +77,7 @@ def update_data(destination, download):
 
     write_spreadsheets(results=results, results_path=destination)
     compliance_results = ComplianceResultsTransformer(results_list=results)
-    raw_json_results_path = os.path.join(destination, "results.json")
+    raw_json_results_path = os.path.join(destination, "compliance-data.json")
     with open(raw_json_results_path, "w") as file:
         json.dump(compliance_results.json(), file, indent=4, sort_keys=True)
     print(f"Saved json results to {raw_json_results_path}")
@@ -97,7 +97,7 @@ def write_spreadsheets(results: list, results_path: str):
         "github_link",
         "github_version",
     ]
-    csv_file_path = os.path.join(results_path, "results.csv")
+    csv_file_path = os.path.join(results_path, "compliance-data.csv")
     with open(csv_file_path, 'w', newline='') as csv_file:
         writer = csv.DictWriter(csv_file, fieldnames=field_names)
         writer.writeheader()
@@ -106,7 +106,7 @@ def write_spreadsheets(results: list, results_path: str):
     print(f"CSV updated! Wrote {len(results)} rows. Path: {csv_file_path}")
 
     df_new = pd.read_csv(csv_file_path)
-    excel_file_path = os.path.join(results_path, "results.xlsx")
+    excel_file_path = os.path.join(results_path, "compliance-data.xlsx")
     writer = pd.ExcelWriter(excel_file_path)
     df_new.to_excel(writer, index=False)
     writer.save()

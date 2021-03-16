@@ -8,7 +8,7 @@ from azure_guardrails.shared import utils
 
 COMPLIANCE_DATA_FILE = os.path.abspath(
     os.path.join(
-        os.path.dirname(__file__), os.path.pardir, "shared", "data", "results.json"
+        os.path.dirname(__file__), os.path.pardir, "shared", "data", "compliance-data.json"
     )
 )
 with open(COMPLIANCE_DATA_FILE) as json_file:

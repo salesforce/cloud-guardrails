@@ -59,7 +59,7 @@ def chomp_keep_single_spaces(string):
 
 
 def get_compliance_table() -> list:
-    compliance_data = os.path.join(os.path.dirname(__file__), "data", "results.csv")
+    compliance_data = os.path.join(os.path.dirname(__file__), "data", "compliance-data.csv")
     results = []
     with open(compliance_data) as csv_file:
         csv_reader = csv.DictReader(csv_file, delimiter=",")
