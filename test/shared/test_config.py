@@ -80,3 +80,11 @@ class ConfigTestCase(unittest.TestCase):
     def test_default_config(self):
         config = get_default_config()
         # print(config)
+
+    def test_exclude_keywords_config(self):
+        config = get_default_config(exclude_keywords=["private link"])
+        self.assertTrue(config.is_excluded("API for FHIR", "Azure API for FHIR should use private link"))
+        self.assertTrue(config.is_excluded("App Configuration", "App Configuration should use private link"))
+        self.assertTrue(config.is_excluded("Cosmos DB", "CosmosDB accounts should use private link"))
+
+
