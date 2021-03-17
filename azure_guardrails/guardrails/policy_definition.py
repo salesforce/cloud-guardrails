@@ -23,6 +23,7 @@ class PolicyDefinition:
         self.properties = Properties(properties_json=policy_content.get("properties"))
         self.display_name = self.properties.display_name
         self.parameters = self.properties.parameters
+        self.policy_rule = self.properties.policy_rule
 
     def __repr__(self):
         return json.dumps(self.json())
@@ -90,43 +91,55 @@ class PolicyDefinition:
     @property
     def allowed_effects(self) -> list:
         allowed_effects = []
-        try:
-            effect_parameter = self.properties.parameters.get("effect")
-            allowed_effects = effect_parameter.allowed_values
+        if self.properties.parameters.get("effect", None):
+            allowed_effects = self.properties.parameters.get("effect", None).allowed_values
+        # # try:
+        # #     effect_parameter = self.properties.parameters.get("effect")
+        #
+        # # This just means that there is no effect in there.
+        # except AttributeError as error:
+        #     # Weird cases: where deployifnotexists or modify are in the body of the policy definition instead of the "effect" parameter
+        #     # In this case, we have an 'if' statement that greps for deployifnotexists in str(policy_definition.lower())
+        #     # logger.debug(error)
+        #     logger.debug(f"AttributeError for policy name: {self.properties.display_name}. {error}")
 
-        # This just means that there is no effect in there.
-        except AttributeError as error:
-            # Weird cases: where deployifnotexists or modify are in the body of the policy definition instead of the "effect" parameter
-            # In this case, we have an 'if' statement that greps for deployifnotexists in str(policy_definition.lower())
-            if "deployifnotexists" in str(
-                self.properties.policy_rule
-            ).lower() and "modify" in str(self.properties.policy_rule):
-                logger.debug(
-                    f"Found BOTH deployIfNotExists and modify in the policy content for the policy: {self.display_name}"
-                )
-                allowed_effects.append("deployIfNotExists")
-                allowed_effects.append("modify")
-            elif "deployifnotexists" in str(self.properties.policy_rule).lower():
-                logger.debug(
-                    f"Found deployIfNotExists in the policy content for the policy: {self.display_name}"
-                )
-                allowed_effects.append("deployIfNotExists")
-            elif "modify" in str(self.properties.policy_rule).lower():
-                logger.debug(
-                    f"Found Modify in the policy content for the policy: {self.display_name}"
-                )
-                allowed_effects.append("modify")
-            elif "append" in str(self.properties.policy_rule).lower():
-                logger.debug(
-                    f"Found append in the policy content for the policy: {self.display_name}"
-                )
-                allowed_effects.append("append")
-            else:
-                logger.debug(error)
+        # Handle cases where the effect is not in there.
+        then_effect = self.properties.policy_rule.get("then").get("effect")
+        if "parameters" not in then_effect:
+            allowed_effects.append(then_effect)
+
+        if "deployifnotexists" in str(
+            self.properties.policy_rule
+        ).lower() and "modify" in str(self.properties.policy_rule).lower():
+            logger.debug(
+                f"Found BOTH deployIfNotExists and modify in the policy content for the policy: {self.display_name}"
+            )
+            allowed_effects.append("deployIfNotExists")
+            allowed_effects.append("modify")
+        elif "deployifnotexists" in str(self.properties.policy_rule).lower():
+            logger.debug(
+                f"Found deployIfNotExists in the policy content for the policy: {self.display_name}"
+            )
+            allowed_effects.append("deployIfNotExists")
+        elif "modify" in str(self.properties.policy_rule).lower():
+            logger.debug(
+                f"Found Modify in the policy content for the policy: {self.display_name}"
+            )
+            allowed_effects.append("modify")
+        elif "append" in str(self.properties.policy_rule).lower():
+            logger.debug(
+                f"Found append in the policy content for the policy: {self.display_name}"
+            )
+            allowed_effects.append("append")
+        else:
+            pass
+            # logger.debug(f"No deploy effect found for {self.display_name}")
 
         # Normalize names
         if allowed_effects:
             lowercase_allowed_effects = [x.lower() for x in allowed_effects]
+            # Remove duplicates
+            lowercase_allowed_effects = list(dict.fromkeys(lowercase_allowed_effects))
             return lowercase_allowed_effects
         else:
             return []

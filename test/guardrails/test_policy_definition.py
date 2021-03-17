@@ -3,7 +3,7 @@ import os
 import json
 from azure_guardrails.shared import utils
 from azure_guardrails.guardrails.policy_definition import PolicyDefinition
-from azure_guardrails.guardrails.parameter import Parameter
+from azure_guardrails.guardrails.services import skip_display_names
 
 # No Params
 policy_definition_file = os.path.abspath(os.path.join(
@@ -34,34 +34,6 @@ policy_definition_file = os.path.abspath(os.path.join(
 ))
 with open(policy_definition_file) as json_file:
     params_required_definition = json.load(json_file)
-
-
-class ParameterTestCase(unittest.TestCase):
-    def setUp(self):
-        """Use 'Kubernetes cluster pods and containers should only run with approved user and group IDs'"""
-        parameters = params_required_definition.get("properties").get("parameters")
-        self.array_parameter = Parameter(name="excludedNamespaces", parameter_json=parameters.get("excludedNamespaces"))
-
-    def test_parameter_attributes(self):
-        print("Testing Parameter attributes for Array type")
-        self.assertEqual(self.array_parameter.type, "Array")
-        self.assertEqual(self.array_parameter.display_name, "Namespace exclusions")
-        self.assertEqual(self.array_parameter.description, "List of Kubernetes namespaces to exclude from policy evaluation.")
-        self.assertListEqual(self.array_parameter.default_value, ["kube-system", "gatekeeper-system", "azure-arc"])
-        self.assertListEqual(list(self.array_parameter.metadata_json.keys()), ["displayName", "description"])
-        print(json.dumps(self.array_parameter.json(), indent=4))
-        expected_result = {
-            "name": "excludedNamespaces",
-            "type": "Array",
-            "description": "List of Kubernetes namespaces to exclude from policy evaluation.",
-            "display_name": "Namespace exclusions",
-            "default_value": [
-                "kube-system",
-                "gatekeeper-system",
-                "azure-arc"
-            ]
-        }
-        self.assertDictEqual(self.array_parameter.json(), expected_result)
 
 
 class PolicyDefinitionV2TestCase(unittest.TestCase):
@@ -143,3 +115,9 @@ class PolicyDefinitionV2TestCase(unittest.TestCase):
         weird_case_json = utils.get_policy_json(service_name="Cosmos DB", filename="Cosmos_DisableMetadata_Append.json")
         self.weird_case = PolicyDefinition(policy_content=weird_case_json, service_name="Cosmos DB")
         self.assertListEqual(self.weird_case.allowed_effects, ['append'])
+
+        app_config_json = utils.get_policy_json(service_name="App Configuration", filename="PrivateLink_PublicNetworkAccess_Modify.json")
+        self.app_config_case = PolicyDefinition(policy_content=app_config_json, service_name="App Configuration")
+        print(self.app_config_case.allowed_effects)
+        skip_decision = skip_display_names(self.app_config_case)
+        print(skip_decision)

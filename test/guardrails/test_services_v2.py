@@ -62,8 +62,8 @@ class ServicesTestCase(unittest.TestCase):
         params_required = self.kubernetes_service.display_names_params_required
         params_required = utils.normalize_display_names_list(params_required)
         print(f"Params Required: {len(params_required)}")
-        # print(json.dumps(params_required, indent=4))
-        self.assertTrue(len(params_required) >= 28)
+        print(json.dumps(params_required, indent=4))
+        self.assertTrue(len(params_required) >= 25)
 
         params_optional = self.kubernetes_service.display_names_params_optional
         print(f"Params Optional: {len(params_optional)}")
