@@ -8,7 +8,6 @@ from click_option_group import optgroup, RequiredMutuallyExclusiveOptionGroup
 from azure_guardrails import set_log_level
 from azure_guardrails.terraform.terraform import TerraformTemplateNoParams, TerraformTemplateWithParamsV2
 from azure_guardrails.shared import utils, validate
-from azure_guardrails.scrapers.compliance_data import ComplianceCoverage
 from azure_guardrails.shared.config import get_default_config, get_config_from_file
 from azure_guardrails.guardrails.services import Services
 
@@ -160,7 +159,6 @@ def generate_terraform(
 
     if no_params:
         display_names = services.get_display_names_sorted_by_service_no_params()
-        display_names_list = services.display_names_no_params
         terraform_template = TerraformTemplateNoParams(
             policy_names=display_names,
             subscription_name=subscription,
@@ -172,11 +170,6 @@ def generate_terraform(
             params_required=params_required
         )
 
-        if params_required:
-            display_names_list = services.display_names_params_required
-        else:
-            display_names_list = services.display_names_params_optional
-
         terraform_template = TerraformTemplateWithParamsV2(
             parameters=display_names,
             subscription_name=subscription,
@@ -187,22 +180,27 @@ def generate_terraform(
     print(result)
 
     if not no_summary:
-        compliance_coverage = ComplianceCoverage(display_names=display_names_list)
+
+        def markdown_summary(file_prefix: str) -> str:
+            # Write Markdown summary
+            markdown_table = services.markdown_table(no_params=no_params, params_optional=params_optional, params_required=params_required)
+            markdown_file_name = f"{file_prefix}.md"
+            if os.path.exists(markdown_file_name):
+                if verbosity >= 1:
+                    utils.print_grey(f"Removing the previous file: {markdown_file_name}")
+                os.remove(markdown_file_name)
+            with open(markdown_file_name, "w") as f:
+                f.write(markdown_table)
+            return markdown_file_name
+
         summary_file_prefix = f"{summary_file_prefix}-{service}-table"
 
         # Write Markdown summary
-        markdown_table = compliance_coverage.markdown_table()
-        markdown_file = f"{summary_file_prefix}.md"
-        if os.path.exists(markdown_file):
-            if verbosity >= 1:
-                utils.print_grey(f"Removing the previous file: {markdown_file}")
-            os.remove(markdown_file)
-        with open(markdown_file, "w") as f:
-            f.write(markdown_table)
+        markdown_file = markdown_summary(file_prefix=summary_file_prefix)
 
         if verbosity >= 1:
-            utils.print_grey(f"CSV file written to: {markdown_file}")
+            utils.print_grey(f"Markdown file written to: {markdown_file}")
 
         # Write CSV summary
         csv_file = f"{summary_file_prefix}.csv"
-        compliance_coverage.csv_table(csv_file, verbosity=verbosity)
+        services.csv_summary(csv_file, verbosity=verbosity, no_params=no_params, params_optional=params_optional, params_required=params_required)
