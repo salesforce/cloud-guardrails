@@ -102,6 +102,7 @@ class TerraformTemplateV2TestCase(unittest.TestCase):
         management_group = ""
         enforcement_mode = False
         self.kubernetes_terraform_template = TerraformTemplateWithParams(
+            parameter_requirement_str="params",
             parameters=self.kubernetes_parameters,
             subscription_name=subscription_name,
             management_group=management_group,
@@ -132,6 +133,7 @@ class TerraformTemplateV2TestCase(unittest.TestCase):
             }
         }
         self.key_vault_terraform_template = TerraformTemplateWithParams(
+            parameter_requirement_str="params",
             parameters=self.key_vault_parameters,
             subscription_name=subscription_name,
             management_group=management_group,

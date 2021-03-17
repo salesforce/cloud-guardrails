@@ -144,13 +144,13 @@ def generate_terraform(
     else:
         subscription = ""
 
-    summary_file_prefix = ""
+    parameter_requirement_str = ""
     if no_params:
-        summary_file_prefix = "no-params"
+        parameter_requirement_str = "no-params"
     elif params_required:
-        summary_file_prefix = "params-required"
+        parameter_requirement_str = "params-required"
     elif params_optional:
-        summary_file_prefix = "params-optional"
+        parameter_requirement_str = "params-optional"
 
     if service == "all":
         services = Services(config=config)
@@ -171,6 +171,7 @@ def generate_terraform(
         )
 
         terraform_template = TerraformTemplateWithParams(
+            parameter_requirement_str=parameter_requirement_str,
             parameters=display_names,
             subscription_name=subscription,
             management_group=management_group,
@@ -193,14 +194,14 @@ def generate_terraform(
                 f.write(markdown_table)
             return markdown_file_name
 
-        summary_file_prefix = f"{summary_file_prefix}-{service}-table"
+        parameter_requirement_str = f"{parameter_requirement_str}-{service}-table"
 
         # Write Markdown summary
-        markdown_file = markdown_summary(file_prefix=summary_file_prefix)
+        markdown_file = markdown_summary(file_prefix=parameter_requirement_str)
 
         if verbosity >= 1:
             utils.print_grey(f"Markdown file written to: {markdown_file}")
 
         # Write CSV summary
-        csv_file = f"{summary_file_prefix}.csv"
+        csv_file = f"{parameter_requirement_str}.csv"
         services.csv_summary(csv_file, verbosity=verbosity, no_params=no_params, params_optional=params_optional, params_required=params_required)

@@ -1,26 +1,14 @@
-variable "name" { default = "example-params" }
-variable "subscription_name" { default = "example" }
-variable "management_group" { default = "" }
-variable "enforcement_mode" { default = false }
-
-variable "category" {
-  type    = string
-  default = "Testing"
-}
-provider "azurerm" {
-  features {}
-}
-
 locals {
+  name_example_params_optional = "example_params_optional"
+  subscription_name_example_params_optional = "example"
+  management_group_example_params_optional = ""
+  category_example_params_optional = "Testing"
+  enforcement_mode_example_params_optional = false
   policy_names = [
     # -----------------------------------------------------------------------------------------------------------------
     # API Management
     # -----------------------------------------------------------------------------------------------------------------
-    "API Management services should use a virtual network",
-    # -----------------------------------------------------------------------------------------------------------------
-    # App Platform
-    # -----------------------------------------------------------------------------------------------------------------
-    "Azure Spring Cloud should use network injection",
+    "API Management service should use a SKU that supports virtual networks",
     # -----------------------------------------------------------------------------------------------------------------
     # App Service
     # -----------------------------------------------------------------------------------------------------------------
@@ -95,36 +83,40 @@ locals {
     # Stream Analytics
     # -----------------------------------------------------------------------------------------------------------------
     "Resource logs in Azure Stream Analytics should be enabled",
+    # -----------------------------------------------------------------------------------------------------------------
+    # Synapse
+    # -----------------------------------------------------------------------------------------------------------------
+    "Auditing on Synapse workspace should be enabled",
   ]
   policy_definition_map = zipmap(
-    data.azurerm_policy_definition.example-params_definition_lookups.*.display_name,
-    data.azurerm_policy_definition.example-params_definition_lookups.*.id
+    data.azurerm_policy_definition.example_params_optional_definition_lookups.*.display_name,
+    data.azurerm_policy_definition.example_params_optional_definition_lookups.*.id
   )
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
 # Conditional data lookups: If the user supplies management group, look up the ID of the management group
 # ---------------------------------------------------------------------------------------------------------------------
-data "azurerm_management_group" "example-params" {
-  count = var.management_group != "" ? 1 : 0
-  name  = var.management_group
+data "azurerm_management_group" "example_params_optional" {
+  count = local.management_group_example_params_optional != "" ? 1 : 0
+  display_name  = local.management_group_example_params_optional
 }
 
 ### If the user supplies subscription, look up the ID of the subscription
-data "azurerm_subscriptions" "example-params" {
-  count                 = var.subscription_name != "" ? 1 : 0
-  display_name_contains = var.subscription_name
+data "azurerm_subscriptions" "example_params_optional" {
+  count                 = local.subscription_name_example_params_optional != "" ? 1 : 0
+  display_name_contains = local.subscription_name_example_params_optional
 }
 
 locals {
-  scope = var.management_group != "" ? data.azurerm_management_group.example-params[0].id : element(data.azurerm_subscriptions.example-params[0].subscriptions.*.id, 0)
+  scope = local.management_group_example_params_optional != "" ? data.azurerm_management_group.example_params_optional[0].id : element(data.azurerm_subscriptions.example_params_optional[0].subscriptions.*.id, 0)
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
 # Azure Policy Definition Lookups
 # ---------------------------------------------------------------------------------------------------------------------
 
-data "azurerm_policy_definition" "example-params_definition_lookups" {
+data "azurerm_policy_definition" "example_params_optional_definition_lookups" {
   count        = length(local.policy_names)
   display_name = local.policy_names[count.index]
 }
@@ -133,36 +125,28 @@ data "azurerm_policy_definition" "example-params_definition_lookups" {
 # Azure Policy Initiative Definition
 # ---------------------------------------------------------------------------------------------------------------------
 
-resource "azurerm_policy_set_definition" "example-params_guardrails" {
-  name                  = var.name
+resource "azurerm_policy_set_definition" "example_params_optional" {
+  name                  = local.name_example_params_optional
   policy_type           = "Custom"
-  display_name          = var.name
-  description           = var.name
-  management_group_name = var.management_group == "" ? null : var.management_group
+  display_name          = local.name_example_params_optional
+  description           = local.name_example_params_optional
+  management_group_name = local.management_group_example_params_optional == "" ? null : local.management_group_example_params_optional
   metadata = tostring(jsonencode({
-    category = var.category
+    category = local.category_example_params_optional
   }))
 
 
 
   policy_definition_reference {
-    policy_definition_id = lookup(local.policy_definition_map, "API Management services should use a virtual network")
+    policy_definition_id = lookup(local.policy_definition_map, "API Management service should use a SKU that supports virtual networks")
     parameter_values = jsonencode({
-      evaluatedSkuNames = { "value" : "[parameters('evaluatedSkuNames')]" }
+      listOfAllowedSKUs = { "value" : "[parameters('listOfAllowedSKUs')]" }
     })
     reference_id = null
   }
 
 
 
-
-  policy_definition_reference {
-    policy_definition_id = lookup(local.policy_definition_map, "Azure Spring Cloud should use network injection")
-    parameter_values = jsonencode({
-      evaluatedSkuNames = { "value" : "[parameters('evaluatedSkuNames')]" }
-    })
-    reference_id = null
-  }
 
 
   policy_definition_reference {
@@ -254,6 +238,7 @@ resource "azurerm_policy_set_definition" "example-params_guardrails" {
     })
     reference_id = null
   }
+
 
 
 
@@ -466,21 +451,36 @@ resource "azurerm_policy_set_definition" "example-params_guardrails" {
   }
 
 
+  policy_definition_reference {
+    policy_definition_id = lookup(local.policy_definition_map, "Auditing on Synapse workspace should be enabled")
+    parameter_values = jsonencode({
+      setting = { "value" : "[parameters('setting')]" }
+    })
+    reference_id = null
+  }
+
 
 
 
   parameters = <<PARAMETERS
 {
-    "evaluatedSkuNames": {
-        "name": "evaluatedSkuNames",
+    "listOfAllowedSKUs": {
+        "name": "listOfAllowedSKUs",
         "type": "Array",
-        "description": "List of Azure Spring Cloud SKUs against which this policy will be evaluated.",
-        "display_name": "Azure Spring Cloud SKU Names",
+        "description": "The list of SKUs that can be specified for Azure API Management service.",
+        "display_name": "Allowed SKUs",
         "default_value": [
-            "Standard"
+            "Developer",
+            "Premium",
+            "Isolated"
         ],
         "allowed_values": [
-            "Standard"
+            "Developer",
+            "Basic",
+            "Standard",
+            "Premium",
+            "Isolated",
+            "Consumption"
         ]
     },
     "JavaLatestVersion": {
@@ -509,7 +509,7 @@ resource "azurerm_policy_set_definition" "example-params_guardrails" {
         "type": "String",
         "description": "Latest supported Python version for App Services",
         "display_name": "Linux Latest Python version",
-        "default_value": "3.8"
+        "default_value": "3.9"
     },
     "requiredRetentionDays": {
         "name": "requiredRetentionDays",
@@ -626,17 +626,17 @@ PARAMETERS
 # Azure Policy Assignments
 # Apply the Policy Initiative to the specified scope
 # ---------------------------------------------------------------------------------------------------------------------
-resource "azurerm_policy_assignment" "example-params_guardrails" {
-  name                 = var.name
-  policy_definition_id = azurerm_policy_set_definition.example-params_guardrails.id
+resource "azurerm_policy_assignment" "example_params_optional" {
+  name                 = local.name_example_params_optional
+  policy_definition_id = azurerm_policy_set_definition.example_params_optional.id
   scope                = local.scope
-  enforcement_mode     = var.enforcement_mode
+  enforcement_mode     = local.enforcement_mode_example_params_optional
   parameters = jsonencode({
-    evaluatedSkuNames = { "value" = ["Developer", "Premium"] }
+    listOfAllowedSKUs = { "value" = ["Developer", "Premium", "Isolated"] }
 	JavaLatestVersion = { "value" = "11" }
 	PHPLatestVersion = { "value" = "7.3" }
 	WindowsPythonLatestVersion = { "value" = "3.6" }
-	LinuxPythonLatestVersion = { "value" = "3.8" }
+	LinuxPythonLatestVersion = { "value" = "3.9" }
 	requiredRetentionDays = { "value" = "365" }
 	supportedSKUs = { "value" = ["DataBox", "DataBoxHeavy"] }
 	maxCores = { "value" = 32 }
@@ -653,17 +653,17 @@ resource "azurerm_policy_assignment" "example-params_guardrails" {
 # ---------------------------------------------------------------------------------------------------------------------
 # Outputs
 # ---------------------------------------------------------------------------------------------------------------------
-output "policy_assignment_ids" {
-  value       = azurerm_policy_assignment.example-params_guardrails.*.id
+output "example_params_optional_policy_assignment_ids" {
+  value       = azurerm_policy_assignment.example_params_optional.*.id
   description = "The IDs of the Policy Assignments."
 }
 
-output "scope" {
+output "example_params_optional_scope" {
   value       = local.scope
   description = "The target scope - either the management group or subscription, depending on which parameters were supplied"
 }
 
-output "policy_set_definition_id" {
-  value       = azurerm_policy_set_definition.example-params_guardrails.id
+output "example_params_optional_policy_set_definition_id" {
+  value       = azurerm_policy_set_definition.example_params_optional.id
   description = "The ID of the Policy Set Definition."
 }

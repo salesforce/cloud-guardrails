@@ -29,6 +29,7 @@ class TerraformTemplateNoParams:
             self.enforcement_string = "true"
         else:
             self.enforcement_string = "false"
+        self.category = "Testing"
 
     @staticmethod
     def _initiative_name(subscription_name: str, management_group: str) -> str:
@@ -57,6 +58,7 @@ class TerraformTemplateNoParams:
             subscription_name=self.subscription_name,
             management_group=self.management_group,
             enforcement_mode=self.enforcement_string,
+            category=self.category
         )
         template_path = os.path.join(os.path.dirname(__file__), "no-parameters")
         env = Environment(loader=FileSystemLoader(template_path))  # nosec
@@ -136,37 +138,41 @@ class TerraformTemplateWithParams:
     def __init__(
         self,
         parameters: dict,
+        parameter_requirement_str: str,
         subscription_name: str = "",
         management_group: str = "",
         enforcement_mode: bool = False,
     ):
         self.name = self._initiative_name(
-            subscription_name=subscription_name, management_group=management_group
+            subscription_name=subscription_name, management_group=management_group,
+            parameter_requirement_str=parameter_requirement_str
         )
         self.service_parameters = self._parameters(parameters)
         self.subscription_name = subscription_name
         self.management_group = management_group
+        self.category = "Testing"
         if enforcement_mode:
             self.enforcement_string = "true"
         else:
             self.enforcement_string = "false"
 
     @staticmethod
-    def _initiative_name(subscription_name: str, management_group: str) -> str:
+    def _initiative_name(subscription_name: str, management_group: str, parameter_requirement_str: str) -> str:
         if subscription_name == "" and management_group == "":
             raise Exception(
                 "Please supply a value for the subscription name or the management group"
             )
-        # TODO: Differentiate between ParamsRequired and ParamsOptional
         if subscription_name:
             # shorten the name if it is over a certain length to avoid hitting limits
-            if len(subscription_name) > 55:
-                subscription_name = subscription_name[0:54]
-            initiative_name = f"{subscription_name}-params"
+            if len(subscription_name) > 50:
+                subscription_name = subscription_name[0:50]
+            initiative_name = f"{subscription_name}-{parameter_requirement_str}"
         else:
-            if len(management_group) > 55:
-                management_group = management_group[0:54]
-            initiative_name = f"{management_group}-params"
+            if len(management_group) > 50:
+                management_group = management_group[0:50]
+            initiative_name = f"{management_group}-{parameter_requirement_str}"
+        initiative_name = initiative_name.replace("-", "_")
+        initiative_name = initiative_name.lower()
         return initiative_name
 
     @staticmethod
@@ -241,7 +247,8 @@ class TerraformTemplateWithParams:
             initiative_parameters=initiative_parameters,
             policies_sorted_by_service=self.policies_sorted_by_service,
             policy_definition_reference_parameters=self.service_parameters,
-            policy_assignment_parameters=self.policy_assignment_parameters
+            policy_assignment_parameters=self.policy_assignment_parameters,
+            category=self.category
         )
         template_path = os.path.join(os.path.dirname(__file__), "parameters")
         env = Environment(loader=FileSystemLoader(template_path))  # nosec
