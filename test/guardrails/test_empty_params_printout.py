@@ -5,6 +5,7 @@ import yaml
 import ruamel.yaml
 import json
 import os
+from jinja2 import Template, Environment, FileSystemLoader
 
 example_config_file = os.path.abspath(os.path.join(
     os.path.dirname(__file__),
@@ -17,9 +18,6 @@ class EmptyParamsPrintoutTestCase(unittest.TestCase):
         services = Services(service_names=["Kubernetes"])
         display_names = services.display_names_params_required
         expected_keys = [
-            "Configure Kubernetes clusters with specified GitOps configuration using HTTPS secrets",
-            "Configure Kubernetes clusters with specified GitOps configuration using SSH secrets",
-            "Configure Kubernetes clusters with specified GitOps configuration using no secrets",
             "Kubernetes cluster containers CPU and memory resource limits should not exceed the specified limits",
             "Kubernetes cluster containers should not share host process ID or host IPC namespace",
             "Kubernetes cluster containers should not use forbidden sysctl interfaces",
@@ -48,15 +46,14 @@ class EmptyParamsPrintoutTestCase(unittest.TestCase):
             "[Preview]: Kubernetes clusters should not use specific security capabilities",
             "[Preview]: Kubernetes clusters should not use the default namespace"
         ]
-        # print(json.dumps(display_names, indent=4))
+        print(json.dumps(display_names, indent=4))
         self.maxDiff = None
         # Doing this in a loop to future-proof the unit test
         # self.assertListEqual(display_names, expected_keys)
+        # print(ruamel.yaml.dump(display_names, Dumper=ruamel.yaml.RoundTripDumper))
         for expected_key in expected_keys:
             self.assertTrue(expected_key in display_names)
-        # print(ruamel.yaml.dump(display_names, Dumper=ruamel.yaml.RoundTripDumper))
 
-        from jinja2 import Template, Environment, FileSystemLoader
         policies = {"Kubernetes": display_names}
         header_format_string = """# ---------------------------------------------------------------------------------------------------------------------
 # {{ service_name }}

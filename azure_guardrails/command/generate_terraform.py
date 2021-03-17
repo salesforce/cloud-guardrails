@@ -6,7 +6,7 @@ import logging
 import click
 from click_option_group import optgroup, RequiredMutuallyExclusiveOptionGroup
 from azure_guardrails import set_log_level
-from azure_guardrails.terraform.terraform import TerraformTemplateNoParams, TerraformTemplateWithParamsV2
+from azure_guardrails.terraform.terraform import TerraformTemplateNoParams, TerraformTemplateWithParams
 from azure_guardrails.shared import utils, validate
 from azure_guardrails.shared.config import get_default_config, get_config_from_file
 from azure_guardrails.guardrails.services import Services
@@ -170,7 +170,7 @@ def generate_terraform(
             params_required=params_required
         )
 
-        terraform_template = TerraformTemplateWithParamsV2(
+        terraform_template = TerraformTemplateWithParams(
             parameters=display_names,
             subscription_name=subscription,
             management_group=management_group,

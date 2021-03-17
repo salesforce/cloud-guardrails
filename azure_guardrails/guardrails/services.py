@@ -20,13 +20,6 @@ def skip_display_names(policy_definition: PolicyDefinition, config: Config = DEF
             % policy_definition.display_name
         )
         return True
-    # Some Policies with Modify capabilities don't have an Effect - only way to detect them is to see if the name starts with 'Deploy'
-    elif policy_definition.display_name.startswith("Deploy "):
-        logger.debug(
-            "Skipping Policy (Deploy). Policy name: %s"
-            % policy_definition.display_name
-        )
-        return True
     # If the policy is deprecated, skip it
     elif policy_definition.is_deprecated:
         logger.debug(
@@ -34,16 +27,24 @@ def skip_display_names(policy_definition: PolicyDefinition, config: Config = DEF
             % policy_definition.display_name
         )
         return True
+    elif policy_definition.modifies_resources:
+        logger.info(f"Skipping Policy (Modify). Policy name: {policy_definition.display_name} with effects: {policy_definition.allowed_effects}")
+        return True
+    # Some Policies with Modify capabilities don't have an Effect - only way to detect them is to see if the name starts with 'Deploy'
+    elif policy_definition.display_name.startswith("Deploy "):
+        logger.info(f"Skipping Policy (Deploy). Policy name: {policy_definition.display_name} with effects: {policy_definition.allowed_effects}")
+        return True
     # If we have specified it in the Config config, skip it
     elif config.is_excluded(
             service_name=policy_definition.service_name, display_name=policy_definition.display_name
     ):
-        logger.debug(
+        logger.info(
             "Skipping Policy (Excluded by user). Policy name: %s"
             % policy_definition.display_name
         )
         return True
     else:
+        # print(f"Allowing policy with effects {policy_definition.allowed_effects} and name {policy_definition.display_name}")
         return False
 
 
@@ -111,6 +112,11 @@ class Service:
         for display_name, policy_definition in self.policy_definitions.items():
             if not skip_display_names(policy_definition=policy_definition, config=self.config):
                 if policy_definition.no_params:
+                    # print(policy_definition.properties.policy_rule)
+                    # then_effect = policy_definition.properties.policy_rule.get("then").get("effect")
+                    # if "parameters" not in then_effect:
+                    #     print(then_effect)
+                    # print(policy_definition.properties.policy_rule.get("then", None).get("effect"))
                     display_names.append(display_name)
         display_names.sort()
         return display_names
@@ -197,6 +203,15 @@ class Services:
                 policy_definition = service_details.policy_definitions[display_name]
                 break
         return policy_definition
+
+    def get_name_id(self, display_name: str) -> str:
+        """
+        Given a display name (like 'Azure API for FHIR should use a customer-managed key to encrypt data at rest',
+        get the associated ID, like '051cba44-2429-45b9-9649-46cec11c7119'
+        """
+        policy_definition = self.get_policy_definition(display_name)
+        result = policy_definition.name
+        return result
 
     @property
     def display_names_no_params(self) -> list:

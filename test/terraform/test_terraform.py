@@ -16,10 +16,10 @@ class TerraformTemplateNoParamsTestCase(unittest.TestCase):
                                                        management_group=management_group,
                                                        enforcement_mode=enforcement_mode)
         result = terraform_template.rendered()
+        print(result)
         self.assertListEqual(list(terraform_template.policy_names.keys()), ["Key Vault"])
         self.assertTrue("Key vaults should have soft delete enabled" in terraform_template.policy_names.get("Key Vault"))
-        self.assertTrue("name_example_noparams" in result)
-        # print(result)
+        self.assertTrue("example_noparams" in result)
 
     def test_terraform_all_services(self):
         services = Services()

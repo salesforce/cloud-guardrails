@@ -17,7 +17,12 @@ class Properties:
         self.category = self.metadata_json.get("category", None)
         self.preview = self.metadata_json.get("preview", None)
         if self.preview:
-            self.display_name = f"[Preview]: {display_name}"
+            # Sometimes, Preview is already in the display name. For example, "[ASC Private Preview] Deploy - Configure system-assigned managed identity to enable Azure Monitor assignments on VMs"
+            if "Preview" not in display_name:
+                self.display_name = f"[Preview]: {display_name}"
+            # If the word 'Preview' is already in the display name, leave it
+            else:
+                self.display_name = display_name
         else:
             self.display_name = display_name
         self.deprecated = self.metadata_json.get("deprecated", None)
