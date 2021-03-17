@@ -1,5 +1,5 @@
 locals {
-  name_{{ t.name }} = "{{ t.name }}"
+  name_{{ t.name }} = "{{ t.initiative_name }}"
   subscription_name_{{ t.name }} = "{{ t.subscription_name }}"
   management_group_{{ t.name }} = "{{ t.management_group }}"
   enforcement_mode_{{ t.name }} = {{ t.enforcement_mode }}
@@ -76,22 +76,22 @@ resource "azurerm_policy_assignment" "{{ t.name }}" {
 # ---------------------------------------------------------------------------------------------------------------------
 # Outputs
 # ---------------------------------------------------------------------------------------------------------------------
-output "policy_assignment_ids" {
+output "{{ t.name }}_policy_assignment_ids" {
   value       = azurerm_policy_assignment.{{ t.name }}.*.id
   description = "The IDs of the Policy Assignments."
 }
 
-output "scope" {
+output "{{ t.name }}_scope" {
   value       = local.{{ t.name }}_scope
   description = "The target scope - either the management group or subscription, depending on which parameters were supplied"
 }
 
-output "policy_set_definition_id" {
+output "{{ t.name }}_policy_set_definition_id" {
   value       = azurerm_policy_set_definition.{{ t.name }}.id
   description = "The ID of the Policy Set Definition."
 }
 
-output "count_of_policies_applied" {
+output "{{ t.name }}_count_of_policies_applied" {
   description = "The number of Policies applied as part of the Policy Initiative"
   value       = length(local.policy_names_{{ t.name }})
 }

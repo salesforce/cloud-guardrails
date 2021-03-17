@@ -1,9 +1,9 @@
 locals {
-  name_example_noparams = "example_noparams"
-  subscription_name_example_noparams = "redscar-dev"
-  management_group_example_noparams = ""
-  enforcement_mode_example_noparams = false
-  policy_names_example_noparams = [
+  name_noparams = "example_noparams"
+  subscription_name_noparams = "example"
+  management_group_noparams = ""
+  enforcement_mode_noparams = false
+  policy_names_noparams = [
     # -----------------------------------------------------------------------------------------------------------------
     # API for FHIR
     # -----------------------------------------------------------------------------------------------------------------
@@ -14,8 +14,11 @@ locals {
     # -----------------------------------------------------------------------------------------------------------------
     # App Configuration
     # -----------------------------------------------------------------------------------------------------------------
+    "App Configuration should disable public network access",
+    "App Configuration should use a SKU that supports private link",
     "App Configuration should use a customer-managed key",
     "App Configuration should use private link",
+    "Configure App Configuration to disable public network access",
 
     # -----------------------------------------------------------------------------------------------------------------
     # App Platform
@@ -26,6 +29,7 @@ locals {
     # App Service
     # -----------------------------------------------------------------------------------------------------------------
     "API App should only be accessible over HTTPS",
+    "API apps should use an Azure file share for its content directory",
     "Authentication should be enabled on your API app",
     "Authentication should be enabled on your Function app",
     "Authentication should be enabled on your web app",
@@ -43,6 +47,7 @@ locals {
     "FTPS should be required in your Web App",
     "Function App should only be accessible over HTTPS",
     "Function apps should have 'Client Certificates (Incoming client certificates)' enabled",
+    "Function apps should use an Azure file share for its content directory",
     "Latest TLS version should be used in your API App",
     "Latest TLS version should be used in your Function App",
     "Latest TLS version should be used in your Web App",
@@ -53,6 +58,7 @@ locals {
     "Remote debugging should be turned off for Function Apps",
     "Remote debugging should be turned off for Web Applications",
     "Web Application should only be accessible over HTTPS",
+    "Web apps should use an Azure file share for its content directory",
 
     # -----------------------------------------------------------------------------------------------------------------
     # Attestation
@@ -63,7 +69,10 @@ locals {
     # Automation
     # -----------------------------------------------------------------------------------------------------------------
     "Automation account variables should be encrypted",
+    "Automation accounts should disable public network access",
     "Azure Automation accounts should use customer-managed keys to encrypt data at rest",
+    "Configure Azure Automation accounts to disable public network access",
+    "Private endpoint connections on Automation Accounts should be enabled",
 
     # -----------------------------------------------------------------------------------------------------------------
     # Azure Data Explorer
@@ -82,11 +91,13 @@ locals {
     # Backup
     # -----------------------------------------------------------------------------------------------------------------
     "Azure Backup should be enabled for Virtual Machines",
+    "[Preview]: Azure Recovery Services vaults should use private link",
 
     # -----------------------------------------------------------------------------------------------------------------
     # Batch
     # -----------------------------------------------------------------------------------------------------------------
     "Azure Batch account should use customer-managed keys to encrypt data",
+    "Private endpoint connections on Batch accounts should be enabled",
     "Public network access should be disabled for Batch accounts",
 
     # -----------------------------------------------------------------------------------------------------------------
@@ -98,29 +109,43 @@ locals {
     # -----------------------------------------------------------------------------------------------------------------
     # Cache
     # -----------------------------------------------------------------------------------------------------------------
+    "Azure Cache for Redis should disable public network access",
     "Azure Cache for Redis should reside within a virtual network",
+    "Azure Cache for Redis should use private link",
+    "Configure Azure Cache for Redis to disable public network access",
     "Only secure connections to your Azure Cache for Redis should be enabled",
 
     # -----------------------------------------------------------------------------------------------------------------
     # Cognitive Services
     # -----------------------------------------------------------------------------------------------------------------
+//    "Cognitive Services accounts should disable public network access", # TODO
     "Cognitive Services accounts should enable data encryption",
     "Cognitive Services accounts should enable data encryption with a customer-managed key",
     "Cognitive Services accounts should restrict network access",
+    "Cognitive Services accounts should use a managed identity",
     "Cognitive Services accounts should use customer owned storage",
     "Cognitive Services accounts should use customer owned storage or enable data encryption.",
-    "Public network access should be disabled for Cognitive Services accounts",
+    "Configure Cognitive Services accounts to disable public network access",
 
     # -----------------------------------------------------------------------------------------------------------------
     # Compute
     # -----------------------------------------------------------------------------------------------------------------
     "Audit VMs that do not use managed disks",
     "Audit virtual machines without disaster recovery configured",
+    "Managed disks should be double encrypted with both platform-managed and customer-managed keys",
     "Microsoft Antimalware for Azure should be configured to automatically update protection signatures",
     "Microsoft IaaSAntimalware extension should be deployed on Windows servers",
+    "OS and data disks should be encrypted with a customer-managed key",
     "Require automatic OS image patching on Virtual Machine Scale Sets",
     "Unattached disks should be encrypted",
+    "Virtual machines and virtual machine scale sets should have encryption at host enabled",
     "Virtual machines should be migrated to new Azure Resource Manager resources",
+
+    # -----------------------------------------------------------------------------------------------------------------
+    # Container Instance
+    # -----------------------------------------------------------------------------------------------------------------
+    "Azure Container Instance container group should deploy into a virtual network",
+    "Azure Container Instance container group should use customer-managed key for encryption",
 
     # -----------------------------------------------------------------------------------------------------------------
     # Container Registry
@@ -135,12 +160,16 @@ locals {
     "Azure Cosmos DB accounts should have firewall rules",
     "Azure Cosmos DB accounts should use customer-managed keys to encrypt data at rest",
     "Azure Cosmos DB key based metadata write access should be disabled",
+    "Azure Cosmos DB should disable public network access",
+    "Configure CosmosDB accounts to disable public network access ",
+    "CosmosDB accounts should use private link",
 
     # -----------------------------------------------------------------------------------------------------------------
     # Data Factory
     # -----------------------------------------------------------------------------------------------------------------
     "Azure data factories should be encrypted with a customer-managed key",
     "Public network access on Azure Data Factory should be disabled",
+    "SQL Server Integration Services integration runtimes on Azure Data Factory should be joined to a virtual network",
     "[Preview]: Azure Data Factory linked services should use Key Vault for storing secrets",
     "[Preview]: Azure Data Factory linked services should use system-assigned managed identity authentication when it is supported",
     "[Preview]: Azure Data Factory should use a Git repository for source control",
@@ -157,6 +186,8 @@ locals {
     "Azure Event Grid domains should use private link",
     "Azure Event Grid topics should disable public network access",
     "Azure Event Grid topics should use private link",
+    "Modify - Configure Azure Event Grid domains to disable public network access",
+    "Modify - Configure Azure Event Grid topics to disable public network access",
 
     # -----------------------------------------------------------------------------------------------------------------
     # Event Hub
@@ -164,6 +195,7 @@ locals {
     "All authorization rules except RootManageSharedAccessKey should be removed from Event Hub namespace",
     "Authorization rules on the Event Hub instance should be defined",
     "Event Hub namespaces should use a customer-managed key for encryption",
+    "Event Hub namespaces should use private link",
 
     # -----------------------------------------------------------------------------------------------------------------
     # General
@@ -173,11 +205,30 @@ locals {
     "Custom subscription owner roles should not exist",
 
     # -----------------------------------------------------------------------------------------------------------------
+    # Guest Configuration
+    # -----------------------------------------------------------------------------------------------------------------
+    "Add system-assigned managed identity to enable Guest Configuration assignments on VMs with a user-assigned identity",
+    "Add system-assigned managed identity to enable Guest Configuration assignments on virtual machines with no identities",
+
+    # -----------------------------------------------------------------------------------------------------------------
     # HDInsight
     # -----------------------------------------------------------------------------------------------------------------
+    "Azure HDInsight clusters should be injected into a virtual network",
     "Azure HDInsight clusters should use customer-managed keys to encrypt data at rest",
     "Azure HDInsight clusters should use encryption at host to encrypt data at rest",
     "Azure HDInsight clusters should use encryption in transit to encrypt communication between Azure HDInsight cluster nodes",
+
+    # -----------------------------------------------------------------------------------------------------------------
+    # Internet of Things
+    # -----------------------------------------------------------------------------------------------------------------
+    "Configure IoT Hub device provisioning service instances to disable public network access",
+    "IoT Hub device provisioning service instances should disable public network access",
+    "IoT Hub device provisioning service instances should use private link",
+    "Modify - Configure Azure IoT Hubs to disable public network access",
+    "Private endpoint should be enabled for IoT Hub",
+    "Public network access on Azure IoT Hub should be disabled",
+    "[Preview]: Azure IoT Hub should use customer-managed key to encrypt data at rest",
+    "[Preview]: IoT Hub device provisioning service data should be encrypted using customer-managed keys (CMK)",
 
     # -----------------------------------------------------------------------------------------------------------------
     # Key Vault
@@ -195,6 +246,7 @@ locals {
     # -----------------------------------------------------------------------------------------------------------------
     # Kubernetes
     # -----------------------------------------------------------------------------------------------------------------
+    "Azure Kubernetes Service Private Clusters should be enabled",
     "Azure Policy Add-on for Kubernetes service (AKS) should be installed and enabled on your clusters",
     "Both operating systems and data disks in Azure Kubernetes Service clusters should be encrypted by customer-managed keys",
     "Temp disks and cache for agent node pools in Azure Kubernetes Service clusters should be encrypted at host",
@@ -209,6 +261,7 @@ locals {
     # -----------------------------------------------------------------------------------------------------------------
     "Azure Machine Learning workspaces should be encrypted with a customer-managed key",
     "Azure Machine Learning workspaces should use private link",
+    "Azure Machine Learning workspaces should use user-assigned managed identity",
 
     # -----------------------------------------------------------------------------------------------------------------
     # Managed Application
@@ -231,6 +284,11 @@ locals {
     "The Log Analytics agent should be installed on Virtual Machine Scale Sets",
     "The Log Analytics agent should be installed on virtual machines",
     "Workbooks should be saved to storage accounts that you control",
+    "[ASC Private Preview] Deploy - Configure system-assigned managed identity to enable Azure Monitor assignments on VMs",
+    "[Preview]: Deploy - Configure Linux Azure Monitor agent to enable Azure Monitor assignments on Linux virtual machines",
+    "[Preview]: Deploy - Configure Windows Azure Monitor agent to enable Azure Monitor assignments on Windows virtual machines",
+//    "[Preview]: Deploy Dependency agent to Windows Azure Arc machines", # TODO
+    "[Preview]: Deploy Dependency agent to hybrid Linux Azure Arc machines",
     "[Preview]: Log Analytics agent should be installed on your Linux Azure Arc machines",
     "[Preview]: Log Analytics agent should be installed on your Windows Azure Arc machines",
     "[Preview]: Network traffic data collection agent should be installed on Linux virtual machines",
@@ -243,7 +301,8 @@ locals {
     "Azure VPN gateways should not use 'basic' SKU",
     "Cosmos DB should use a virtual network service endpoint",
     "Event Hub should use a virtual network service endpoint",
-    "Flow log should be configured for every network security group",
+//    "Flow logs should be configured for every network security group", # TODO
+    "Flow logs should be enabled for every network security group",
     "Gateway subnets should not be configured with a network security group",
     "Key Vault should use a virtual network service endpoint",
     "Network interfaces should disable IP forwarding",
@@ -272,6 +331,7 @@ locals {
     "Azure SQL Database should have the minimal TLS version of 1.2",
     "Bring your own key data protection should be enabled for MySQL servers",
     "Bring your own key data protection should be enabled for PostgreSQL servers",
+    "Configure Azure SQL Server to disable public network access",
     "Connection throttling should be enabled for PostgreSQL database servers",
     "Disconnections should be logged for PostgreSQL database servers.",
     "Enforce SSL connection should be enabled for MySQL database servers",
@@ -303,12 +363,19 @@ locals {
     "SQL Managed Instance should have the minimal TLS version of 1.2",
     "SQL Managed Instances should avoid using GRS backup redundancy",
     "SQL managed instances should use customer-managed keys to encrypt data at rest",
-    "SQL servers should be configured with 90 days auditing retention or higher",
+//    "SQL servers should retain audit data for at least 90 days", # TODO
     "SQL servers should use customer-managed keys to encrypt data at rest",
     "Transparent Data Encryption on SQL databases should be enabled",
     "Vulnerability Assessment settings for SQL server should contain an email address to receive scan reports",
     "Vulnerability assessment should be enabled on SQL Managed Instance",
     "Vulnerability assessment should be enabled on your SQL servers",
+
+    # -----------------------------------------------------------------------------------------------------------------
+    # Search
+    # -----------------------------------------------------------------------------------------------------------------
+    "Azure Cognitive Search service should use a SKU that supports private link",
+    "Azure Cognitive Search services should disable public network access",
+    "Configure Azure Cognitive Search services to disable public network access",
 
     # -----------------------------------------------------------------------------------------------------------------
     # Security Center
@@ -335,6 +402,8 @@ locals {
     "Disk encryption should be applied on virtual machines",
     "Email notification for high severity alerts should be enabled",
     "Email notification to subscription owner for high severity alerts should be enabled",
+    "Enable Azure Security Center on your subscription",
+    "Enable Security Center's auto provisioning of the Log Analytics agent on your subscriptions with default workspace.",
     "Endpoint protection solution should be installed on virtual machine scale sets",
     "External accounts with owner permissions should be removed from your subscription",
     "External accounts with read permissions should be removed from your subscription",
@@ -369,12 +438,18 @@ locals {
     "Vulnerabilities in security configuration on your virtual machine scale sets should be remediated",
     "Vulnerabilities on your SQL databases should be remediated",
     "Vulnerabilities on your SQL servers on machine should be remediated",
+    "[Preview]: Azure Defender for DNS should be enabled",
+    "[Preview]: Azure Defender for Resource Manager should be enabled",
+    "[Preview]: Configure machines to receive the Qualys vulnerability assessment agent",
+    "[Preview]: Deploy - Configure Linux machines to automatically install the Azure Security agent",
+    "[Preview]: Deploy - Configure Windows machines to automatically install the Azure Security agent",
     "[Preview]: Sensitive data in your SQL databases should be classified",
 
     # -----------------------------------------------------------------------------------------------------------------
     # Service Bus
     # -----------------------------------------------------------------------------------------------------------------
     "All authorization rules except RootManageSharedAccessKey should be removed from Service Bus namespace",
+    "Azure Service Bus namespaces should use private link",
     "Service Bus Premium namespaces should use a customer-managed key for encryption",
 
     # -----------------------------------------------------------------------------------------------------------------
@@ -391,15 +466,19 @@ locals {
     # -----------------------------------------------------------------------------------------------------------------
     # Storage
     # -----------------------------------------------------------------------------------------------------------------
+    "Azure File Sync should use private link",
     "Geo-redundant storage should be enabled for Storage Accounts",
+    "HPC Cache accounts should use customer-managed key for encryption",
+    "Modify - Configure Azure File Sync to disable public network access",
+    "Public network access should be disabled for Azure File Sync",
     "Secure transfer to storage accounts should be enabled",
-    "Storage account should use a private link connection",
     "Storage accounts should allow access from trusted Microsoft services",
     "Storage accounts should be migrated to new Azure Resource Manager resources",
     "Storage accounts should have infrastructure encryption",
     "Storage accounts should restrict network access",
     "Storage accounts should restrict network access using virtual network rules",
     "Storage accounts should use customer-managed key for encryption",
+//    "Storage accounts should use private link", # TODO
     "[Preview]: Storage account public access should be disallowed",
 
     # -----------------------------------------------------------------------------------------------------------------
@@ -412,9 +491,11 @@ locals {
     # -----------------------------------------------------------------------------------------------------------------
     "Azure Synapse workspaces should allow outbound data traffic only to approved targets",
     "Azure Synapse workspaces should use customer-managed keys to encrypt data at rest",
+//    "Azure Synapse workspaces should use private link", # TODO
     "IP firewall rules on Azure Synapse workspaces should be removed",
     "Managed workspace virtual network on Azure Synapse workspaces should be enabled",
-    "Private endpoint connections on Azure Synapse workspaces should be enabled",
+    "Synapse workspace auditing settings should have action groups configured to capture critical activities",
+    "Synapse workspaces should be configured with 90 days auditing retention or higher.",
     "Vulnerability assessment should be enabled on your Synapse workspaces",
 
     # -----------------------------------------------------------------------------------------------------------------
@@ -429,14 +510,14 @@ locals {
 # Azure Policy name lookups:
 # Because the policies are built-in, we can just look up their IDs by their names.
 # ---------------------------------------------------------------------------------------------------------------------
-data "azurerm_policy_definition" "example_noparams" {
-  count        = length(local.policy_names_example_noparams)
-  display_name = element(local.policy_names_example_noparams, count.index)
+data "azurerm_policy_definition" "noparams" {
+  count        = length(local.policy_names_noparams)
+  display_name = element(local.policy_names_noparams, count.index)
 }
 
 locals {
-  example_noparams_policy_definitions = flatten([tolist([
-    for definition in data.azurerm_policy_definition.example_noparams.*.id :
+  noparams_policy_definitions = flatten([tolist([
+    for definition in data.azurerm_policy_definition.noparams.*.id :
     map("policyDefinitionId", definition)
     ])
   ])
@@ -445,33 +526,33 @@ locals {
 # ---------------------------------------------------------------------------------------------------------------------
 # Conditional data lookups: If the user supplies management group, look up the ID of the management group
 # ---------------------------------------------------------------------------------------------------------------------
-data "azurerm_management_group" "example_noparams" {
-  count = local.management_group_example_noparams != "" ? 1 : 0
-  display_name  = local.management_group_example_noparams
+data "azurerm_management_group" "noparams" {
+  count = local.management_group_noparams != "" ? 1 : 0
+  display_name  = local.management_group_noparams
 }
 
 ### If the user supplies subscription, look up the ID of the subscription
-data "azurerm_subscriptions" "example_noparams" {
-  count                 = local.subscription_name_example_noparams != "" ? 1 : 0
-  display_name_contains = local.subscription_name_example_noparams
+data "azurerm_subscriptions" "noparams" {
+  count                 = local.subscription_name_noparams != "" ? 1 : 0
+  display_name_contains = local.subscription_name_noparams
 }
 
 locals {
-  example_noparams_scope = local.management_group_example_noparams != "" ? data.azurerm_management_group.example_noparams[0].id : element(data.azurerm_subscriptions.example_noparams[0].subscriptions.*.id, 0)
+  noparams_scope = local.management_group_noparams != "" ? data.azurerm_management_group.noparams[0].id : element(data.azurerm_subscriptions.noparams[0].subscriptions.*.id, 0)
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
 # Policy Initiative
 # ---------------------------------------------------------------------------------------------------------------------
-resource "azurerm_policy_set_definition" "example_noparams" {
-  name                  = local.name_example_noparams
+resource "azurerm_policy_set_definition" "noparams" {
+  name                  = local.name_noparams
   policy_type           = "Custom"
-  display_name          = local.name_example_noparams
-  description           = local.name_example_noparams
-  management_group_name = local.management_group_example_noparams == "" ? null : local.management_group_example_noparams
-  policy_definitions    = tostring(jsonencode(local.example_noparams_policy_definitions))
+  display_name          = local.name_noparams
+  description           = local.name_noparams
+  management_group_name = local.management_group_noparams == "" ? null : local.management_group_noparams
+  policy_definitions    = tostring(jsonencode(local.noparams_policy_definitions))
   metadata = tostring(jsonencode({
-    category = local.name_example_noparams
+    category = local.name_noparams
   }))
 }
 
@@ -479,33 +560,32 @@ resource "azurerm_policy_set_definition" "example_noparams" {
 # Azure Policy Assignments
 # Apply the Policy Initiative to the specified scope
 # ---------------------------------------------------------------------------------------------------------------------
-resource "azurerm_policy_assignment" "example_noparams" {
-  name                 = local.name_example_noparams
-  policy_definition_id = azurerm_policy_set_definition.example_noparams.id
-  scope                = local.example_noparams_scope
-  enforcement_mode     = local.enforcement_mode_example_noparams
+resource "azurerm_policy_assignment" "noparams" {
+  name                 = local.name_noparams
+  policy_definition_id = azurerm_policy_set_definition.noparams.id
+  scope                = local.noparams_scope
+  enforcement_mode     = local.enforcement_mode_noparams
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
 # Outputs
 # ---------------------------------------------------------------------------------------------------------------------
-output "policy_assignment_ids" {
-  value       = azurerm_policy_assignment.example_noparams.*.id
+output "noparams_policy_assignment_ids" {
+  value       = azurerm_policy_assignment.noparams.*.id
   description = "The IDs of the Policy Assignments."
 }
 
-output "scope" {
-  value       = local.example_noparams_scope
+output "noparams_scope" {
+  value       = local.noparams_scope
   description = "The target scope - either the management group or subscription, depending on which parameters were supplied"
 }
 
-output "policy_set_definition_id" {
-  value       = azurerm_policy_set_definition.example_noparams.id
+output "noparams_policy_set_definition_id" {
+  value       = azurerm_policy_set_definition.noparams.id
   description = "The ID of the Policy Set Definition."
 }
 
-output "count_of_policies_applied" {
+output "noparams_count_of_policies_applied" {
   description = "The number of Policies applied as part of the Policy Initiative"
-  value       = length(local.policy_names_example_noparams)
+  value       = length(local.policy_names_noparams)
 }
-

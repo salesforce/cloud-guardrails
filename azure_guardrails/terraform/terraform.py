@@ -1,8 +1,9 @@
 import os
 import json
 import logging
+from typing import Union
 from jinja2 import Template, Environment, FileSystemLoader
-from azure_guardrails.shared import utils
+
 
 logger = logging.getLogger(__name__)
 
@@ -17,7 +18,8 @@ class TerraformTemplateNoParams:
         management_group: str = "",
         enforcement_mode: bool = False,
     ):
-        self.name = self._name(
+        self.name = "noparams"
+        self.initiative_name = self._initiative_name(
             subscription_name=subscription_name, management_group=management_group
         )
         self.subscription_name = subscription_name
@@ -28,24 +30,29 @@ class TerraformTemplateNoParams:
         else:
             self.enforcement_string = "false"
 
-    def _name(self, subscription_name: str, management_group: str) -> str:
+    @staticmethod
+    def _initiative_name(subscription_name: str, management_group: str) -> str:
         if subscription_name == "" and management_group == "":
             raise Exception(
                 "Please supply a value for the subscription name or the management group"
             )
-        # TODO: Shorten the subscription name if it is over X characters
         if subscription_name:
-            name = f"{subscription_name}-noparams"
-        # TODO: Shorten the management group name if it is over X characters
+            # shorten the name if it is over a certain length to avoid hitting limits
+            if len(subscription_name) > 55:
+                subscription_name = subscription_name[0:54]
+            initiative_name = f"{subscription_name}-noparams"
         else:
-            name = f"{management_group}-noparams"
-        name = name.replace("-", "_")
-        name = name.lower()
-        return name
+            if len(management_group) > 55:
+                management_group = management_group[0:54]
+            initiative_name = f"{management_group}-noparams"
+        initiative_name = initiative_name.replace("-", "_")
+        initiative_name = initiative_name.lower()
+        return initiative_name
 
     def rendered(self) -> str:
         template_contents = dict(
             name=self.name,
+            initiative_name=self.initiative_name,
             policy_names=self.policy_names,
             subscription_name=self.subscription_name,
             management_group=self.management_group,
@@ -53,14 +60,8 @@ class TerraformTemplateNoParams:
         )
         template_path = os.path.join(os.path.dirname(__file__), "no-parameters")
         env = Environment(loader=FileSystemLoader(template_path))  # nosec
-        template = env.get_template("policy-set-with-builtins-v2.tf")
+        template = env.get_template("policy-set-with-builtins.tf")
         return template.render(t=template_contents)
-
-import json
-import os
-import json
-from typing import Union
-from jinja2 import Template, Environment, FileSystemLoader
 
 
 class TerraformParameterV2:
@@ -130,7 +131,7 @@ class TerraformParameterV2:
         return json.dumps(self.json())
 
 
-class TerraformTemplateWithParamsV2:
+class TerraformTemplateWithParams:
     """Terraform Template with Parameters"""
     def __init__(
         self,
@@ -139,7 +140,7 @@ class TerraformTemplateWithParamsV2:
         management_group: str = "",
         enforcement_mode: bool = False,
     ):
-        self.name = self._name(
+        self.name = self._initiative_name(
             subscription_name=subscription_name, management_group=management_group
         )
         self.service_parameters = self._parameters(parameters)
@@ -151,17 +152,22 @@ class TerraformTemplateWithParamsV2:
             self.enforcement_string = "false"
 
     @staticmethod
-    def _name(subscription_name: str, management_group: str) -> str:
+    def _initiative_name(subscription_name: str, management_group: str) -> str:
         if subscription_name == "" and management_group == "":
             raise Exception(
                 "Please supply a value for the subscription name or the management group"
             )
-        # TODO: Shorten the management group name if it is over X characters
+        # TODO: Differentiate between ParamsRequired and ParamsOptional
         if subscription_name:
-            name = f"{subscription_name}-params"
+            # shorten the name if it is over a certain length to avoid hitting limits
+            if len(subscription_name) > 55:
+                subscription_name = subscription_name[0:54]
+            initiative_name = f"{subscription_name}-params"
         else:
-            name = f"{management_group}-params"
-        return name
+            if len(management_group) > 55:
+                management_group = management_group[0:54]
+            initiative_name = f"{management_group}-params"
+        return initiative_name
 
     @staticmethod
     def _parameters(parameters: dict) -> dict:

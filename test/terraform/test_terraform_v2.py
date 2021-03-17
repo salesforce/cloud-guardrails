@@ -1,5 +1,5 @@
 import unittest
-from azure_guardrails.terraform.terraform import TerraformParameterV2, TerraformTemplateWithParamsV2
+from azure_guardrails.terraform.terraform import TerraformParameterV2, TerraformTemplateWithParams
 
 
 class TerraformParameterV2TestCase(unittest.TestCase):
@@ -101,7 +101,7 @@ class TerraformTemplateV2TestCase(unittest.TestCase):
         subscription_name = "example"
         management_group = ""
         enforcement_mode = False
-        self.kubernetes_terraform_template = TerraformTemplateWithParamsV2(
+        self.kubernetes_terraform_template = TerraformTemplateWithParams(
             parameters=self.kubernetes_parameters,
             subscription_name=subscription_name,
             management_group=management_group,
@@ -131,7 +131,7 @@ class TerraformTemplateV2TestCase(unittest.TestCase):
                 },
             }
         }
-        self.key_vault_terraform_template = TerraformTemplateWithParamsV2(
+        self.key_vault_terraform_template = TerraformTemplateWithParams(
             parameters=self.key_vault_parameters,
             subscription_name=subscription_name,
             management_group=management_group,
