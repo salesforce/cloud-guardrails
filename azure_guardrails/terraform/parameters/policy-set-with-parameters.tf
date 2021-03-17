@@ -1,14 +1,9 @@
-variable "name" { default = "{{ t.name }}" }
-variable "subscription_name" { default = "{{ t.subscription_name }}" }
-variable "management_group" { default = "{{ t.management_group }}" }
-variable "enforcement_mode" { default = {{ t.enforcement_mode }} }
-
-variable "category" {
-  type    = string
-  default = "Testing"
-}
-
 locals {
+  name_{{ t.name }} = "{{ t.name }}"
+  subscription_name_{{ t.name }} = "{{ t.subscription_name }}"
+  management_group_{{ t.name }} = "{{ t.management_group }}"
+  category_{{ t.name }} = "{{ t.category }}"
+  enforcement_mode_{{ t.name }} = {{ t.enforcement_mode }}
   policy_names = [{% for service_name, policies_with_params in t.policies_sorted_by_service.items() %}
     # -----------------------------------------------------------------------------------------------------------------
     # {{ service_name }}
@@ -25,18 +20,18 @@ locals {
 # Conditional data lookups: If the user supplies management group, look up the ID of the management group
 # ---------------------------------------------------------------------------------------------------------------------
 data "azurerm_management_group" "{{ t.name }}" {
-  count = var.management_group != "" ? 1 : 0
-  name  = var.management_group
+  count = local.management_group_{{ t.name }} != "" ? 1 : 0
+  display_name  = local.management_group_{{ t.name }}
 }
 
 ### If the user supplies subscription, look up the ID of the subscription
 data "azurerm_subscriptions" "{{ t.name }}" {
-  count                 = var.subscription_name != "" ? 1 : 0
-  display_name_contains = var.subscription_name
+  count                 = local.subscription_name_{{ t.name }} != "" ? 1 : 0
+  display_name_contains = local.subscription_name_{{ t.name }}
 }
 
 locals {
-  scope = var.management_group != "" ? data.azurerm_management_group.{{ t.name }}[0].id : element(data.azurerm_subscriptions.{{ t.name }}[0].subscriptions.*.id, 0)
+  scope = local.management_group_{{ t.name }} != "" ? data.azurerm_management_group.{{ t.name }}[0].id : element(data.azurerm_subscriptions.{{ t.name }}[0].subscriptions.*.id, 0)
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -52,14 +47,14 @@ data "azurerm_policy_definition" "{{ t.name }}_definition_lookups" {
 # Azure Policy Initiative Definition
 # ---------------------------------------------------------------------------------------------------------------------
 
-resource "azurerm_policy_set_definition" "{{ t.name }}_guardrails" {
-  name                  = var.name
+resource "azurerm_policy_set_definition" "{{ t.name }}" {
+  name                  = local.name_{{ t.name }}
   policy_type           = "Custom"
-  display_name          = var.name
-  description           = var.name
-  management_group_name = var.management_group == "" ? null : var.management_group
+  display_name          = local.name_{{ t.name }}
+  description           = local.name_{{ t.name }}
+  management_group_name = local.management_group_{{ t.name }} == "" ? null : local.management_group_{{ t.name }}
   metadata = tostring(jsonencode({
-    category = var.category
+    category = local.category_{{ t.name }}
   }))
 
   {% for service_name, service_policy_details in t.policy_definition_reference_parameters.items() %}
@@ -82,11 +77,11 @@ PARAMETERS
 # Azure Policy Assignments
 # Apply the Policy Initiative to the specified scope
 # ---------------------------------------------------------------------------------------------------------------------
-resource "azurerm_policy_assignment" "{{ t.name }}_guardrails" {
-  name                 = var.name
-  policy_definition_id = azurerm_policy_set_definition.{{ t.name }}_guardrails.id
+resource "azurerm_policy_assignment" "{{ t.name }}" {
+  name                 = local.name_{{ t.name }}
+  policy_definition_id = azurerm_policy_set_definition.{{ t.name }}.id
   scope                = local.scope
-  enforcement_mode     = var.enforcement_mode
+  enforcement_mode     = local.enforcement_mode_{{ t.name }}
   parameters = jsonencode({
     {{ t.policy_assignment_parameters }}
 })
@@ -96,17 +91,17 @@ resource "azurerm_policy_assignment" "{{ t.name }}_guardrails" {
 # ---------------------------------------------------------------------------------------------------------------------
 # Outputs
 # ---------------------------------------------------------------------------------------------------------------------
-output "policy_assignment_ids" {
-  value       = azurerm_policy_assignment.{{ t.name }}_guardrails.*.id
+output "{{ t.name }}_policy_assignment_ids" {
+  value       = azurerm_policy_assignment.{{ t.name }}.*.id
   description = "The IDs of the Policy Assignments."
 }
 
-output "scope" {
+output "{{ t.name }}_scope" {
   value       = local.scope
   description = "The target scope - either the management group or subscription, depending on which parameters were supplied"
 }
 
-output "policy_set_definition_id" {
-  value       = azurerm_policy_set_definition.{{ t.name }}_guardrails.id
+output "{{ t.name }}_policy_set_definition_id" {
+  value       = azurerm_policy_set_definition.{{ t.name }}.id
   description = "The ID of the Policy Set Definition."
 }
