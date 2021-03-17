@@ -77,7 +77,7 @@ resource "azurerm_policy_assignment" "{{ t.name }}" {
 # Outputs
 # ---------------------------------------------------------------------------------------------------------------------
 output "{{ t.name }}_policy_assignment_ids" {
-  value       = azurerm_policy_assignment.{{ t.name }}.*.id
+  value       = azurerm_policy_assignment.{{ t.name }}.id
   description = "The IDs of the Policy Assignments."
 }
 
