@@ -1,5 +1,6 @@
 ####
 # match_only_keywords: Use this to only apply policies that match any of these keywords
+# exclude_keywords: Use this to skip policies that have any of these keywords in the display name
 # exclude_services: Specify services that you want to exclude entirely.
 # exclude_policies: Specify Azure Policy Definition displayNames that you want to exclude from the results, sorted by service
 ####
@@ -9,6 +10,12 @@
 match_only_keywords:
   - ""
 {% for keyword in t.match_only_keywords %}
+  - "{{ keyword }}"
+{% endfor %}
+
+exclude_keywords:
+  - ""
+{% for keyword in t.exclude_keywords %}
   - "{{ keyword }}"
 {% endfor %}
 
