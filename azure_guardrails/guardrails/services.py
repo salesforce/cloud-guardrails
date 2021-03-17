@@ -2,12 +2,49 @@ import os
 import json
 import csv
 import logging
+from tabulate import tabulate
 from operator import itemgetter
 from azure_guardrails.shared import utils
 from azure_guardrails.shared.config import DEFAULT_CONFIG, Config
 from azure_guardrails.guardrails.policy_definition import PolicyDefinition
 
 logger = logging.getLogger(__name__)
+
+
+def skip_display_names(policy_definition: PolicyDefinition, config: Config = DEFAULT_CONFIG) -> bool:
+    # Quality control
+    # First, if the display name starts with [Deprecated], skip it
+    if policy_definition.display_name.startswith("[Deprecated]: "):
+        logger.debug(
+            "Skipping Policy (Deprecated). Policy name: %s"
+            % policy_definition.display_name
+        )
+        return True
+    # Some Policies with Modify capabilities don't have an Effect - only way to detect them is to see if the name starts with 'Deploy'
+    elif policy_definition.display_name.startswith("Deploy "):
+        logger.debug(
+            "Skipping Policy (Deploy). Policy name: %s"
+            % policy_definition.display_name
+        )
+        return True
+    # If the policy is deprecated, skip it
+    elif policy_definition.is_deprecated:
+        logger.debug(
+            "Skipping Policy (Deprecated). Policy name: %s"
+            % policy_definition.display_name
+        )
+        return True
+    # If we have specified it in the Config config, skip it
+    elif config.is_excluded(
+            service_name=policy_definition.service_name, display_name=policy_definition.display_name
+    ):
+        logger.debug(
+            "Skipping Policy (Excluded by user). Policy name: %s"
+            % policy_definition.display_name
+        )
+        return True
+    else:
+        return False
 
 
 class Service:
@@ -62,41 +99,6 @@ class Service:
             policy_definitions[policy_definition.display_name] = policy_definition
         return policy_definitions
 
-    def skip_display_names(self, policy_definition: PolicyDefinition) -> bool:
-        # Quality control
-        # First, if the display name starts with [Deprecated], skip it
-        if policy_definition.display_name.startswith("[Deprecated]: "):
-            logger.debug(
-                "Skipping Policy (Deprecated). Policy name: %s"
-                % policy_definition.display_name
-            )
-            return True
-        # Some Policies with Modify capabilities don't have an Effect - only way to detect them is to see if the name starts with 'Deploy'
-        elif policy_definition.display_name.startswith("Deploy "):
-            logger.debug(
-                "Skipping Policy (Deploy). Policy name: %s"
-                % policy_definition.display_name
-            )
-            return True
-        # If the policy is deprecated, skip it
-        elif policy_definition.is_deprecated:
-            logger.debug(
-                "Skipping Policy (Deprecated). Policy name: %s"
-                % policy_definition.display_name
-            )
-            return True
-        # If we have specified it in the Config config, skip it
-        elif self.config.is_excluded(
-            service_name=self.service_name, display_name=policy_definition.display_name
-        ):
-            logger.debug(
-                "Skipping Policy (Excluded by user). Policy name: %s"
-                % policy_definition.display_name
-            )
-            return True
-        else:
-            return False
-
     @property
     def display_names(self) -> list:
         display_names = list(self.policy_definitions.keys())
@@ -107,7 +109,7 @@ class Service:
     def display_names_no_params(self) -> list:
         display_names = []
         for display_name, policy_definition in self.policy_definitions.items():
-            if not self.skip_display_names(policy_definition=policy_definition):
+            if not skip_display_names(policy_definition=policy_definition, config=self.config):
                 if policy_definition.no_params:
                     display_names.append(display_name)
         display_names.sort()
@@ -117,7 +119,7 @@ class Service:
     def display_names_params_optional(self) -> list:
         display_names = []
         for display_name, policy_definition in self.policy_definitions.items():
-            if not self.skip_display_names(policy_definition=policy_definition):
+            if not skip_display_names(policy_definition=policy_definition, config=self.config):
                 if policy_definition.params_optional:
                     display_names.append(display_name)
         display_names.sort()
@@ -127,7 +129,7 @@ class Service:
     def display_names_params_required(self) -> list:
         display_names = []
         for display_name, policy_definition in self.policy_definitions.items():
-            if not self.skip_display_names(policy_definition=policy_definition):
+            if not skip_display_names(policy_definition=policy_definition, config=self.config):
                 if policy_definition.params_required:
                     display_names.append(display_name)
         display_names.sort()
@@ -260,20 +262,23 @@ class Services:
             results[service_name] = service_parameters
         return results
 
-    def get_all_display_names_sorted_by_service(self) -> dict:
+    def get_all_display_names_sorted_by_service(self, no_params: bool = True, params_optional: bool = True, params_required: bool = True) -> dict:
         results = {}
         for service_name, service_details in self.services.items():
             service_results = []
-            service_results.extend(service_details.display_names_no_params)
-            service_results.extend(service_details.display_names_params_optional)
-            service_results.extend(service_details.display_names_params_required)
+            if no_params:
+                service_results.extend(service_details.display_names_no_params)
+            if params_optional:
+                service_results.extend(service_details.display_names_params_optional)
+            if params_required:
+                service_results.extend(service_details.display_names_params_required)
             service_results.sort()
             service_results = list(dict.fromkeys(service_results))  # remove duplicates
             if service_results:
                 results[service_name] = service_results
         return results
 
-    def compliance_coverage_data(self) -> dict:
+    def compliance_coverage_data(self, no_params: bool = True, params_optional: bool = True, params_required: bool = True) -> dict:
         results = {}
         compliance_data_file = os.path.abspath(
             os.path.join(
@@ -282,12 +287,19 @@ class Services:
         )
         with open(compliance_data_file) as json_file:
             compliance_data = json.load(json_file)
-        display_names_sorted = self.get_all_display_names_sorted_by_service()
+        display_names_sorted = self.get_all_display_names_sorted_by_service(no_params=no_params, params_optional=params_optional, params_required=params_required)
+        definitions_found = []
         for service_name, display_names in display_names_sorted.items():
             for display_name in display_names:
                 policy_definition_compliance_metadata = compliance_data.get(display_name, None)
+                # If there are no results, skip
                 if not policy_definition_compliance_metadata:
                     continue
+                # Check if this is excluded by the config
+                policy_definition = self.get_policy_definition(display_name)
+                if skip_display_names(policy_definition=policy_definition, config=self.config):
+                    continue
+                definitions_found.append(f"{service_name}: {display_name}")
                 service_results = {}
                 # if it exists in the display names
                 if policy_definition_compliance_metadata:
@@ -301,29 +313,46 @@ class Services:
                         service_name=policy_definition_compliance_metadata.get("service_name"),
                         benchmarks=policy_definition_compliance_metadata.get("benchmarks"),
                     )
-                # otherwise, gather the data from self
+                    service_results[display_name] = policy_def_results
                 else:
-                    policy_definition = self.get_policy_definition(display_name)
-                    if not policy_definition:
-                        raise Exception(f"Policy definition with display name {display_name} not found")
-                    policy_def_results = dict(
-                        description=policy_definition.properties.description,
-                        effects=','.join(policy_definition.allowed_effects),
-                        github_link=None,
-                        github_version=None,
-                        name=display_name,
-                        policy_id=policy_definition.id,
-                        service_name=service_name,
-                        benchmarks={},
-                    )
+                    continue
+                if not results.get(service_name):
+                    results[service_name] = service_results
+                else:
+                    results[service_name][display_name] = policy_def_results
+        # Address items that are not listed under the compliance benchmarks
+        for service_name, display_names in display_names_sorted.items():
+            for display_name in display_names:
+                service_results = {}
+                if service_name in results.keys():
+                    if display_name in results[service_name].keys():
+                        continue
+                definitions_found.append(f"{service_name}: {display_name}")
+                # Check if this is excluded by the config
+                policy_definition = self.get_policy_definition(display_name)
+                if skip_display_names(policy_definition=policy_definition, config=self.config):
+                    continue
+                if not policy_definition:
+                    raise Exception(f"Policy definition with display name {display_name} not found")
+                policy_def_results = dict(
+                    description=policy_definition.properties.description,
+                    effects=','.join(policy_definition.allowed_effects),
+                    github_link=None,
+                    github_version=None,
+                    name=display_name,
+                    policy_id=policy_definition.id,
+                    service_name=service_name,
+                    benchmarks={},
+                )
                 service_results[display_name] = policy_def_results
                 if not results.get(service_name):
                     results[service_name] = service_results
                 else:
                     results[service_name][display_name] = policy_def_results
+        definitions_found.sort()
         return results
 
-    def table_summary(self, hyperlink_format: bool = True) -> list:
+    def table_summary(self, hyperlink_format: bool = True, no_params: bool = True, params_optional: bool = True, params_required: bool = True) -> list:
         results = []
 
         def get_benchmark_id(benchmark_name: str, this_policy_metadata: dict) -> str:
@@ -335,12 +364,11 @@ class Services:
                 benchmark_id = ""
             return benchmark_id
 
-        compliance_coverage_data = self.compliance_coverage_data()
+        compliance_coverage_data = self.compliance_coverage_data(no_params=no_params, params_optional=params_optional, params_required=params_required)
         for service_name, service_details in compliance_coverage_data.items():
             for display_name, policy_metadata in service_details.items():
                 name = display_name.replace("[Preview]: ", "")
-                # benchmarks = []
-                github_link = ""
+                github_link = policy_metadata.get("github_link")
                 policy_definition_obj = self.get_policy_definition(display_name)
 
                 # Get the string that we'll put in the name, depending on if we want to use Markdown hyperlink format or just the name itself
@@ -384,7 +412,6 @@ class Services:
                     "Service": service_name,
                     "Policy Definition": policy_definition_string,
                     "Parameter Requirements": parameter_requirements,
-                    "Parameters": parameter_names,
                     # "Name": policy_definition_name,
                     "Azure Security Benchmark": azure_security_benchmark_id,
                     "CIS": cis_id,
@@ -394,18 +421,18 @@ class Services:
                     "NIST SP 800-53 R4": nist_800_53_id,
                     "HIPAA HITRUST 9.2": hipaa_id,
                     "New Zealand ISM": new_zealand_id,
+                    "Parameters": parameter_names,
                     "Link": github_link,
                 }
                 results.append(result)
         results = sorted(results, key=itemgetter("Service", "Policy Definition"))
         return results
 
-    def csv_summary(self, path: str, verbosity: int):
+    def csv_summary(self, path: str, verbosity: int, no_params: bool = True, params_optional: bool = True, params_required: bool = True):
         headers = [
             "Service",
             "Policy Definition",
             "Parameter Requirements",
-            "Parameters",
             "Azure Security Benchmark",
             "CIS",
             "CCMC L3",
@@ -414,18 +441,25 @@ class Services:
             "NIST SP 800-171 R2",
             "HIPAA HITRUST 9.2",
             "New Zealand ISM",
+            "Parameters",
             "Link",
         ]
 
         # results = headers.copy()
-        results = self.table_summary(hyperlink_format=False)
+        results = self.table_summary(hyperlink_format=False, no_params=no_params, params_optional=params_optional, params_required=params_required)
         if os.path.exists(path):
             os.remove(path)
             if verbosity >= 1:
                 utils.print_grey(f"Removing the previous file: {path}")
+
         with open(path, "w", newline="") as csv_file:
             writer = csv.DictWriter(csv_file, fieldnames=headers)
             writer.writeheader()
             for row in results:
                 writer.writerow(row)
+            if verbosity >= 1:
+                utils.print_grey(f"Wrote the new file to {path}")
 
+    def markdown_table(self, no_params: bool = True, params_optional: bool = True, params_required: bool = True) -> str:
+        results = self.table_summary(no_params=no_params, params_optional=params_optional, params_required=params_required)
+        return tabulate(results, headers="keys", tablefmt="github")
