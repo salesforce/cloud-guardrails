@@ -654,7 +654,7 @@ resource "azurerm_policy_assignment" "example_params_optional" {
 # Outputs
 # ---------------------------------------------------------------------------------------------------------------------
 output "example_params_optional_policy_assignment_ids" {
-  value       = azurerm_policy_assignment.example_params_optional.*.id
+  value       = azurerm_policy_assignment.example_params_optional.id
   description = "The IDs of the Policy Assignments."
 }
 

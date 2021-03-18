@@ -36,13 +36,22 @@ class PolicyDefinition:
 
     def json(self) -> dict:
         result = dict(
+            service_name=self.service_name,
+            display_name=self.display_name,
+            short_id=self.name,
             id=self.id,
             name=self.name,
             category=self.category,
-            display_name=self.display_name,
+            allowed_effects=self.allowed_effects,
+            parameter_names=self.parameter_names,
+            no_params=self.no_params,
+            params_optional=self.params_optional,
+            params_required=self.params_required,
+            is_deprecated=self.is_deprecated,
+            modifies_resources=self.modifies_resources,
         )
         if self.parameters:
-            result["parameters"] = (self.properties.parameter_json,)
+            result["parameters"] = self.properties.parameter_json
         return result
 
     @property
