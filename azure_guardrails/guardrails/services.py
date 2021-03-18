@@ -95,7 +95,7 @@ class Service:
                 service_name=self.service_name, filename=file
             )
             policy_definition = PolicyDefinition(
-                policy_content=policy_content, service_name=self.service_name
+                policy_content=policy_content, service_name=self.service_name, file_name=file
             )
             policy_definitions[policy_definition.display_name] = policy_definition
         return policy_definitions
@@ -361,8 +361,8 @@ class Services:
                 policy_def_results = dict(
                     description=policy_definition.properties.description,
                     effects=','.join(policy_definition.allowed_effects),
-                    github_link=None,
-                    github_version=None,
+                    github_link=policy_definition.github_link,
+                    github_version=policy_definition.properties.version,
                     name=display_name,
                     policy_id=policy_definition.id,
                     service_name=service_name,
