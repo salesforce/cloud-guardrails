@@ -88,3 +88,12 @@ def normalize_display_names_list(display_names: list) -> list:
         name = name.replace("[Preview]: ", "")
         results.append(name)
     return results
+
+
+def get_github_link(service_name: str, file_name: str) -> str:
+    """Given a service name and the file name, return the link to the built-in policy on GitHub"""
+    github_link_prefix = "https://github.com/Azure/azure-policy/tree/master/built-in-policies/policyDefinitions"
+    if " " in service_name:
+        service_name = service_name.replace(" ", "%20")
+    result = f"{github_link_prefix}/{service_name}/{file_name}"
+    return result

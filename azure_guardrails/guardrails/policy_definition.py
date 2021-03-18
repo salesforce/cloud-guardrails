@@ -1,6 +1,7 @@
 import logging
 import json
 from azure_guardrails.guardrails.properties import Properties
+from azure_guardrails.shared import utils
 logger = logging.getLogger(__name__)
 
 
@@ -11,12 +12,14 @@ class PolicyDefinition:
     https://docs.microsoft.com/en-us/azure/governance/policy/concepts/definition-structure
     """
 
-    def __init__(self, policy_content: dict, service_name: str):
+    def __init__(self, policy_content: dict, service_name: str, file_name: str = None):
         self.content = policy_content
         self.service_name = service_name
 
         self.id = policy_content.get("id")
         self.name = policy_content.get("name")
+        self.file_name = file_name
+        self.github_link = utils.get_github_link(service_name=service_name, file_name=file_name)
         self.category = (
             policy_content.get("properties").get("metadata").get("category", None)
         )
