@@ -157,6 +157,15 @@ class PolicyDefinition:
             return []
 
     @property
+    def audit_only(self) -> bool:
+        """Determine if the effect is only audit or auditIfNotExists"""
+        result = True
+        for effect in self.allowed_effects:
+            if effect not in ["disabled", "audit", "auditifnotexists"]:
+                result = False
+        return result
+
+    @property
     def modifies_resources(self) -> bool:
         # Effects: https://docs.microsoft.com/en-us/azure/governance/policy/concepts/effects
         if (

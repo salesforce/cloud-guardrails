@@ -445,11 +445,16 @@ class Services:
                 if "effect" in parameter_names:
                     parameter_names.remove("effect")
                 parameter_names = ", ".join(parameter_names)
+                # Store Audit only result as a string
+                if policy_definition_obj.audit_only:
+                    audit_only = "True"
+                else:
+                    audit_only = "False"
                 result = {
                     "Service": service_name,
                     "Policy Definition": policy_definition_string,
                     "Parameter Requirements": parameter_requirements,
-                    # "Name": policy_definition_name,
+                    "Audit Only": audit_only,
                     "Azure Security Benchmark": azure_security_benchmark_id,
                     "CIS": cis_id,
                     "CCMC L3": ccmc_id,
@@ -470,6 +475,7 @@ class Services:
             "Service",
             "Policy Definition",
             "Parameter Requirements",
+            "Audit Only",
             "Azure Security Benchmark",
             "CIS",
             "CCMC L3",
