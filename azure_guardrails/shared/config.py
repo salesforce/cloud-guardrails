@@ -233,3 +233,13 @@ def get_config_from_file(config_file: str, exclude_services: list = None) -> Con
         exclude_keywords=exclude_keywords
     )
     return config
+
+
+def get_empty_config() -> Config:
+    config = Config(
+        exclude_policies={},
+        exclude_services=None,
+        match_only_keywords=None,
+        exclude_keywords=None
+    )
+    return config

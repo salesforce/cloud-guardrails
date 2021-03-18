@@ -203,7 +203,7 @@ class Services:
             services[service_name] = service
         return services
 
-    def get_policy_definition(self, display_name) -> PolicyDefinition:
+    def get_policy_definition(self, display_name: str) -> PolicyDefinition:
         definitions_found = []
         policy_definition = None
         for service_name, service_details in self.services.items():
@@ -211,6 +211,19 @@ class Services:
                 definitions_found.append(f"{service_name}: {display_name}")
                 policy_definition = service_details.policy_definitions[display_name]
                 break
+        return policy_definition
+
+    def get_policy_definition_by_id(self, policy_id: str) -> PolicyDefinition:
+        definitions_found = []
+        policy_definition = None
+        for service_name, service_details in self.services.items():
+            for display_name, policy_definition_details in service_details.policy_definitions.items():
+                if policy_definition_details.name == policy_id:
+                    definitions_found.append(f"{service_name}: {display_name}")
+                    policy_definition = service_details.policy_definitions[display_name]
+                    break
+        if not policy_definition:
+            logger.warning("The policy ID %s was not found" % policy_id)
         return policy_definition
 
     def get_name_id(self, display_name: str) -> str:

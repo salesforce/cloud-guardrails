@@ -151,3 +151,10 @@ class ServicesTestCase(unittest.TestCase):
             os.remove(path)
         results = self.all_services.markdown_table()
         # print(results)
+
+    def test_get_policy_definition_by_id(self):
+        results = self.all_services.get_policy_definition_by_id(policy_id="0a15ec92-a229-4763-bb14-0ea34a568f8d")
+        result = results.json()
+        print(json.dumps(results.json(), indent=4))
+        self.assertTrue("Azure Policy Add-on for Kubernetes" in result.get("display_name"))
+
