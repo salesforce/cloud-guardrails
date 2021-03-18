@@ -186,6 +186,15 @@ class Services:
         self.config = config
         self.services = self._services()
 
+    def json(self) -> dict:
+        results = {}
+        for service_name, service_details in self.services.items():
+            results[service_name] = service_details.json()
+        return results
+
+    def __repr__(self):
+        return json.dumps(self.json())
+
     def _services(self) -> dict:
         services = {}
         service_names = self.service_names

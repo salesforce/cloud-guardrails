@@ -7,9 +7,6 @@ App Configuration,App Configuration should disable public network access,None,,,
 App Configuration,App Configuration should use a SKU that supports private link,None,,,,,,,,,,
 App Configuration,App Configuration should use a customer-managed key,None,,,,,,,,,,
 App Configuration,App Configuration should use private link,None,NS-3,,,,,,,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/App%20Configuration/PrivateLink_Audit.json
-App Configuration,Configure App Configuration to disable public network access,None,,,,,,,,,,
-App Configuration,Configure private DNS zones for private endpoints connected to App Configuration,Required,,,,,,,,,privateDnsZoneId,
-App Configuration,Configure private endpoints for App Configuration,Required,,,,,,,,,privateEndpointSubnetId,
 App Platform,Audit Azure Spring Cloud instances where distributed tracing is not enabled,None,,,,,,,,,,
 App Service,API App should only be accessible over HTTPS,None,DP-4,,,A.10.1.1,SC-8 (1),3.13.8,0949.09y2Organizational.5 - 09.y,SS-8,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/App%20Service/AppServiceApiApp_AuditHTTP_Audit.json
 App Service,API apps should use an Azure file share for its content directory,None,,,,,,,,,,
@@ -52,13 +49,9 @@ App Service,Resource logs in App Services should be enabled,Optional,,,,,,,,,req
 App Service,Web Application should only be accessible over HTTPS,None,DP-4,9.2,,A.10.1.1,SC-8 (1),3.13.8,0949.09y2Organizational.5 - 09.y,SS-8,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/App%20Service/AppServiceWebapp_AuditHTTP_Audit.json
 App Service,Web apps should use an Azure file share for its content directory,None,,,,,,,,,,
 Attestation,Azure Attestation providers should use private endpoints,None,,,,,,,,,,
-Automanage,Configure virtual machines to be onboarded to Azure Automanage,Required,,,,,,,,,"automanageAccount, configurationProfileAssignment",
 Automation,Automation account variables should be encrypted,None,DP-5,,,A.10.1.1,,,,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Automation/Automation_AuditUnencryptedVars_Audit.json
 Automation,Automation accounts should disable public network access,None,,,,,,,,,,
 Automation,Azure Automation accounts should use customer-managed keys to encrypt data at rest,None,,,,,,,,,,
-Automation,Configure Azure Automation accounts to disable public network access,None,,,,,,,,,,
-Automation,Configure Azure Automation accounts with private DNS zones,Required,,,,,,,,,"privateDnsZoneId, privateEndpointGroupId",
-Automation,Configure private endpoint connections on Azure Automation accounts,Required,,,,,,,,,privateEndpointSubnetId,
 Automation,Private endpoint connections on Automation Accounts should be enabled,None,,,,,,,,,,
 Azure Data Explorer,Azure Data Explorer encryption at rest should use a customer-managed key,None,,,,,,,,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Azure%20Data%20Explorer/ADX_CMK.json
 Azure Data Explorer,Disk encryption should be enabled on Azure Data Explorer,None,,,,,,,,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Azure%20Data%20Explorer/ADX_disk_encrypted.json
@@ -67,12 +60,7 @@ Azure Data Explorer,Virtual network injection should be enabled for Azure Data E
 Azure Stack Edge,Azure Stack Edge devices should use double-encryption,None,,,,,,,,,,
 Backup,Azure Backup should be enabled for Virtual Machines,None,BR-2,,,,,,1699.09l1Organizational.10 - 09.l,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Backup/VirtualMachines_EnableAzureBackup_Audit.json
 Backup,Azure Recovery Services vaults should use private link,None,,,,,,,,,,
-Backup,Configure backup on VMs with a given tag to a new recovery services vault with a default policy,Required,,,,,,,,,"inclusionTagName, inclusionTagValue",
-Backup,Configure backup on VMs with a given tag to an existing recovery services vault in the same location,Required,,,,,,,,,"vaultLocation, inclusionTagName, inclusionTagValue, backupPolicyId",
-Backup,Configure backup on VMs without a given tag to a new recovery services vault with a default policy,Required,,,,,,,,,"exclusionTagName, exclusionTagValue",
-Backup,Configure backup on VMs without a given tag to an existing recovery services vault in the same location,Required,,,,,,,,,"vaultLocation, backupPolicyId, exclusionTagName, exclusionTagValue",
 Batch,Azure Batch account should use customer-managed keys to encrypt data,None,,,,,,,,,,
-Batch,Configure Batch accounts with private endpoints,Required,,,,,,,,,privateEndpointSubnetId,
 Batch,Metric alert rules should be configured on Batch accounts,Required,,,,,,,,,metricName,
 Batch,Private endpoint connections on Batch accounts should be enabled,None,,,,,,,,,,
 Batch,Public network access should be disabled for Batch accounts,None,,,,,,,,,,
@@ -82,8 +70,6 @@ Bot Service,Bot Service should be encrypted with a customer-managed key,None,,,,
 Cache,Azure Cache for Redis should disable public network access,None,,,,,,,,,,
 Cache,Azure Cache for Redis should reside within a virtual network,None,NS-2,,,,,,,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Cache/RedisCache_CacheInVnet_Audit.json
 Cache,Azure Cache for Redis should use private link,None,,,,,,,,,,
-Cache,Configure Azure Cache for Redis to disable public network access,None,,,,,,,,,,
-Cache,Configure Azure Cache for Redis to use private DNS zones,Required,,,,,,,,,privateDnsZoneId,
 Cache,Only secure connections to your Azure Cache for Redis should be enabled,None,DP-4,,,A.13.2.1,SC-8 (1),3.13.8,0946.09y2Organizational.14 - 09.y,DM-6,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Cache/RedisCache_AuditSSLPort_Audit.json
 Cognitive Services,Cognitive Services accounts should disable public network access,None,,,,,,,,,,
 Cognitive Services,Cognitive Services accounts should enable data encryption,None,DP-2,,,,,,,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Cognitive%20Services/CognitiveServices_Encryption_Audit.json
@@ -92,7 +78,6 @@ Cognitive Services,Cognitive Services accounts should restrict network access,No
 Cognitive Services,Cognitive Services accounts should use a managed identity,None,,,,,,,,,,
 Cognitive Services,Cognitive Services accounts should use customer owned storage,None,,,,,,,,,,
 Cognitive Services,Cognitive Services accounts should use customer owned storage or enable data encryption.,None,DP-5,,,,,,,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Cognitive%20Services/CognitiveServices_BYOX_Audit.json
-Cognitive Services,Configure Cognitive Services accounts to disable public network access,None,,,,,,,,,,
 Compute,Allowed virtual machine size SKUs,Required,,,,,,,,,listOfAllowedSKUs,
 Compute,Audit VMs that do not use managed disks,None,,7.1,,A.9.1.2,,,,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Compute/VMRequireManagedDisk_Audit.json
 Compute,Audit virtual machines without disaster recovery configured,None,,,,,CP-7,,1638.12b2Organizational.345 - 12.b,ESS-3,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Compute/RecoveryServices_DisasterRecovery_Audit.json
@@ -115,12 +100,8 @@ Container Registry,Container registries should use private link,None,NS-3,,,,,,,
 Cosmos DB,Azure Cosmos DB accounts should have firewall rules,None,NS-4,,,,,,,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Cosmos%20DB/Cosmos_NetworkRulesExist_Audit.json
 Cosmos DB,Azure Cosmos DB accounts should use customer-managed keys to encrypt data at rest,None,DP-5,,,,,,,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Cosmos%20DB/Cosmos_CMK_Deny.json
 Cosmos DB,Azure Cosmos DB allowed locations,Required,,,,,,,,,"listOfAllowedLocations, policyEffect",
-Cosmos DB,Azure Cosmos DB key based metadata write access should be disabled,None,,,,,,,,,,
 Cosmos DB,Azure Cosmos DB should disable public network access,None,,,,,,,,,,
 Cosmos DB,Azure Cosmos DB throughput should be limited,Required,,,,,,,,,throughputMax,
-Cosmos DB,Configure CosmosDB accounts to disable public network access ,None,,,,,,,,,,
-Cosmos DB,Configure CosmosDB accounts to use private DNS zones,Required,,,,,,,,,"privateDnsZoneId, privateEndpointGroupId",
-Cosmos DB,Configure CosmosDB accounts with private endpoints ,Required,,,,,,,,,"privateEndpointSubnetId, privateEndpointGroupId",
 Cosmos DB,CosmosDB accounts should use private link,None,,,,,,,,,,
 Data Box,Azure Data Box jobs should enable double encryption for data at rest on the device,Optional,,,,,,,,,supportedSKUs,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Data%20Box/DataBox_DoubleEncryption_Audit.json
 Data Box,Azure Data Box jobs should use a customer-managed key to encrypt the device unlock password,Optional,,,,,,,,,supportedSKUs,
@@ -139,12 +120,8 @@ Event Grid,Azure Event Grid domains should disable public network access,None,,,
 Event Grid,Azure Event Grid domains should use private link,None,NS-3,,,,,,,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Event%20Grid/Domains_PrivateEndpoint_Audit.json
 Event Grid,Azure Event Grid topics should disable public network access,None,,,,,,,,,,
 Event Grid,Azure Event Grid topics should use private link,None,NS-3,,,,,,,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Event%20Grid/Topics_PrivateEndpoint_Audit.json
-Event Grid,Modify - Configure Azure Event Grid domains to disable public network access,None,,,,,,,,,,
-Event Grid,Modify - Configure Azure Event Grid topics to disable public network access,None,,,,,,,,,,
 Event Hub,All authorization rules except RootManageSharedAccessKey should be removed from Event Hub namespace,None,,,,,,,,,,
 Event Hub,Authorization rules on the Event Hub instance should be defined,None,,,,,,,,,,
-Event Hub,Configure Event Hub namespaces to use private DNS zones,Required,,,,,,,,,privateDnsZoneId,
-Event Hub,Configure Event Hub namespaces with private endpoints,Required,,,,,,,,,privateEndpointSubnetId,
 Event Hub,Event Hub namespaces should use a customer-managed key for encryption,None,,,,,,,,,,
 Event Hub,Event Hub namespaces should use private link,None,,,,,,,,,,
 Event Hub,Resource logs in Event Hub should be enabled,Optional,LT-4,5.3,,,,,1207.09aa2System.4 - 09.aa,,requiredRetentionDays,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Event%20Hub/EventHub_AuditDiagnosticLog_Audit.json
@@ -155,20 +132,77 @@ General,Audit resource location matches resource group location,None,,,,,,,,,,
 General,Audit usage of custom RBAC rules,None,PA-7,,,A.9.2.3,AC-2 (7),,1230.09c2Organizational.1 - 09.c,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/General/Subscription_AuditCustomRBACRoles_Audit.json
 General,Custom subscription owner roles should not exist,None,PA-7,1.21,,,,,1278.09c2Organizational.56 - 09.c,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/General/CustomSubscription_OwnerRole_Audit.json
 General,Not allowed resource types,Required,,,,,,,,,listOfResourceTypesNotAllowed,
-Guest Configuration,Add system-assigned managed identity to enable Guest Configuration assignments on VMs with a user-assigned identity,None,,,,A.10.1.1,IA-5 (1),3.5.10,,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Guest%20Configuration/GuestConfiguration_AddSystemIdentityWhenUser_Prerequisite.json
-Guest Configuration,Add system-assigned managed identity to enable Guest Configuration assignments on virtual machines with no identities,None,,,,A.10.1.1,IA-5 (1),3.5.10,,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Guest%20Configuration/GuestConfiguration_AddSystemIdentityWhenNone_Prerequisite.json
+Guest Configuration,Audit Linux machines that allow remote connections from accounts without passwords,Optional,,,,A.9.1.2,AC-17 (1),3.1.12,,AC-2,IncludeArcMachines,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Guest%20Configuration/GuestConfiguration_LinuxPassword110_AINE.json
+Guest Configuration,Audit Linux machines that do not have the passwd file permissions set to 0644,Optional,,,,A.9.2.4,IA-5,3.5.10,,,IncludeArcMachines,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Guest%20Configuration/GuestConfiguration_LinuxPassword121_AINE.json
+Guest Configuration,Audit Linux machines that don't have the specified applications installed,Required,,,,,,,,,"IncludeArcMachines, ApplicationName",
+Guest Configuration,Audit Linux machines that have accounts without passwords,Optional,,,,A.9.1.2,IA-5,3.5.7,,AC-2,IncludeArcMachines,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Guest%20Configuration/GuestConfiguration_LinuxPassword232_AINE.json
+Guest Configuration,Audit Linux machines that have the specified applications installed,Required,,,,,,,,,"IncludeArcMachines, ApplicationName",
+Guest Configuration,Audit Windows VMs with a pending reboot,Optional,,,,,,,,,IncludeArcMachines,
+Guest Configuration,Audit Windows machines missing any of specified members in the Administrators group,Required,,,,,AC-6 (7),3.1.4,1127.01q2System.3 - 01.q,AC-9,"IncludeArcMachines, MembersToInclude",https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Guest%20Configuration/GuestConfiguration_AdministratorsGroupMembersToInclude_AINE.json
+Guest Configuration,Audit Windows machines network connectivity,Required,,,,,,,,,"IncludeArcMachines, host, port, shouldConnect",
+Guest Configuration,Audit Windows machines on which Windows Serial Console is not enabled,Optional,,,,,,,,,"IncludeArcMachines, EMSPortNumber, EMSBaudRate",
+Guest Configuration,Audit Windows machines on which the DSC configuration is not compliant,Optional,,,,,,,,,IncludeArcMachines,
+Guest Configuration,Audit Windows machines on which the Log Analytics agent is not connected as expected,Required,,,,,,,1217.09ab3System.3 - 09.ab,,"IncludeArcMachines, WorkspaceId",https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Guest%20Configuration/GuestConfiguration_WindowsLogAnalyticsAgentConnection_AINE.json
+Guest Configuration,Audit Windows machines on which the specified services are not installed and 'Running',Required,,,,,,,,,"IncludeArcMachines, ServiceName",
+Guest Configuration,Audit Windows machines that allow re-use of the previous 24 passwords,Optional,,,,A.9.4.3,IA-5 (1),3.5.8,,,IncludeArcMachines,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Guest%20Configuration/GuestConfiguration_WindowsPasswordEnforce_AINE.json
+Guest Configuration,Audit Windows machines that are not joined to the specified domain,Required,,,,,,,,,"IncludeArcMachines, DomainName",
+Guest Configuration,Audit Windows machines that are not set to the specified time zone,Required,,,,,,,,,"IncludeArcMachines, TimeZone",
+Guest Configuration,Audit Windows machines that contain certificates expiring within the specified number of days,Required,,,,,,,,,"IncludeArcMachines, CertificateStorePath, ExpirationLimitInDays, CertificateThumbprintsToInclude, CertificateThumbprintsToExclude, IncludeExpiredCertificates",
+Guest Configuration,Audit Windows machines that do not contain the specified certificates in Trusted Root,Required,,,,,,,0945.09y1Organizational.3 - 09.y,,"IncludeArcMachines, CertificateThumbprints",https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Guest%20Configuration/GuestConfiguration_WindowsCertificateInTrustedRoot_AINE.json
+Guest Configuration,Audit Windows machines that do not have a maximum password age of 70 days,Optional,,,,A.9.4.3,IA-5 (1),,,,IncludeArcMachines,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Guest%20Configuration/GuestConfiguration_WindowsMaximumPassword_AINE.json
+Guest Configuration,Audit Windows machines that do not have a minimum password age of 1 day,Optional,,,,A.9.4.3,IA-5 (1),,,,IncludeArcMachines,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Guest%20Configuration/GuestConfiguration_WindowsMinimumPassword_AINE.json
+Guest Configuration,Audit Windows machines that do not have the password complexity setting enabled,Optional,,,,A.9.4.3,IA-5 (1),3.5.7,,,IncludeArcMachines,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Guest%20Configuration/GuestConfiguration_WindowsPasswordComplexity_AINE.json
+Guest Configuration,Audit Windows machines that do not have the specified Windows PowerShell execution policy,Required,,,,,,,,,"IncludeArcMachines, ExecutionPolicy",
+Guest Configuration,Audit Windows machines that do not have the specified Windows PowerShell modules installed,Required,,,,,,,,,"IncludeArcMachines, Modules",
+Guest Configuration,Audit Windows machines that do not restrict the minimum password length to 14 characters,Optional,,,,A.9.4.3,IA-5 (1),3.5.7,,,IncludeArcMachines,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Guest%20Configuration/GuestConfiguration_WindowsPasswordLength_AINE.json
+Guest Configuration,Audit Windows machines that do not store passwords using reversible encryption,Optional,,,,A.10.1.1,IA-5 (1),3.5.10,,,IncludeArcMachines,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Guest%20Configuration/GuestConfiguration_WindowsPasswordEncryption_AINE.json
+Guest Configuration,Audit Windows machines that don't have the specified applications installed,Required,,,,,,,,,"IncludeArcMachines, installedApplication",
+Guest Configuration,Audit Windows machines that have extra accounts in the Administrators group,Optional,,,,,,,1123.01q1System.2 - 01.q,AC-9,"IncludeArcMachines, Members",https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Guest%20Configuration/GuestConfiguration_AdministratorsGroupMembers_AINE.json
+Guest Configuration,Audit Windows machines that have not restarted within the specified number of days,Optional,,,,,,,,,"IncludeArcMachines, NumberOfDays",
+Guest Configuration,Audit Windows machines that have the specified applications installed,Required,,,,,,,,,"IncludeArcMachines, ApplicationName",
+Guest Configuration,Audit Windows machines that have the specified members in the Administrators group,Required,,,,,AC-6 (7),3.1.4,1125.01q2System.1 - 01.q,AC-9,"IncludeArcMachines, MembersToExclude",https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Guest%20Configuration/GuestConfiguration_AdministratorsGroupMembersToExclude_AINE.json
+Guest Configuration,Authentication to Linux machines should require SSH keys,Optional,,,,,,,,,IncludeArcMachines,
+Guest Configuration,Linux machines should meet requirements for the Azure security baseline,Optional,,,,,,,,,IncludeArcMachines,
+Guest Configuration,Windows Defender Exploit Guard should be enabled on your machines,Optional,ES-2,,,,,,,DM-4,"IncludeArcMachines, NotAvailableMachineState",https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Guest%20Configuration/GuestConfiguration_WindowsDefenderExploitGuard_AINE.json
+Guest Configuration,Windows machines should meet requirements for 'Administrative Templates - Control Panel',Optional,,,,,,,,,IncludeArcMachines,
+Guest Configuration,Windows machines should meet requirements for 'Administrative Templates - MSS (Legacy)',Optional,,,,,,,,,IncludeArcMachines,
+Guest Configuration,Windows machines should meet requirements for 'Administrative Templates - Network',Optional,,,,,,,,,"IncludeArcMachines, EnableInsecureGuestLogons, AllowSimultaneousConnectionsToTheInternetOrAWindowsDomain, TurnOffMulticastNameResolution",
+Guest Configuration,Windows machines should meet requirements for 'Administrative Templates - System',Optional,,,,,,,,,"IncludeArcMachines, AlwaysUseClassicLogon, BootStartDriverInitializationPolicy, EnableWindowsNTPClient, TurnOnConveniencePINSignin",
+Guest Configuration,Windows machines should meet requirements for 'Security Options - Accounts',Optional,,,,,,,1148.01c2System.78 - 01.c,,"IncludeArcMachines, AccountsGuestAccountStatus",https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Guest%20Configuration/GuestConfiguration_SecurityOptionsAccounts_AINE.json
+Guest Configuration,Windows machines should meet requirements for 'Security Options - Audit',Optional,,,,,,,0605.10h1System.12 - 10.h,,"IncludeArcMachines, AuditShutDownSystemImmediatelyIfUnableToLogSecurityAudits",https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Guest%20Configuration/GuestConfiguration_SecurityOptionsAudit_AINE.json
+Guest Configuration,Windows machines should meet requirements for 'Security Options - Devices',Optional,,,,,,,,,"IncludeArcMachines, DevicesAllowedToFormatAndEjectRemovableMedia",
+Guest Configuration,Windows machines should meet requirements for 'Security Options - Interactive Logon',Optional,,,,,,,,,IncludeArcMachines,
+Guest Configuration,Windows machines should meet requirements for 'Security Options - Microsoft Network Client',Optional,,,,,,,,,"IncludeArcMachines, MicrosoftNetworkClientDigitallySignCommunicationsAlways, MicrosoftNetworkClientSendUnencryptedPasswordToThirdpartySMBServers, MicrosoftNetworkServerAmountOfIdleTimeRequiredBeforeSuspendingSession, MicrosoftNetworkServerDigitallySignCommunicationsAlways, MicrosoftNetworkServerDisconnectClientsWhenLogonHoursExpire",
+Guest Configuration,Windows machines should meet requirements for 'Security Options - Microsoft Network Server',Optional,,,,,,,0709.10m1Organizational.1 - 10.m,,IncludeArcMachines,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Guest%20Configuration/GuestConfiguration_SecurityOptionsMicrosoftNetworkServer_AINE.json
+Guest Configuration,Windows machines should meet requirements for 'Security Options - Network Access',Optional,,,,,,,0861.09m2Organizational.67 - 09.m,,"IncludeArcMachines, NetworkAccessRemotelyAccessibleRegistryPaths, NetworkAccessRemotelyAccessibleRegistryPathsAndSubpaths, NetworkAccessSharesThatCanBeAccessedAnonymously",https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Guest%20Configuration/GuestConfiguration_SecurityOptionsNetworkAccess_AINE.json
+Guest Configuration,Windows machines should meet requirements for 'Security Options - Network Security',Optional,,,,,,3.5.10,,,"IncludeArcMachines, NetworkSecurityConfigureEncryptionTypesAllowedForKerberos, NetworkSecurityLANManagerAuthenticationLevel, NetworkSecurityLDAPClientSigningRequirements, NetworkSecurityMinimumSessionSecurityForNTLMSSPBasedIncludingSecureRPCClients, NetworkSecurityMinimumSessionSecurityForNTLMSSPBasedIncludingSecureRPCServers",https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Guest%20Configuration/GuestConfiguration_SecurityOptionsNetworkSecurity_AINE.json
+Guest Configuration,Windows machines should meet requirements for 'Security Options - Recovery console',Optional,,,,,,,1637.12b2Organizational.2 - 12.b,,"IncludeArcMachines, RecoveryConsoleAllowFloppyCopyAndAccessToAllDrivesAndAllFolders",https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Guest%20Configuration/GuestConfiguration_SecurityOptionsRecoveryconsole_AINE.json
+Guest Configuration,Windows machines should meet requirements for 'Security Options - Shutdown',Optional,,,,,,,,,"IncludeArcMachines, ShutdownAllowSystemToBeShutDownWithoutHavingToLogOn, ShutdownClearVirtualMemoryPagefile",
+Guest Configuration,Windows machines should meet requirements for 'Security Options - System objects',Optional,,,,,,,,,IncludeArcMachines,
+Guest Configuration,Windows machines should meet requirements for 'Security Options - System settings',Optional,,,,,,,,,"IncludeArcMachines, SystemSettingsUseCertificateRulesOnWindowsExecutablesForSoftwareRestrictionPolicies",
+Guest Configuration,Windows machines should meet requirements for 'Security Options - User Account Control',Optional,,,,,,,1277.09c2Organizational.4 - 09.c,,"IncludeArcMachines, UACAdminApprovalModeForTheBuiltinAdministratorAccount, UACBehaviorOfTheElevationPromptForAdministratorsInAdminApprovalMode, UACDetectApplicationInstallationsAndPromptForElevation, UACRunAllAdministratorsInAdminApprovalMode",https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Guest%20Configuration/GuestConfiguration_SecurityOptionsUserAccountControl_AINE.json
+Guest Configuration,Windows machines should meet requirements for 'Security Settings - Account Policies',Optional,,,,,,,,AC-4,"IncludeArcMachines, EnforcePasswordHistory, MaximumPasswordAge, MinimumPasswordAge, MinimumPasswordLength, PasswordMustMeetComplexityRequirements",https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Guest%20Configuration/GuestConfiguration_SecuritySettingsAccountPolicies_AINE.json
+Guest Configuration,Windows machines should meet requirements for 'System Audit Policies - Account Logon',Optional,,,,,,,,,"IncludeArcMachines, AuditCredentialValidation",
+Guest Configuration,Windows machines should meet requirements for 'System Audit Policies - Account Management',Optional,,,,,,,0605.10h1System.12 - 10.h,,IncludeArcMachines,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Guest%20Configuration/GuestConfiguration_SystemAuditPoliciesAccountManagement_AINE.json
+Guest Configuration,Windows machines should meet requirements for 'System Audit Policies - Detailed Tracking',Optional,,,,,,,0644.10k3Organizational.4 - 10.k,,"IncludeArcMachines, AuditProcessTermination",https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Guest%20Configuration/GuestConfiguration_SystemAuditPoliciesDetailedTracking_AINE.json
+Guest Configuration,Windows machines should meet requirements for 'System Audit Policies - Logon-Logoff',Optional,,,,,,,,,"IncludeArcMachines, AuditGroupMembership",
+Guest Configuration,Windows machines should meet requirements for 'System Audit Policies - Object Access',Optional,,,,,,,,,"IncludeArcMachines, AuditDetailedFileShare, AuditFileShare, AuditFileSystem",
+Guest Configuration,Windows machines should meet requirements for 'System Audit Policies - Policy Change',Optional,,,,,,,,,"IncludeArcMachines, AuditAuthenticationPolicyChange, AuditAuthorizationPolicyChange",https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Guest%20Configuration/GuestConfiguration_SystemAuditPoliciesPolicyChange_AINE.json
+Guest Configuration,Windows machines should meet requirements for 'System Audit Policies - Privilege Use',Optional,,,,,,,,,IncludeArcMachines,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Guest%20Configuration/GuestConfiguration_SystemAuditPoliciesPrivilegeUse_AINE.json
+Guest Configuration,Windows machines should meet requirements for 'System Audit Policies - System',Optional,,,,,,,,,"IncludeArcMachines, AuditOtherSystemEvents",
+Guest Configuration,Windows machines should meet requirements for 'User Rights Assignment',Optional,,,,,,,1232.09c3Organizational.12 - 09.c,,"IncludeArcMachines, UsersOrGroupsThatMayAccessThisComputerFromTheNetwork, UsersOrGroupsThatMayLogOnLocally, UsersOrGroupsThatMayLogOnThroughRemoteDesktopServices, UsersAndGroupsThatAreDeniedAccessToThisComputerFromTheNetwork, UsersOrGroupsThatMayManageAuditingAndSecurityLog, UsersOrGroupsThatMayBackUpFilesAndDirectories, UsersOrGroupsThatMayChangeTheSystemTime, UsersOrGroupsThatMayChangeTheTimeZone, UsersOrGroupsThatMayCreateATokenObject, UsersAndGroupsThatAreDeniedLoggingOnAsABatchJob, UsersAndGroupsThatAreDeniedLoggingOnAsAService, UsersAndGroupsThatAreDeniedLocalLogon, UsersAndGroupsThatAreDeniedLogOnThroughRemoteDesktopServices, UserAndGroupsThatMayForceShutdownFromARemoteSystem, UsersAndGroupsThatMayRestoreFilesAndDirectories, UsersAndGroupsThatMayShutDownTheSystem, UsersOrGroupsThatMayTakeOwnershipOfFilesOrOtherObjects",https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Guest%20Configuration/GuestConfiguration_UserRightsAssignment_AINE.json
+Guest Configuration,Windows machines should meet requirements for 'Windows Components',Optional,,,,,,,,,"IncludeArcMachines, SendFileSamplesWhenFurtherAnalysisIsRequired, AllowIndexingOfEncryptedFiles, AllowTelemetry, AllowUnencryptedTraffic, AlwaysInstallWithElevatedPrivileges, AlwaysPromptForPasswordUponConnection, ApplicationSpecifyTheMaximumLogFileSizeKB, AutomaticallySendMemoryDumpsForOSgeneratedErrorReports, ConfigureDefaultConsent, ConfigureWindowsSmartScreen, DisallowDigestAuthentication, DisallowWinRMFromStoringRunAsCredentials, DoNotAllowPasswordsToBeSaved, SecuritySpecifyTheMaximumLogFileSizeKB, SetClientConnectionEncryptionLevel, SetTheDefaultBehaviorForAutoRun, SetupSpecifyTheMaximumLogFileSizeKB, SystemSpecifyTheMaximumLogFileSizeKB, TurnOffDataExecutionPreventionForExplorer, SpecifyTheIntervalToCheckForDefinitionUpdates",
+Guest Configuration,Windows machines should meet requirements for 'Windows Firewall Properties',Optional,,,,,,,0858.09m1Organizational.4 - 09.m,,"IncludeArcMachines, WindowsFirewallDomainUseProfileSettings, WindowsFirewallDomainBehaviorForOutboundConnections, WindowsFirewallDomainApplyLocalConnectionSecurityRules, WindowsFirewallDomainApplyLocalFirewallRules, WindowsFirewallDomainDisplayNotifications, WindowsFirewallPrivateUseProfileSettings, WindowsFirewallPrivateBehaviorForOutboundConnections, WindowsFirewallPrivateApplyLocalConnectionSecurityRules, WindowsFirewallPrivateApplyLocalFirewallRules, WindowsFirewallPrivateDisplayNotifications, WindowsFirewallPublicUseProfileSettings, WindowsFirewallPublicBehaviorForOutboundConnections, WindowsFirewallPublicApplyLocalConnectionSecurityRules, WindowsFirewallPublicApplyLocalFirewallRules, WindowsFirewallPublicDisplayNotifications, WindowsFirewallDomainAllowUnicastResponse, WindowsFirewallPrivateAllowUnicastResponse, WindowsFirewallPublicAllowUnicastResponse",https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Guest%20Configuration/GuestConfiguration_WindowsFirewallProperties_AINE.json
+Guest Configuration,Windows machines should meet requirements of the Azure Security Center baseline,Optional,,,,,,,,,IncludeArcMachines,
+Guest Configuration,Windows web servers should be configured to use secure communication protocols,Optional,DP-4,,,,SC-8 (1),3.13.8,,DM-6,"IncludeArcMachines, MinimumTLSVersion",https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Guest%20Configuration/GuestConfiguration_SecureWebProtocol_AINE.json
 HDInsight,Azure HDInsight clusters should be injected into a virtual network,None,,,,,,,,,,
 HDInsight,Azure HDInsight clusters should use customer-managed keys to encrypt data at rest,None,,,,,,,,,,
 HDInsight,Azure HDInsight clusters should use encryption at host to encrypt data at rest,None,,,,,,,,,,
 HDInsight,Azure HDInsight clusters should use encryption in transit to encrypt communication between Azure HDInsight cluster nodes,None,,,,,,,,,,
 Internet of Things,Azure IoT Hub should use customer-managed key to encrypt data at rest,None,,,,,,,,,,
-Internet of Things,Configure IoT Hub device provisioning instances to use private DNS zones,Required,,,,,,,,,privateDnsZoneId,
-Internet of Things,Configure IoT Hub device provisioning service instances to disable public network access,None,,,,,,,,,,
-Internet of Things,Configure IoT Hub device provisioning service instances with private endpoints,Required,,,,,,,,,privateEndpointSubnetId,
 Internet of Things,IoT Hub device provisioning service data should be encrypted using customer-managed keys (CMK),None,,,,,,,,,,
 Internet of Things,IoT Hub device provisioning service instances should disable public network access,None,,,,,,,,,,
 Internet of Things,IoT Hub device provisioning service instances should use private link,None,,,,,,,,,,
-Internet of Things,Modify - Configure Azure IoT Hubs to disable public network access,None,,,,,,,,,,
 Internet of Things,Private endpoint should be enabled for IoT Hub,None,,,,,,,,,,
 Internet of Things,Public network access on Azure IoT Hub should be disabled,None,,,,,,,,,,
 Internet of Things,Resource logs in IoT Hub should be enabled,Optional,LT-4,5.3,,,,,1204.09aa1System.3 - 09.aa,,requiredRetentionDays,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Internet%20of%20Things/IoTHub_AuditDiagnosticLog_Audit.json
@@ -203,9 +237,6 @@ Key Vault,Secrets should not be active for longer than the specified number of d
 Kubernetes,Azure Kubernetes Service Private Clusters should be enabled,None,,,,,,,,,,
 Kubernetes,Azure Policy Add-on for Kubernetes service (AKS) should be installed and enabled on your clusters,None,PV-2,,,,,,,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Kubernetes/AKS_AzurePolicyAddOn_Audit.json
 Kubernetes,Both operating systems and data disks in Azure Kubernetes Service clusters should be encrypted by customer-managed keys,None,,,,,,,,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Kubernetes/AKS_CMK_Deny.json
-Kubernetes,Configure Kubernetes clusters with specified GitOps configuration using HTTPS secrets,Required,,,,,,,,,"configurationResourceName, operatorInstanceName, operatorNamespace, operatorScope, operatorType, operatorParams, repositoryUrl, enableHelmOperator, chartVersion, chartValues, keyVaultResourceId, httpsUserKeyVaultSecretName, httpsKeyKeyVaultSecretName",
-Kubernetes,Configure Kubernetes clusters with specified GitOps configuration using SSH secrets,Required,,,,,,,,,"configurationResourceName, operatorInstanceName, operatorNamespace, operatorScope, operatorType, operatorParams, repositoryUrl, enableHelmOperator, chartVersion, chartValues, sshKnownHostsContents, keyVaultResourceId, sshPrivateKeyKeyVaultSecretName",
-Kubernetes,Configure Kubernetes clusters with specified GitOps configuration using no secrets,Required,,,,,,,,,"configurationResourceName, operatorInstanceName, operatorNamespace, operatorScope, operatorType, operatorParams, repositoryUrl, enableHelmOperator, chartVersion, chartValues",
 Kubernetes,Kubernetes cluster containers CPU and memory resource limits should not exceed the specified limits,Required,,,,,,,,,"excludedNamespaces, namespaces, labelSelector, cpuLimit, memoryLimit",
 Kubernetes,Kubernetes cluster containers should not share host process ID or host IPC namespace,Required,PV-2,,,,,,,,"excludedNamespaces, namespaces, labelSelector",https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Kubernetes/BlockHostNamespace.json
 Kubernetes,Kubernetes cluster containers should not use forbidden sysctl interfaces,Required,,,,,,,,,"excludedNamespaces, namespaces, labelSelector, forbiddenSysctls",
@@ -262,12 +293,6 @@ Monitoring,Azure Monitor solution 'Security and Audit' must be deployed,None,,,,
 Monitoring,Azure subscriptions should have a log profile for Activity Log,None,,,,,,,,AC-13,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Monitoring/Logprofile_activityLogs_Audit.json
 Monitoring,Dependency agent should be enabled for listed virtual machine images,Required,,,,,,,,,"listOfImageIdToInclude_windows, listOfImageIdToInclude_linux",
 Monitoring,Dependency agent should be enabled in virtual machine scale sets for listed virtual machine images,Required,,,,,,,,,"listOfImageIdToInclude_windows, listOfImageIdToInclude_linux",
-Monitoring,Deploy - Configure Linux Azure Monitor agent to enable Azure Monitor assignments on Linux virtual machines,None,,,,,,,,,,
-Monitoring,Deploy - Configure Windows Azure Monitor agent to enable Azure Monitor assignments on Windows virtual machines,None,,,,,,,,,,
-Monitoring,Deploy Dependency agent to Windows Azure Arc machines,None,,,,,,,,,,
-Monitoring,Deploy Dependency agent to hybrid Linux Azure Arc machines,None,,,,,,,,,,
-Monitoring,Deploy Log Analytics agent to Linux Azure Arc machines,Required,,,,,,,,,logAnalytics,
-Monitoring,Deploy Log Analytics agent to Windows Azure Arc machines,Required,,,,,,,,,logAnalytics,
 Monitoring,Log Analytics Agent should be enabled for listed virtual machine images,Required,,,,,,,,,"listOfImageIdToInclude_windows, listOfImageIdToInclude_linux",
 Monitoring,Log Analytics agent should be enabled in virtual machine scale sets for listed virtual machine images,Required,,,,,,,,,"listOfImageIdToInclude_windows, listOfImageIdToInclude_linux",
 Monitoring,Log Analytics agent should be installed on your Linux Azure Arc machines,None,,,,,,,,,,
@@ -279,7 +304,6 @@ Monitoring,Storage account containing the container with activity logs must be e
 Monitoring,The Log Analytics agent should be installed on Virtual Machine Scale Sets,None,,,,,,3.3.2,1216.09ab3System.12 - 09.ab,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Monitoring/VMSS_LogAnalyticsAgent_AuditIfNotExists.json
 Monitoring,The Log Analytics agent should be installed on virtual machines,None,,,,,,3.3.2,1215.09ab2System.7 - 09.ab,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Monitoring/VirtualMachines_LogAnalyticsAgent_AuditIfNotExists.json
 Monitoring,Workbooks should be saved to storage accounts that you control,None,,,,,,,,,,
-Monitoring,[ASC Private Preview] Deploy - Configure system-assigned managed identity to enable Azure Monitor assignments on VMs,None,,,,,,,,,,
 Network,A custom IPsec/IKE policy must be applied to all Azure virtual network gateway connections,Required,,,,,,,,,"IPsecEncryption, IPsecIntegrity, IKEEncryption, IKEIntegrity, DHGroup, PFSGroup",
 Network,All Internet traffic should be routed via your deployed Azure Firewall,None,,,,,,,,,,
 Network,App Service should use a virtual network service endpoint,None,,,,,,,0861.09m2Organizational.67 - 09.m,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Network/VirtualNetworkServiceEndpoint_AppService_AuditIfNotExists.json
@@ -313,9 +337,6 @@ SQL,Auditing on SQL server should be enabled,Optional,LT-4,4.1.1,,A.12.4.4,AU-12
 SQL,Azure SQL Database should have the minimal TLS version of 1.2,None,,,,,,,,,,
 SQL,Bring your own key data protection should be enabled for MySQL servers,None,DP-5,,,,,,,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/SQL/MySQL_EnableByok_Audit.json
 SQL,Bring your own key data protection should be enabled for PostgreSQL servers,None,DP-5,,,,,,,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/SQL/PostgreSQL_EnableByok_Audit.json
-SQL,Configure Azure SQL Server to disable public network access,None,,,,,,,,,,
-SQL,Configure Azure SQL Server to enable private endpoint connections,Required,,,,,,,,,privateEndpointSubnetId,
-SQL,Configure SQL servers to have auditing enabled,Required,,,,,,,,,"retentionDays, storageAccountsResourceGroup",
 SQL,Connection throttling should be enabled for PostgreSQL database servers,None,,4.3.6,,,,,,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/SQL/PostgreSQL_ConnectionThrottling_Enabled_Audit.json
 SQL,Disconnections should be logged for PostgreSQL database servers.,None,,4.3.5,,,,,,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/SQL/PostgreSQL_EnableLogDisconnections_Audit.json
 SQL,Enforce SSL connection should be enabled for MySQL database servers,None,DP-4,4.3.1,,,,,0948.09y2Organizational.3 - 09.y,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/SQL/MySQL_EnableSSL_Audit.json
@@ -356,8 +377,6 @@ SQL,Vulnerability assessment should be enabled on SQL Managed Instance,None,PV-6
 SQL,Vulnerability assessment should be enabled on your SQL servers,None,PV-6,4.2.2,,,,,0709.10m1Organizational.1 - 10.m,ISM-3,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/SQL/VulnerabilityAssessmentOnServer_Audit.json
 Search,Azure Cognitive Search service should use a SKU that supports private link,None,,,,,,,,,,
 Search,Azure Cognitive Search services should disable public network access,None,,,,,,,,,,
-Search,Configure Azure Cognitive Search services to disable public network access,None,,,,,,,,,,
-Search,Configure Azure Cognitive Search services to use private DNS zones,Required,,,,,,,,,privateDnsZoneId,
 Search,Resource logs in Search services should be enabled,Optional,LT-4,5.3,,,,,1208.09aa3System.1 - 09.aa,,requiredRetentionDays,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Search/Search_AuditDiagnosticLog_Audit.json
 Security Center,A maximum of 3 owners should be designated for your subscription,None,PA-1,,,A.6.1.2,AC-6 (7),3.1.4,11112.01q2Organizational.67 - 01.q,AC-2,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Security%20Center/ASC_DesignateLessThanXOwners_Audit.json
 Security Center,A vulnerability assessment solution should be enabled on your virtual machines,None,PV-6,,,A.12.6.1,SI-2,3.14.1,0711.10m2Organizational.23 - 10.m,ISM-3,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Security%20Center/ASC_ServerVulnerabilityAssessment_Audit.json
@@ -378,17 +397,11 @@ Security Center,Azure Defender for SQL servers on machines should be enabled,Non
 Security Center,Azure Defender for Storage should be enabled,None,IR-5,2.5,,,,,,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Security%20Center/ASC_EnableAdvancedThreatProtectionOnStorageAccounts_Audit.json
 Security Center,Azure Defender for container registries should be enabled,None,IR-5,2.7,,,,,,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Security%20Center/ASC_EnableAdvancedThreatProtectionOnContainerRegistry_Audit.json
 Security Center,Azure Defender for servers should be enabled,None,ES-1,2.1,,,,,,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Security%20Center/ASC_EnableAdvancedThreatProtectionOnVM_Audit.json
-Security Center,Configure machines to receive the Qualys vulnerability assessment agent,None,,,,,,,,,,
-Security Center,Deploy - Configure Linux machines to automatically install the Azure Security agent,None,,,,,,,,,,
-Security Center,Deploy - Configure Windows machines to automatically install the Azure Security agent,None,,,,,,,,,,
 Security Center,Deprecated accounts should be removed from your subscription,None,PA-3,,,A.9.2.6,AC-2,3.1.1,,AC-5,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Security%20Center/ASC_RemoveDeprecatedAccounts_Audit.json
 Security Center,Deprecated accounts with owner permissions should be removed from your subscription,None,PA-3,,,A.9.2.6,AC-2,3.1.1,1147.01c2System.456 - 01.c,AC-5,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Security%20Center/ASC_RemoveDeprecatedAccountsWithOwnerPermissions_Audit.json
 Security Center,Disk encryption should be applied on virtual machines,None,DP-5,7.2,,A.10.1.1,SC-28 (1),3.13.16,0302.09o2Organizational.1 - 09.o,DM-6,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Security%20Center/ASC_UnencryptedVMDisks_Audit.json
 Security Center,Email notification for high severity alerts should be enabled,None,IR-2,2.14,,,,,,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Security%20Center/ASC_Email_notification.json
 Security Center,Email notification to subscription owner for high severity alerts should be enabled,None,IR-2,,,,,3.14.6,,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Security%20Center/ASC_Email_notification_to_subscription_owner.json
-Security Center,Enable Azure Security Center on your subscription,None,,,,,,,,,,
-Security Center,Enable Security Center's auto provisioning of the Log Analytics agent on your subscriptions with custom workspace.,Required,,,,,,,,,logAnalytics,
-Security Center,Enable Security Center's auto provisioning of the Log Analytics agent on your subscriptions with default workspace.,None,,,,,,,,,,
 Security Center,Endpoint protection solution should be installed on virtual machine scale sets,None,ES-3,,,,SI-3 (1),3.14.2,0201.09j1Organizational.124 - 09.j,DM-4,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Security%20Center/ASC_VmssMissingEndpointProtection_Audit.json
 Security Center,External accounts with owner permissions should be removed from your subscription,None,PA-3,1.3,,A.9.2.5,AC-2,3.1.1,1146.01c2System.23 - 01.c,PRS-5,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Security%20Center/ASC_RemoveExternalAccountsWithOwnerPermissions_Audit.json
 Security Center,External accounts with read permissions should be removed from your subscription,None,PA-3,1.3,,,AC-2,3.1.1,,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Security%20Center/ASC_RemoveExternalAccountsReadPermissions_Audit.json
@@ -426,21 +439,14 @@ Security Center,Vulnerabilities on your SQL databases should be remediated,None,
 Security Center,Vulnerabilities on your SQL servers on machine should be remediated,None,,,,,,,,,,
 Service Bus,All authorization rules except RootManageSharedAccessKey should be removed from Service Bus namespace,None,,,,,,,,,,
 Service Bus,Azure Service Bus namespaces should use private link,None,,,,,,,,,,
-Service Bus,Configure Service Bus namespaces to use private DNS zones,Required,,,,,,,,,privateDnsZoneId,
-Service Bus,Configure Service Bus namespaces with private endpoints,Required,,,,,,,,,privateEndpointSubnetId,
 Service Bus,Resource logs in Service Bus should be enabled,Optional,LT-4,5.3,,,,,1208.09aa3System.1 - 09.aa,,requiredRetentionDays,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Service%20Bus/ServiceBus_AuditDiagnosticLog_Audit.json
 Service Bus,Service Bus Premium namespaces should use a customer-managed key for encryption,None,,,,,,,,,,
 Service Fabric,Service Fabric clusters should have the ClusterProtectionLevel property set to EncryptAndSign,None,DP-5,,,A.10.1.1,,,,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Service%20Fabric/ServiceFabric_AuditClusterProtectionLevel_Audit.json
 Service Fabric,Service Fabric clusters should only use Azure Active Directory for client authentication,None,IM-1,,,A.9.2.3,AC-2 (7),,,AC-2,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Service%20Fabric/ServiceFabric_AuditADAuth_Audit.json
 SignalR,Azure SignalR Service should use private link,None,NS-3,,,,,,,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/SignalR/SignalR_PrivateEndpointEnabled_Audit.json
 Storage,Azure File Sync should use private link,None,,,,,,,,,,
-Storage,Configure Azure File Sync to use private DNS zones,Required,,,,,,,,,privateDnsZoneId,
-Storage,Configure Azure File Sync with private endpoints,Required,,,,,,,,,privateEndpointSubnetId,
-Storage,Configure Storage account to use a private link connection,Required,,,,,,,,,"privateEndpointSubnetId, targetSubResource",
-Storage,Configure diagnostic settings for storage accounts to Log Analytics workspace,Required,,,,,,,,,"diagnosticsSettingNameToUse, logAnalytics, StorageDelete, StorageWrite, StorageRead, Transaction",
 Storage,Geo-redundant storage should be enabled for Storage Accounts,None,,,,,,,,,,
 Storage,HPC Cache accounts should use customer-managed key for encryption,None,,,,,,,,,,
-Storage,Modify - Configure Azure File Sync to disable public network access,None,,,,,,,,,,
 Storage,Public network access should be disabled for Azure File Sync,None,,,,,,,,,,
 Storage,Secure transfer to storage accounts should be enabled,None,DP-4,3.1,,A.13.2.1,SC-8 (1),3.13.8,0943.09y1Organizational.1 - 09.y,DM-6,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Storage/Storage_AuditForHTTPSEnabled_Audit.json
 Storage,Storage account public access should be disallowed,None,,,,,,,,,,
@@ -458,28 +464,12 @@ Synapse,Auditing on Synapse workspace should be enabled,Optional,,,,,,,,,setting
 Synapse,Azure Synapse workspaces should allow outbound data traffic only to approved targets,None,,,,,,,,,,
 Synapse,Azure Synapse workspaces should use customer-managed keys to encrypt data at rest,None,,,,,,,,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Synapse/SynapseWorkspaceCMK_Audit.json
 Synapse,Azure Synapse workspaces should use private link,None,,,,,,,,,,
-Synapse,Configure Azure Synapse workspaces to use private DNS zones,Required,,,,,,,,,"privateDnsZoneId, targetSubResource",
-Synapse,Configure Azure Synapse workspaces with private endpoints,Required,,,,,,,,,privateEndpointSubnetId,
-Synapse,Configure Synapse workspaces to have auditing enabled,Required,,,,,,,,,"retentionDays, storageAccountsResourceGroup",
 Synapse,IP firewall rules on Azure Synapse workspaces should be removed,None,,,,,,,,,,
 Synapse,Managed workspace virtual network on Azure Synapse workspaces should be enabled,None,,,,,,,,,,
 Synapse,Synapse managed private endpoints should only connect to resources in approved Azure Active Directory tenants,Required,,,,,,,,,allowedTenantIds,
 Synapse,Synapse workspace auditing settings should have action groups configured to capture critical activities,None,,,,,,,,,,
 Synapse,Synapse workspaces should be configured with 90 days auditing retention or higher.,None,,,,,,,,,,
 Synapse,Vulnerability assessment should be enabled on your Synapse workspaces,None,,,,,,,,,,
-Tags,Add a tag to resource groups,Required,,,,,,,,,"tagName, tagValue",
-Tags,Add a tag to resources,Required,,,,,,,,,"tagName, tagValue",
-Tags,Add a tag to subscriptions,Required,,,,,,,,,"tagName, tagValue",
-Tags,Add or replace a tag on resource groups,Required,,,,,,,,,"tagName, tagValue",
-Tags,Add or replace a tag on resources,Required,,,,,,,,,"tagName, tagValue",
-Tags,Add or replace a tag on subscriptions,Required,,,,,,,,,"tagName, tagValue",
-Tags,Append a tag and its value from the resource group,Required,,,,,,,,,tagName,
-Tags,Append a tag and its value to resource groups,Required,,,,,,,,,"tagName, tagValue",
-Tags,Append a tag and its value to resources,Required,,,,,,,,,"tagName, tagValue",
-Tags,Inherit a tag from the resource group,Required,,,,,,,,,tagName,
-Tags,Inherit a tag from the resource group if missing,Required,,,,,,,,,tagName,
-Tags,Inherit a tag from the subscription,Required,,,,,,,,,tagName,
-Tags,Inherit a tag from the subscription if missing,Required,,,,,,,,,tagName,
 Tags,Require a tag and its value on resource groups,Required,,,,,,,,,"tagName, tagValue",
 Tags,Require a tag and its value on resources,Required,,,,,,,,,"tagName, tagValue",
 Tags,Require a tag on resource groups,Required,,,,,,,,,tagName,

@@ -95,8 +95,8 @@ terraform-demo: install
 update-policy-table: install
 	azure-guardrails --help
 	azure-guardrails generate-terraform --service all --subscription example --no-params
-	azure-guardrails generate-terraform --service all --exclude-services "Guest Configuration" --subscription example --params-optional
-	azure-guardrails generate-terraform --service all --exclude-services "Guest Configuration" --subscription example --params-required
+	azure-guardrails generate-terraform --service all --subscription example --params-optional
+	azure-guardrails generate-terraform --service all --subscription example --params-required
 	cp no-params-all-table.csv docs/no-params.csv
 	cp no-params-all-table.md docs/no-params.md
 	cp params-optional-all-table.csv docs/params-optional.csv

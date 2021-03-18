@@ -6,7 +6,6 @@ App Configuration,App Configuration should disable public network access,None,,,
 App Configuration,App Configuration should use a SKU that supports private link,None,,,,,,,,,,
 App Configuration,App Configuration should use a customer-managed key,None,,,,,,,,,,
 App Configuration,App Configuration should use private link,None,NS-3,,,,,,,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/App%20Configuration/PrivateLink_Audit.json
-App Configuration,Configure App Configuration to disable public network access,None,,,,,,,,,,
 App Platform,Audit Azure Spring Cloud instances where distributed tracing is not enabled,None,,,,,,,,,,
 App Service,API App should only be accessible over HTTPS,None,DP-4,,,A.10.1.1,SC-8 (1),3.13.8,0949.09y2Organizational.5 - 09.y,SS-8,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/App%20Service/AppServiceApiApp_AuditHTTP_Audit.json
 App Service,API apps should use an Azure file share for its content directory,None,,,,,,,,,,
@@ -43,7 +42,6 @@ Attestation,Azure Attestation providers should use private endpoints,None,,,,,,,
 Automation,Automation account variables should be encrypted,None,DP-5,,,A.10.1.1,,,,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Automation/Automation_AuditUnencryptedVars_Audit.json
 Automation,Automation accounts should disable public network access,None,,,,,,,,,,
 Automation,Azure Automation accounts should use customer-managed keys to encrypt data at rest,None,,,,,,,,,,
-Automation,Configure Azure Automation accounts to disable public network access,None,,,,,,,,,,
 Automation,Private endpoint connections on Automation Accounts should be enabled,None,,,,,,,,,,
 Azure Data Explorer,Azure Data Explorer encryption at rest should use a customer-managed key,None,,,,,,,,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Azure%20Data%20Explorer/ADX_CMK.json
 Azure Data Explorer,Disk encryption should be enabled on Azure Data Explorer,None,,,,,,,,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Azure%20Data%20Explorer/ADX_disk_encrypted.json
@@ -60,7 +58,6 @@ Bot Service,Bot Service should be encrypted with a customer-managed key,None,,,,
 Cache,Azure Cache for Redis should disable public network access,None,,,,,,,,,,
 Cache,Azure Cache for Redis should reside within a virtual network,None,NS-2,,,,,,,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Cache/RedisCache_CacheInVnet_Audit.json
 Cache,Azure Cache for Redis should use private link,None,,,,,,,,,,
-Cache,Configure Azure Cache for Redis to disable public network access,None,,,,,,,,,,
 Cache,Only secure connections to your Azure Cache for Redis should be enabled,None,DP-4,,,A.13.2.1,SC-8 (1),3.13.8,0946.09y2Organizational.14 - 09.y,DM-6,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Cache/RedisCache_AuditSSLPort_Audit.json
 Cognitive Services,Cognitive Services accounts should disable public network access,None,,,,,,,,,,
 Cognitive Services,Cognitive Services accounts should enable data encryption,None,DP-2,,,,,,,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Cognitive%20Services/CognitiveServices_Encryption_Audit.json
@@ -69,7 +66,6 @@ Cognitive Services,Cognitive Services accounts should restrict network access,No
 Cognitive Services,Cognitive Services accounts should use a managed identity,None,,,,,,,,,,
 Cognitive Services,Cognitive Services accounts should use customer owned storage,None,,,,,,,,,,
 Cognitive Services,Cognitive Services accounts should use customer owned storage or enable data encryption.,None,DP-5,,,,,,,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Cognitive%20Services/CognitiveServices_BYOX_Audit.json
-Cognitive Services,Configure Cognitive Services accounts to disable public network access,None,,,,,,,,,,
 Compute,Audit VMs that do not use managed disks,None,,7.1,,A.9.1.2,,,,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Compute/VMRequireManagedDisk_Audit.json
 Compute,Audit virtual machines without disaster recovery configured,None,,,,,CP-7,,1638.12b2Organizational.345 - 12.b,ESS-3,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Compute/RecoveryServices_DisasterRecovery_Audit.json
 Compute,Managed disks should be double encrypted with both platform-managed and customer-managed keys,None,,,,,,,,,,
@@ -87,9 +83,7 @@ Container Registry,Container registries should not allow unrestricted network ac
 Container Registry,Container registries should use private link,None,NS-3,,,,,,,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Container%20Registry/ACR_PrivateEndpointEnabled_Audit.json
 Cosmos DB,Azure Cosmos DB accounts should have firewall rules,None,NS-4,,,,,,,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Cosmos%20DB/Cosmos_NetworkRulesExist_Audit.json
 Cosmos DB,Azure Cosmos DB accounts should use customer-managed keys to encrypt data at rest,None,DP-5,,,,,,,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Cosmos%20DB/Cosmos_CMK_Deny.json
-Cosmos DB,Azure Cosmos DB key based metadata write access should be disabled,None,,,,,,,,,,
 Cosmos DB,Azure Cosmos DB should disable public network access,None,,,,,,,,,,
-Cosmos DB,Configure CosmosDB accounts to disable public network access ,None,,,,,,,,,,
 Cosmos DB,CosmosDB accounts should use private link,None,,,,,,,,,,
 Data Factory,Azure Data Factory linked services should use Key Vault for storing secrets,None,,,,,,,,,,
 Data Factory,Azure Data Factory linked services should use system-assigned managed identity authentication when it is supported,None,,,,,,,,,,
@@ -102,8 +96,6 @@ Event Grid,Azure Event Grid domains should disable public network access,None,,,
 Event Grid,Azure Event Grid domains should use private link,None,NS-3,,,,,,,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Event%20Grid/Domains_PrivateEndpoint_Audit.json
 Event Grid,Azure Event Grid topics should disable public network access,None,,,,,,,,,,
 Event Grid,Azure Event Grid topics should use private link,None,NS-3,,,,,,,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Event%20Grid/Topics_PrivateEndpoint_Audit.json
-Event Grid,Modify - Configure Azure Event Grid domains to disable public network access,None,,,,,,,,,,
-Event Grid,Modify - Configure Azure Event Grid topics to disable public network access,None,,,,,,,,,,
 Event Hub,All authorization rules except RootManageSharedAccessKey should be removed from Event Hub namespace,None,,,,,,,,,,
 Event Hub,Authorization rules on the Event Hub instance should be defined,None,,,,,,,,,,
 Event Hub,Event Hub namespaces should use a customer-managed key for encryption,None,,,,,,,,,,
@@ -111,18 +103,14 @@ Event Hub,Event Hub namespaces should use private link,None,,,,,,,,,,
 General,Audit resource location matches resource group location,None,,,,,,,,,,
 General,Audit usage of custom RBAC rules,None,PA-7,,,A.9.2.3,AC-2 (7),,1230.09c2Organizational.1 - 09.c,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/General/Subscription_AuditCustomRBACRoles_Audit.json
 General,Custom subscription owner roles should not exist,None,PA-7,1.21,,,,,1278.09c2Organizational.56 - 09.c,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/General/CustomSubscription_OwnerRole_Audit.json
-Guest Configuration,Add system-assigned managed identity to enable Guest Configuration assignments on VMs with a user-assigned identity,None,,,,A.10.1.1,IA-5 (1),3.5.10,,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Guest%20Configuration/GuestConfiguration_AddSystemIdentityWhenUser_Prerequisite.json
-Guest Configuration,Add system-assigned managed identity to enable Guest Configuration assignments on virtual machines with no identities,None,,,,A.10.1.1,IA-5 (1),3.5.10,,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Guest%20Configuration/GuestConfiguration_AddSystemIdentityWhenNone_Prerequisite.json
 HDInsight,Azure HDInsight clusters should be injected into a virtual network,None,,,,,,,,,,
 HDInsight,Azure HDInsight clusters should use customer-managed keys to encrypt data at rest,None,,,,,,,,,,
 HDInsight,Azure HDInsight clusters should use encryption at host to encrypt data at rest,None,,,,,,,,,,
 HDInsight,Azure HDInsight clusters should use encryption in transit to encrypt communication between Azure HDInsight cluster nodes,None,,,,,,,,,,
 Internet of Things,Azure IoT Hub should use customer-managed key to encrypt data at rest,None,,,,,,,,,,
-Internet of Things,Configure IoT Hub device provisioning service instances to disable public network access,None,,,,,,,,,,
 Internet of Things,IoT Hub device provisioning service data should be encrypted using customer-managed keys (CMK),None,,,,,,,,,,
 Internet of Things,IoT Hub device provisioning service instances should disable public network access,None,,,,,,,,,,
 Internet of Things,IoT Hub device provisioning service instances should use private link,None,,,,,,,,,,
-Internet of Things,Modify - Configure Azure IoT Hubs to disable public network access,None,,,,,,,,,,
 Internet of Things,Private endpoint should be enabled for IoT Hub,None,,,,,,,,,,
 Internet of Things,Public network access on Azure IoT Hub should be disabled,None,,,,,,,,,,
 Key Vault,Azure Key Vault Managed HSM should have purge protection enabled,None,,,,,,,1635.12b1Organizational.2 - 12.b,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Key%20Vault/ManagedHsm_Recoverable_Audit.json
@@ -151,10 +139,6 @@ Monitoring,"Azure Monitor log profile should collect logs for categories 'write,
 Monitoring,Azure Monitor should collect activity logs from all regions,None,,,,,,,1214.09ab2System.3456 - 09.ab,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Monitoring/ActivityLog_CaptureAllRegions.json
 Monitoring,Azure Monitor solution 'Security and Audit' must be deployed,None,,,,,,,,,,
 Monitoring,Azure subscriptions should have a log profile for Activity Log,None,,,,,,,,AC-13,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Monitoring/Logprofile_activityLogs_Audit.json
-Monitoring,Deploy - Configure Linux Azure Monitor agent to enable Azure Monitor assignments on Linux virtual machines,None,,,,,,,,,,
-Monitoring,Deploy - Configure Windows Azure Monitor agent to enable Azure Monitor assignments on Windows virtual machines,None,,,,,,,,,,
-Monitoring,Deploy Dependency agent to Windows Azure Arc machines,None,,,,,,,,,,
-Monitoring,Deploy Dependency agent to hybrid Linux Azure Arc machines,None,,,,,,,,,,
 Monitoring,Log Analytics agent should be installed on your Linux Azure Arc machines,None,,,,,,,,,,
 Monitoring,Log Analytics agent should be installed on your Windows Azure Arc machines,None,,,,,,,,,,
 Monitoring,Network traffic data collection agent should be installed on Linux virtual machines,None,,,,,,,,,,
@@ -164,7 +148,6 @@ Monitoring,Storage account containing the container with activity logs must be e
 Monitoring,The Log Analytics agent should be installed on Virtual Machine Scale Sets,None,,,,,,3.3.2,1216.09ab3System.12 - 09.ab,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Monitoring/VMSS_LogAnalyticsAgent_AuditIfNotExists.json
 Monitoring,The Log Analytics agent should be installed on virtual machines,None,,,,,,3.3.2,1215.09ab2System.7 - 09.ab,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Monitoring/VirtualMachines_LogAnalyticsAgent_AuditIfNotExists.json
 Monitoring,Workbooks should be saved to storage accounts that you control,None,,,,,,,,,,
-Monitoring,[ASC Private Preview] Deploy - Configure system-assigned managed identity to enable Azure Monitor assignments on VMs,None,,,,,,,,,,
 Network,All Internet traffic should be routed via your deployed Azure Firewall,None,,,,,,,,,,
 Network,App Service should use a virtual network service endpoint,None,,,,,,,0861.09m2Organizational.67 - 09.m,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Network/VirtualNetworkServiceEndpoint_AppService_AuditIfNotExists.json
 Network,Azure VPN gateways should not use 'basic' SKU,None,,,,,,,,,,
@@ -191,7 +174,6 @@ SQL,An Azure Active Directory administrator should be provisioned for SQL server
 SQL,Azure SQL Database should have the minimal TLS version of 1.2,None,,,,,,,,,,
 SQL,Bring your own key data protection should be enabled for MySQL servers,None,DP-5,,,,,,,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/SQL/MySQL_EnableByok_Audit.json
 SQL,Bring your own key data protection should be enabled for PostgreSQL servers,None,DP-5,,,,,,,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/SQL/PostgreSQL_EnableByok_Audit.json
-SQL,Configure Azure SQL Server to disable public network access,None,,,,,,,,,,
 SQL,Connection throttling should be enabled for PostgreSQL database servers,None,,4.3.6,,,,,,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/SQL/PostgreSQL_ConnectionThrottling_Enabled_Audit.json
 SQL,Disconnections should be logged for PostgreSQL database servers.,None,,4.3.5,,,,,,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/SQL/PostgreSQL_EnableLogDisconnections_Audit.json
 SQL,Enforce SSL connection should be enabled for MySQL database servers,None,DP-4,4.3.1,,,,,0948.09y2Organizational.3 - 09.y,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/SQL/MySQL_EnableSSL_Audit.json
@@ -231,7 +213,6 @@ SQL,Vulnerability assessment should be enabled on SQL Managed Instance,None,PV-6
 SQL,Vulnerability assessment should be enabled on your SQL servers,None,PV-6,4.2.2,,,,,0709.10m1Organizational.1 - 10.m,ISM-3,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/SQL/VulnerabilityAssessmentOnServer_Audit.json
 Search,Azure Cognitive Search service should use a SKU that supports private link,None,,,,,,,,,,
 Search,Azure Cognitive Search services should disable public network access,None,,,,,,,,,,
-Search,Configure Azure Cognitive Search services to disable public network access,None,,,,,,,,,,
 Security Center,A maximum of 3 owners should be designated for your subscription,None,PA-1,,,A.6.1.2,AC-6 (7),3.1.4,11112.01q2Organizational.67 - 01.q,AC-2,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Security%20Center/ASC_DesignateLessThanXOwners_Audit.json
 Security Center,A vulnerability assessment solution should be enabled on your virtual machines,None,PV-6,,,A.12.6.1,SI-2,3.14.1,0711.10m2Organizational.23 - 10.m,ISM-3,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Security%20Center/ASC_ServerVulnerabilityAssessment_Audit.json
 Security Center,Adaptive application controls for defining safe applications should be enabled on your machines,None,AM-6,,,A.12.6.2,CM-11,3.4.9,0607.10h2System.23 - 10.h,SS-4,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Security%20Center/ASC_AdaptiveApplicationControls_Audit.json
@@ -251,16 +232,11 @@ Security Center,Azure Defender for SQL servers on machines should be enabled,Non
 Security Center,Azure Defender for Storage should be enabled,None,IR-5,2.5,,,,,,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Security%20Center/ASC_EnableAdvancedThreatProtectionOnStorageAccounts_Audit.json
 Security Center,Azure Defender for container registries should be enabled,None,IR-5,2.7,,,,,,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Security%20Center/ASC_EnableAdvancedThreatProtectionOnContainerRegistry_Audit.json
 Security Center,Azure Defender for servers should be enabled,None,ES-1,2.1,,,,,,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Security%20Center/ASC_EnableAdvancedThreatProtectionOnVM_Audit.json
-Security Center,Configure machines to receive the Qualys vulnerability assessment agent,None,,,,,,,,,,
-Security Center,Deploy - Configure Linux machines to automatically install the Azure Security agent,None,,,,,,,,,,
-Security Center,Deploy - Configure Windows machines to automatically install the Azure Security agent,None,,,,,,,,,,
 Security Center,Deprecated accounts should be removed from your subscription,None,PA-3,,,A.9.2.6,AC-2,3.1.1,,AC-5,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Security%20Center/ASC_RemoveDeprecatedAccounts_Audit.json
 Security Center,Deprecated accounts with owner permissions should be removed from your subscription,None,PA-3,,,A.9.2.6,AC-2,3.1.1,1147.01c2System.456 - 01.c,AC-5,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Security%20Center/ASC_RemoveDeprecatedAccountsWithOwnerPermissions_Audit.json
 Security Center,Disk encryption should be applied on virtual machines,None,DP-5,7.2,,A.10.1.1,SC-28 (1),3.13.16,0302.09o2Organizational.1 - 09.o,DM-6,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Security%20Center/ASC_UnencryptedVMDisks_Audit.json
 Security Center,Email notification for high severity alerts should be enabled,None,IR-2,2.14,,,,,,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Security%20Center/ASC_Email_notification.json
 Security Center,Email notification to subscription owner for high severity alerts should be enabled,None,IR-2,,,,,3.14.6,,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Security%20Center/ASC_Email_notification_to_subscription_owner.json
-Security Center,Enable Azure Security Center on your subscription,None,,,,,,,,,,
-Security Center,Enable Security Center's auto provisioning of the Log Analytics agent on your subscriptions with default workspace.,None,,,,,,,,,,
 Security Center,Endpoint protection solution should be installed on virtual machine scale sets,None,ES-3,,,,SI-3 (1),3.14.2,0201.09j1Organizational.124 - 09.j,DM-4,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Security%20Center/ASC_VmssMissingEndpointProtection_Audit.json
 Security Center,External accounts with owner permissions should be removed from your subscription,None,PA-3,1.3,,A.9.2.5,AC-2,3.1.1,1146.01c2System.23 - 01.c,PRS-5,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Security%20Center/ASC_RemoveExternalAccountsWithOwnerPermissions_Audit.json
 Security Center,External accounts with read permissions should be removed from your subscription,None,PA-3,1.3,,,AC-2,3.1.1,,,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Security%20Center/ASC_RemoveExternalAccountsReadPermissions_Audit.json
@@ -305,7 +281,6 @@ SignalR,Azure SignalR Service should use private link,None,NS-3,,,,,,,,,https://
 Storage,Azure File Sync should use private link,None,,,,,,,,,,
 Storage,Geo-redundant storage should be enabled for Storage Accounts,None,,,,,,,,,,
 Storage,HPC Cache accounts should use customer-managed key for encryption,None,,,,,,,,,,
-Storage,Modify - Configure Azure File Sync to disable public network access,None,,,,,,,,,,
 Storage,Public network access should be disabled for Azure File Sync,None,,,,,,,,,,
 Storage,Secure transfer to storage accounts should be enabled,None,DP-4,3.1,,A.13.2.1,SC-8 (1),3.13.8,0943.09y1Organizational.1 - 09.y,DM-6,,https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/Storage/Storage_AuditForHTTPSEnabled_Audit.json
 Storage,Storage account public access should be disallowed,None,,,,,,,,,,
