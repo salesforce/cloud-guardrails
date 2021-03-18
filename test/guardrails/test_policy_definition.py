@@ -121,3 +121,40 @@ class PolicyDefinitionV2TestCase(unittest.TestCase):
         print(self.app_config_case.allowed_effects)
         skip_decision = skip_display_names(self.app_config_case)
         print(skip_decision)
+
+    def test_audit_only(self):
+        # Case: Deny, AuditIfNotExists, Disabled
+        service = "Container Registry"
+        filename = "ACR_CMKEncryptionEnabled_Audit.json"
+        policy_json = utils.get_policy_json(service_name=service, filename=filename)
+        policy_definition = PolicyDefinition(policy_content=policy_json, service_name=service, file_name=filename)
+        print(policy_definition.audit_only)
+        print(policy_definition.allowed_effects)
+        self.assertFalse(policy_definition.audit_only)
+
+        # Case: AuditIfNotExists, Disabled
+        service = "Security Center"
+        filename = "ASC_AdaptiveApplicationControls_Audit.json"
+        policy_json = utils.get_policy_json(service_name=service, filename=filename)
+        policy_definition = PolicyDefinition(policy_content=policy_json, service_name=service, file_name=filename)
+        print(policy_definition.audit_only)
+        print(policy_definition.allowed_effects)
+        self.assertTrue(policy_definition.audit_only)
+
+        # Case: Audit, Disabled
+        service = "Security Center"
+        filename = "ASC_UpgradeVersion_KubernetesService_Audit.json"
+        policy_json = utils.get_policy_json(service_name=service, filename=filename)
+        policy_definition = PolicyDefinition(policy_content=policy_json, service_name=service, file_name=filename)
+        print(policy_definition.audit_only)
+        print(policy_definition.allowed_effects)
+        self.assertTrue(policy_definition.audit_only)
+
+        # Case: deployIfNotExists in the policy rule, not the effects parameter
+        service = "Security Center"
+        filename = "ASC_AzureSecurityLinuxAgent_Deploy.json"
+        policy_json = utils.get_policy_json(service_name=service, filename=filename)
+        policy_definition = PolicyDefinition(policy_content=policy_json, service_name=service, file_name=filename)
+        print(policy_definition.audit_only)
+        print(policy_definition.allowed_effects)
+        self.assertFalse(policy_definition.audit_only)

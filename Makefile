@@ -84,7 +84,7 @@ publish: build
 count-loc:
 	echo "If you don't have tokei installed, you can install it with 'brew install tokei'"
 	echo "Website: https://github.com/XAMPPRocky/tokei#installation'"
-	tokei ./* --exclude --exclude '**/*.html' --exclude '**/*.json'
+	tokei ./* --exclude --exclude '**/*.html' --exclude '**/*.json' --exclude azure_guardrails/shared/data/ --exclude azure_guardrails/shared/azure-policy --exclude examples --exclude docs --exclude tmp --exclude venv
 
 .PHONY: terraform-demo
 terraform-demo: install
