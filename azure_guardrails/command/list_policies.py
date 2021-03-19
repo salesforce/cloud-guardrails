@@ -23,6 +23,15 @@ logger = logging.getLogger(__name__)
     help="Services supported by Azure Policy definitions",
     callback=validate.click_validate_supported_azure_service,
 )
+@optgroup.group("Effects", help="")
+@optgroup.option(
+    "--audit-only",
+    "-a",
+    is_flag=True,
+    required=False,
+    default=False,
+    help="Policies with 'Audit' or 'AuditIfNotExists' effect only",
+)
 @optgroup.group(
     "Parameter Options",
     cls=RequiredMutuallyExclusiveOptionGroup,
@@ -69,6 +78,7 @@ logger = logging.getLogger(__name__)
 )
 def list_policies(
     service: str,
+    audit_only: bool,
     all_policies: bool,
     no_params: bool,
     params_optional: bool,
@@ -92,6 +102,7 @@ def list_policies(
     if fmt == "yaml":
         print_policies_in_yaml(
             service=service,
+            audit_only=audit_only,
             all_policies=all_policies,
             no_params=no_params,
             params_optional=params_optional,
@@ -101,6 +112,7 @@ def list_policies(
     else:
         print_policies_in_stdout(
             service=service,
+            audit_only=audit_only,
             all_policies=all_policies,
             no_params=no_params,
             params_optional=params_optional,
@@ -110,42 +122,36 @@ def list_policies(
 
 
 def get_display_names_sorted_by_service(
-    service: str,
-    all_policies: bool,
-    no_params: bool,
-    params_optional: bool,
-    params_required: bool,
+        service: str,
+        audit_only: bool,
+        all_policies: bool,
+        no_params: bool,
+        params_optional: bool,
+        params_required: bool,
 ) -> dict:
     if service == "all":
         services = Services()
     else:
         services = Services(service_names=[service])
-    display_names = []
     if all_policies:
-        display_names = services.get_all_display_names_sorted_by_service()
-    elif no_params:
-        display_names = services.get_display_names_sorted_by_service_no_params()
-    elif params_optional:
-        display_names = services.get_display_names_sorted_by_service_with_params(
-            params_required=False
-        )
-    elif params_required:
-        display_names = services.get_display_names_sorted_by_service_with_params(
-            params_required=True
-        )
+        display_names = services.get_all_display_names_sorted_by_service(no_params=True, params_optional=True, params_required=True, audit_only=audit_only)
+    else:
+        display_names = services.get_all_display_names_sorted_by_service(no_params=no_params, params_optional=params_optional, params_required=params_required, audit_only=audit_only)
     return display_names
 
 
 def print_policies_in_yaml(
-    service: str,
-    all_policies: bool,
-    no_params: bool,
-    params_optional: bool,
-    params_required: bool,
-    verbosity: int,
+        service: str,
+        audit_only: bool,
+        all_policies: bool,
+        no_params: bool,
+        params_optional: bool,
+        params_required: bool,
+        verbosity: int,
 ):
     display_names = get_display_names_sorted_by_service(
         service=service,
+        audit_only=audit_only,
         all_policies=all_policies,
         no_params=no_params,
         params_optional=params_optional,
@@ -161,16 +167,18 @@ def print_policies_in_yaml(
 
 
 def print_policies_in_stdout(
-    service: str,
-    all_policies: bool,
-    no_params: bool,
-    params_optional: bool,
-    params_required: bool,
-    verbosity: int,
+        service: str,
+        audit_only: bool,
+        all_policies: bool,
+        no_params: bool,
+        params_optional: bool,
+        params_required: bool,
+        verbosity: int,
 ):
     # TODO: Figure out if I should just print all of the policies as a list or if they should be indented. If indented, uncomment the commented lines below.
     display_names = get_display_names_sorted_by_service(
         service=service,
+        audit_only=audit_only,
         all_policies=all_policies,
         no_params=no_params,
         params_optional=params_optional,
