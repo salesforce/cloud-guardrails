@@ -226,6 +226,15 @@ class Services:
             logger.warning("The policy ID %s was not found" % policy_id)
         return policy_definition
 
+    def is_audit_mode(self, service_name: str, display_name: str) -> bool:
+        """Determine whether or not a policy is audit mode, based on service name and display name"""
+        service_details = self.services.get(service_name)
+        policy_definition = service_details.policy_definitions[display_name]
+        if policy_definition.audit_only:
+            return True
+        else:
+            return False
+
     def get_name_id(self, display_name: str) -> str:
         """
         Given a display name (like 'Azure API for FHIR should use a customer-managed key to encrypt data at rest',
@@ -299,7 +308,7 @@ class Services:
             results[service_name] = service_parameters
         return results
 
-    def get_all_display_names_sorted_by_service(self, no_params: bool = True, params_optional: bool = True, params_required: bool = True) -> dict:
+    def get_all_display_names_sorted_by_service(self, no_params: bool = True, params_optional: bool = True, params_required: bool = True, audit_only: bool = False) -> dict:
         results = {}
         for service_name, service_details in self.services.items():
             service_results = []
@@ -309,6 +318,14 @@ class Services:
                 service_results.extend(service_details.display_names_params_optional)
             if params_required:
                 service_results.extend(service_details.display_names_params_required)
+            # If audit_only is flagged, create a new list to hold the audit-only ones, then save it as the new service results
+            if audit_only:
+                filtered_service_results = []
+                for service_result in service_results:
+                    if self.is_audit_mode(service_name=service_name, display_name=service_result):
+                        filtered_service_results.append(service_result)
+                service_results = filtered_service_results.copy()
+            # If audit_only is not used, don't worry about it
             service_results.sort()
             service_results = list(dict.fromkeys(service_results))  # remove duplicates
             if service_results:
