@@ -447,9 +447,9 @@ class Services:
                 parameter_names = ", ".join(parameter_names)
                 # Store Audit only result as a string
                 if policy_definition_obj.audit_only:
-                    audit_only = "True"
+                    audit_only = "Yes"
                 else:
-                    audit_only = "False"
+                    audit_only = "No"
                 result = {
                     "Service": service_name,
                     "Policy Definition": policy_definition_string,
