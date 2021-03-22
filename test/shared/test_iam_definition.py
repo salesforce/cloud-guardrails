@@ -61,3 +61,7 @@ class IamDefinitionTestCase(unittest.TestCase):
     def test_get_all_display_names_sorted_by_service(self):
         results = self.azure_policies.get_all_display_names_sorted_by_service()
         print(json.dumps(results, indent=4))
+
+    def test_get_policy_ids_sorted_by_service_with_params(self):
+        results = self.azure_policies.get_policy_ids_sorted_by_service_with_params()
+        print(json.dumps(results, indent=4))

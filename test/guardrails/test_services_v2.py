@@ -95,7 +95,7 @@ class ServicesTestCase(unittest.TestCase):
         # Params Required
         params_required = self.key_vault_service.get_display_names_sorted_by_service_with_params(params_required=True)
         first_params = params_required['Key Vault']['[Preview]: Certificates should be issued by the specified non-integrated certificate authority']
-        print(json.dumps(first_params, indent=4))
+        # print(json.dumps(first_params, indent=4))
         expected_results = {
             "caCommonName": {
                 "name": "caCommonName",
@@ -108,9 +108,10 @@ class ServicesTestCase(unittest.TestCase):
 
         # Params Optional
         params_optional = self.key_vault_service.get_display_names_sorted_by_service_with_params(params_required=False)
+        print(json.dumps(params_optional, indent=4))
         params_optional_keys = list(params_optional.get("Key Vault").keys())
         first_params = params_optional["Key Vault"][params_optional_keys[0]]
-        print(json.dumps(first_params, indent=4))
+        # print(json.dumps(first_params, indent=4))
         expected_results = {
             "requiredRetentionDays": {
                 "name": "requiredRetentionDays",

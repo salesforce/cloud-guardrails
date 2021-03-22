@@ -21,9 +21,9 @@ with open(iam_definition_path, "r") as file:
 
 class AzurePolicies:
     def __init__(
-        self,
-        service_names: list = default_service_names,
-        config: Config = DEFAULT_CONFIG,
+            self,
+            service_names: list = default_service_names,
+            config: Config = DEFAULT_CONFIG,
     ):
         if service_names == ["all"]:
             service_names = utils.get_service_names()
@@ -43,49 +43,6 @@ class AzurePolicies:
         # results.sort()
         return results
 
-    def display_names(self, service_name: str = None) -> list:
-        results = []
-        if service_name:
-            for policy_id, policy_details in self.service_definitions.get(service_name).items():
-                if not self.is_policy_id_excluded(policy_id=policy_id):
-                    results.append(policy_details.get("display_name"))
-        else:
-            for service in self.service_names:
-                for policy_id, policy_details in self.service_definitions.get(service).items():
-                    if not self.is_policy_id_excluded(policy_id=policy_id):
-                        results.append(policy_details.get("display_name"))
-        results.sort()
-        return results
-
-    def get_all_display_names_sorted_by_service(self, no_params: bool = True, params_optional: bool = True, params_required: bool = True, audit_only: bool = False) -> dict:
-        results = {}
-        for service_name, service_policies in self.service_definitions.items():
-            service_results = []
-            for policy_id, policy_details in service_policies.items():
-                if not self.is_policy_id_excluded(policy_id=policy_id):
-                    if no_params:
-                        if policy_details.get("no_params"):
-                            service_results.append(policy_details.get("display_name"))
-                    if params_optional:
-                        if policy_details.get("params_optional"):
-                            service_results.append(policy_details.get("display_name"))
-                    if params_required:
-                        if policy_details.get("params_required"):
-                            service_results.append(policy_details.get("display_name"))
-                    # If audit_only is flagged, create a new list to hold the audit-only ones, then save it as the new service results
-                    if audit_only:
-                        filtered_service_results = []
-                        for service_result in service_results:
-                            if policy_details.get("audit_only"):
-                                filtered_service_results.append(service_result)
-                        service_results = filtered_service_results.copy()
-                    # If audit_only is not used, don't worry about it
-                    service_results.sort()
-                    service_results = list(dict.fromkeys(service_results))  # remove duplicates
-                    if service_results:
-                        results[service_name] = service_results
-        return results
-
     def lookup(self, policy_id: str, policy_property: str):
         """Looks up a policy property given a policy ID and optionally a service name"""
         result = None
@@ -99,8 +56,18 @@ class AzurePolicies:
         service_name = self.policy_definitions.get(policy_id).get("service_name")
         policy_content = self.policy_definitions.get(policy_id).get("policy_content")
         file_name = self.policy_definitions.get(policy_id).get("file_name")
-        policy_definition = PolicyDefinition(policy_content=policy_content, service_name=service_name, file_name=file_name)
+        policy_definition = PolicyDefinition(policy_content=policy_content, service_name=service_name,
+                                             file_name=file_name)
         return policy_definition
+
+    def get_policy_id_parameters(self, policy_id: str) -> dict:
+        policy_definition = self.get_policy_definition(policy_id=policy_id)
+        parameters = {}
+        for parameter_name, parameter_details in policy_definition.parameters.items():
+            if parameter_details.name == "effect":
+                continue
+            parameters[parameter_details.name] = parameter_details.json()
+        return parameters
 
     def is_policy_id_excluded(self, policy_id: str) -> bool:
         policy_definition = self.get_policy_definition(policy_id=policy_id)
@@ -141,11 +108,101 @@ class AzurePolicies:
             # print(f"Allowing policy with effects {policy_definition.allowed_effects} and name {policy_definition.display_name}")
             return False
 
-    # def display_names(self, service_name: str = None) -> list:
-    #
-    #     display_names = list(self.policy_definitions.keys())
-    #     display_names.sort()
-    #     return display_names
+    def display_names(self, service_name: str = None) -> list:
+        results = []
+        if service_name:
+            for policy_id, policy_details in self.service_definitions.get(service_name).items():
+                if not self.is_policy_id_excluded(policy_id=policy_id):
+                    results.append(policy_details.get("display_name"))
+        else:
+            for service in self.service_names:
+                for policy_id, policy_details in self.service_definitions.get(service).items():
+                    if not self.is_policy_id_excluded(policy_id=policy_id):
+                        results.append(policy_details.get("display_name"))
+        results.sort()
+        return results
+
+    def get_all_display_names_sorted_by_service(self, no_params: bool = True, params_optional: bool = True,
+                                                params_required: bool = True, audit_only: bool = False) -> dict:
+        results = {}
+        for service_name, service_policies in self.service_definitions.items():
+            service_results = []
+            for policy_id, policy_details in service_policies.items():
+                if not self.is_policy_id_excluded(policy_id=policy_id):
+                    if no_params:
+                        if policy_details.get("no_params"):
+                            service_results.append(policy_details.get("display_name"))
+                    if params_optional:
+                        if policy_details.get("params_optional"):
+                            service_results.append(policy_details.get("display_name"))
+                    if params_required:
+                        if policy_details.get("params_required"):
+                            service_results.append(policy_details.get("display_name"))
+                    # If audit_only is flagged, create a new list to hold the audit-only ones, then save it as the new service results
+                    if audit_only:
+                        filtered_service_results = []
+                        for service_result in service_results:
+                            if policy_details.get("audit_only"):
+                                filtered_service_results.append(service_result)
+                        service_results = filtered_service_results.copy()
+                    # If audit_only is not used, don't worry about it
+                    service_results.sort()
+                    service_results = list(dict.fromkeys(service_results))  # remove duplicates
+                    if service_results:
+                        results[service_name] = service_results
+        return results
+
+    def get_all_policy_ids_sorted_by_service(self, no_params: bool = True, params_optional: bool = True,
+                                             params_required: bool = True, audit_only: bool = False) -> dict:
+        results = {}
+        for service_name, service_policies in self.service_definitions.items():
+            service_results = []
+            for policy_id, policy_details in service_policies.items():
+                if not self.is_policy_id_excluded(policy_id=policy_id):
+                    if no_params:
+                        if policy_details.get("no_params"):
+                            service_results.append(policy_details.get("short_id"))
+                    if params_optional:
+                        if policy_details.get("params_optional"):
+                            service_results.append(policy_details.get("short_id"))
+                    if params_required:
+                        if policy_details.get("params_required"):
+                            service_results.append(policy_details.get("short_id"))
+                    # If audit_only is flagged, create a new list to hold the audit-only ones, then save it as the new service results
+                    if audit_only:
+                        filtered_service_results = []
+                        for service_result in service_results:
+                            if policy_details.get("audit_only"):
+                                filtered_service_results.append(service_result)
+                        service_results = filtered_service_results.copy()
+                    # If audit_only is not used, don't worry about it
+                    service_results.sort()
+                    service_results = list(dict.fromkeys(service_results))  # remove duplicates
+                    if service_results:
+                        results[service_name] = service_results
+        return results
+
+    def get_policy_ids_sorted_by_service_with_params(self, params_required: bool = False) -> dict:
+        if params_required:
+            policy_ids_sorted_by_service = self.get_all_policy_ids_sorted_by_service(params_required=True,
+                                                                                     params_optional=False)
+        else:
+            policy_ids_sorted_by_service = self.get_all_policy_ids_sorted_by_service(params_required=False,
+                                                                                     params_optional=True)
+        results = {}
+        for service_name, service_policies in self.service_definitions.items():
+            logger.debug("Getting display names for service: %s" % service_name)
+            service_parameters = {}
+            # Get the policy IDs depending on whether we are looking for Params Required or Params Optional
+            this_service_policy_ids = policy_ids_sorted_by_service.get(service_name)
+            if this_service_policy_ids:
+                for policy_id in this_service_policy_ids:
+                    parameters = self.get_policy_id_parameters(policy_id=policy_id)
+                    if parameters:
+                        service_parameters[policy_id] = parameters
+                if service_parameters:
+                    results[service_name] = service_parameters
+        return results
 
 
 example = {
