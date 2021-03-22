@@ -27,8 +27,8 @@ class ServiceStatisticsTestCase(unittest.TestCase):
 
         results = services.display_names_params_optional
         print(f"Params Optional: {len(results)}")
-        self.assertTrue(len(results) >= 80)
+        self.assertTrue(len(results) >= 34)
 
         results = services.display_names_params_required
         print(f"Params Required: {len(results)}")
-        self.assertTrue(len(results) >= 92)
+        self.assertTrue(len(results) >= 77)

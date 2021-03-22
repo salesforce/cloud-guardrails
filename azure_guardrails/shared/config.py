@@ -195,7 +195,7 @@ def get_default_config(exclude_services: list = None, match_only_keywords: list 
         cfg_exclude_keywords.extend(exclude_keywords)
     config = Config(
         exclude_policies=exclude_policies,
-        exclude_services=exclude_services,
+        exclude_services=cfg_exclude_services,
         match_only_keywords=cfg_match_only_keywords,
         exclude_keywords=cfg_exclude_keywords,
     )

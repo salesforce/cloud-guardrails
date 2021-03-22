@@ -14,10 +14,11 @@ def get_service_policy_files(service_policy_directory: str) -> list:
         if os.path.isfile(os.path.join(service_policy_directory, f))
     ]
     policy_files.sort()
-    updated_policy_files = []
-    for policy_file in policy_files:
-        updated_policy_files.append(os.path.join(service_policy_directory, policy_file))
-    return updated_policy_files
+    return policy_files
+    # updated_policy_files = []
+    # for policy_file in policy_files:
+    #     updated_policy_files.append(os.path.join(service_policy_directory, policy_file))
+    # return updated_policy_files
 
 
 def create_azure_builtin_definition() -> dict:
@@ -48,6 +49,8 @@ def create_azure_builtin_definition() -> dict:
                 short_id=short_id,
                 service_name=policy_definition.service_name,
                 description=policy_definition.properties.description,
+                github_link=policy_definition.github_link,
+                file_name=policy_file_name,
                 allowed_effects=policy_definition.allowed_effects,
                 no_params=policy_definition.no_params,
                 params_optional=policy_definition.params_optional,

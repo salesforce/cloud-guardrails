@@ -6,6 +6,8 @@ import json
 import logging
 from azure_guardrails.shared import utils
 from azure_guardrails.shared.config import DEFAULT_CONFIG, Config
+from azure_guardrails.guardrails.policy_definition import PolicyDefinition
+from azure_guardrails.guardrails.services import PolicyDefinition
 
 logger = logging.getLogger(__name__)
 
@@ -28,25 +30,116 @@ class AzurePolicies:
             service_names.sort()
         self.service_names = service_names
         self.config = config
+        self.service_definitions = iam_definition["service_definitions"]
+        self.policy_definitions = iam_definition["policy_definitions"]
 
     def policy_ids(self, service_name: str = None) -> list:
         results = []
         if service_name:
-            results = list(iam_definition["service_definitions"].get(service_name).keys())
+            results = list(self.service_definitions.get(service_name).keys())
         else:
             for service in self.service_names:
-                results.extend(list(iam_definition["service_definitions"].get(service).keys()))
+                results.extend(list(self.service_definitions.get(service).keys()))
         # results.sort()
+        return results
+
+    def display_names(self, service_name: str = None) -> list:
+        results = []
+        if service_name:
+            for policy_id, policy_details in self.service_definitions.get(service_name).items():
+                if not self.is_policy_id_excluded(policy_id=policy_id):
+                    results.append(policy_details.get("display_name"))
+        else:
+            for service in self.service_names:
+                for policy_id, policy_details in self.service_definitions.get(service).items():
+                    if not self.is_policy_id_excluded(policy_id=policy_id):
+                        results.append(policy_details.get("display_name"))
+        results.sort()
+        return results
+
+    def get_all_display_names_sorted_by_service(self, no_params: bool = True, params_optional: bool = True, params_required: bool = True, audit_only: bool = False) -> dict:
+        results = {}
+        for service_name, service_policies in self.service_definitions.items():
+            service_results = []
+            for policy_id, policy_details in service_policies.items():
+                if not self.is_policy_id_excluded(policy_id=policy_id):
+                    if no_params:
+                        if policy_details.get("no_params"):
+                            service_results.append(policy_details.get("display_name"))
+                    if params_optional:
+                        if policy_details.get("params_optional"):
+                            service_results.append(policy_details.get("display_name"))
+                    if params_required:
+                        if policy_details.get("params_required"):
+                            service_results.append(policy_details.get("display_name"))
+                    # If audit_only is flagged, create a new list to hold the audit-only ones, then save it as the new service results
+                    if audit_only:
+                        filtered_service_results = []
+                        for service_result in service_results:
+                            if policy_details.get("audit_only"):
+                                filtered_service_results.append(service_result)
+                        service_results = filtered_service_results.copy()
+                    # If audit_only is not used, don't worry about it
+                    service_results.sort()
+                    service_results = list(dict.fromkeys(service_results))  # remove duplicates
+                    if service_results:
+                        results[service_name] = service_results
         return results
 
     def lookup(self, policy_id: str, policy_property: str):
         """Looks up a policy property given a policy ID and optionally a service name"""
         result = None
         try:
-            result = iam_definition["policy_definitions"].get(policy_id).get(policy_property)
+            result = self.policy_definitions.get(policy_id).get(policy_property)
         except KeyError as error:
             logger.warning(error)
         return result
+
+    def get_policy_definition(self, policy_id: str) -> PolicyDefinition:
+        service_name = self.policy_definitions.get(policy_id).get("service_name")
+        policy_content = self.policy_definitions.get(policy_id).get("policy_content")
+        file_name = self.policy_definitions.get(policy_id).get("file_name")
+        policy_definition = PolicyDefinition(policy_content=policy_content, service_name=service_name, file_name=file_name)
+        return policy_definition
+
+    def is_policy_id_excluded(self, policy_id: str) -> bool:
+        policy_definition = self.get_policy_definition(policy_id=policy_id)
+        # Quality control
+        # First, if the display name starts with [Deprecated], skip it
+        if policy_definition.display_name.startswith("[Deprecated]: "):
+            logger.debug(
+                "Skipping Policy (Deprecated). Policy name: %s"
+                % policy_definition.display_name
+            )
+            return True
+        # If the policy is deprecated, skip it
+        elif policy_definition.is_deprecated:
+            logger.debug(
+                "Skipping Policy (Deprecated). Policy name: %s"
+                % policy_definition.display_name
+            )
+            return True
+        elif policy_definition.modifies_resources:
+            logger.info(
+                f"Skipping Policy (Modify). Policy name: {policy_definition.display_name} with effects: {policy_definition.allowed_effects}")
+            return True
+        # Some Policies with Modify capabilities don't have an Effect - only way to detect them is to see if the name starts with 'Deploy'
+        elif policy_definition.display_name.startswith("Deploy "):
+            logger.info(
+                f"Skipping Policy (Deploy). Policy name: {policy_definition.display_name} with effects: {policy_definition.allowed_effects}")
+            return True
+        # If we have specified it in the Config config, skip it
+        elif self.config.is_excluded(
+                service_name=policy_definition.service_name, display_name=policy_definition.display_name
+        ):
+            logger.info(
+                "Skipping Policy (Excluded by user). Policy name: %s"
+                % policy_definition.display_name
+            )
+            return True
+        else:
+            # print(f"Allowing policy with effects {policy_definition.allowed_effects} and name {policy_definition.display_name}")
+            return False
 
     # def display_names(self, service_name: str = None) -> list:
     #
