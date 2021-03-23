@@ -138,8 +138,11 @@ def get_display_names_sorted_by_service(
     else:
         display_names = azure_policies.get_all_display_names_sorted_by_service(no_params=no_params, params_optional=params_optional, params_required=params_required, audit_only=audit_only)
     if service != "all":
-        trimmed_display_names = {service: display_names[service].copy()}
-        display_names = trimmed_display_names.copy()
+        if display_names.get(service, None):
+            trimmed_display_names = {service: display_names[service].copy()}
+            display_names = trimmed_display_names.copy()
+        else:
+            display_names = {service: {}}
     return display_names
 
 

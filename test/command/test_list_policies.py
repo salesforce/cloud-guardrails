@@ -43,7 +43,10 @@ class ListPoliciesClickUnitTests(unittest.TestCase):
         self.assertTrue(result.exit_code == 0)
         print(result.output)
         # # Ensure that IS not formatted in YAML, where we expect "Key Vault:" to be one of the keys
-        # self.assertTrue("Key Vault:" in result.output)
+        result = self.runner.invoke(list_policies, ["--service", "Key Vault", "--format", "yaml", "--params-optional"])
+        self.assertTrue(result.exit_code == 0)
+        print(result.output)
+        self.assertTrue("Key Vault:" in result.output)
         # # Ensure that it has one of the policy names we expect
         # yaml_results = yaml.safe_load(result.output)
         # print(yaml_results.keys())

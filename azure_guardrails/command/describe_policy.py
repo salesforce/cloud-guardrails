@@ -8,6 +8,7 @@ import click
 from azure_guardrails import set_log_level
 from click_option_group import optgroup, RequiredMutuallyExclusiveOptionGroup
 from azure_guardrails.shared import utils, validate
+from azure_guardrails.shared.iam_definition import AzurePolicies
 from azure_guardrails.guardrails.services import Services
 from azure_guardrails.shared.config import get_empty_config
 logger = logging.getLogger(__name__)
@@ -41,12 +42,12 @@ logger = logging.getLogger(__name__)
 )
 def describe_policy(display_name: str, policy_id: str, verbosity: bool):
     set_log_level(verbosity)
-
-    services = Services(config=get_empty_config())
+    azure_policies = AzurePolicies(config=get_empty_config())
+    # services = Services(config=get_empty_config())
     if policy_id:
-        policy_definition = services.get_policy_definition_by_id(policy_id=policy_id)
+        policy_definition = azure_policies.get_policy_definition(policy_id=policy_id)
     else:
-        policy_definition = services.get_policy_definition(display_name=display_name)
+        policy_definition = azure_policies.get_policy_definition_by_display_name(display_name=display_name)
     results_json = policy_definition.json()
     results_json.pop("id", None)
     results_str = ruamel.yaml.dump(results_json, Dumper=ruamel.yaml.RoundTripDumper)

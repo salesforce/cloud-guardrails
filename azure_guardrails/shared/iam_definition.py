@@ -63,6 +63,14 @@ class AzurePolicies:
                                              file_name=file_name)
         return policy_definition
 
+    def get_policy_definition_by_display_name(self, display_name: str) -> PolicyDefinition:
+        policy_definition = None
+        for policy_id, policy_details in self.policy_definitions.items():
+            if policy_details.get("display_name") == display_name:
+                policy_definition = self.get_policy_definition(policy_id=policy_id)
+                break
+        return policy_definition
+
     def get_policy_id_parameters(self, policy_id: str) -> dict:
         policy_definition = self.get_policy_definition(policy_id=policy_id)
         parameters = {}
