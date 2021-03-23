@@ -7,6 +7,8 @@ import click
 from click_option_group import optgroup, RequiredMutuallyExclusiveOptionGroup
 from azure_guardrails import set_log_level
 from azure_guardrails.terraform.terraform import TerraformTemplateNoParams, TerraformTemplateWithParams
+from azure_guardrails.terraform.terraform_v3 import TerraformTemplateNoParamsV3
+from azure_guardrails.shared.iam_definition import AzurePolicies
 from azure_guardrails.shared import utils, validate
 from azure_guardrails.shared.config import get_default_config, get_config_from_file
 from azure_guardrails.guardrails.services import Services
@@ -154,13 +156,25 @@ def generate_terraform(
 
     if service == "all":
         services = Services(config=config)
+        azure_policies = AzurePolicies(service_names=["all"], config=config)
     else:
+        azure_policies = AzurePolicies(service_names=[service], config=config)
         services = Services(service_names=[service], config=config)
 
     if no_params:
-        display_names = services.get_display_names_sorted_by_service_no_params()
-        terraform_template = TerraformTemplateNoParams(
-            policy_names=display_names,
+        # display_names = services.get_display_names_sorted_by_service_no_params()
+        # terraform_template = TerraformTemplateNoParams(
+        #     policy_names=display_names,
+        #     subscription_name=subscription,
+        #     management_group=management_group,
+        #     enforcement_mode=enforcement_mode,
+        # )
+        audit_only = False
+        policy_id_pairs = azure_policies.get_all_policy_ids_sorted_by_service(
+            no_params=True, params_optional=params_optional, params_required=params_required,
+            audit_only=audit_only)
+        terraform_template = TerraformTemplateNoParamsV3(
+            policy_id_pairs=policy_id_pairs,
             subscription_name=subscription,
             management_group=management_group,
             enforcement_mode=enforcement_mode,

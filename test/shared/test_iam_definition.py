@@ -65,3 +65,15 @@ class IamDefinitionTestCase(unittest.TestCase):
     def test_get_policy_ids_sorted_by_service_with_params(self):
         results = self.azure_policies.get_policy_ids_sorted_by_service_with_params()
         print(json.dumps(results, indent=4))
+
+    def test_get_all_policy_ids_sorted_by_service(self):
+        results = self.azure_policies.get_all_policy_ids_sorted_by_service(no_params=True)
+        print(json.dumps(results, indent=4))
+        api_management_result = results.get("API Management")
+        expected_result = {
+            "API Management service should use a SKU that supports virtual networks": {
+                "short_id": "73ef9241-5d81-4cd4-b483-8443d1730fe5",
+                "display_name": "API Management service should use a SKU that supports virtual networks"
+            }
+        }
+        self.assertDictEqual(api_management_result, expected_result)

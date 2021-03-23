@@ -3,6 +3,9 @@ Single data source for the Policy Definition. It combines the azure-policy GitHu
 """
 import os
 import json
+import operator
+from collections import OrderedDict
+
 import logging
 from azure_guardrails.shared import utils
 from azure_guardrails.shared.config import DEFAULT_CONFIG, Config
@@ -156,6 +159,50 @@ class AzurePolicies:
                                              params_required: bool = True, audit_only: bool = False) -> dict:
         results = {}
         for service_name, service_policies in self.service_definitions.items():
+            service_results = {}
+            for policy_id, policy_details in service_policies.items():
+                if not self.is_policy_id_excluded(policy_id=policy_id):
+                    if no_params:
+                        if policy_details.get("no_params"):
+                            # service_results[policy_details.get("short_id")] = dict(
+                            service_results[policy_details.get("display_name")] = dict(
+                                short_id=policy_details.get("short_id"),
+                                display_name=policy_details.get("display_name")
+                            )
+                            # service_results.append(policy_details.get("short_id"))
+                    if params_optional:
+                        if policy_details.get("params_optional"):
+                            # service_results[policy_details.get("short_id")] = dict(
+                            service_results[policy_details.get("display_name")] = dict(
+                                short_id=policy_details.get("short_id"),
+                                display_name=policy_details.get("display_name")
+                            )
+                    if params_required:
+                        if policy_details.get("params_required"):
+                            # service_results.append(policy_details.get("short_id"))
+                            service_results[policy_details.get("display_name")] = dict(
+                                short_id=policy_details.get("short_id"),
+                                display_name=policy_details.get("display_name")
+                            )
+                    # If audit_only is flagged, create a new list to hold the audit-only ones, then save it as the new service results
+                    if audit_only:
+                        filtered_service_results = {}
+                        for service_result, service_result_details in service_results.items():
+                            if policy_details.get("audit_only"):
+                                filtered_service_results[service_result] = service_result_details
+                        service_results = filtered_service_results.copy()
+
+                    service_results = OrderedDict(sorted(service_results.items()))
+
+                    # If audit_only is not used, don't worry about it
+                    if service_results:
+                        results[service_name] = service_results
+        return results
+
+    def get_all_policy_ids_sorted_by_service_v1(self, no_params: bool = True, params_optional: bool = True,
+                                                params_required: bool = True, audit_only: bool = False) -> dict:
+        results = {}
+        for service_name, service_policies in self.service_definitions.items():
             service_results = []
             for policy_id, policy_details in service_policies.items():
                 if not self.is_policy_id_excluded(policy_id=policy_id):
@@ -184,11 +231,11 @@ class AzurePolicies:
 
     def get_policy_ids_sorted_by_service_with_params(self, params_required: bool = False) -> dict:
         if params_required:
-            policy_ids_sorted_by_service = self.get_all_policy_ids_sorted_by_service(params_required=True,
-                                                                                     params_optional=False)
+            policy_ids_sorted_by_service = self.get_all_policy_ids_sorted_by_service_v1(params_required=True,
+                                                                                        params_optional=False)
         else:
-            policy_ids_sorted_by_service = self.get_all_policy_ids_sorted_by_service(params_required=False,
-                                                                                     params_optional=True)
+            policy_ids_sorted_by_service = self.get_all_policy_ids_sorted_by_service_v1(params_required=False,
+                                                                                        params_optional=True)
         results = {}
         for service_name, service_policies in self.service_definitions.items():
             logger.debug("Getting display names for service: %s" % service_name)
