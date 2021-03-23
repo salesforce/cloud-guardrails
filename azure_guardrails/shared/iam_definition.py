@@ -164,22 +164,37 @@ class AzurePolicies:
                 if not self.is_policy_id_excluded(policy_id=policy_id):
                     if no_params:
                         if policy_details.get("no_params"):
-                            # service_results[policy_details.get("short_id")] = dict(
                             service_results[policy_details.get("display_name")] = dict(
                                 short_id=policy_details.get("short_id"),
                                 display_name=policy_details.get("display_name")
                             )
-                            # service_results.append(policy_details.get("short_id"))
                     if params_optional:
                         if policy_details.get("params_optional"):
-                            # service_results[policy_details.get("short_id")] = dict(
+                            parameters = {}
+                            policy_definition = self.get_policy_definition(policy_id=policy_details.get("short_id"))
+                            # Get the policy definition ID
+                            # Look up the policy definition and set the object
+                            # For parameter name, parameter details, do stuff from get_policy_definition_parameters
+                            for parameter_name, parameter_details in policy_definition.parameters.items():
+                                if parameter_details.name == "effect":
+                                    continue
+                                parameters[parameter_details.name] = parameter_details.json()
                             service_results[policy_details.get("display_name")] = dict(
                                 short_id=policy_details.get("short_id"),
-                                display_name=policy_details.get("display_name")
+                                display_name=policy_details.get("display_name"),
+                                parameters=parameters
                             )
                     if params_required:
                         if policy_details.get("params_required"):
-                            # service_results.append(policy_details.get("short_id"))
+                            parameters = {}
+                            policy_definition = self.get_policy_definition(policy_id=policy_details.get("short_id"))
+                            # Get the policy definition ID
+                            # Look up the policy definition and set the object
+                            # For parameter name, parameter details, do stuff from get_policy_definition_parameters
+                            for parameter_name, parameter_details in policy_definition.parameters.items():
+                                if parameter_details.name == "effect":
+                                    continue
+                                parameters[parameter_details.name] = parameter_details.json()
                             service_results[policy_details.get("display_name")] = dict(
                                 short_id=policy_details.get("short_id"),
                                 display_name=policy_details.get("display_name")
@@ -197,6 +212,28 @@ class AzurePolicies:
                     # If audit_only is not used, don't worry about it
                     if service_results:
                         results[service_name] = service_results
+        return results
+
+    def get_policy_ids_sorted_by_service_with_params(self, params_required: bool = False) -> dict:
+        if params_required:
+            policy_ids_sorted_by_service = self.get_all_policy_ids_sorted_by_service_v1(params_required=True,
+                                                                                        params_optional=False)
+        else:
+            policy_ids_sorted_by_service = self.get_all_policy_ids_sorted_by_service_v1(params_required=False,
+                                                                                        params_optional=True)
+        results = {}
+        for service_name, service_policies in self.service_definitions.items():
+            logger.debug("Getting display names for service: %s" % service_name)
+            service_parameters = {}
+            # Get the policy IDs depending on whether we are looking for Params Required or Params Optional
+            this_service_policy_ids = policy_ids_sorted_by_service.get(service_name)
+            if this_service_policy_ids:
+                for policy_id in this_service_policy_ids:
+                    parameters = self.get_policy_id_parameters(policy_id=policy_id)
+                    if parameters:
+                        service_parameters[policy_id] = parameters
+                if service_parameters:
+                    results[service_name] = service_parameters
         return results
 
     def get_all_policy_ids_sorted_by_service_v1(self, no_params: bool = True, params_optional: bool = True,
@@ -229,7 +266,7 @@ class AzurePolicies:
                         results[service_name] = service_results
         return results
 
-    def get_policy_ids_sorted_by_service_with_params(self, params_required: bool = False) -> dict:
+    def get_policy_ids_sorted_by_service_with_params_v1(self, params_required: bool = False) -> dict:
         if params_required:
             policy_ids_sorted_by_service = self.get_all_policy_ids_sorted_by_service_v1(params_required=True,
                                                                                         params_optional=False)

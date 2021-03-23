@@ -63,17 +63,49 @@ class IamDefinitionTestCase(unittest.TestCase):
         print(json.dumps(results, indent=4))
 
     def test_get_policy_ids_sorted_by_service_with_params(self):
-        results = self.azure_policies.get_policy_ids_sorted_by_service_with_params()
+        results = self.azure_policies.get_policy_ids_sorted_by_service_with_params_v1()
         print(json.dumps(results, indent=4))
 
     def test_get_all_policy_ids_sorted_by_service(self):
         results = self.azure_policies.get_all_policy_ids_sorted_by_service(no_params=True)
-        print(json.dumps(results, indent=4))
+        # print(json.dumps(results, indent=4))
         api_management_result = results.get("API Management")
         expected_result = {
             "API Management service should use a SKU that supports virtual networks": {
                 "short_id": "73ef9241-5d81-4cd4-b483-8443d1730fe5",
-                "display_name": "API Management service should use a SKU that supports virtual networks"
+                "display_name": "API Management service should use a SKU that supports virtual networks",
+                "parameters": {
+                    "listOfAllowedSKUs": {
+                        "name": "listOfAllowedSKUs",
+                        "type": "Array",
+                        "description": "The list of SKUs that can be specified for Azure API Management service.",
+                        "display_name": "Allowed SKUs",
+                        "default_value": [
+                            "Developer",
+                            "Premium",
+                            "Isolated"
+                        ],
+                        "allowed_values": [
+                            "Developer",
+                            "Basic",
+                            "Standard",
+                            "Premium",
+                            "Isolated",
+                            "Consumption"
+                        ]
+                    }
+                }
             }
         }
         self.assertDictEqual(api_management_result, expected_result)
+        # Case: No parameters
+        container_registry_result = results.get("Container Registry")
+        keys = list(container_registry_result.keys())
+        cmk_message = 'Container registries should be encrypted with a customer-managed key'
+        self.assertTrue(cmk_message in keys)
+        expected_result = {
+            "short_id": "5b9159ae-1701-4a6f-9a7a-aa9c8ddd0580",
+            "display_name": "Container registries should be encrypted with a customer-managed key"
+        }
+        # print(json.dumps(container_registry_result.get(cmk_message), indent=4))
+        self.assertDictEqual(container_registry_result.get(cmk_message), expected_result)
