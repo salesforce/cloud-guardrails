@@ -4,147 +4,163 @@ locals {
   management_group_example_params_required = ""
   category_example_params_required = "Testing"
   enforcement_mode_example_params_required = false
-  policy_names = [
+  policy_ids_example_params_required = [
     # -----------------------------------------------------------------------------------------------------------------
     # Batch
     # -----------------------------------------------------------------------------------------------------------------
-    "Metric alert rules should be configured on Batch accounts",
+    "26ee67a2-f81a-4ba8-b9ce-8550bd5ee1a7", # Metric alert rules should be configured on Batch accounts
+
     # -----------------------------------------------------------------------------------------------------------------
     # Compute
     # -----------------------------------------------------------------------------------------------------------------
-    "Allowed virtual machine size SKUs",
-    "Managed disks should use a specific set of disk encryption sets for the customer-managed key encryption",
-    "Only approved VM extensions should be installed",
-    "Resource logs in Virtual Machine Scale Sets should be enabled",
+    "cccc23c7-8427-4f53-ad12-b6a63eb452b3", # Allowed virtual machine size SKUs
+    "d461a302-a187-421a-89ac-84acdb4edc04", # Managed disks should use a specific set of disk encryption sets for the customer-managed key encryption
+    "c0e996f8-39cf-4af9-9f45-83fbde810432", # Only approved VM extensions should be installed
+    "7c1b1214-f927-48bf-8882-84f0af6588b1", # Resource logs in Virtual Machine Scale Sets should be enabled
+
     # -----------------------------------------------------------------------------------------------------------------
     # Cosmos DB
     # -----------------------------------------------------------------------------------------------------------------
-    "Azure Cosmos DB allowed locations",
-    "Azure Cosmos DB throughput should be limited",
+    "0473574d-2d43-4217-aefe-941fcdf7e684", # Azure Cosmos DB allowed locations
+    "0b7ef78e-a035-4f23-b9bd-aff122a1b1cf", # Azure Cosmos DB throughput should be limited
+
     # -----------------------------------------------------------------------------------------------------------------
     # Data Factory
     # -----------------------------------------------------------------------------------------------------------------
-    "[Preview]: Azure Data Factory linked service resource type should be in allow list",
+    "6809a3d0-d354-42fb-b955-783d207c62a8", # [Preview]: Azure Data Factory linked service resource type should be in allow list
+
     # -----------------------------------------------------------------------------------------------------------------
     # General
     # -----------------------------------------------------------------------------------------------------------------
-    "Allowed locations",
-    "Allowed locations for resource groups",
-    "Allowed resource types",
-    "Not allowed resource types",
+    "e56962a6-4747-49cd-b67b-bf8b01975c4c", # Allowed locations
+    "e765b5de-1225-4ba3-bd56-1ac6695af988", # Allowed locations for resource groups
+    "a08ec900-254a-4555-9bf5-e42af04b5c5c", # Allowed resource types
+    "6c112d4e-5bc7-47ae-a041-ea2d9dccd749", # Not allowed resource types
+
     # -----------------------------------------------------------------------------------------------------------------
     # Guest Configuration
     # -----------------------------------------------------------------------------------------------------------------
-    "Audit Linux machines that don't have the specified applications installed",
-    "Audit Linux machines that have the specified applications installed",
-    "Audit Windows machines missing any of specified members in the Administrators group",
-    "Audit Windows machines network connectivity",
-    "Audit Windows machines on which the Log Analytics agent is not connected as expected",
-    "Audit Windows machines on which the specified services are not installed and 'Running'",
-    "Audit Windows machines that are not joined to the specified domain",
-    "Audit Windows machines that are not set to the specified time zone",
-    "Audit Windows machines that contain certificates expiring within the specified number of days",
-    "Audit Windows machines that do not contain the specified certificates in Trusted Root",
-    "Audit Windows machines that do not have the specified Windows PowerShell execution policy",
-    "Audit Windows machines that do not have the specified Windows PowerShell modules installed",
-    "Audit Windows machines that don't have the specified applications installed",
-    "Audit Windows machines that have the specified applications installed",
-    "Audit Windows machines that have the specified members in the Administrators group",
+    "d3b823c9-e0fc-4453-9fb2-8213b7338523", # Audit Linux machines that don't have the specified applications installed
+    "0447bc18-e2f7-4c0d-aa20-bff034275be1", # Audit Linux machines that have the specified applications installed
+    "30f71ea1-ac77-4f26-9fc5-2d926bbd4ba7", # Audit Windows machines missing any of specified members in the Administrators group
+    "630ac30f-a234-4533-ac2d-e0df77acda51", # Audit Windows machines network connectivity
+    "6265018c-d7e2-432f-a75d-094d5f6f4465", # Audit Windows machines on which the Log Analytics agent is not connected as expected
+    "e6ebf138-3d71-4935-a13b-9c7fdddd94df", # Audit Windows machines on which the specified services are not installed and 'Running'
+    "84662df4-0e37-44a6-9ce1-c9d2150db18c", # Audit Windows machines that are not joined to the specified domain
+    "c633f6a2-7f8b-4d9e-9456-02f0f04f5505", # Audit Windows machines that are not set to the specified time zone
+    "1417908b-4bff-46ee-a2a6-4acc899320ab", # Audit Windows machines that contain certificates expiring within the specified number of days
+    "934345e1-4dfb-4c70-90d7-41990dc9608b", # Audit Windows machines that do not contain the specified certificates in Trusted Root
+    "c648fbbb-591c-4acd-b465-ce9b176ca173", # Audit Windows machines that do not have the specified Windows PowerShell execution policy
+    "3e4e2bd5-15a2-4628-b3e1-58977e9793f3", # Audit Windows machines that do not have the specified Windows PowerShell modules installed
+    "ebb67efd-3c46-49b0-adfe-5599eb944998", # Audit Windows machines that don't have the specified applications installed
+    "c5b85cba-6e6f-4de4-95e1-f0233cd712ac", # Audit Windows machines that have the specified applications installed
+    "69bf4abd-ca1e-4cf6-8b5a-762d42e61d4f", # Audit Windows machines that have the specified members in the Administrators group
+
     # -----------------------------------------------------------------------------------------------------------------
     # Key Vault
     # -----------------------------------------------------------------------------------------------------------------
-    "[Preview]: Certificates should be issued by the specified non-integrated certificate authority",
-    "[Preview]: Certificates should have the specified lifetime action triggers",
-    "[Preview]: Certificates should not expire within the specified number of days",
-    "[Preview]: Certificates using RSA cryptography should have the specified minimum key size",
-    "[Preview]: Keys should have more than the specified number of days before expiration",
-    "[Preview]: Keys should have the specified maximum validity period",
-    "[Preview]: Keys should not be active for longer than the specified number of days",
-    "[Preview]: Keys using RSA cryptography should have a specified minimum key size",
-    "[Preview]: Secrets should have more than the specified number of days before expiration",
-    "[Preview]: Secrets should have the specified maximum validity period",
-    "[Preview]: Secrets should not be active for longer than the specified number of days",
+    "a22f4a40-01d3-4c7d-8071-da157eeff341", # [Preview]: Certificates should be issued by the specified non-integrated certificate authority
+    "12ef42cb-9903-4e39-9c26-422d29570417", # [Preview]: Certificates should have the specified lifetime action triggers
+    "f772fb64-8e40-40ad-87bc-7706e1949427", # [Preview]: Certificates should not expire within the specified number of days
+    "cee51871-e572-4576-855c-047c820360f0", # [Preview]: Certificates using RSA cryptography should have the specified minimum key size
+    "5ff38825-c5d8-47c5-b70e-069a21955146", # [Preview]: Keys should have more than the specified number of days before expiration
+    "49a22571-d204-4c91-a7b6-09b1a586fbc9", # [Preview]: Keys should have the specified maximum validity period
+    "c26e4b24-cf98-4c67-b48b-5a25c4c69eb9", # [Preview]: Keys should not be active for longer than the specified number of days
+    "82067dbb-e53b-4e06-b631-546d197452d9", # [Preview]: Keys using RSA cryptography should have a specified minimum key size
+    "b0eb591a-5e70-4534-a8bf-04b9c489584a", # [Preview]: Secrets should have more than the specified number of days before expiration
+    "342e8053-e12e-4c44-be01-c3c2f318400f", # [Preview]: Secrets should have the specified maximum validity period
+    "e8d99835-8a06-45ae-a8e0-87a91941ccfe", # [Preview]: Secrets should not be active for longer than the specified number of days
+
     # -----------------------------------------------------------------------------------------------------------------
     # Kubernetes
     # -----------------------------------------------------------------------------------------------------------------
-    "Kubernetes cluster containers CPU and memory resource limits should not exceed the specified limits",
-    "Kubernetes cluster containers should not share host process ID or host IPC namespace",
-    "Kubernetes cluster containers should not use forbidden sysctl interfaces",
-    "Kubernetes cluster containers should only listen on allowed ports",
-    "Kubernetes cluster containers should only use allowed AppArmor profiles",
-    "Kubernetes cluster containers should only use allowed ProcMountType",
-    "Kubernetes cluster containers should only use allowed capabilities",
-    "Kubernetes cluster containers should only use allowed images",
-    "Kubernetes cluster containers should only use allowed seccomp profiles",
-    "Kubernetes cluster containers should run with a read only root file system",
-    "Kubernetes cluster pod FlexVolume volumes should only use allowed drivers",
-    "Kubernetes cluster pod hostPath volumes should only use allowed host paths",
-    "Kubernetes cluster pods and containers should only run with approved user and group IDs",
-    "Kubernetes cluster pods and containers should only use allowed SELinux options",
-    "Kubernetes cluster pods should only use allowed volume types",
-    "Kubernetes cluster pods should only use approved host network and port range",
-    "Kubernetes cluster pods should use specified labels",
-    "Kubernetes cluster services should listen only on allowed ports",
-    "Kubernetes cluster should not allow privileged containers",
-    "Kubernetes clusters should be accessible only over HTTPS",
-    "Kubernetes clusters should not allow container privilege escalation",
-    "Kubernetes clusters should use internal load balancers",
-    "[Preview]: Kubernetes cluster services should only use allowed external IPs",
-    "[Preview]: Kubernetes clusters should disable automounting API credentials",
-    "[Preview]: Kubernetes clusters should not grant CAP_SYS_ADMIN security capabilities",
-    "[Preview]: Kubernetes clusters should not use specific security capabilities",
-    "[Preview]: Kubernetes clusters should not use the default namespace",
+    "e345eecc-fa47-480f-9e88-67dcc122b164", # Kubernetes cluster containers CPU and memory resource limits should not exceed the specified limits
+    "47a1ee2f-2a2a-4576-bf2a-e0e36709c2b8", # Kubernetes cluster containers should not share host process ID or host IPC namespace
+    "56d0a13f-712f-466b-8416-56fb354fb823", # Kubernetes cluster containers should not use forbidden sysctl interfaces
+    "440b515e-a580-421e-abeb-b159a61ddcbc", # Kubernetes cluster containers should only listen on allowed ports
+    "511f5417-5d12-434d-ab2e-816901e72a5e", # Kubernetes cluster containers should only use allowed AppArmor profiles
+    "f85eb0dd-92ee-40e9-8a76-db25a507d6d3", # Kubernetes cluster containers should only use allowed ProcMountType
+    "c26596ff-4d70-4e6a-9a30-c2506bd2f80c", # Kubernetes cluster containers should only use allowed capabilities
+    "febd0533-8e55-448f-b837-bd0e06f16469", # Kubernetes cluster containers should only use allowed images
+    "975ce327-682c-4f2e-aa46-b9598289b86c", # Kubernetes cluster containers should only use allowed seccomp profiles
+    "df49d893-a74c-421d-bc95-c663042e5b80", # Kubernetes cluster containers should run with a read only root file system
+    "f4a8fce0-2dd5-4c21-9a36-8f0ec809d663", # Kubernetes cluster pod FlexVolume volumes should only use allowed drivers
+    "098fc59e-46c7-4d99-9b16-64990e543d75", # Kubernetes cluster pod hostPath volumes should only use allowed host paths
+    "f06ddb64-5fa3-4b77-b166-acb36f7f6042", # Kubernetes cluster pods and containers should only run with approved user and group IDs
+    "e1e6c427-07d9-46ab-9689-bfa85431e636", # Kubernetes cluster pods and containers should only use allowed SELinux options
+    "16697877-1118-4fb1-9b65-9898ec2509ec", # Kubernetes cluster pods should only use allowed volume types
+    "82985f06-dc18-4a48-bc1c-b9f4f0098cfe", # Kubernetes cluster pods should only use approved host network and port range
+    "46592696-4c7b-4bf3-9e45-6c2763bdc0a6", # Kubernetes cluster pods should use specified labels
+    "233a2a17-77ca-4fb1-9b6b-69223d272a44", # Kubernetes cluster services should listen only on allowed ports
+    "95edb821-ddaf-4404-9732-666045e056b4", # Kubernetes cluster should not allow privileged containers
+    "1a5b4dca-0b6f-4cf5-907c-56316bc1bf3d", # Kubernetes clusters should be accessible only over HTTPS
+    "1c6e92c9-99f0-4e55-9cf2-0c234dc48f99", # Kubernetes clusters should not allow container privilege escalation
+    "3fc4dc25-5baf-40d8-9b05-7fe74c1bc64e", # Kubernetes clusters should use internal load balancers
+    "d46c275d-1680-448d-b2ec-e495a3b6cc89", # [Preview]: Kubernetes cluster services should only use allowed external IPs
+    "423dd1ba-798e-40e4-9c4d-b6902674b423", # [Preview]: Kubernetes clusters should disable automounting API credentials
+    "d2e7ea85-6b44-4317-a0be-1b951587f626", # [Preview]: Kubernetes clusters should not grant CAP_SYS_ADMIN security capabilities
+    "a27c700f-8a22-44ec-961c-41625264370b", # [Preview]: Kubernetes clusters should not use specific security capabilities
+    "9f061a12-e40d-4183-a00e-171812443373", # [Preview]: Kubernetes clusters should not use the default namespace
+
     # -----------------------------------------------------------------------------------------------------------------
     # Lighthouse
     # -----------------------------------------------------------------------------------------------------------------
-    "Allow managing tenant ids to onboard through Azure Lighthouse",
+    "7a8a51a3-ad87-4def-96f3-65a1839242b6", # Allow managing tenant ids to onboard through Azure Lighthouse
+
     # -----------------------------------------------------------------------------------------------------------------
     # Machine Learning
     # -----------------------------------------------------------------------------------------------------------------
-    "[Preview]: Configure allowed Python packages for specified Azure Machine Learning computes",
-    "[Preview]: Configure allowed module authors for specified Azure Machine Learning computes",
-    "[Preview]: Configure allowed registries for specified Azure Machine Learning computes",
-    "[Preview]: Configure an approval endpoint called prior to jobs running for specified Azure Machine Learning computes",
-    "[Preview]: Configure code signing for training code for specified Azure Machine Learning computes",
-    "[Preview]: Configure log filter expressions and datastore to be used for full logs for specified Azure Machine Learning computes",
+    "77eeea86-7e81-4a7d-9067-de844d096752", # [Preview]: Configure allowed Python packages for specified Azure Machine Learning computes
+    "53c70b02-63dd-11ea-bc55-0242ac130003", # [Preview]: Configure allowed module authors for specified Azure Machine Learning computes
+    "5853517a-63de-11ea-bc55-0242ac130003", # [Preview]: Configure allowed registries for specified Azure Machine Learning computes
+    "3948394e-63de-11ea-bc55-0242ac130003", # [Preview]: Configure an approval endpoint called prior to jobs running for specified Azure Machine Learning computes
+    "6a6f7384-63de-11ea-bc55-0242ac130003", # [Preview]: Configure code signing for training code for specified Azure Machine Learning computes
+    "1d413020-63de-11ea-bc55-0242ac130003", # [Preview]: Configure log filter expressions and datastore to be used for full logs for specified Azure Machine Learning computes
+
     # -----------------------------------------------------------------------------------------------------------------
     # Monitoring
     # -----------------------------------------------------------------------------------------------------------------
-    "An activity log alert should exist for specific Administrative operations",
-    "An activity log alert should exist for specific Policy operations",
-    "An activity log alert should exist for specific Security operations",
-    "Audit Log Analytics workspace for VM - Report Mismatch",
-    "Audit diagnostic setting",
-    "Dependency agent should be enabled for listed virtual machine images",
-    "Dependency agent should be enabled in virtual machine scale sets for listed virtual machine images",
-    "Log Analytics agent should be enabled in virtual machine scale sets for listed virtual machine images",
-    "[Preview]: Log Analytics Agent should be enabled for listed virtual machine images",
+    "b954148f-4c11-4c38-8221-be76711e194a", # An activity log alert should exist for specific Administrative operations
+    "c5447c04-a4d7-4ba8-a263-c9ee321a6858", # An activity log alert should exist for specific Policy operations
+    "3b980d31-7904-4bb7-8575-5665739a8052", # An activity log alert should exist for specific Security operations
+    "f47b5582-33ec-4c5c-87c0-b010a6b2e917", # Audit Log Analytics workspace for VM - Report Mismatch
+    "7f89b1eb-583c-429a-8828-af049802c1d9", # Audit diagnostic setting
+    "11ac78e3-31bc-4f0c-8434-37ab963cea07", # Dependency agent should be enabled for listed virtual machine images
+    "e2dd799a-a932-4e9d-ac17-d473bc3c6c10", # Dependency agent should be enabled in virtual machine scale sets for listed virtual machine images
+    "5c3bc7b8-a64c-4e08-a9cd-7ff0f31e1138", # Log Analytics agent should be enabled in virtual machine scale sets for listed virtual machine images
+    "32133ab0-ee4b-4b44-98d6-042180979d50", # [Preview]: Log Analytics Agent should be enabled for listed virtual machine images
+
     # -----------------------------------------------------------------------------------------------------------------
     # Network
     # -----------------------------------------------------------------------------------------------------------------
-    "A custom IPsec/IKE policy must be applied to all Azure virtual network gateway connections",
-    "Network Watcher should be enabled",
-    "Virtual machines should be connected to an approved virtual network",
-    "Virtual networks should use specified virtual network gateway",
+    "50b83b09-03da-41c1-b656-c293c914862b", # A custom IPsec/IKE policy must be applied to all Azure virtual network gateway connections
+    "b6e2945c-0b7b-40f5-9233-7a5323b5cdc6", # Network Watcher should be enabled
+    "d416745a-506c-48b6-8ab1-83cb814bcaa3", # Virtual machines should be connected to an approved virtual network
+    "f1776c76-f58c-4245-a8d0-2b207198dc8b", # Virtual networks should use specified virtual network gateway
+
     # -----------------------------------------------------------------------------------------------------------------
     # SQL
     # -----------------------------------------------------------------------------------------------------------------
-    "Virtual network firewall rule on Azure SQL Database should be enabled to allow traffic from the specified subnet",
+    "77e8b146-0078-4fb2-b002-e112381199f0", # Virtual network firewall rule on Azure SQL Database should be enabled to allow traffic from the specified subnet
+
     # -----------------------------------------------------------------------------------------------------------------
     # Storage
     # -----------------------------------------------------------------------------------------------------------------
-    "Storage accounts should be limited by allowed SKUs",
+    "7433c107-6db4-4ad1-b57a-a76dce0154a1", # Storage accounts should be limited by allowed SKUs
+
     # -----------------------------------------------------------------------------------------------------------------
     # Synapse
     # -----------------------------------------------------------------------------------------------------------------
-    "Synapse managed private endpoints should only connect to resources in approved Azure Active Directory tenants",
+    "3a003702-13d2-4679-941b-937e58c443f0", # Synapse managed private endpoints should only connect to resources in approved Azure Active Directory tenants
+
     # -----------------------------------------------------------------------------------------------------------------
     # Tags
     # -----------------------------------------------------------------------------------------------------------------
-    "Require a tag and its value on resource groups",
-    "Require a tag and its value on resources",
-    "Require a tag on resource groups",
-    "Require a tag on resources",
+    "8ce3da23-7156-49e4-b145-24f95f9dcb46", # Require a tag and its value on resource groups
+    "1e30110a-5ceb-460c-a204-c1c3969c6d62", # Require a tag and its value on resources
+    "96670d01-0a4d-4649-9c89-2d3abc0a5025", # Require a tag on resource groups
+    "871b6d14-10aa-478d-b590-94f262ecfa99", # Require a tag on resources
+
   ]
   policy_definition_map = zipmap(
     data.azurerm_policy_definition.example_params_required_definition_lookups.*.display_name,
@@ -175,8 +191,8 @@ locals {
 # ---------------------------------------------------------------------------------------------------------------------
 
 data "azurerm_policy_definition" "example_params_required_definition_lookups" {
-  count        = length(local.policy_names)
-  display_name = local.policy_names[count.index]
+  count = length(local.policy_ids_example_params_required)
+  name  = local.policy_ids_example_params_required[count.index]
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -193,1872 +209,670 @@ resource "azurerm_policy_set_definition" "example_params_required" {
     category = local.category_example_params_required
   }))
 
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Metric alert rules should be configured on Batch accounts")
-    parameter_values = jsonencode({ 
-      metricName = { "value" : "[parameters('metricName')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
-  
-  
-  
-  
+
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Allowed virtual machine size SKUs")
-    parameter_values = jsonencode({ 
-      listOfAllowedSKUs = { "value" : "[parameters('listOfAllowedSKUs')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Managed disks should use a specific set of disk encryption sets for the customer-managed key encryption")
-    parameter_values = jsonencode({ 
-      allowedEncryptionSets = { "value" : "[parameters('allowedEncryptionSets')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Only approved VM extensions should be installed")
-    parameter_values = jsonencode({ 
-      approvedExtensions = { "value" : "[parameters('approvedExtensions')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Resource logs in Virtual Machine Scale Sets should be enabled")
-    parameter_values = jsonencode({ 
-      includeAKSClusters = { "value" : "[parameters('includeAKSClusters')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
-  
-  
-  
+
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Azure Cosmos DB allowed locations")
-    parameter_values = jsonencode({ 
-      listOfAllowedLocations = { "value" : "[parameters('listOfAllowedLocations')]" }
-      policyEffect = { "value" : "[parameters('policyEffect')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Azure Cosmos DB throughput should be limited")
-    parameter_values = jsonencode({ 
-      throughputMax = { "value" : "[parameters('throughputMax')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
-  
-  
-  
+
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "[Preview]: Azure Data Factory linked service resource type should be in allow list")
-    parameter_values = jsonencode({ 
-      allowedLinkedServiceResourceTypes = { "value" : "[parameters('allowedLinkedServiceResourceTypes')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
-  
-  
-  
-  
+
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Allowed locations")
-    parameter_values = jsonencode({ 
-      listOfAllowedLocations = { "value" : "[parameters('listOfAllowedLocations')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Allowed locations for resource groups")
-    parameter_values = jsonencode({ 
-      listOfAllowedLocations = { "value" : "[parameters('listOfAllowedLocations')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Allowed resource types")
-    parameter_values = jsonencode({ 
-      listOfResourceTypesAllowed = { "value" : "[parameters('listOfResourceTypesAllowed')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Not allowed resource types")
-    parameter_values = jsonencode({ 
-      listOfResourceTypesNotAllowed = { "value" : "[parameters('listOfResourceTypesNotAllowed')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
-  
+
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Audit Linux machines that don't have the specified applications installed")
-    parameter_values = jsonencode({ 
-      IncludeArcMachines = { "value" : "[parameters('IncludeArcMachines')]" }
-      ApplicationName = { "value" : "[parameters('ApplicationName')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Audit Linux machines that have the specified applications installed")
-    parameter_values = jsonencode({ 
-      IncludeArcMachines = { "value" : "[parameters('IncludeArcMachines')]" }
-      ApplicationName = { "value" : "[parameters('ApplicationName')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Audit Windows machines missing any of specified members in the Administrators group")
-    parameter_values = jsonencode({ 
-      IncludeArcMachines = { "value" : "[parameters('IncludeArcMachines')]" }
-      MembersToInclude = { "value" : "[parameters('MembersToInclude')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Audit Windows machines network connectivity")
-    parameter_values = jsonencode({ 
-      IncludeArcMachines = { "value" : "[parameters('IncludeArcMachines')]" }
-      host = { "value" : "[parameters('host')]" }
-      port = { "value" : "[parameters('port')]" }
-      shouldConnect = { "value" : "[parameters('shouldConnect')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Audit Windows machines on which the Log Analytics agent is not connected as expected")
-    parameter_values = jsonencode({ 
-      IncludeArcMachines = { "value" : "[parameters('IncludeArcMachines')]" }
-      WorkspaceId = { "value" : "[parameters('WorkspaceId')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Audit Windows machines on which the specified services are not installed and 'Running'")
-    parameter_values = jsonencode({ 
-      IncludeArcMachines = { "value" : "[parameters('IncludeArcMachines')]" }
-      ServiceName = { "value" : "[parameters('ServiceName')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Audit Windows machines that are not joined to the specified domain")
-    parameter_values = jsonencode({ 
-      IncludeArcMachines = { "value" : "[parameters('IncludeArcMachines')]" }
-      DomainName = { "value" : "[parameters('DomainName')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Audit Windows machines that are not set to the specified time zone")
-    parameter_values = jsonencode({ 
-      IncludeArcMachines = { "value" : "[parameters('IncludeArcMachines')]" }
-      TimeZone = { "value" : "[parameters('TimeZone')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Audit Windows machines that contain certificates expiring within the specified number of days")
-    parameter_values = jsonencode({ 
-      IncludeArcMachines = { "value" : "[parameters('IncludeArcMachines')]" }
-      CertificateStorePath = { "value" : "[parameters('CertificateStorePath')]" }
-      ExpirationLimitInDays = { "value" : "[parameters('ExpirationLimitInDays')]" }
-      CertificateThumbprintsToInclude = { "value" : "[parameters('CertificateThumbprintsToInclude')]" }
-      CertificateThumbprintsToExclude = { "value" : "[parameters('CertificateThumbprintsToExclude')]" }
-      IncludeExpiredCertificates = { "value" : "[parameters('IncludeExpiredCertificates')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Audit Windows machines that do not contain the specified certificates in Trusted Root")
-    parameter_values = jsonencode({ 
-      IncludeArcMachines = { "value" : "[parameters('IncludeArcMachines')]" }
-      CertificateThumbprints = { "value" : "[parameters('CertificateThumbprints')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Audit Windows machines that do not have the specified Windows PowerShell execution policy")
-    parameter_values = jsonencode({ 
-      IncludeArcMachines = { "value" : "[parameters('IncludeArcMachines')]" }
-      ExecutionPolicy = { "value" : "[parameters('ExecutionPolicy')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Audit Windows machines that do not have the specified Windows PowerShell modules installed")
-    parameter_values = jsonencode({ 
-      IncludeArcMachines = { "value" : "[parameters('IncludeArcMachines')]" }
-      Modules = { "value" : "[parameters('Modules')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Audit Windows machines that don't have the specified applications installed")
-    parameter_values = jsonencode({ 
-      IncludeArcMachines = { "value" : "[parameters('IncludeArcMachines')]" }
-      installedApplication = { "value" : "[parameters('installedApplication')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Audit Windows machines that have the specified applications installed")
-    parameter_values = jsonencode({ 
-      IncludeArcMachines = { "value" : "[parameters('IncludeArcMachines')]" }
-      ApplicationName = { "value" : "[parameters('ApplicationName')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Audit Windows machines that have the specified members in the Administrators group")
-    parameter_values = jsonencode({ 
-      IncludeArcMachines = { "value" : "[parameters('IncludeArcMachines')]" }
-      MembersToExclude = { "value" : "[parameters('MembersToExclude')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
-  
-  
-  
+
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "[Preview]: Certificates should be issued by the specified non-integrated certificate authority")
-    parameter_values = jsonencode({ 
-      caCommonName = { "value" : "[parameters('caCommonName')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "[Preview]: Certificates should have the specified lifetime action triggers")
-    parameter_values = jsonencode({ 
-      maximumPercentageLife = { "value" : "[parameters('maximumPercentageLife')]" }
-      minimumDaysBeforeExpiry = { "value" : "[parameters('minimumDaysBeforeExpiry')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "[Preview]: Certificates should not expire within the specified number of days")
-    parameter_values = jsonencode({ 
-      daysToExpire = { "value" : "[parameters('daysToExpire')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "[Preview]: Certificates using RSA cryptography should have the specified minimum key size")
-    parameter_values = jsonencode({ 
-      minimumRSAKeySize = { "value" : "[parameters('minimumRSAKeySize')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "[Preview]: Keys should have more than the specified number of days before expiration")
-    parameter_values = jsonencode({ 
-      minimumDaysBeforeExpiration = { "value" : "[parameters('minimumDaysBeforeExpiration')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "[Preview]: Keys should have the specified maximum validity period")
-    parameter_values = jsonencode({ 
-      maximumValidityInDays = { "value" : "[parameters('maximumValidityInDays')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "[Preview]: Keys should not be active for longer than the specified number of days")
-    parameter_values = jsonencode({ 
-      maximumValidityInDays = { "value" : "[parameters('maximumValidityInDays')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "[Preview]: Keys using RSA cryptography should have a specified minimum key size")
-    parameter_values = jsonencode({ 
-      minimumRSAKeySize = { "value" : "[parameters('minimumRSAKeySize')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "[Preview]: Secrets should have more than the specified number of days before expiration")
-    parameter_values = jsonencode({ 
-      minimumDaysBeforeExpiration = { "value" : "[parameters('minimumDaysBeforeExpiration')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "[Preview]: Secrets should have the specified maximum validity period")
-    parameter_values = jsonencode({ 
-      maximumValidityInDays = { "value" : "[parameters('maximumValidityInDays')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "[Preview]: Secrets should not be active for longer than the specified number of days")
-    parameter_values = jsonencode({ 
-      maximumValidityInDays = { "value" : "[parameters('maximumValidityInDays')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
-  
+
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Kubernetes cluster containers CPU and memory resource limits should not exceed the specified limits")
-    parameter_values = jsonencode({ 
-      excludedNamespaces = { "value" : "[parameters('excludedNamespaces')]" }
-      namespaces = { "value" : "[parameters('namespaces')]" }
-      labelSelector = { "value" : "[parameters('labelSelector')]" }
-      cpuLimit = { "value" : "[parameters('cpuLimit')]" }
-      memoryLimit = { "value" : "[parameters('memoryLimit')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Kubernetes cluster containers should not share host process ID or host IPC namespace")
-    parameter_values = jsonencode({ 
-      excludedNamespaces = { "value" : "[parameters('excludedNamespaces')]" }
-      namespaces = { "value" : "[parameters('namespaces')]" }
-      labelSelector = { "value" : "[parameters('labelSelector')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Kubernetes cluster containers should not use forbidden sysctl interfaces")
-    parameter_values = jsonencode({ 
-      excludedNamespaces = { "value" : "[parameters('excludedNamespaces')]" }
-      namespaces = { "value" : "[parameters('namespaces')]" }
-      labelSelector = { "value" : "[parameters('labelSelector')]" }
-      forbiddenSysctls = { "value" : "[parameters('forbiddenSysctls')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Kubernetes cluster containers should only listen on allowed ports")
-    parameter_values = jsonencode({ 
-      excludedNamespaces = { "value" : "[parameters('excludedNamespaces')]" }
-      namespaces = { "value" : "[parameters('namespaces')]" }
-      labelSelector = { "value" : "[parameters('labelSelector')]" }
-      allowedContainerPortsList = { "value" : "[parameters('allowedContainerPortsList')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Kubernetes cluster containers should only use allowed AppArmor profiles")
-    parameter_values = jsonencode({ 
-      excludedNamespaces = { "value" : "[parameters('excludedNamespaces')]" }
-      namespaces = { "value" : "[parameters('namespaces')]" }
-      labelSelector = { "value" : "[parameters('labelSelector')]" }
-      allowedProfiles = { "value" : "[parameters('allowedProfiles')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Kubernetes cluster containers should only use allowed ProcMountType")
-    parameter_values = jsonencode({ 
-      excludedNamespaces = { "value" : "[parameters('excludedNamespaces')]" }
-      namespaces = { "value" : "[parameters('namespaces')]" }
-      labelSelector = { "value" : "[parameters('labelSelector')]" }
-      procMountType = { "value" : "[parameters('procMountType')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Kubernetes cluster containers should only use allowed capabilities")
-    parameter_values = jsonencode({ 
-      excludedNamespaces = { "value" : "[parameters('excludedNamespaces')]" }
-      namespaces = { "value" : "[parameters('namespaces')]" }
-      labelSelector = { "value" : "[parameters('labelSelector')]" }
-      allowedCapabilities = { "value" : "[parameters('allowedCapabilities')]" }
-      requiredDropCapabilities = { "value" : "[parameters('requiredDropCapabilities')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Kubernetes cluster containers should only use allowed images")
-    parameter_values = jsonencode({ 
-      excludedNamespaces = { "value" : "[parameters('excludedNamespaces')]" }
-      namespaces = { "value" : "[parameters('namespaces')]" }
-      labelSelector = { "value" : "[parameters('labelSelector')]" }
-      allowedContainerImagesRegex = { "value" : "[parameters('allowedContainerImagesRegex')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Kubernetes cluster containers should only use allowed seccomp profiles")
-    parameter_values = jsonencode({ 
-      excludedNamespaces = { "value" : "[parameters('excludedNamespaces')]" }
-      namespaces = { "value" : "[parameters('namespaces')]" }
-      labelSelector = { "value" : "[parameters('labelSelector')]" }
-      allowedProfiles = { "value" : "[parameters('allowedProfiles')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Kubernetes cluster containers should run with a read only root file system")
-    parameter_values = jsonencode({ 
-      excludedNamespaces = { "value" : "[parameters('excludedNamespaces')]" }
-      namespaces = { "value" : "[parameters('namespaces')]" }
-      labelSelector = { "value" : "[parameters('labelSelector')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Kubernetes cluster pod FlexVolume volumes should only use allowed drivers")
-    parameter_values = jsonencode({ 
-      excludedNamespaces = { "value" : "[parameters('excludedNamespaces')]" }
-      namespaces = { "value" : "[parameters('namespaces')]" }
-      labelSelector = { "value" : "[parameters('labelSelector')]" }
-      allowedFlexVolumeDrivers = { "value" : "[parameters('allowedFlexVolumeDrivers')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Kubernetes cluster pod hostPath volumes should only use allowed host paths")
-    parameter_values = jsonencode({ 
-      excludedNamespaces = { "value" : "[parameters('excludedNamespaces')]" }
-      namespaces = { "value" : "[parameters('namespaces')]" }
-      labelSelector = { "value" : "[parameters('labelSelector')]" }
-      allowedHostPaths = { "value" : "[parameters('allowedHostPaths')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Kubernetes cluster pods and containers should only run with approved user and group IDs")
-    parameter_values = jsonencode({ 
-      excludedNamespaces = { "value" : "[parameters('excludedNamespaces')]" }
-      namespaces = { "value" : "[parameters('namespaces')]" }
-      labelSelector = { "value" : "[parameters('labelSelector')]" }
-      runAsUserRule = { "value" : "[parameters('runAsUserRule')]" }
-      runAsUserRanges = { "value" : "[parameters('runAsUserRanges')]" }
-      runAsGroupRule = { "value" : "[parameters('runAsGroupRule')]" }
-      runAsGroupRanges = { "value" : "[parameters('runAsGroupRanges')]" }
-      supplementalGroupsRule = { "value" : "[parameters('supplementalGroupsRule')]" }
-      supplementalGroupsRanges = { "value" : "[parameters('supplementalGroupsRanges')]" }
-      fsGroupRule = { "value" : "[parameters('fsGroupRule')]" }
-      fsGroupRanges = { "value" : "[parameters('fsGroupRanges')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Kubernetes cluster pods and containers should only use allowed SELinux options")
-    parameter_values = jsonencode({ 
-      excludedNamespaces = { "value" : "[parameters('excludedNamespaces')]" }
-      namespaces = { "value" : "[parameters('namespaces')]" }
-      labelSelector = { "value" : "[parameters('labelSelector')]" }
-      allowedSELinuxOptions = { "value" : "[parameters('allowedSELinuxOptions')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Kubernetes cluster pods should only use allowed volume types")
-    parameter_values = jsonencode({ 
-      excludedNamespaces = { "value" : "[parameters('excludedNamespaces')]" }
-      namespaces = { "value" : "[parameters('namespaces')]" }
-      labelSelector = { "value" : "[parameters('labelSelector')]" }
-      allowedVolumeTypes = { "value" : "[parameters('allowedVolumeTypes')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Kubernetes cluster pods should only use approved host network and port range")
-    parameter_values = jsonencode({ 
-      excludedNamespaces = { "value" : "[parameters('excludedNamespaces')]" }
-      namespaces = { "value" : "[parameters('namespaces')]" }
-      labelSelector = { "value" : "[parameters('labelSelector')]" }
-      allowHostNetwork = { "value" : "[parameters('allowHostNetwork')]" }
-      minPort = { "value" : "[parameters('minPort')]" }
-      maxPort = { "value" : "[parameters('maxPort')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Kubernetes cluster pods should use specified labels")
-    parameter_values = jsonencode({ 
-      excludedNamespaces = { "value" : "[parameters('excludedNamespaces')]" }
-      namespaces = { "value" : "[parameters('namespaces')]" }
-      labelSelector = { "value" : "[parameters('labelSelector')]" }
-      labelsList = { "value" : "[parameters('labelsList')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Kubernetes cluster services should listen only on allowed ports")
-    parameter_values = jsonencode({ 
-      excludedNamespaces = { "value" : "[parameters('excludedNamespaces')]" }
-      namespaces = { "value" : "[parameters('namespaces')]" }
-      labelSelector = { "value" : "[parameters('labelSelector')]" }
-      allowedServicePortsList = { "value" : "[parameters('allowedServicePortsList')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Kubernetes cluster should not allow privileged containers")
-    parameter_values = jsonencode({ 
-      excludedNamespaces = { "value" : "[parameters('excludedNamespaces')]" }
-      namespaces = { "value" : "[parameters('namespaces')]" }
-      labelSelector = { "value" : "[parameters('labelSelector')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Kubernetes clusters should be accessible only over HTTPS")
-    parameter_values = jsonencode({ 
-      excludedNamespaces = { "value" : "[parameters('excludedNamespaces')]" }
-      namespaces = { "value" : "[parameters('namespaces')]" }
-      labelSelector = { "value" : "[parameters('labelSelector')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Kubernetes clusters should not allow container privilege escalation")
-    parameter_values = jsonencode({ 
-      excludedNamespaces = { "value" : "[parameters('excludedNamespaces')]" }
-      namespaces = { "value" : "[parameters('namespaces')]" }
-      labelSelector = { "value" : "[parameters('labelSelector')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Kubernetes clusters should use internal load balancers")
-    parameter_values = jsonencode({ 
-      excludedNamespaces = { "value" : "[parameters('excludedNamespaces')]" }
-      namespaces = { "value" : "[parameters('namespaces')]" }
-      labelSelector = { "value" : "[parameters('labelSelector')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "[Preview]: Kubernetes cluster services should only use allowed external IPs")
-    parameter_values = jsonencode({ 
-      excludedNamespaces = { "value" : "[parameters('excludedNamespaces')]" }
-      namespaces = { "value" : "[parameters('namespaces')]" }
-      labelSelector = { "value" : "[parameters('labelSelector')]" }
-      allowedExternalIPs = { "value" : "[parameters('allowedExternalIPs')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "[Preview]: Kubernetes clusters should disable automounting API credentials")
-    parameter_values = jsonencode({ 
-      excludedNamespaces = { "value" : "[parameters('excludedNamespaces')]" }
-      namespaces = { "value" : "[parameters('namespaces')]" }
-      labelSelector = { "value" : "[parameters('labelSelector')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "[Preview]: Kubernetes clusters should not grant CAP_SYS_ADMIN security capabilities")
-    parameter_values = jsonencode({ 
-      excludedNamespaces = { "value" : "[parameters('excludedNamespaces')]" }
-      namespaces = { "value" : "[parameters('namespaces')]" }
-      labelSelector = { "value" : "[parameters('labelSelector')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "[Preview]: Kubernetes clusters should not use specific security capabilities")
-    parameter_values = jsonencode({ 
-      excludedNamespaces = { "value" : "[parameters('excludedNamespaces')]" }
-      namespaces = { "value" : "[parameters('namespaces')]" }
-      labelSelector = { "value" : "[parameters('labelSelector')]" }
-      disallowedCapabilities = { "value" : "[parameters('disallowedCapabilities')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "[Preview]: Kubernetes clusters should not use the default namespace")
-    parameter_values = jsonencode({ 
-      excludedNamespaces = { "value" : "[parameters('excludedNamespaces')]" }
-      namespaces = { "value" : "[parameters('namespaces')]" }
-      labelSelector = { "value" : "[parameters('labelSelector')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
-  
-  
+
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Allow managing tenant ids to onboard through Azure Lighthouse")
-    parameter_values = jsonencode({ 
-      listOfAllowedTenants = { "value" : "[parameters('listOfAllowedTenants')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
-  
-  
+
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "[Preview]: Configure allowed Python packages for specified Azure Machine Learning computes")
-    parameter_values = jsonencode({ 
-      computeNames = { "value" : "[parameters('computeNames')]" }
-      allowedPythonPackageChannels = { "value" : "[parameters('allowedPythonPackageChannels')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "[Preview]: Configure allowed module authors for specified Azure Machine Learning computes")
-    parameter_values = jsonencode({ 
-      computeNames = { "value" : "[parameters('computeNames')]" }
-      allowedModuleAuthors = { "value" : "[parameters('allowedModuleAuthors')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "[Preview]: Configure allowed registries for specified Azure Machine Learning computes")
-    parameter_values = jsonencode({ 
-      computeNames = { "value" : "[parameters('computeNames')]" }
-      allowedACRs = { "value" : "[parameters('allowedACRs')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "[Preview]: Configure an approval endpoint called prior to jobs running for specified Azure Machine Learning computes")
-    parameter_values = jsonencode({ 
-      computeNames = { "value" : "[parameters('computeNames')]" }
-      approvalEndpoint = { "value" : "[parameters('approvalEndpoint')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "[Preview]: Configure code signing for training code for specified Azure Machine Learning computes")
-    parameter_values = jsonencode({ 
-      computeNames = { "value" : "[parameters('computeNames')]" }
-      signingKey = { "value" : "[parameters('signingKey')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "[Preview]: Configure log filter expressions and datastore to be used for full logs for specified Azure Machine Learning computes")
-    parameter_values = jsonencode({ 
-      computeNames = { "value" : "[parameters('computeNames')]" }
-      logFilters = { "value" : "[parameters('logFilters')]" }
-      datastore = { "value" : "[parameters('datastore')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
-  
-  
+
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "An activity log alert should exist for specific Administrative operations")
-    parameter_values = jsonencode({ 
-      operationName = { "value" : "[parameters('operationName')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "An activity log alert should exist for specific Policy operations")
-    parameter_values = jsonencode({ 
-      operationName = { "value" : "[parameters('operationName')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "An activity log alert should exist for specific Security operations")
-    parameter_values = jsonencode({ 
-      operationName = { "value" : "[parameters('operationName')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Audit Log Analytics workspace for VM - Report Mismatch")
-    parameter_values = jsonencode({ 
-      logAnalyticsWorkspaceId = { "value" : "[parameters('logAnalyticsWorkspaceId')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Audit diagnostic setting")
-    parameter_values = jsonencode({ 
-      listOfResourceTypes = { "value" : "[parameters('listOfResourceTypes')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Dependency agent should be enabled for listed virtual machine images")
-    parameter_values = jsonencode({ 
-      listOfImageIdToInclude_windows = { "value" : "[parameters('listOfImageIdToInclude_windows')]" }
-      listOfImageIdToInclude_linux = { "value" : "[parameters('listOfImageIdToInclude_linux')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Dependency agent should be enabled in virtual machine scale sets for listed virtual machine images")
-    parameter_values = jsonencode({ 
-      listOfImageIdToInclude_windows = { "value" : "[parameters('listOfImageIdToInclude_windows')]" }
-      listOfImageIdToInclude_linux = { "value" : "[parameters('listOfImageIdToInclude_linux')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Log Analytics agent should be enabled in virtual machine scale sets for listed virtual machine images")
-    parameter_values = jsonencode({ 
-      listOfImageIdToInclude_windows = { "value" : "[parameters('listOfImageIdToInclude_windows')]" }
-      listOfImageIdToInclude_linux = { "value" : "[parameters('listOfImageIdToInclude_linux')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "[Preview]: Log Analytics Agent should be enabled for listed virtual machine images")
-    parameter_values = jsonencode({ 
-      listOfImageIdToInclude_windows = { "value" : "[parameters('listOfImageIdToInclude_windows')]" }
-      listOfImageIdToInclude_linux = { "value" : "[parameters('listOfImageIdToInclude_linux')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
-  
+
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "A custom IPsec/IKE policy must be applied to all Azure virtual network gateway connections")
-    parameter_values = jsonencode({ 
-      IPsecEncryption = { "value" : "[parameters('IPsecEncryption')]" }
-      IPsecIntegrity = { "value" : "[parameters('IPsecIntegrity')]" }
-      IKEEncryption = { "value" : "[parameters('IKEEncryption')]" }
-      IKEIntegrity = { "value" : "[parameters('IKEIntegrity')]" }
-      DHGroup = { "value" : "[parameters('DHGroup')]" }
-      PFSGroup = { "value" : "[parameters('PFSGroup')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Network Watcher should be enabled")
-    parameter_values = jsonencode({ 
-      listOfLocations = { "value" : "[parameters('listOfLocations')]" }
-      resourceGroupName = { "value" : "[parameters('resourceGroupName')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Virtual machines should be connected to an approved virtual network")
-    parameter_values = jsonencode({ 
-      virtualNetworkId = { "value" : "[parameters('virtualNetworkId')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Virtual networks should use specified virtual network gateway")
-    parameter_values = jsonencode({ 
-      virtualNetworkGatewayId = { "value" : "[parameters('virtualNetworkGatewayId')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
-  
-  
+
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Virtual network firewall rule on Azure SQL Database should be enabled to allow traffic from the specified subnet")
-    parameter_values = jsonencode({ 
-      subnetId = { "value" : "[parameters('subnetId')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
-  
-  
-  
-  
-  
-  
+
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Storage accounts should be limited by allowed SKUs")
-    parameter_values = jsonencode({ 
-      listOfAllowedSKUs = { "value" : "[parameters('listOfAllowedSKUs')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
-  
-  
+
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Synapse managed private endpoints should only connect to resources in approved Azure Active Directory tenants")
-    parameter_values = jsonencode({ 
-      allowedTenantIds = { "value" : "[parameters('allowedTenantIds')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
-  
+
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Require a tag and its value on resource groups")
-    parameter_values = jsonencode({ 
-      tagName = { "value" : "[parameters('tagName')]" }
-      tagValue = { "value" : "[parameters('tagValue')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Require a tag and its value on resources")
-    parameter_values = jsonencode({ 
-      tagName = { "value" : "[parameters('tagName')]" }
-      tagValue = { "value" : "[parameters('tagValue')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Require a tag on resource groups")
-    parameter_values = jsonencode({ 
-      tagName = { "value" : "[parameters('tagName')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Require a tag on resources")
-    parameter_values = jsonencode({ 
-      tagName = { "value" : "[parameters('tagName')]" }
+    parameter_values = jsonencode({
     })
     reference_id = null
   }
-  
-  
+
 
   parameters = <<PARAMETERS
-{
-    "metricName": {
-        "name": "metricName",
-        "type": "String",
-        "description": "The metric name that an alert rule must be enabled on",
-        "display_name": "Metric name"
-    },
-    "listOfAllowedSKUs": {
-        "name": "listOfAllowedSKUs",
-        "type": "Array",
-        "description": "The list of SKUs that can be specified for storage accounts.",
-        "display_name": "Allowed SKUs",
-        "strong_type": "StorageSKUs"
-    },
-    "allowedEncryptionSets": {
-        "name": "allowedEncryptionSets",
-        "type": "Array",
-        "description": "The list of allowed disk encryption sets for managed disks.",
-        "display_name": "Allowed disk encryption set",
-        "strong_type": "Microsoft.Compute/diskEncryptionSets"
-    },
-    "approvedExtensions": {
-        "name": "approvedExtensions",
-        "type": "Array",
-        "description": "The list of approved extension types that can be installed. Example: AzureDiskEncryption",
-        "display_name": "Approved extensions"
-    },
-    "includeAKSClusters": {
-        "name": "includeAKSClusters",
-        "type": "Boolean",
-        "description": "Whether to include AKS Clusters to resource logs extension - True or False",
-        "display_name": "Include AKS Clusters"
-    },
-    "listOfAllowedLocations": {
-        "name": "listOfAllowedLocations",
-        "type": "Array",
-        "description": "The list of locations that resource groups can be created in.",
-        "display_name": "Allowed locations",
-        "strong_type": "location"
-    },
-    "policyEffect": {
-        "name": "policyEffect",
-        "type": "String",
-        "description": "The desired effect of the policy.",
-        "display_name": "Policy Effect",
-        "default_value": "deny",
-        "allowed_values": [
-            "deny",
-            "audit",
-            "disabled"
-        ]
-    },
-    "throughputMax": {
-        "name": "throughputMax",
-        "type": "Integer",
-        "description": "The maximum throughput (RU/s) that can be assigned to a container via the Resource Provider during create or update.",
-        "display_name": "Max RUs"
-    },
-    "allowedLinkedServiceResourceTypes": {
-        "name": "allowedLinkedServiceResourceTypes",
-        "type": "Array",
-        "description": "The list of allowed linked service resource types.",
-        "display_name": "Allowed linked service resource types",
-        "allowed_values": [
-            "AdlsGen2CosmosStructuredStream",
-            "AdobeExperiencePlatform",
-            "AdobeIntegration",
-            "AmazonRedshift",
-            "AmazonS3",
-            "AzureBlobFS",
-            "AzureBlobStorage",
-            "AzureDataExplorer",
-            "AzureDataLakeStore",
-            "AzureDataLakeStoreCosmosStructuredStream",
-            "AzureDataShare",
-            "AzureFileStorage",
-            "AzureKeyVault",
-            "AzureMariaDB",
-            "AzureMySql",
-            "AzurePostgreSql",
-            "AzureSearch",
-            "AzureSqlDatabase",
-            "AzureSqlDW",
-            "AzureSqlMI",
-            "AzureTableStorage",
-            "Cassandra",
-            "CommonDataServiceForApps",
-            "CosmosDb",
-            "CosmosDbMongoDbApi",
-            "Db2",
-            "DynamicsCrm",
-            "FileServer",
-            "FtpServer",
-            "GitHub",
-            "GoogleCloudStorage",
-            "Hdfs",
-            "Hive",
-            "HttpServer",
-            "Informix",
-            "Kusto",
-            "MicrosoftAccess",
-            "MySql",
-            "Netezza",
-            "Odata",
-            "Odbc",
-            "Office365",
-            "Oracle",
-            "PostgreSql",
-            "Salesforce",
-            "SalesforceServiceCloud",
-            "SapBw",
-            "SapHana",
-            "SapOpenHub",
-            "SapTable",
-            "Sftp",
-            "SharePointOnlineList",
-            "Snowflake",
-            "SqlServer",
-            "Sybase",
-            "Teradata",
-            "HDInsightOnDemand",
-            "HDInsight",
-            "AzureDataLakeAnalytics",
-            "AzureBatch",
-            "AzureFunction",
-            "AzureML",
-            "AzureMLService",
-            "MongoDb",
-            "GoogleBigQuery",
-            "Impala",
-            "ServiceNow",
-            "Dynamics",
-            "AzureDatabricks",
-            "AmazonMWS",
-            "SapCloudForCustomer",
-            "SapEcc",
-            "Web",
-            "MongoDbAtlas",
-            "HBase",
-            "Spark",
-            "Phoenix",
-            "PayPal",
-            "Marketo",
-            "Responsys",
-            "SalesforceMarketingCloud",
-            "Presto",
-            "Square",
-            "Xero",
-            "Jira",
-            "Magento",
-            "Shopify",
-            "Concur",
-            "Hubspot",
-            "Zoho",
-            "Eloqua",
-            "QuickBooks",
-            "Couchbase",
-            "Drill",
-            "Greenplum",
-            "MariaDB",
-            "Vertica",
-            "MongoDbV2",
-            "OracleServiceCloud",
-            "GoogleAdWords",
-            "RestService",
-            "DynamicsAX",
-            "AzureDataCatalog",
-            "AzureDatabricksDeltaLake"
-        ]
-    },
-    "listOfResourceTypesAllowed": {
-        "name": "listOfResourceTypesAllowed",
-        "type": "Array",
-        "description": "The list of resource types that can be deployed.",
-        "display_name": "Allowed resource types",
-        "strong_type": "resourceTypes"
-    },
-    "listOfResourceTypesNotAllowed": {
-        "name": "listOfResourceTypesNotAllowed",
-        "type": "Array",
-        "description": "The list of resource types that cannot be deployed.",
-        "display_name": "Not allowed resource types",
-        "strong_type": "resourceTypes"
-    },
-    "IncludeArcMachines": {
-        "name": "IncludeArcMachines",
-        "type": "string",
-        "description": "By selecting this option, you agree to be charged monthly per Arc connected machine.",
-        "display_name": "Include Arc connected servers",
-        "default_value": "false",
-        "allowed_values": [
-            "true",
-            "false"
-        ]
-    },
-    "ApplicationName": {
-        "name": "ApplicationName",
-        "type": "string",
-        "description": "A semicolon-separated list of the names of the applications that should not be installed. e.g. 'Microsoft SQL Server 2014 (64-bit); Microsoft Visual Studio Code' or 'Microsoft SQL Server 2014*' (to match any application starting with 'Microsoft SQL Server 2014')",
-        "display_name": "Application names (supports wildcards)"
-    },
-    "MembersToInclude": {
-        "name": "MembersToInclude",
-        "type": "string",
-        "description": "A semicolon-separated list of members that should be included in the Administrators local group. Ex: Administrator; myUser1; myUser2",
-        "display_name": "Members to include"
-    },
-    "host": {
-        "name": "host",
-        "type": "string",
-        "description": "Specifies the Domain Name System (DNS) name or IP address of the remote host machine.",
-        "display_name": "Remote Host Name"
-    },
-    "port": {
-        "name": "port",
-        "type": "string",
-        "description": "The TCP port number on the remote host name.",
-        "display_name": "Port"
-    },
-    "shouldConnect": {
-        "name": "shouldConnect",
-        "type": "string",
-        "description": "The machine will be non-compliant if it can't establish a connection.",
-        "display_name": "Should connect to remote host",
-        "default_value": "False",
-        "allowed_values": [
-            "True",
-            "False"
-        ]
-    },
-    "WorkspaceId": {
-        "name": "WorkspaceId",
-        "type": "string",
-        "description": "A semicolon-separated list of the workspace IDs that the Log Analytics agent should be connected to",
-        "display_name": "Connected workspace IDs"
-    },
-    "ServiceName": {
-        "name": "ServiceName",
-        "type": "string",
-        "description": "A semicolon-separated list of the names of the services that should be installed and 'Running'. e.g. 'WinRm;Wi*'",
-        "display_name": "Service names (supports wildcards)"
-    },
-    "DomainName": {
-        "name": "DomainName",
-        "type": "string",
-        "description": "The fully qualified domain name (FQDN) that the Windows machines should be joined to",
-        "display_name": "Domain Name (FQDN)"
-    },
-    "TimeZone": {
-        "name": "TimeZone",
-        "type": "string",
-        "description": "The expected time zone",
-        "display_name": "Time zone",
-        "allowed_values": [
-            "(UTC-12:00) International Date Line West",
-            "(UTC-11:00) Coordinated Universal Time-11",
-            "(UTC-10:00) Aleutian Islands",
-            "(UTC-10:00) Hawaii",
-            "(UTC-09:30) Marquesas Islands",
-            "(UTC-09:00) Alaska",
-            "(UTC-09:00) Coordinated Universal Time-09",
-            "(UTC-08:00) Baja California",
-            "(UTC-08:00) Coordinated Universal Time-08",
-            "(UTC-08:00) Pacific Time (US & Canada)",
-            "(UTC-07:00) Arizona",
-            "(UTC-07:00) Chihuahua, La Paz, Mazatlan",
-            "(UTC-07:00) Mountain Time (US & Canada)",
-            "(UTC-06:00) Central America",
-            "(UTC-06:00) Central Time (US & Canada)",
-            "(UTC-06:00) Easter Island",
-            "(UTC-06:00) Guadalajara, Mexico City, Monterrey",
-            "(UTC-06:00) Saskatchewan",
-            "(UTC-05:00) Bogota, Lima, Quito, Rio Branco",
-            "(UTC-05:00) Chetumal",
-            "(UTC-05:00) Eastern Time (US & Canada)",
-            "(UTC-05:00) Haiti",
-            "(UTC-05:00) Havana",
-            "(UTC-05:00) Indiana (East)",
-            "(UTC-05:00) Turks and Caicos",
-            "(UTC-04:00) Asuncion",
-            "(UTC-04:00) Atlantic Time (Canada)",
-            "(UTC-04:00) Caracas",
-            "(UTC-04:00) Cuiaba",
-            "(UTC-04:00) Georgetown, La Paz, Manaus, San Juan",
-            "(UTC-04:00) Santiago",
-            "(UTC-03:30) Newfoundland",
-            "(UTC-03:00) Araguaina",
-            "(UTC-03:00) Brasilia",
-            "(UTC-03:00) Cayenne, Fortaleza",
-            "(UTC-03:00) City of Buenos Aires",
-            "(UTC-03:00) Greenland",
-            "(UTC-03:00) Montevideo",
-            "(UTC-03:00) Punta Arenas",
-            "(UTC-03:00) Saint Pierre and Miquelon",
-            "(UTC-03:00) Salvador",
-            "(UTC-02:00) Coordinated Universal Time-02",
-            "(UTC-02:00) Mid-Atlantic - Old",
-            "(UTC-01:00) Azores",
-            "(UTC-01:00) Cabo Verde Is.",
-            "(UTC) Coordinated Universal Time",
-            "(UTC+00:00) Dublin, Edinburgh, Lisbon, London",
-            "(UTC+00:00) Monrovia, Reykjavik",
-            "(UTC+00:00) Sao Tome",
-            "(UTC+01:00) Casablanca",
-            "(UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna",
-            "(UTC+01:00) Belgrade, Bratislava, Budapest, Ljubljana, Prague",
-            "(UTC+01:00) Brussels, Copenhagen, Madrid, Paris",
-            "(UTC+01:00) Sarajevo, Skopje, Warsaw, Zagreb",
-            "(UTC+01:00) West Central Africa",
-            "(UTC+02:00) Amman",
-            "(UTC+02:00) Athens, Bucharest",
-            "(UTC+02:00) Beirut",
-            "(UTC+02:00) Cairo",
-            "(UTC+02:00) Chisinau",
-            "(UTC+02:00) Damascus",
-            "(UTC+02:00) Gaza, Hebron",
-            "(UTC+02:00) Harare, Pretoria",
-            "(UTC+02:00) Helsinki, Kyiv, Riga, Sofia, Tallinn, Vilnius",
-            "(UTC+02:00) Jerusalem",
-            "(UTC+02:00) Kaliningrad",
-            "(UTC+02:00) Khartoum",
-            "(UTC+02:00) Tripoli",
-            "(UTC+02:00) Windhoek",
-            "(UTC+03:00) Baghdad",
-            "(UTC+03:00) Istanbul",
-            "(UTC+03:00) Kuwait, Riyadh",
-            "(UTC+03:00) Minsk",
-            "(UTC+03:00) Moscow, St. Petersburg",
-            "(UTC+03:00) Nairobi",
-            "(UTC+03:30) Tehran",
-            "(UTC+04:00) Abu Dhabi, Muscat",
-            "(UTC+04:00) Astrakhan, Ulyanovsk",
-            "(UTC+04:00) Baku",
-            "(UTC+04:00) Izhevsk, Samara",
-            "(UTC+04:00) Port Louis",
-            "(UTC+04:00) Saratov",
-            "(UTC+04:00) Tbilisi",
-            "(UTC+04:00) Volgograd",
-            "(UTC+04:00) Yerevan",
-            "(UTC+04:30) Kabul",
-            "(UTC+05:00) Ashgabat, Tashkent",
-            "(UTC+05:00) Ekaterinburg",
-            "(UTC+05:00) Islamabad, Karachi",
-            "(UTC+05:00) Qyzylorda",
-            "(UTC+05:30) Chennai, Kolkata, Mumbai, New Delhi",
-            "(UTC+05:30) Sri Jayawardenepura",
-            "(UTC+05:45) Kathmandu",
-            "(UTC+06:00) Astana",
-            "(UTC+06:00) Dhaka",
-            "(UTC+06:00) Omsk",
-            "(UTC+06:30) Yangon (Rangoon)",
-            "(UTC+07:00) Bangkok, Hanoi, Jakarta",
-            "(UTC+07:00) Barnaul, Gorno-Altaysk",
-            "(UTC+07:00) Hovd",
-            "(UTC+07:00) Krasnoyarsk",
-            "(UTC+07:00) Novosibirsk",
-            "(UTC+07:00) Tomsk",
-            "(UTC+08:00) Beijing, Chongqing, Hong Kong, Urumqi",
-            "(UTC+08:00) Irkutsk",
-            "(UTC+08:00) Kuala Lumpur, Singapore",
-            "(UTC+08:00) Perth",
-            "(UTC+08:00) Taipei",
-            "(UTC+08:00) Ulaanbaatar",
-            "(UTC+08:45) Eucla",
-            "(UTC+09:00) Chita",
-            "(UTC+09:00) Osaka, Sapporo, Tokyo",
-            "(UTC+09:00) Pyongyang",
-            "(UTC+09:00) Seoul",
-            "(UTC+09:00) Yakutsk",
-            "(UTC+09:30) Adelaide",
-            "(UTC+09:30) Darwin",
-            "(UTC+10:00) Brisbane",
-            "(UTC+10:00) Canberra, Melbourne, Sydney",
-            "(UTC+10:00) Guam, Port Moresby",
-            "(UTC+10:00) Hobart",
-            "(UTC+10:00) Vladivostok",
-            "(UTC+10:30) Lord Howe Island",
-            "(UTC+11:00) Bougainville Island",
-            "(UTC+11:00) Chokurdakh",
-            "(UTC+11:00) Magadan",
-            "(UTC+11:00) Norfolk Island",
-            "(UTC+11:00) Sakhalin",
-            "(UTC+11:00) Solomon Is., New Caledonia",
-            "(UTC+12:00) Anadyr, Petropavlovsk-Kamchatsky",
-            "(UTC+12:00) Auckland, Wellington",
-            "(UTC+12:00) Coordinated Universal Time+12",
-            "(UTC+12:00) Fiji",
-            "(UTC+12:00) Petropavlovsk-Kamchatsky - Old",
-            "(UTC+12:45) Chatham Islands",
-            "(UTC+13:00) Coordinated Universal Time+13",
-            "(UTC+13:00) Nuku'alofa",
-            "(UTC+13:00) Samoa",
-            "(UTC+14:00) Kiritimati Island"
-        ]
-    },
-    "CertificateStorePath": {
-        "name": "CertificateStorePath",
-        "type": "string",
-        "description": "The path to the certificate store containing the certificates to check the expiration dates of. Default value is 'Cert:' which is the root certificate store path, so all certificates on the machine will be checked. Other example paths: 'Cert:\\LocalMachine', 'Cert:\\LocalMachine\\TrustedPublisher', 'Cert:\\CurrentUser'",
-        "display_name": "Certificate store path",
-        "default_value": "Cert:"
-    },
-    "ExpirationLimitInDays": {
-        "name": "ExpirationLimitInDays",
-        "type": "string",
-        "description": "An integer indicating the number of days within which to check for certificates that are expiring. For example, if this value is 30, any certificate expiring within the next 30 days will cause this policy to be non-compliant.",
-        "display_name": "Expiration limit in days",
-        "default_value": "30"
-    },
-    "CertificateThumbprintsToInclude": {
-        "name": "CertificateThumbprintsToInclude",
-        "type": "string",
-        "description": "A semicolon-separated list of certificate thumbprints to check under the specified path. If a value is not specified, all certificates under the certificate store path will be checked. If a value is specified, no certificates other than those with the thumbprints specified will be checked. e.g. THUMBPRINT1;THUMBPRINT2;THUMBPRINT3",
-        "display_name": "Certificate thumbprints to include",
-        "default_value": ""
-    },
-    "CertificateThumbprintsToExclude": {
-        "name": "CertificateThumbprintsToExclude",
-        "type": "string",
-        "description": "A semicolon-separated list of certificate thumbprints to ignore. e.g. THUMBPRINT1;THUMBPRINT2;THUMBPRINT3",
-        "display_name": "Certificate thumbprints to exclude",
-        "default_value": ""
-    },
-    "IncludeExpiredCertificates": {
-        "name": "IncludeExpiredCertificates",
-        "type": "string",
-        "description": "Must be 'true' or 'false'. True indicates that any found certificates that have already expired will also make this policy non-compliant. False indicates that certificates that have expired will be be ignored.",
-        "display_name": "Include expired certificates",
-        "default_value": "false",
-        "allowed_values": [
-            "true",
-            "false"
-        ]
-    },
-    "CertificateThumbprints": {
-        "name": "CertificateThumbprints",
-        "type": "string",
-        "description": "A semicolon-separated list of certificate thumbprints that should exist under the Trusted Root certificate store (Cert:\\LocalMachine\\Root). e.g. THUMBPRINT1;THUMBPRINT2;THUMBPRINT3",
-        "display_name": "Certificate thumbprints"
-    },
-    "ExecutionPolicy": {
-        "name": "ExecutionPolicy",
-        "type": "string",
-        "description": "The expected PowerShell execution policy.",
-        "display_name": "PowerShell Execution Policy",
-        "allowed_values": [
-            "AllSigned",
-            "Bypass",
-            "Default",
-            "RemoteSigned",
-            "Restricted",
-            "Undefined",
-            "Unrestricted"
-        ]
-    },
-    "Modules": {
-        "name": "Modules",
-        "type": "string",
-        "description": "A semicolon-separated list of the names of the PowerShell modules that should be installed. You may also specify a specific version of a module that should be installed by including a comma after the module name, followed by the desired version. Example: PSDscResources; SqlServerDsc, 12.0.0.0; ComputerManagementDsc, 6.1.0.0",
-        "display_name": "PowerShell Modules"
-    },
-    "installedApplication": {
-        "name": "installedApplication",
-        "type": "string",
-        "description": "A semicolon-separated list of the names of the applications that should be installed. e.g. 'Microsoft SQL Server 2014 (64-bit); Microsoft Visual Studio Code' or 'Microsoft SQL Server 2014*' (to match any application starting with 'Microsoft SQL Server 2014')",
-        "display_name": "Application names (supports wildcards)"
-    },
-    "MembersToExclude": {
-        "name": "MembersToExclude",
-        "type": "string",
-        "description": "A semicolon-separated list of members that should be excluded in the Administrators local group. Ex: Administrator; myUser1; myUser2",
-        "display_name": "Members to exclude"
-    },
-    "caCommonName": {
-        "name": "caCommonName",
-        "type": "string",
-        "description": "The common name (CN) of the Certificate Authority (CA) provider. For example, for an issuer CN = Contoso, OU = .., DC = .., you can specify Contoso",
-        "display_name": "The common name of the certificate authority"
-    },
-    "maximumPercentageLife": {
-        "name": "maximumPercentageLife",
-        "type": "Integer",
-        "description": "Enter the percentage of lifetime of the certificate when you want to trigger the policy action. For example, to trigger a policy action at 80% of the certificate's valid life, enter '80'.",
-        "display_name": "The maximum lifetime percentage"
-    },
-    "minimumDaysBeforeExpiry": {
-        "name": "minimumDaysBeforeExpiry",
-        "type": "Integer",
-        "description": "Enter the days before expiration of the certificate when you want to trigger the policy action. For example, to trigger a policy action 90 days before the certificate's expiration, enter '90'.",
-        "display_name": "The minimum days before expiry"
-    },
-    "daysToExpire": {
-        "name": "daysToExpire",
-        "type": "Integer",
-        "description": "The number of days for a certificate to expire.",
-        "display_name": "Days to expire"
-    },
-    "minimumRSAKeySize": {
-        "name": "minimumRSAKeySize",
-        "type": "Integer",
-        "description": "The minimum key size for RSA keys.",
-        "display_name": "Minimum RSA key size",
-        "allowed_values": [
-            2048,
-            3072,
-            4096
-        ]
-    },
-    "minimumDaysBeforeExpiration": {
-        "name": "minimumDaysBeforeExpiration",
-        "type": "Integer",
-        "description": "Specify the minimum number of days that a secret should remain usable prior to expiration.",
-        "display_name": "The minimum days before expiration"
-    },
-    "maximumValidityInDays": {
-        "name": "maximumValidityInDays",
-        "type": "Integer",
-        "description": "Specify the maximum number of days a secret can be valid for after activation.",
-        "display_name": "The maximum validity period in days"
-    },
-    "excludedNamespaces": {
-        "name": "excludedNamespaces",
-        "type": "Array",
-        "description": "List of Kubernetes namespaces to exclude from policy evaluation.",
-        "display_name": "Namespace exclusions",
-        "default_value": [
-            "kube-system",
-            "gatekeeper-system",
-            "azure-arc"
-        ]
-    },
-    "namespaces": {
-        "name": "namespaces",
-        "type": "Array",
-        "description": "List of Kubernetes namespaces to only include in policy evaluation. An empty list means the policy is applied to all resources in all namespaces.",
-        "display_name": "Namespace inclusions",
-        "default_value": []
-    },
-    "labelSelector": {
-        "name": "labelSelector",
-        "type": "object",
-        "description": "Label query to select Kubernetes resources for policy evaluation. An empty label selector matches all Kubernetes resources.",
-        "display_name": "Kubernetes label selector"
-    },
-    "cpuLimit": {
-        "name": "cpuLimit",
-        "type": "String",
-        "description": "The maximum CPU units allowed for a container. E.g. 200m. For more information, please refer https://aka.ms/k8s-policy-pod-limits",
-        "display_name": "Max allowed CPU units"
-    },
-    "memoryLimit": {
-        "name": "memoryLimit",
-        "type": "String",
-        "description": "The maximum memory bytes allowed for a container. E.g. 1Gi. For more information, please refer https://aka.ms/k8s-policy-pod-limits",
-        "display_name": "Max allowed memory bytes"
-    },
-    "forbiddenSysctls": {
-        "name": "forbiddenSysctls",
-        "type": "Array",
-        "description": "The list of plain sysctl names or sysctl patterns which end with *. The string * matches all sysctls. For more information, visit https://aka.ms/k8s-policy-sysctl-interfaces.",
-        "display_name": "Forbidden sysctls"
-    },
-    "allowedContainerPortsList": {
-        "name": "allowedContainerPortsList",
-        "type": "Array",
-        "description": "The list of container ports allowed in a Kubernetes cluster.",
-        "display_name": "Allowed container ports list"
-    },
-    "allowedProfiles": {
-        "name": "allowedProfiles",
-        "type": "Array",
-        "description": "The list of seccomp profiles that containers are allowed to use. E.g. 'runtime/default;docker/default'. Provide empty list as input to block everything.",
-        "display_name": "Allowed seccomp profiles",
-        "default_value": []
-    },
-    "procMountType": {
-        "name": "procMountType",
-        "type": "String",
-        "description": "The ProcMountType that containers are allowed to use in the cluster.",
-        "display_name": "ProcMountType",
-        "default_value": "Default",
-        "allowed_values": [
-            "Unmasked",
-            "Default"
-        ]
-    },
-    "allowedCapabilities": {
-        "name": "allowedCapabilities",
-        "type": "Array",
-        "description": "The list of capabilities that are allowed to be added to a container. Provide empty list as input to block everything.",
-        "display_name": "Allowed capabilities",
-        "default_value": []
-    },
-    "requiredDropCapabilities": {
-        "name": "requiredDropCapabilities",
-        "type": "Array",
-        "description": "The list of capabilities that must be dropped by a container.",
-        "display_name": "Required drop capabilities",
-        "default_value": []
-    },
-    "allowedContainerImagesRegex": {
-        "name": "allowedContainerImagesRegex",
-        "type": "String",
-        "description": "The RegEx rule used to match allowed container images in a Kubernetes cluster. For example, to allow any Azure Container Registry image by matching partial path: ^.+azurecr.io/.+$",
-        "display_name": "Allowed container images regex"
-    },
-    "allowedFlexVolumeDrivers": {
-        "name": "allowedFlexVolumeDrivers",
-        "type": "Array",
-        "description": "The list of drivers that FlexVolume volumes are allowed to use. Provide empty list as input to block everything.",
-        "display_name": "Allowed FlexVolume drivers",
-        "default_value": []
-    },
-    "allowedHostPaths": {
-        "name": "allowedHostPaths",
-        "type": "Object",
-        "description": "The host paths allowed for pod hostPath volumes to use. Provide an empty paths list to block all host paths.",
-        "display_name": "Allowed host paths",
-        "default_value": {
-            "paths": []
-        }
-    },
-    "runAsUserRule": {
-        "name": "runAsUserRule",
-        "type": "String",
-        "description": "The 'RunAsUser' rule that containers are allowed to run with.",
-        "display_name": "Run as user rule",
-        "default_value": "MustRunAsNonRoot",
-        "allowed_values": [
-            "MustRunAs",
-            "MustRunAsNonRoot",
-            "RunAsAny"
-        ]
-    },
-    "runAsUserRanges": {
-        "name": "runAsUserRanges",
-        "type": "Object",
-        "description": "The user ID ranges that are allowed for containers to use.",
-        "display_name": "Allowed user ID ranges",
-        "default_value": {
-            "ranges": []
-        }
-    },
-    "runAsGroupRule": {
-        "name": "runAsGroupRule",
-        "type": "String",
-        "description": "The 'RunAsGroup' rule that containers are allowed to run with.",
-        "display_name": "Run as group rule",
-        "default_value": "RunAsAny",
-        "allowed_values": [
-            "MustRunAs",
-            "MayRunAs",
-            "RunAsAny"
-        ]
-    },
-    "runAsGroupRanges": {
-        "name": "runAsGroupRanges",
-        "type": "Object",
-        "description": "The group ID ranges that are allowed for containers to use.",
-        "display_name": "Allowed group ID ranges",
-        "default_value": {
-            "ranges": []
-        }
-    },
-    "supplementalGroupsRule": {
-        "name": "supplementalGroupsRule",
-        "type": "String",
-        "description": "The 'SupplementalGroups' rule that containers are allowed to run with.",
-        "display_name": "Supplemental group rule",
-        "default_value": "RunAsAny",
-        "allowed_values": [
-            "MustRunAs",
-            "MayRunAs",
-            "RunAsAny"
-        ]
-    },
-    "supplementalGroupsRanges": {
-        "name": "supplementalGroupsRanges",
-        "type": "Object",
-        "description": "The supplemental group ID ranges that are allowed for containers to use.",
-        "display_name": "Allowed supplemental group ID ranges",
-        "default_value": {
-            "ranges": []
-        }
-    },
-    "fsGroupRule": {
-        "name": "fsGroupRule",
-        "type": "String",
-        "description": "The 'FSGroup' rule that containers are allowed to run with.",
-        "display_name": "File system group rule",
-        "default_value": "RunAsAny",
-        "allowed_values": [
-            "MustRunAs",
-            "MayRunAs",
-            "RunAsAny"
-        ]
-    },
-    "fsGroupRanges": {
-        "name": "fsGroupRanges",
-        "type": "Object",
-        "description": "The file system group ranges that are allowed for pods to use.",
-        "display_name": "Allowed file system group ID ranges",
-        "default_value": {
-            "ranges": []
-        }
-    },
-    "allowedSELinuxOptions": {
-        "name": "allowedSELinuxOptions",
-        "type": "Object",
-        "description": "The allowed configurations for pod and container level SELinux Options. Provide empty options list as input to block everything.",
-        "display_name": "Allowed SELinux options",
-        "default_value": {
-            "options": []
-        }
-    },
-    "allowedVolumeTypes": {
-        "name": "allowedVolumeTypes",
-        "type": "Array",
-        "description": "The list of volume types that can be used by a pod. Provide empty list as input to block everything.",
-        "display_name": "Allowed volume types",
-        "default_value": []
-    },
-    "allowHostNetwork": {
-        "name": "allowHostNetwork",
-        "type": "Boolean",
-        "description": "Set this value to true if pod is allowed to use host network otherwise false.",
-        "display_name": "Allow host network usage"
-    },
-    "minPort": {
-        "name": "minPort",
-        "type": "Integer",
-        "description": "The minimum value in the allowable host port range that pods can use in the host network namespace.",
-        "display_name": "Min host port"
-    },
-    "maxPort": {
-        "name": "maxPort",
-        "type": "Integer",
-        "description": "The maximum value in the allowable host port range that pods can use in the host network namespace.",
-        "display_name": "Max host port"
-    },
-    "labelsList": {
-        "name": "labelsList",
-        "type": "Array",
-        "description": "The list of labels to be specified on Pods in a Kubernetes cluster.",
-        "display_name": "List of labels"
-    },
-    "allowedServicePortsList": {
-        "name": "allowedServicePortsList",
-        "type": "Array",
-        "description": "The list of service ports allowed in a Kubernetes cluster.",
-        "display_name": "Allowed service ports list"
-    },
-    "allowedExternalIPs": {
-        "name": "allowedExternalIPs",
-        "type": "Array",
-        "description": "List of External IPs that services are allowed to use. Empty array means all external IPs are disallowed.",
-        "display_name": "Allowed External IPs",
-        "default_value": []
-    },
-    "disallowedCapabilities": {
-        "name": "disallowedCapabilities",
-        "type": "Array",
-        "description": "List of capabilities that containers are not able to use",
-        "display_name": "Blocked capabilities",
-        "default_value": []
-    },
-    "listOfAllowedTenants": {
-        "name": "listOfAllowedTenants",
-        "type": "Array",
-        "description": "List of the tenants IDs that can be onboarded through Azure Lighthouse",
-        "display_name": "Allowed tenants"
-    },
-    "computeNames": {
-        "name": "computeNames",
-        "type": "Array",
-        "description": "List of compute names where this policy should be applied. Ex. cpu-cluster;gpu-cluster. If no value is provided to this parameter then policy is applicable to all computes.",
-        "display_name": "Compute names where Azure ML jobs run",
-        "default_value": []
-    },
-    "allowedPythonPackageChannels": {
-        "name": "allowedPythonPackageChannels",
-        "type": "Array",
-        "description": "List of allowed Python package indexes. Ex. http://somepythonindex.org ",
-        "display_name": "Allowed Python package indexes",
-        "default_value": []
-    },
-    "allowedModuleAuthors": {
-        "name": "allowedModuleAuthors",
-        "type": "Array",
-        "description": "List of allowed module authors.",
-        "display_name": "Allowed module authors",
-        "default_value": []
-    },
-    "allowedACRs": {
-        "name": "allowedACRs",
-        "type": "Array",
-        "description": "List of Azure Container Registries that can be used with Azure ML. Ex. amlrepo.azurecr.io;amlrepo.azurecr.io/foo",
-        "display_name": "Azure Container Registries",
-        "default_value": []
-    },
-    "approvalEndpoint": {
-        "name": "approvalEndpoint",
-        "type": "String",
-        "description": "Approval endpoint that needs to be called before an Azure ML job is run. Ex. http://amlrunapproval/approve",
-        "display_name": "Approval endpoint"
-    },
-    "signingKey": {
-        "name": "signingKey",
-        "type": "String",
-        "description": "Public key text in PGP public key format, with newline characters encoded as string literals \"\\r\" and \"\\n\".",
-        "display_name": "PGP public key"
-    },
-    "logFilters": {
-        "name": "logFilters",
-        "type": "Array",
-        "description": "List of log filter expressions used to filter logs. Ex. ^prefix1.*$",
-        "display_name": "Log filter expressions",
-        "default_value": []
-    },
-    "datastore": {
-        "name": "datastore",
-        "type": "String",
-        "description": "Datastore used to store filtered logs. Ex. LogsDatastore which is configured in AML.",
-        "display_name": "Datastore"
-    },
-    "operationName": {
-        "name": "operationName",
-        "type": "String",
-        "description": "Security Operation name for which activity log alert should exist",
-        "display_name": "Operation Name",
-        "allowed_values": [
-            "Microsoft.Security/policies/write",
-            "Microsoft.Security/securitySolutions/write",
-            "Microsoft.Security/securitySolutions/delete"
-        ]
-    },
-    "logAnalyticsWorkspaceId": {
-        "name": "logAnalyticsWorkspaceId",
-        "type": "String",
-        "description": "This is the Id (GUID) of the Log Analytics Workspace that the VMs should be configured for.",
-        "display_name": "Log Analytics Workspace Id that VMs should be configured for"
-    },
-    "listOfResourceTypes": {
-        "name": "listOfResourceTypes",
-        "type": "Array",
-        "description": null,
-        "display_name": "Resource Types",
-        "strong_type": "resourceTypes"
-    },
-    "listOfImageIdToInclude_windows": {
-        "name": "listOfImageIdToInclude_windows",
-        "type": "Array",
-        "description": "Example value: '/subscriptions/<subscriptionId>/resourceGroups/YourResourceGroup/providers/Microsoft.Compute/images/ContosoStdImage'",
-        "display_name": "Optional: List of virtual machine images that have supported Windows OS to add to scope",
-        "default_value": []
-    },
-    "listOfImageIdToInclude_linux": {
-        "name": "listOfImageIdToInclude_linux",
-        "type": "Array",
-        "description": "Example value: '/subscriptions/<subscriptionId>/resourceGroups/YourResourceGroup/providers/Microsoft.Compute/images/ContosoStdImage'",
-        "display_name": "Optional: List of virtual machine images that have supported Linux OS to add to scope",
-        "default_value": []
-    },
-    "IPsecEncryption": {
-        "name": "IPsecEncryption",
-        "type": "Array",
-        "description": "IPsec Encryption",
-        "display_name": "IPsec Encryption"
-    },
-    "IPsecIntegrity": {
-        "name": "IPsecIntegrity",
-        "type": "Array",
-        "description": "IPsec Integrity",
-        "display_name": "IPsec Integrity"
-    },
-    "IKEEncryption": {
-        "name": "IKEEncryption",
-        "type": "Array",
-        "description": "IKE Encryption",
-        "display_name": "IKE Encryption"
-    },
-    "IKEIntegrity": {
-        "name": "IKEIntegrity",
-        "type": "Array",
-        "description": "IKE Integrity",
-        "display_name": "IKE Integrity"
-    },
-    "DHGroup": {
-        "name": "DHGroup",
-        "type": "Array",
-        "description": "DH Group",
-        "display_name": "DH Group"
-    },
-    "PFSGroup": {
-        "name": "PFSGroup",
-        "type": "Array",
-        "description": "PFS Group",
-        "display_name": "PFS Group"
-    },
-    "listOfLocations": {
-        "name": "listOfLocations",
-        "type": "Array",
-        "description": "Audit if Network Watcher is not enabled for region(s).",
-        "display_name": "Locations",
-        "strong_type": "location"
-    },
-    "resourceGroupName": {
-        "name": "resourceGroupName",
-        "type": "String",
-        "description": "Name of the resource group of NetworkWatcher, such as NetworkWatcherRG. This is the resource group where the Network Watchers are located.",
-        "display_name": "NetworkWatcher resource group name",
-        "default_value": "NetworkWatcherRG"
-    },
-    "virtualNetworkId": {
-        "name": "virtualNetworkId",
-        "type": "string",
-        "description": "Resource Id of the virtual network. Example: /subscriptions/YourSubscriptionId/resourceGroups/YourResourceGroupName/providers/Microsoft.Network/virtualNetworks/Name",
-        "display_name": "Virtual network Id"
-    },
-    "virtualNetworkGatewayId": {
-        "name": "virtualNetworkGatewayId",
-        "type": "string",
-        "description": "Resource Id of the virtual network gateway. Example: /subscriptions/YourSubscriptionId/resourceGroups/YourResourceGroup/providers/Microsoft.Network/virtualNetworkGateways/Name",
-        "display_name": "Virtual network gateway Id"
-    },
-    "subnetId": {
-        "name": "subnetId",
-        "type": "string",
-        "description": "The resource ID of the virtual network subnet that should have a rule enabled. Example: /subscriptions/00000000-1111-2222-3333-444444444444/resourceGroups/Default/providers/Microsoft.Network/virtualNetworks/testvnet/subnets/testsubnet",
-        "display_name": "Subnet ID",
-        "strong_type": "Microsoft.Network/virtualNetworks/subnets"
-    },
-    "allowedTenantIds": {
-        "name": "allowedTenantIds",
-        "type": "Array",
-        "description": "This parameter defines the list of Allowed Tenant Ids that are allowed to create managed private endpoints in the workspaces",
-        "display_name": "List of Allowed Tenant Ids for private endpoint creation",
-        "default_value": []
-    },
-    "tagName": {
-        "name": "tagName",
-        "type": "String",
-        "description": "Name of the tag, such as 'environment'",
-        "display_name": "Tag Name"
-    },
-    "tagValue": {
-        "name": "tagValue",
-        "type": "String",
-        "description": "Value of the tag, such as 'production'",
-        "display_name": "Tag Value"
-    }
-}
+{}
 PARAMETERS
 }
 
@@ -2072,103 +886,7 @@ resource "azurerm_policy_assignment" "example_params_required" {
   scope                = local.scope
   enforcement_mode     = local.enforcement_mode_example_params_required
   parameters = jsonencode({
-    metricName = { "value" = null }
-	listOfAllowedSKUs = { "value" = null }
-	allowedEncryptionSets = { "value" = null }
-	approvedExtensions = { "value" = null }
-	includeAKSClusters = { "value" = null }
-	listOfAllowedLocations = { "value" = null }
-	policyEffect = { "value" = "deny" }
-	throughputMax = { "value" = null }
-	allowedLinkedServiceResourceTypes = { "value" = null }
-	listOfResourceTypesAllowed = { "value" = null }
-	listOfResourceTypesNotAllowed = { "value" = null }
-	IncludeArcMachines = { "value" = "false" }
-	ApplicationName = { "value" = null }
-	MembersToInclude = { "value" = null }
-	host = { "value" = null }
-	port = { "value" = null }
-	shouldConnect = { "value" = "False" }
-	WorkspaceId = { "value" = null }
-	ServiceName = { "value" = null }
-	DomainName = { "value" = null }
-	TimeZone = { "value" = null }
-	CertificateStorePath = { "value" = "Cert:" }
-	ExpirationLimitInDays = { "value" = "30" }
-	CertificateThumbprintsToInclude = { "value" = "" }
-	CertificateThumbprintsToExclude = { "value" = "" }
-	IncludeExpiredCertificates = { "value" = "false" }
-	CertificateThumbprints = { "value" = null }
-	ExecutionPolicy = { "value" = null }
-	Modules = { "value" = null }
-	installedApplication = { "value" = null }
-	MembersToExclude = { "value" = null }
-	caCommonName = { "value" = null }
-	maximumPercentageLife = { "value" = null }
-	minimumDaysBeforeExpiry = { "value" = null }
-	daysToExpire = { "value" = null }
-	minimumRSAKeySize = { "value" = null }
-	minimumDaysBeforeExpiration = { "value" = null }
-	maximumValidityInDays = { "value" = null }
-	excludedNamespaces = { "value" = ["kube-system", "gatekeeper-system", "azure-arc"] }
-	namespaces = { "value" = [] }
-	labelSelector = { "value" = null }
-	cpuLimit = { "value" = null }
-	memoryLimit = { "value" = null }
-	forbiddenSysctls = { "value" = null }
-	allowedContainerPortsList = { "value" = null }
-	allowedProfiles = { "value" = [] }
-	procMountType = { "value" = "Default" }
-	allowedCapabilities = { "value" = [] }
-	requiredDropCapabilities = { "value" = [] }
-	allowedContainerImagesRegex = { "value" = null }
-	allowedFlexVolumeDrivers = { "value" = [] }
-	allowedHostPaths = { "value" = {"paths": []} }
-	runAsUserRule = { "value" = "MustRunAsNonRoot" }
-	runAsUserRanges = { "value" = {"ranges": []} }
-	runAsGroupRule = { "value" = "RunAsAny" }
-	runAsGroupRanges = { "value" = {"ranges": []} }
-	supplementalGroupsRule = { "value" = "RunAsAny" }
-	supplementalGroupsRanges = { "value" = {"ranges": []} }
-	fsGroupRule = { "value" = "RunAsAny" }
-	fsGroupRanges = { "value" = {"ranges": []} }
-	allowedSELinuxOptions = { "value" = {"options": []} }
-	allowedVolumeTypes = { "value" = [] }
-	allowHostNetwork = { "value" = null }
-	minPort = { "value" = null }
-	maxPort = { "value" = null }
-	labelsList = { "value" = null }
-	allowedServicePortsList = { "value" = null }
-	allowedExternalIPs = { "value" = [] }
-	disallowedCapabilities = { "value" = [] }
-	listOfAllowedTenants = { "value" = null }
-	computeNames = { "value" = [] }
-	allowedPythonPackageChannels = { "value" = [] }
-	allowedModuleAuthors = { "value" = [] }
-	allowedACRs = { "value" = [] }
-	approvalEndpoint = { "value" = null }
-	signingKey = { "value" = null }
-	logFilters = { "value" = [] }
-	datastore = { "value" = null }
-	operationName = { "value" = null }
-	logAnalyticsWorkspaceId = { "value" = null }
-	listOfResourceTypes = { "value" = null }
-	listOfImageIdToInclude_windows = { "value" = [] }
-	listOfImageIdToInclude_linux = { "value" = [] }
-	IPsecEncryption = { "value" = null }
-	IPsecIntegrity = { "value" = null }
-	IKEEncryption = { "value" = null }
-	IKEIntegrity = { "value" = null }
-	DHGroup = { "value" = null }
-	PFSGroup = { "value" = null }
-	listOfLocations = { "value" = null }
-	resourceGroupName = { "value" = "NetworkWatcherRG" }
-	virtualNetworkId = { "value" = null }
-	virtualNetworkGatewayId = { "value" = null }
-	subnetId = { "value" = null }
-	allowedTenantIds = { "value" = [] }
-	tagName = { "value" = null }
-	tagValue = { "value" = null }
+
 })
 }
 

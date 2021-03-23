@@ -1,19 +1,16 @@
 import os
 import json
-import logging
 from typing import Union
 from jinja2 import Template, Environment, FileSystemLoader
+from azure_guardrails.shared import utils
 
 
-logger = logging.getLogger(__name__)
-
-
-class TerraformTemplateNoParams:
+class TerraformTemplateNoParamsV3:
     """Terraform Template for when there are no parameters"""
 
     def __init__(
         self,
-        policy_names: dict,
+        policy_id_pairs: dict,
         subscription_name: str = "",
         management_group: str = "",
         enforcement_mode: bool = False,
@@ -24,7 +21,7 @@ class TerraformTemplateNoParams:
         )
         self.subscription_name = subscription_name
         self.management_group = management_group
-        self.policy_names = policy_names
+        self.policy_id_pairs = self._policy_id_pairs(policy_id_pairs)
         if enforcement_mode:
             self.enforcement_string = "true"
         else:
@@ -50,11 +47,35 @@ class TerraformTemplateNoParams:
         initiative_name = initiative_name.lower()
         return initiative_name
 
+    def _policy_id_pairs(self, policy_id_pairs: dict) -> dict:
+        example_input = {
+            "API for FHIR": {
+                "051cba44-2429-45b9-9649-46cec11c7119": {
+                    "display_name": "Azure API for FHIR should use a customer-managed key to encrypt data at rest",
+                    "short_id": "051cba44-2429-45b9-9649-46cec11c7119"
+                },
+                "1ee56206-5dd1-42ab-b02d-8aae8b1634ce": {
+                    "display_name": "Azure API for FHIR should use private link",
+                    "short_id": "1ee56206-5dd1-42ab-b02d-8aae8b1634ce"
+                }
+            }
+        }
+        all_valid_services = utils.get_service_names()
+        for service_name, service_policies in policy_id_pairs.items():
+            if service_name not in all_valid_services:
+                raise Exception("The service provided is not a valid service")
+            for policy_id, policy_details in service_policies.items():
+                if not policy_details.get("display_name", None):
+                    raise Exception("There should be a display name")
+                if not policy_details.get("short_id", None):
+                    raise Exception("There should be a short_id")
+        return policy_id_pairs
+
     def rendered(self) -> str:
         template_contents = dict(
             name=self.name,
             initiative_name=self.initiative_name,
-            policy_names=self.policy_names,
+            policy_id_pairs=self.policy_id_pairs,
             subscription_name=self.subscription_name,
             management_group=self.management_group,
             enforcement_mode=self.enforcement_string,
@@ -62,7 +83,7 @@ class TerraformTemplateNoParams:
         )
         template_path = os.path.join(os.path.dirname(__file__), "no-parameters")
         env = Environment(loader=FileSystemLoader(template_path))  # nosec
-        template = env.get_template("policy-set-with-builtins.tf")
+        template = env.get_template("policy-initiative-no-params.tf")
         return template.render(t=template_contents)
 
 
@@ -133,11 +154,11 @@ class TerraformParameterV2:
         return json.dumps(self.json())
 
 
-class TerraformTemplateWithParams:
+class TerraformTemplateWithParamsV3:
     """Terraform Template with Parameters"""
     def __init__(
         self,
-        parameters: dict,
+        policy_id_pairs: dict,
         parameter_requirement_str: str,
         subscription_name: str = "",
         management_group: str = "",
@@ -147,10 +168,11 @@ class TerraformTemplateWithParams:
             subscription_name=subscription_name, management_group=management_group,
             parameter_requirement_str=parameter_requirement_str
         )
-        self.service_parameters = self._parameters(parameters)
+        self.service_parameters = self._parameters(policy_id_pairs)
         self.subscription_name = subscription_name
         self.management_group = management_group
         self.category = "Testing"
+        self.policy_id_pairs = self._policy_id_pairs(policy_id_pairs)
         if enforcement_mode:
             self.enforcement_string = "true"
         else:
@@ -185,34 +207,37 @@ class TerraformTemplateWithParams:
         """
         # TODO: Figure out how to supply the parameter values here if we have a parameters config file for them?
         results = {}
-        for service_name, policy_definitions_with_params in parameters.items():
+        for service_name, service_policies in parameters.items():
             results[service_name] = {}
             # results["Kubernetes"] = {  "Do not allow privileged containers in Kubernetes cluster": { "excludedNamespaces": {stuff} }}
-            for policy_definition_name, parameters in policy_definitions_with_params.items():
+            for policy_definition_name, policy_definition_details in service_policies.items():
                 results[service_name][policy_definition_name] = {}
-                for parameter_name, parameter_details in parameters.items():
-                    parameter = TerraformParameterV2(
-                        name=parameter_name,
-                        service=service_name,
-                        policy_definition_name=policy_definition_name,
-                        initiative_parameters_json=parameter_details,
-                        parameter_type=parameter_details.get("type"),
-                        default_value=parameter_details.get("default_value"),
-                        value=parameter_details.get("value"),
-                    )
-                    results[service_name][policy_definition_name][parameter_name] = parameter
+                if "parameters" in policy_definition_details.keys():
+                    for parameter_name, parameter_details in policy_definition_details.get("parameters").items():
+                        parameter = TerraformParameterV2(
+                            name=parameter_name,
+                            service=service_name,
+                            policy_definition_name=policy_definition_name,
+                            initiative_parameters_json=parameter_details,
+                            parameter_type=parameter_details.get("type"),
+                            default_value=parameter_details.get("default_value"),
+                            value=parameter_details.get("value"),
+                        )
+                        results[service_name][policy_definition_name][parameter_name] = parameter
         return results
 
-    @property
-    def policies_sorted_by_service(self) -> dict:
+    def _policy_id_pairs(self, policy_id_pairs) -> dict:
         """To be used in Terraform locals.policy_names"""
-        results = {}
-        for service_name, policy_definitions_with_params in self.service_parameters.items():
-            keys = list(policy_definitions_with_params.keys())
-            if keys:
-                keys.sort()
-                results[service_name] = keys
-        return results
+        all_valid_services = utils.get_service_names()
+        for service_name, service_policies in policy_id_pairs.items():
+            if service_name not in all_valid_services:
+                raise Exception("The service provided is not a valid service")
+            for policy_id, policy_details in service_policies.items():
+                if not policy_details.get("display_name", None):
+                    raise Exception("There should be a display name")
+                if not policy_details.get("short_id", None):
+                    raise Exception("There should be a short_id")
+        return policy_id_pairs
 
     @property
     def initiative_parameters(self) -> dict:
@@ -245,7 +270,7 @@ class TerraformTemplateWithParams:
             management_group=self.management_group,
             enforcement_mode=self.enforcement_string,
             initiative_parameters=initiative_parameters,
-            policies_sorted_by_service=self.policies_sorted_by_service,
+            policy_id_pairs=self.policy_id_pairs,
             policy_definition_reference_parameters=self.service_parameters,
             policy_assignment_parameters=self.policy_assignment_parameters,
             category=self.category
@@ -253,6 +278,6 @@ class TerraformTemplateWithParams:
         template_path = os.path.join(os.path.dirname(__file__), "parameters")
         env = Environment(loader=FileSystemLoader(template_path))  # nosec
         env.filters["debug"] = print
-        template = env.get_template("policy-set-with-parameters.tf")
+        template = env.get_template("policy-initiative-with-parameters.tf")
         result = template.render(t=template_contents)
         return result

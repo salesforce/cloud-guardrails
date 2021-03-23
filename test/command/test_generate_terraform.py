@@ -21,14 +21,14 @@ class GenerateTerraformClickUnitTests(unittest.TestCase):
         """command.generate_terraform: should return exit code 0"""
         result = self.runner.invoke(generate_terraform, ["--help"])
         self.assertTrue(result.exit_code == 0)
-        args = ["--service", "all", "--subscription", "example", "--no-params"]
+        args = ["--service", "all", "--subscription", "example", "--no-params", "-n"]
         result = self.runner.invoke(generate_terraform, args)
         print(result.output)
         self.assertTrue(result.exit_code == 0)
 
     def test_generate_terraform_command_with_config(self):
         """command.generate_terraform: with config file"""
-        args = ["--service", "all", "--subscription", "example", "--no-params", "--config-file", default_config_file]
+        args = ["--service", "all", "--subscription", "example", "--no-params", "-n", "--config-file", default_config_file]
         result = self.runner.invoke(generate_terraform, args)
         self.assertTrue(result.exit_code == 0)
         # print(result.output)
@@ -37,7 +37,7 @@ class GenerateTerraformClickUnitTests(unittest.TestCase):
 
     def test_generate_terraform_with_explicit_matches(self):
         """command.generate_terraform: with config file that matches keywords"""
-        args = ["--service", "all", "--subscription", "example", "--no-params", "--config-file", config_with_keyword_matches]
+        args = ["--service", "all", "--subscription", "example", "--no-params", "-n", "--config-file", config_with_keyword_matches]
         result = self.runner.invoke(generate_terraform, args)
         print(result.output)
         # We know for sure that no policies that match "customer-managed key" will also
@@ -59,7 +59,7 @@ class GenerateTerraformClickUnitTests(unittest.TestCase):
 
         args = ["--service", "Key Vault",
                 "--subscription", "example",
-                "--params-optional"]
+                "--params-optional", "-n"]
         result = self.runner.invoke(generate_terraform, args)
         print(result.output)
         # We expect that a certain parameter will be in the output. Assert that it exists in the output
@@ -68,7 +68,7 @@ class GenerateTerraformClickUnitTests(unittest.TestCase):
     def test_generate_terraform_params_required(self):
         args = ["--service", "Kubernetes",
                 "--subscription", "example",
-                "--params-required"]
+                "--params-required", "-n"]
         result = self.runner.invoke(generate_terraform, args)
         print(result.output)
         # We expect that a certain parameter will be in the output. Assert that it exists in the output
