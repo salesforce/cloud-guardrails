@@ -106,3 +106,25 @@ class IamDefinitionTestCase(unittest.TestCase):
         }
         # print(json.dumps(container_registry_result.get(cmk_message), indent=4))
         self.assertDictEqual(container_registry_result.get(cmk_message), expected_result)
+
+    def test_compliance_coverage_data_azure_policies(self):
+        results = self.azure_policies.compliance_coverage_data()
+        print(json.dumps(results, indent=4))
+
+    def test_azure_policies_table_summary(self):
+        results = self.azure_policies.table_summary(hyperlink_format=False)
+        # print(json.dumps(results, indent=4))
+
+    def test_azure_policies_csv_summary(self):
+        path = os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir, os.path.pardir, "all_policies.csv"))
+        if os.path.exists(path):
+            print("Removing")
+            os.remove(path)
+        # print(json.dumps(results, indent=4))
+
+    def test_azure_policies_markdown_summary(self):
+        path = os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir, os.path.pardir, "all_policies.md"))
+        if os.path.exists(path):
+            print("Removing")
+            os.remove(path)
+        results = self.azure_policies.markdown_table()

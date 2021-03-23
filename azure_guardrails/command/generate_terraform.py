@@ -10,7 +10,6 @@ from azure_guardrails.terraform.terraform import TerraformTemplateNoParamsV3, Te
 from azure_guardrails.shared.iam_definition import AzurePolicies
 from azure_guardrails.shared import utils, validate
 from azure_guardrails.shared.config import get_default_config, get_config_from_file
-from azure_guardrails.guardrails.services import Services
 
 logger = logging.getLogger(__name__)
 
@@ -154,11 +153,9 @@ def generate_terraform(
         parameter_requirement_str = "params-optional"
 
     if service == "all":
-        services = Services(config=config)
         azure_policies = AzurePolicies(service_names=["all"], config=config)
     else:
         azure_policies = AzurePolicies(service_names=[service], config=config)
-        services = Services(service_names=[service], config=config)
 
     if no_params:
         audit_only = False
@@ -190,7 +187,7 @@ def generate_terraform(
 
         def markdown_summary(file_prefix: str) -> str:
             # Write Markdown summary
-            markdown_table = services.markdown_table(no_params=no_params, params_optional=params_optional, params_required=params_required)
+            markdown_table = azure_policies.markdown_table(no_params=no_params, params_optional=params_optional, params_required=params_required)
             markdown_file_name = f"{file_prefix}.md"
             if os.path.exists(markdown_file_name):
                 if verbosity >= 1:
@@ -210,4 +207,4 @@ def generate_terraform(
 
         # Write CSV summary
         csv_file = f"{parameter_requirement_str}.csv"
-        services.csv_summary(csv_file, verbosity=verbosity, no_params=no_params, params_optional=params_optional, params_required=params_required)
+        azure_policies.csv_summary(csv_file, verbosity=verbosity, no_params=no_params, params_optional=params_optional, params_required=params_required)
