@@ -1,5 +1,5 @@
 # import unittest
-# from azure_guardrails.terraform.terraform import TerraformParameterV2, TerraformTemplateWithParams
+# from azure_guardrails.terraform.terraform import TerraformParameter, TerraformTemplateWithParams
 #
 #
 # class TerraformParameterV2TestCase(unittest.TestCase):
@@ -24,7 +24,7 @@
 #         default_value = ["Standard"]
 #         parameter_type = "Array"
 #         value = None
-#         self.parameter = TerraformParameterV2(name, service, policy_definition_name, initiative_params_json,
+#         self.parameter = TerraformParameter(name, service, policy_definition_name, initiative_params_json,
 #                                               parameter_type, default_value, value)
 #
 #     def test_terraform_parameter_v2_attributes(self):

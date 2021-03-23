@@ -5,7 +5,7 @@ from jinja2 import Template, Environment, FileSystemLoader
 from azure_guardrails.shared import utils
 
 
-class TerraformTemplateNoParamsV3:
+class TerraformTemplateNoParams:
     """Terraform Template for when there are no parameters"""
 
     def __init__(
@@ -87,7 +87,7 @@ class TerraformTemplateNoParamsV3:
         return template.render(t=template_contents)
 
 
-class TerraformParameterV2:
+class TerraformParameter:
     def __init__(
             self, name: str, service: str, policy_definition_name: str, initiative_parameters_json: dict,
             parameter_type: str,
@@ -154,7 +154,7 @@ class TerraformParameterV2:
         return json.dumps(self.json())
 
 
-class TerraformTemplateWithParamsV3:
+class TerraformTemplateWithParams:
     """Terraform Template with Parameters"""
     def __init__(
         self,
@@ -214,7 +214,7 @@ class TerraformTemplateWithParamsV3:
                 results[service_name][policy_definition_name] = {}
                 if "parameters" in policy_definition_details.keys():
                     for parameter_name, parameter_details in policy_definition_details.get("parameters").items():
-                        parameter = TerraformParameterV2(
+                        parameter = TerraformParameter(
                             name=parameter_name,
                             service=service_name,
                             policy_definition_name=policy_definition_name,
@@ -226,7 +226,8 @@ class TerraformTemplateWithParamsV3:
                         results[service_name][policy_definition_name][parameter_name] = parameter
         return results
 
-    def _policy_id_pairs(self, policy_id_pairs) -> dict:
+    @staticmethod
+    def _policy_id_pairs(policy_id_pairs) -> dict:
         """To be used in Terraform locals.policy_names"""
         all_valid_services = utils.get_service_names()
         for service_name, service_policies in policy_id_pairs.items():

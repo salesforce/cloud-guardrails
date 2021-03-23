@@ -15,10 +15,6 @@ def get_service_policy_files(service_policy_directory: str) -> list:
     ]
     policy_files.sort()
     return policy_files
-    # updated_policy_files = []
-    # for policy_file in policy_files:
-    #     updated_policy_files.append(os.path.join(service_policy_directory, policy_file))
-    # return updated_policy_files
 
 
 def create_azure_builtin_definition() -> dict:

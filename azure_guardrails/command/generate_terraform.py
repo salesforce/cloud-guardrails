@@ -6,7 +6,7 @@ import logging
 import click
 from click_option_group import optgroup, RequiredMutuallyExclusiveOptionGroup
 from azure_guardrails import set_log_level
-from azure_guardrails.terraform.terraform import TerraformTemplateNoParamsV3, TerraformTemplateWithParamsV3
+from azure_guardrails.terraform.terraform import TerraformTemplateNoParams, TerraformTemplateWithParams
 from azure_guardrails.shared.iam_definition import AzurePolicies
 from azure_guardrails.shared import utils, validate
 from azure_guardrails.shared.config import get_default_config, get_config_from_file
@@ -162,7 +162,7 @@ def generate_terraform(
         policy_id_pairs = azure_policies.get_all_policy_ids_sorted_by_service(
             no_params=True, params_optional=params_optional, params_required=params_required,
             audit_only=audit_only)
-        terraform_template = TerraformTemplateNoParamsV3(
+        terraform_template = TerraformTemplateNoParams(
             policy_id_pairs=policy_id_pairs,
             subscription_name=subscription,
             management_group=management_group,
@@ -173,7 +173,7 @@ def generate_terraform(
         policy_id_pairs = azure_policies.get_all_policy_ids_sorted_by_service(
             no_params=no_params, params_optional=params_optional, params_required=params_required,
             audit_only=audit_only)
-        terraform_template = TerraformTemplateWithParamsV3(
+        terraform_template = TerraformTemplateWithParams(
             policy_id_pairs=policy_id_pairs,
             subscription_name=subscription,
             management_group=management_group,
