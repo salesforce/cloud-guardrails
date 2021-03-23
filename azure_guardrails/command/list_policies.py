@@ -8,7 +8,7 @@ import yaml
 import click
 from click_option_group import optgroup, RequiredMutuallyExclusiveOptionGroup
 from azure_guardrails import set_log_level
-from azure_guardrails.guardrails.services import Services
+from azure_guardrails.shared.iam_definition import AzurePolicies
 from azure_guardrails.shared import utils, validate
 
 logger = logging.getLogger(__name__)
@@ -130,13 +130,16 @@ def get_display_names_sorted_by_service(
         params_required: bool,
 ) -> dict:
     if service == "all":
-        services = Services()
+        azure_policies = AzurePolicies()
     else:
-        services = Services(service_names=[service])
+        azure_policies = AzurePolicies(service_names=[service])
     if all_policies:
-        display_names = services.get_all_display_names_sorted_by_service(no_params=True, params_optional=True, params_required=True, audit_only=audit_only)
+        display_names = azure_policies.get_all_display_names_sorted_by_service(no_params=True, params_optional=True, params_required=True, audit_only=audit_only)
     else:
-        display_names = services.get_all_display_names_sorted_by_service(no_params=no_params, params_optional=params_optional, params_required=params_required, audit_only=audit_only)
+        display_names = azure_policies.get_all_display_names_sorted_by_service(no_params=no_params, params_optional=params_optional, params_required=params_required, audit_only=audit_only)
+    if service != "all":
+        trimmed_display_names = {service: display_names[service].copy()}
+        display_names = trimmed_display_names.copy()
     return display_names
 
 
@@ -175,7 +178,7 @@ def print_policies_in_stdout(
         params_required: bool,
         verbosity: int,
 ):
-    # TODO: Figure out if I should just print all of the policies as a list or if they should be indented. If indented, uncomment the commented lines below.
+
     display_names = get_display_names_sorted_by_service(
         service=service,
         audit_only=audit_only,
