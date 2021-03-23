@@ -3,7 +3,7 @@ import os
 import json
 from azure_guardrails.shared import utils
 from azure_guardrails.guardrails.policy_definition import PolicyDefinition
-from azure_guardrails.guardrails.services import skip_display_names
+from azure_guardrails.shared.iam_definition import skip_display_names
 
 # No Params
 policy_definition_file = os.path.abspath(os.path.join(

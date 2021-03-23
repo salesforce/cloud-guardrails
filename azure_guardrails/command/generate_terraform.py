@@ -7,9 +7,9 @@ import click
 from click_option_group import optgroup, RequiredMutuallyExclusiveOptionGroup
 from azure_guardrails import set_log_level
 from azure_guardrails.terraform.terraform import TerraformTemplateNoParams, TerraformTemplateWithParams
+from azure_guardrails.shared.iam_definition import AzurePolicies
 from azure_guardrails.shared import utils, validate
 from azure_guardrails.shared.config import get_default_config, get_config_from_file
-from azure_guardrails.guardrails.services import Services
 
 logger = logging.getLogger(__name__)
 
@@ -153,29 +153,32 @@ def generate_terraform(
         parameter_requirement_str = "params-optional"
 
     if service == "all":
-        services = Services(config=config)
+        azure_policies = AzurePolicies(service_names=["all"], config=config)
     else:
-        services = Services(service_names=[service], config=config)
+        azure_policies = AzurePolicies(service_names=[service], config=config)
 
     if no_params:
-        display_names = services.get_display_names_sorted_by_service_no_params()
+        audit_only = False
+        policy_id_pairs = azure_policies.get_all_policy_ids_sorted_by_service(
+            no_params=True, params_optional=params_optional, params_required=params_required,
+            audit_only=audit_only)
         terraform_template = TerraformTemplateNoParams(
-            policy_names=display_names,
+            policy_id_pairs=policy_id_pairs,
             subscription_name=subscription,
             management_group=management_group,
             enforcement_mode=enforcement_mode,
         )
     else:
-        display_names = services.get_display_names_sorted_by_service_with_params(
-            params_required=params_required
-        )
-
+        audit_only = False
+        policy_id_pairs = azure_policies.get_all_policy_ids_sorted_by_service(
+            no_params=no_params, params_optional=params_optional, params_required=params_required,
+            audit_only=audit_only)
         terraform_template = TerraformTemplateWithParams(
-            parameter_requirement_str=parameter_requirement_str,
-            parameters=display_names,
+            policy_id_pairs=policy_id_pairs,
             subscription_name=subscription,
             management_group=management_group,
             enforcement_mode=enforcement_mode,
+            parameter_requirement_str=parameter_requirement_str,
         )
     result = terraform_template.rendered()
     print(result)
@@ -184,7 +187,7 @@ def generate_terraform(
 
         def markdown_summary(file_prefix: str) -> str:
             # Write Markdown summary
-            markdown_table = services.markdown_table(no_params=no_params, params_optional=params_optional, params_required=params_required)
+            markdown_table = azure_policies.markdown_table(no_params=no_params, params_optional=params_optional, params_required=params_required)
             markdown_file_name = f"{file_prefix}.md"
             if os.path.exists(markdown_file_name):
                 if verbosity >= 1:
@@ -204,4 +207,4 @@ def generate_terraform(
 
         # Write CSV summary
         csv_file = f"{parameter_requirement_str}.csv"
-        services.csv_summary(csv_file, verbosity=verbosity, no_params=no_params, params_optional=params_optional, params_required=params_required)
+        azure_policies.csv_summary(csv_file, verbosity=verbosity, no_params=no_params, params_optional=params_optional, params_required=params_required)

@@ -19,6 +19,13 @@ AZURE_POLICY_SERVICE_DIRECTORY = os.path.abspath(
 
 PREFIX = "GrdRlz"
 
+DATA_FILE_DIRECTORY = os.path.abspath(
+    os.path.join(
+        str(Path(os.path.dirname(__file__))),
+        "data"
+    )
+)
+
 
 def get_service_names():
     services = os.listdir(AZURE_POLICY_SERVICE_DIRECTORY)

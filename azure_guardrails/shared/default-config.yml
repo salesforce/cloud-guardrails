@@ -23,9 +23,10 @@ exclude_keywords:
 # Uncomment the services mentioned below if you want to exclude them.
 exclude_services:
   - ""
-  - "Guest Configuration"
-{% for service in t.service_names %}  #- "{{ service }}"
-{% endfor %}
+#  - "Guest Configuration"
+{% set existing_exclude_services = [] %}
+{% for service in t.service_names %}{% if service not in existing_exclude_services %}  #- "{{ service }}"
+{% endif %}{% endfor %}
 
 # Specify Azure Policy Definition displayNames that you want to exclude from the results
 exclude_policies:

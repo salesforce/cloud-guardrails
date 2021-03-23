@@ -18,6 +18,7 @@ class PolicyDefinition:
 
         self.id = policy_content.get("id")
         self.name = policy_content.get("name")
+        self.short_id = policy_content.get("name")
         self.file_name = file_name
         self.github_link = utils.get_github_link(service_name=service_name, file_name=file_name)
         self.category = (
