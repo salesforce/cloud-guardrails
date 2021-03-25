@@ -116,8 +116,8 @@ def format_policy_name(name: str, parameter_requirement_str) -> str:
     """
     # 21, because we want to append '-NP', '-OP', or '_RP'
     if len(name) > 21:
-        name = name[0:20]
+        name = name[0:21]
     initiative_name = f"{name}-{parameter_requirement_str}"
     initiative_name = initiative_name.replace("-", "_")
-    initiative_name = initiative_name.lower()
+    # initiative_name = initiative_name.lower()
     return initiative_name

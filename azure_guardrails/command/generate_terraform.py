@@ -146,11 +146,11 @@ def generate_terraform(
 
     parameter_requirement_str = ""
     if no_params:
-        parameter_requirement_str = "-NP"
+        parameter_requirement_str = "NP"
     elif params_required:
-        parameter_requirement_str = "-PR"
+        parameter_requirement_str = "PR"
     elif params_optional:
-        parameter_requirement_str = "-PO"
+        parameter_requirement_str = "PO"
 
     # Policy Initiative Category
     category = "Testing"

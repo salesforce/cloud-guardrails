@@ -60,7 +60,6 @@ def skip_display_names(policy_definition: PolicyDefinition, config: Config = DEF
         return False
 
 
-
 class AzurePolicies:
     def __init__(
             self,
@@ -259,7 +258,12 @@ class AzurePolicies:
                     # If audit_only is not used, don't worry about it
                     if service_results:
                         results[service_name] = service_results
-        return results
+        # Trim the irrelevant services
+        policy_id_pairs = {}
+        for service_name, service_policies in results.items():
+            if service_name in self.service_names:
+                policy_id_pairs[service_name] = service_policies
+        return policy_id_pairs
 
     def compliance_coverage_data(self, no_params: bool = True, params_optional: bool = True, params_required: bool = True) -> dict:
         results = {}

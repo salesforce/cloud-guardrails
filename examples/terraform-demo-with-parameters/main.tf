@@ -1,10 +1,10 @@
 locals {
-  name_example_params_optional = "example_params_optional"
-  subscription_name_example_params_optional = "example"
-  management_group_example_params_optional = ""
-  category_example_params_optional = "Testing"
-  enforcement_mode_example_params_optional = false
-  policy_ids_example_params_optional = [
+  name_example_PO = "example_PO"
+  subscription_name_example_PO = "example"
+  management_group_example_PO = ""
+  category_example_PO = "Testing"
+  enforcement_mode_example_PO = false
+  policy_ids_example_PO = [
     # -----------------------------------------------------------------------------------------------------------------
     # API Management
     # -----------------------------------------------------------------------------------------------------------------
@@ -105,50 +105,50 @@ locals {
 
   ]
   policy_definition_map = zipmap(
-    data.azurerm_policy_definition.example_params_optional_definition_lookups.*.display_name,
-    data.azurerm_policy_definition.example_params_optional_definition_lookups.*.id
+    data.azurerm_policy_definition.example_PO_definition_lookups.*.display_name,
+    data.azurerm_policy_definition.example_PO_definition_lookups.*.id
   )
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
 # Conditional data lookups: If the user supplies management group, look up the ID of the management group
 # ---------------------------------------------------------------------------------------------------------------------
-data "azurerm_management_group" "example_params_optional" {
-  count = local.management_group_example_params_optional != "" ? 1 : 0
-  display_name  = local.management_group_example_params_optional
+data "azurerm_management_group" "example_PO" {
+  count = local.management_group_example_PO != "" ? 1 : 0
+  display_name  = local.management_group_example_PO
 }
 
 ### If the user supplies subscription, look up the ID of the subscription
-data "azurerm_subscriptions" "example_params_optional" {
-  count                 = local.subscription_name_example_params_optional != "" ? 1 : 0
-  display_name_contains = local.subscription_name_example_params_optional
+data "azurerm_subscriptions" "example_PO" {
+  count                 = local.subscription_name_example_PO != "" ? 1 : 0
+  display_name_contains = local.subscription_name_example_PO
 }
 
 locals {
-  scope = local.management_group_example_params_optional != "" ? data.azurerm_management_group.example_params_optional[0].id : element(data.azurerm_subscriptions.example_params_optional[0].subscriptions.*.id, 0)
+  scope = local.management_group_example_PO != "" ? data.azurerm_management_group.example_PO[0].id : element(data.azurerm_subscriptions.example_PO[0].subscriptions.*.id, 0)
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
 # Azure Policy Definition Lookups
 # ---------------------------------------------------------------------------------------------------------------------
 
-data "azurerm_policy_definition" "example_params_optional_definition_lookups" {
-  count = length(local.policy_ids_example_params_optional)
-  name  = local.policy_ids_example_params_optional[count.index]
+data "azurerm_policy_definition" "example_PO_definition_lookups" {
+  count = length(local.policy_ids_example_PO)
+  name  = local.policy_ids_example_PO[count.index]
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
 # Azure Policy Initiative Definition
 # ---------------------------------------------------------------------------------------------------------------------
 
-resource "azurerm_policy_set_definition" "example_params_optional" {
-  name                  = local.name_example_params_optional
+resource "azurerm_policy_set_definition" "example_PO" {
+  name                  = local.name_example_PO
   policy_type           = "Custom"
-  display_name          = local.name_example_params_optional
-  description           = local.name_example_params_optional
-  management_group_name = local.management_group_example_params_optional == "" ? null : local.management_group_example_params_optional
+  display_name          = local.name_example_PO
+  description           = local.name_example_PO
+  management_group_name = local.management_group_example_PO == "" ? null : local.management_group_example_PO
   metadata = tostring(jsonencode({
-    category = local.category_example_params_optional
+    category = local.category_example_PO
   }))
 
 
@@ -608,11 +608,11 @@ PARAMETERS
 # Azure Policy Assignments
 # Apply the Policy Initiative to the specified scope
 # ---------------------------------------------------------------------------------------------------------------------
-resource "azurerm_policy_assignment" "example_params_optional" {
-  name                 = local.name_example_params_optional
-  policy_definition_id = azurerm_policy_set_definition.example_params_optional.id
+resource "azurerm_policy_assignment" "example_PO" {
+  name                 = local.name_example_PO
+  policy_definition_id = azurerm_policy_set_definition.example_PO.id
   scope                = local.scope
-  enforcement_mode     = local.enforcement_mode_example_params_optional
+  enforcement_mode     = local.enforcement_mode_example_PO
   parameters = jsonencode({
     listOfAllowedSKUs = { "value" = ["Developer", "Premium", "Isolated"] }
 	JavaLatestVersion = { "value" = "11" }
@@ -635,17 +635,17 @@ resource "azurerm_policy_assignment" "example_params_optional" {
 # ---------------------------------------------------------------------------------------------------------------------
 # Outputs
 # ---------------------------------------------------------------------------------------------------------------------
-output "example_params_optional_policy_assignment_ids" {
-  value       = azurerm_policy_assignment.example_params_optional.id
+output "example_PO_policy_assignment_ids" {
+  value       = azurerm_policy_assignment.example_PO.id
   description = "The IDs of the Policy Assignments."
 }
 
-output "example_params_optional_scope" {
+output "example_PO_scope" {
   value       = local.scope
   description = "The target scope - either the management group or subscription, depending on which parameters were supplied"
 }
 
-output "example_params_optional_policy_set_definition_id" {
-  value       = azurerm_policy_set_definition.example_params_optional.id
+output "example_PO_policy_set_definition_id" {
+  value       = azurerm_policy_set_definition.example_PO.id
   description = "The ID of the Policy Set Definition."
 }

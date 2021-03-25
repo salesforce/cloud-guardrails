@@ -1,9 +1,9 @@
 locals {
-  name_noparams = "example_noparams"
-  subscription_name_noparams = "example"
-  management_group_noparams = ""
-  enforcement_mode_noparams = false
-  policy_ids_noparams = [
+  name_no_params = "example_NP"
+  subscription_name_no_params = "example"
+  management_group_no_params = ""
+  enforcement_mode_no_params = false
+  policy_ids_no_params = [
     # -----------------------------------------------------------------------------------------------------------------
     # API for FHIR
     # -----------------------------------------------------------------------------------------------------------------
@@ -481,14 +481,14 @@ locals {
 # Azure Policy name lookups:
 # Because the policies are built-in, we can just look up their IDs by their names.
 # ---------------------------------------------------------------------------------------------------------------------
-data "azurerm_policy_definition" "noparams" {
-  count        = length(local.policy_ids_noparams)
-  name         = element(local.policy_ids_noparams, count.index)
+data "azurerm_policy_definition" "no_params" {
+  count        = length(local.policy_ids_no_params)
+  name         = element(local.policy_ids_no_params, count.index)
 }
 
 locals {
-  noparams_policy_definitions = flatten([tolist([
-    for definition in data.azurerm_policy_definition.noparams.*.id :
+  no_params_policy_definitions = flatten([tolist([
+    for definition in data.azurerm_policy_definition.no_params.*.id :
     map("policyDefinitionId", definition)
     ])
   ])
@@ -497,33 +497,33 @@ locals {
 # ---------------------------------------------------------------------------------------------------------------------
 # Conditional data lookups: If the user supplies management group, look up the ID of the management group
 # ---------------------------------------------------------------------------------------------------------------------
-data "azurerm_management_group" "noparams" {
-  count = local.management_group_noparams != "" ? 1 : 0
-  display_name  = local.management_group_noparams
+data "azurerm_management_group" "no_params" {
+  count = local.management_group_no_params != "" ? 1 : 0
+  display_name  = local.management_group_no_params
 }
 
 ### If the user supplies subscription, look up the ID of the subscription
-data "azurerm_subscriptions" "noparams" {
-  count                 = local.subscription_name_noparams != "" ? 1 : 0
-  display_name_contains = local.subscription_name_noparams
+data "azurerm_subscriptions" "no_params" {
+  count                 = local.subscription_name_no_params != "" ? 1 : 0
+  display_name_contains = local.subscription_name_no_params
 }
 
 locals {
-  noparams_scope = local.management_group_noparams != "" ? data.azurerm_management_group.noparams[0].id : element(data.azurerm_subscriptions.noparams[0].subscriptions.*.id, 0)
+  no_params_scope = local.management_group_no_params != "" ? data.azurerm_management_group.no_params[0].id : element(data.azurerm_subscriptions.no_params[0].subscriptions.*.id, 0)
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
 # Policy Initiative
 # ---------------------------------------------------------------------------------------------------------------------
-resource "azurerm_policy_set_definition" "noparams" {
-  name                  = local.name_noparams
+resource "azurerm_policy_set_definition" "no_params" {
+  name                  = local.name_no_params
   policy_type           = "Custom"
-  display_name          = local.name_noparams
-  description           = local.name_noparams
-  management_group_name = local.management_group_noparams == "" ? null : local.management_group_noparams
-  policy_definitions    = tostring(jsonencode(local.noparams_policy_definitions))
+  display_name          = local.name_no_params
+  description           = local.name_no_params
+  management_group_name = local.management_group_no_params == "" ? null : local.management_group_no_params
+  policy_definitions    = tostring(jsonencode(local.no_params_policy_definitions))
   metadata = tostring(jsonencode({
-    category = local.name_noparams
+    category = local.name_no_params
   }))
 }
 
@@ -531,33 +531,32 @@ resource "azurerm_policy_set_definition" "noparams" {
 # Azure Policy Assignments
 # Apply the Policy Initiative to the specified scope
 # ---------------------------------------------------------------------------------------------------------------------
-resource "azurerm_policy_assignment" "noparams" {
-  name                 = local.name_noparams
-  policy_definition_id = azurerm_policy_set_definition.noparams.id
-  scope                = local.noparams_scope
-  enforcement_mode     = local.enforcement_mode_noparams
+resource "azurerm_policy_assignment" "no_params" {
+  name                 = local.name_no_params
+  policy_definition_id = azurerm_policy_set_definition.no_params.id
+  scope                = local.no_params_scope
+  enforcement_mode     = local.enforcement_mode_no_params
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
 # Outputs
 # ---------------------------------------------------------------------------------------------------------------------
-output "noparams_policy_assignment_ids" {
-  value       = azurerm_policy_assignment.noparams.id
+output "no_params_policy_assignment_ids" {
+  value       = azurerm_policy_assignment.no_params.id
   description = "The IDs of the Policy Assignments."
 }
 
-output "noparams_scope" {
-  value       = local.noparams_scope
+output "no_params_scope" {
+  value       = local.no_params_scope
   description = "The target scope - either the management group or subscription, depending on which parameters were supplied"
 }
 
-output "noparams_policy_set_definition_id" {
-  value       = azurerm_policy_set_definition.noparams.id
+output "no_params_policy_set_definition_id" {
+  value       = azurerm_policy_set_definition.no_params.id
   description = "The ID of the Policy Set Definition."
 }
 
-output "noparams_count_of_policies_applied" {
+output "no_params_count_of_policies_applied" {
   description = "The number of Policies applied as part of the Policy Initiative"
-  value       = length(local.policy_ids_noparams)
+  value       = length(local.policy_ids_no_params)
 }
-
