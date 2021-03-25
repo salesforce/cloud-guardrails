@@ -3,11 +3,12 @@ import os
 import json
 from azure_guardrails.shared.iam_definition import AzurePolicies
 from azure_guardrails.guardrails.policy_definition import PolicyDefinition
-
+from azure_guardrails.shared import utils
 
 class IamDefinitionTestCase(unittest.TestCase):
     def setUp(self) -> None:
         self.azure_policies = AzurePolicies()
+        self.kv_azure_policies = AzurePolicies(service_names=["Key Vault"])
 
     def test_policy_ids(self):
         # print(self.azure_policies.policy_ids())
@@ -62,7 +63,6 @@ class IamDefinitionTestCase(unittest.TestCase):
         results = self.azure_policies.get_all_display_names_sorted_by_service()
         print(json.dumps(results, indent=4))
 
-
     def test_get_all_policy_ids_sorted_by_service(self):
         results = self.azure_policies.get_all_policy_ids_sorted_by_service(no_params=True)
         # print(json.dumps(results, indent=4))
@@ -106,6 +106,17 @@ class IamDefinitionTestCase(unittest.TestCase):
         }
         # print(json.dumps(container_registry_result.get(cmk_message), indent=4))
         self.assertDictEqual(container_registry_result.get(cmk_message), expected_result)
+
+    def test_policy_id_pairs_single_service(self):
+        policy_id_pairs = self.kv_azure_policies.get_all_policy_ids_sorted_by_service(no_params=True)
+        # print(json.dumps(policy_id_pairs, indent=4))
+        kv_policy_names = list(policy_id_pairs.get("Key Vault").keys())
+        expected_results_file = os.path.join(os.path.dirname(__file__), os.path.pardir, "files", "policy_id_pairs_kv.json")
+        expected_results = utils.read_json_file(expected_results_file)
+        # print(json.dumps(expected_results, indent=4))
+        # print(kv_policy_names)
+        for policy_name, policy_details in expected_results["Key Vault"].items():
+            self.assertTrue(policy_name in kv_policy_names)
 
     def test_compliance_coverage_data_azure_policies(self):
         results = self.azure_policies.compliance_coverage_data()

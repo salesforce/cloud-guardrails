@@ -1,7 +1,7 @@
 import os
 import json
 from typing import Union
-from jinja2 import Template, Environment, FileSystemLoader
+from jinja2 import Environment, FileSystemLoader
 from azure_guardrails.shared import utils
 
 
@@ -9,13 +9,14 @@ class TerraformTemplateNoParams:
     """Terraform Template for when there are no parameters"""
 
     def __init__(
-        self,
-        policy_id_pairs: dict,
-        subscription_name: str = "",
-        management_group: str = "",
-        enforcement_mode: bool = False,
+            self,
+            policy_id_pairs: dict,
+            subscription_name: str = "",
+            management_group: str = "",
+            enforcement_mode: bool = False,
+            category: str = "Testing"
     ):
-        self.name = "noparams"
+        self.label = "no_params"  # This is just used for naming Terraform resources and variables
         self.initiative_name = self._initiative_name(
             subscription_name=subscription_name, management_group=management_group
         )
@@ -26,7 +27,7 @@ class TerraformTemplateNoParams:
             self.enforcement_string = "true"
         else:
             self.enforcement_string = "false"
-        self.category = "Testing"
+        self.category = category
 
     @staticmethod
     def _initiative_name(subscription_name: str, management_group: str) -> str:
@@ -34,20 +35,15 @@ class TerraformTemplateNoParams:
             raise Exception(
                 "Please supply a value for the subscription name or the management group"
             )
+        parameter_requirement_str = "NP"
         if subscription_name:
-            # shorten the name if it is over a certain length to avoid hitting limits
-            if len(subscription_name) > 55:
-                subscription_name = subscription_name[0:54]
-            initiative_name = f"{subscription_name}-noparams"
+            initiative_name = utils.format_policy_name(subscription_name, parameter_requirement_str)
         else:
-            if len(management_group) > 55:
-                management_group = management_group[0:54]
-            initiative_name = f"{management_group}-noparams"
-        initiative_name = initiative_name.replace("-", "_")
-        initiative_name = initiative_name.lower()
+            initiative_name = utils.format_policy_name(management_group, parameter_requirement_str)
         return initiative_name
 
-    def _policy_id_pairs(self, policy_id_pairs: dict) -> dict:
+    @staticmethod
+    def _policy_id_pairs(policy_id_pairs: dict) -> dict:
         example_input = {
             "API for FHIR": {
                 "051cba44-2429-45b9-9649-46cec11c7119": {
@@ -61,6 +57,7 @@ class TerraformTemplateNoParams:
             }
         }
         all_valid_services = utils.get_service_names()
+        # Just validate the input, that's all
         for service_name, service_policies in policy_id_pairs.items():
             if service_name not in all_valid_services:
                 raise Exception("The service provided is not a valid service")
@@ -73,7 +70,7 @@ class TerraformTemplateNoParams:
 
     def rendered(self) -> str:
         template_contents = dict(
-            name=self.name,
+            label=self.label,
             initiative_name=self.initiative_name,
             policy_id_pairs=self.policy_id_pairs,
             subscription_name=self.subscription_name,
@@ -156,13 +153,15 @@ class TerraformParameter:
 
 class TerraformTemplateWithParams:
     """Terraform Template with Parameters"""
+
     def __init__(
-        self,
-        policy_id_pairs: dict,
-        parameter_requirement_str: str,
-        subscription_name: str = "",
-        management_group: str = "",
-        enforcement_mode: bool = False,
+            self,
+            policy_id_pairs: dict,
+            parameter_requirement_str: str,
+            subscription_name: str = "",
+            management_group: str = "",
+            enforcement_mode: bool = False,
+            category: str = "Testing"
     ):
         self.name = self._initiative_name(
             subscription_name=subscription_name, management_group=management_group,
@@ -171,7 +170,7 @@ class TerraformTemplateWithParams:
         self.service_parameters = self._parameters(policy_id_pairs)
         self.subscription_name = subscription_name
         self.management_group = management_group
-        self.category = "Testing"
+        self.category = category
         self.policy_id_pairs = self._policy_id_pairs(policy_id_pairs)
         if enforcement_mode:
             self.enforcement_string = "true"
@@ -184,17 +183,11 @@ class TerraformTemplateWithParams:
             raise Exception(
                 "Please supply a value for the subscription name or the management group"
             )
+
         if subscription_name:
-            # shorten the name if it is over a certain length to avoid hitting limits
-            if len(subscription_name) > 50:
-                subscription_name = subscription_name[0:50]
-            initiative_name = f"{subscription_name}-{parameter_requirement_str}"
+            initiative_name = utils.format_policy_name(subscription_name, parameter_requirement_str)
         else:
-            if len(management_group) > 50:
-                management_group = management_group[0:50]
-            initiative_name = f"{management_group}-{parameter_requirement_str}"
-        initiative_name = initiative_name.replace("-", "_")
-        initiative_name = initiative_name.lower()
+            initiative_name = utils.format_policy_name(management_group, parameter_requirement_str)
         return initiative_name
 
     @staticmethod
@@ -228,7 +221,7 @@ class TerraformTemplateWithParams:
 
     @staticmethod
     def _policy_id_pairs(policy_id_pairs) -> dict:
-        """To be used in Terraform locals.policy_names"""
+        # Just validate the input, that's all
         all_valid_services = utils.get_service_names()
         for service_name, service_policies in policy_id_pairs.items():
             if service_name not in all_valid_services:
