@@ -158,3 +158,11 @@ class PolicyDefinitionV2TestCase(unittest.TestCase):
         print(policy_definition.audit_only)
         print(policy_definition.allowed_effects)
         self.assertFalse(policy_definition.audit_only)
+
+    def test_parameters_config(self):
+        results = self.no_params_definition.parameters_config()
+        print(json.dumps(results, indent=4))
+        results = self.params_optional_definition.parameters_config()
+        print(json.dumps(results, indent=4))
+        results = self.params_required_definition.parameters_config()
+        print(json.dumps(results, indent=4))

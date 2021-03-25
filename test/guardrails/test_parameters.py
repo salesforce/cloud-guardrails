@@ -41,3 +41,18 @@ class ParameterTestCase(unittest.TestCase):
             ]
         }
         self.assertDictEqual(self.array_parameter.json(), expected_result)
+
+    def test_parameters_parameter_config(self):
+        results = self.array_parameter.parameter_config()
+        print(json.dumps(results, indent=4))
+        expected_results = {
+            "excludedNamespaces": {
+                "default_value": [
+                    "kube-system",
+                    "gatekeeper-system",
+                    "azure-arc"
+                ],
+                "allowed_values": None
+            }
+        }
+        self.assertDictEqual(results, expected_results)

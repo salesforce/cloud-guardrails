@@ -7,7 +7,6 @@ from tabulate import tabulate
 from operator import itemgetter
 import csv
 from collections import OrderedDict
-
 import logging
 from azure_guardrails.shared import utils
 from azure_guardrails.shared.config import DEFAULT_CONFIG, Config

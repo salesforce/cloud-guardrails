@@ -62,3 +62,25 @@ class Parameter:
         allowed_values = parameter_json.get("allowedValues", None)
         allowed_values = [x.lower() for x in allowed_values]
         return allowed_values
+
+    def parameter_config(self) -> dict:
+        """The config format for this parameter to be fed into YAML"""
+        result = {}
+        # If there is no default value set, but it is a dict or a list, return an empty data type
+        if self.default_value:
+            default_value = self.default_value
+        else:
+            if self.type.lower() == "object":
+                default_value = {}
+            elif self.type.lower() == "array":
+                default_value = []
+            elif self.type.lower() == "string":
+                default_value = ""
+            else:
+                default_value = None
+        result[self.name] = dict(
+            type=self.type,
+            default_value=default_value,
+            allowed_values=self.allowed_values
+        )
+        return result
