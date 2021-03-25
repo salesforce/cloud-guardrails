@@ -1,14 +1,12 @@
 #!/usr/bin/env bash
 set -x
 
-
 # Validate that azure-guardrails tool is installed
 if ! command -v azure-guardrails &> /dev/null
 then
     echo "azure-guardrails could not be found. Please download and install the tool from https://github.com/salesforce/azure-guardrails/"
     exit
 fi
-
 
 # Validate that Terraform 0.12 is installed and in use
 is_tf_version_12=$(terraform version | grep -m1 "" | grep -m1 "0\.12\.");
@@ -63,24 +61,9 @@ declare -a dirs=( ${no_params_folder} ${params_optional_folder} ${params_require
 
 for dir in ${dirs[@]}; do
   cd ./$dir/
-  echo "Running terraform validate in $${dir}...";
+  echo "Running terraform validate in $${dir}..";
   terraform init -backend=false
   terraform validate
   echo $!
   cd ../../
 done
-#
-#cd ${no_params_folder}
-#terraform init -backend=false
-#terraform validate
-#cd ../../
-#
-#cd ${params_optional_folder}
-#terraform init -backend=false
-#terraform validate
-#cd ../../
-#
-#cd ${params_required_folder}
-#terraform init -backend=false
-#terraform validate
-#cd ../../
