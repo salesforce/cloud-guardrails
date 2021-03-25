@@ -108,15 +108,18 @@ def get_github_link(service_name: str, file_name: str) -> str:
 
 # shorten the name if it is over a certain length to avoid hitting limits
 
-def format_policy_name(name: str, parameter_requirement_str) -> str:
+def format_policy_name(name: str, parameter_requirement_str: str) -> str:
     """
     Shortens a name to 24 characters minimum to avoid hitting Policy Assignment limit.
 
     Azure Policy Assignment names require 24 characters or less
     """
-    # 21, because we want to append '-NP', '-OP', or '_RP'
-    if len(name) > 21:
-        name = name[0:21]
+    suffix_length = len(parameter_requirement_str)
+    # 24 is the policy assignment name limit
+    # If the suffix is '-NP', '-OP', or '-RP'. the name_length_limit will be 21
+    name_length_limit = 24 - suffix_length
+    if len(name) > name_length_limit:
+        name = name[0:name_length_limit-1]
     initiative_name = f"{name}-{parameter_requirement_str}"
     initiative_name = initiative_name.replace("-", "_")
     # initiative_name = initiative_name.lower()
