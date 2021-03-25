@@ -38,6 +38,8 @@ class TerraformTemplateNoParams:
         parameter_requirement_str = "NP"
         if self.enforce:
             parameter_requirement_str = "NP-Enforce"
+        else:
+            parameter_requirement_str = f"{parameter_requirement_str}-Audit"
         if subscription_name:
             initiative_name = utils.format_policy_name(subscription_name, parameter_requirement_str)
         else:
@@ -187,6 +189,8 @@ class TerraformTemplateWithParams:
             )
         if self.enforce:
             parameter_requirement_str = f"{parameter_requirement_str}-Enforce"
+        else:
+            parameter_requirement_str = f"{parameter_requirement_str}-Audit"
         if subscription_name:
             initiative_name = utils.format_policy_name(subscription_name, parameter_requirement_str)
         else:

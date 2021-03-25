@@ -86,10 +86,15 @@ count-loc:
 	echo "Website: https://github.com/XAMPPRocky/tokei#installation'"
 	tokei ./* --exclude --exclude '**/*.html' --exclude '**/*.json' --exclude azure_guardrails/shared/data/ --exclude azure_guardrails/shared/azure-policy --exclude examples --exclude docs --exclude tmp --exclude venv
 
-.PHONY: terraform-demo
-terraform-demo: install
-	azure-guardrails --help
-	azure-guardrails generate-terraform --service all --subscription example --no-params > examples/terraform-demo/main.tf
+.PHONY: github-actions-test
+github-actions-test:
+	act -l
+	# Run the CI job
+	act -j ci
+
+.PHONY: terraform-validate
+terraform-validate: install
+	sh utils/terraform-demo.sh
 
 .PHONY: update-policy-table
 update-policy-table: install
