@@ -1,5 +1,4 @@
 import unittest
-import json
 import os
 from azure_guardrails.terraform.terraform import TerraformTemplateNoParams
 from azure_guardrails.shared.iam_definition import AzurePolicies
@@ -42,7 +41,7 @@ class TerraformTemplateNoParamsTestCase(unittest.TestCase):
         )
 
     def test_terraform_key_vault(self):
-        self.assertEqual("example_NP", self.kv_terraform_template.initiative_name)
+        self.assertEqual("example_NP_Audit", self.kv_terraform_template.initiative_name)
         print(self.terraform_template.initiative_name)
         self.assertEqual("no_params", self.kv_terraform_template.label)
         print(self.terraform_template.label)
@@ -68,9 +67,18 @@ class TerraformTemplateNoParamsTestCase(unittest.TestCase):
         )
         print(tmp_terraform_template.initiative_name)
         print(len(tmp_terraform_template.initiative_name))
-        self.assertTrue(tmp_terraform_template.initiative_name == "ThisSubscriptionNameI_NP")
+        self.assertTrue(tmp_terraform_template.initiative_name == "ThisSubscriptio_NP_Audit")
         self.assertTrue(len(tmp_terraform_template.initiative_name) <= 24)
-    #
-    # def test_terraform_name_enforcement(self):
-    #     print()
-    #     # TODO: Test Enforcement in the name?
+
+    def test_terraform_name_enforcement_enforce(self):
+        tmp_terraform_template = TerraformTemplateNoParams(
+            policy_id_pairs=self.policy_id_pairs,
+            subscription_name="ThisSubscriptionNameIsTooDamnLong",
+            management_group="",
+            enforcement_mode=True,
+            category="Testing"
+        )
+        print(tmp_terraform_template.initiative_name)
+        print(len(tmp_terraform_template.initiative_name))
+        self.assertTrue(tmp_terraform_template.initiative_name == "ThisSubscript_NP_Enforce")
+        self.assertTrue(len(tmp_terraform_template.initiative_name) <= 24)

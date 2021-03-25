@@ -17,6 +17,7 @@ class TerraformTemplateNoParams:
             category: str = "Testing"
     ):
         self.label = "no_params"  # This is just used for naming Terraform resources and variables
+        self.enforce = enforcement_mode
         self.initiative_name = self._initiative_name(
             subscription_name=subscription_name, management_group=management_group
         )
@@ -29,13 +30,16 @@ class TerraformTemplateNoParams:
             self.enforcement_string = "false"
         self.category = category
 
-    @staticmethod
-    def _initiative_name(subscription_name: str, management_group: str) -> str:
+    def _initiative_name(self, subscription_name: str, management_group: str) -> str:
         if subscription_name == "" and management_group == "":
             raise Exception(
                 "Please supply a value for the subscription name or the management group"
             )
         parameter_requirement_str = "NP"
+        if self.enforce:
+            parameter_requirement_str = "NP-Enforce"
+        else:
+            parameter_requirement_str = f"{parameter_requirement_str}-Audit"
         if subscription_name:
             initiative_name = utils.format_policy_name(subscription_name, parameter_requirement_str)
         else:
@@ -163,6 +167,7 @@ class TerraformTemplateWithParams:
             enforcement_mode: bool = False,
             category: str = "Testing"
     ):
+        self.enforce = enforcement_mode
         self.name = self._initiative_name(
             subscription_name=subscription_name, management_group=management_group,
             parameter_requirement_str=parameter_requirement_str
@@ -177,13 +182,15 @@ class TerraformTemplateWithParams:
         else:
             self.enforcement_string = "false"
 
-    @staticmethod
-    def _initiative_name(subscription_name: str, management_group: str, parameter_requirement_str: str) -> str:
+    def _initiative_name(self, subscription_name: str, management_group: str, parameter_requirement_str: str) -> str:
         if subscription_name == "" and management_group == "":
             raise Exception(
                 "Please supply a value for the subscription name or the management group"
             )
-
+        if self.enforce:
+            parameter_requirement_str = f"{parameter_requirement_str}-Enforce"
+        else:
+            parameter_requirement_str = f"{parameter_requirement_str}-Audit"
         if subscription_name:
             initiative_name = utils.format_policy_name(subscription_name, parameter_requirement_str)
         else:
