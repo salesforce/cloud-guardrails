@@ -2,6 +2,7 @@ import os
 import unittest
 import yaml
 import json
+from yaml.constructor import ConstructorError
 import logging
 from azure_guardrails.shared import utils
 from azure_guardrails.shared.config import get_config_template, Config, get_config_from_file, get_default_config
@@ -87,4 +88,12 @@ class ConfigTestCase(unittest.TestCase):
         self.assertTrue(config.is_excluded("App Configuration", "App Configuration should use private link"))
         self.assertTrue(config.is_excluded("Cosmos DB", "CosmosDB accounts should use private link"))
 
-
+    def test_gh_44_bad_config_file(self):
+        bad_config_file = os.path.abspath(os.path.join(
+            os.path.dirname(__file__),
+            os.path.pardir,
+            "files",
+            "bad-config.yml"
+        ))
+        with self.assertRaises(yaml.constructor.ConstructorError):
+            config = get_config_from_file(bad_config_file)

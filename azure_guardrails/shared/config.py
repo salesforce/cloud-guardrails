@@ -207,10 +207,7 @@ DEFAULT_CONFIG = get_default_config()
 
 def get_config_from_file(config_file: str, exclude_services: list = None) -> Config:
     with open(config_file, "r") as yaml_file:
-        try:
-            config_cfg = yaml.safe_load(yaml_file)
-        except yaml.YAMLError as exc:
-            logger.critical(exc)
+        config_cfg = yaml.safe_load(yaml_file)
     # Policies to exclude
     cfg_exclude_policies = config_cfg.get("exclude_policies", None)
 

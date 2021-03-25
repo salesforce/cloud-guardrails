@@ -1,0 +1,6 @@
+# Specify Azure Policy Definition displayNames that you want to exclude from the results
+exclude_policies:
+  Data Factory:
+    - [Preview]: Azure Data Factory should use a Git repository for source control
+#    - "[Preview]: Azure Data Factory should use a Git repository for source control"
+
