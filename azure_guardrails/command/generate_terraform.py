@@ -146,11 +146,14 @@ def generate_terraform(
 
     parameter_requirement_str = ""
     if no_params:
-        parameter_requirement_str = "no-params"
+        parameter_requirement_str = "-NP"
     elif params_required:
-        parameter_requirement_str = "params-required"
+        parameter_requirement_str = "-PR"
     elif params_optional:
-        parameter_requirement_str = "params-optional"
+        parameter_requirement_str = "-PO"
+
+    # Policy Initiative Category
+    category = "Testing"
 
     if service == "all":
         azure_policies = AzurePolicies(service_names=["all"], config=config)
@@ -167,6 +170,7 @@ def generate_terraform(
             subscription_name=subscription,
             management_group=management_group,
             enforcement_mode=enforcement_mode,
+            category=category
         )
     else:
         audit_only = False
@@ -179,6 +183,7 @@ def generate_terraform(
             management_group=management_group,
             enforcement_mode=enforcement_mode,
             parameter_requirement_str=parameter_requirement_str,
+            category=category
         )
     result = terraform_template.rendered()
     print(result)

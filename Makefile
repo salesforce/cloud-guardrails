@@ -31,7 +31,7 @@ serve-docs: setup-dev
 	mkdocs serve --dev-addr "127.0.0.1:8001"
 
 .PHONY: build
-build: setup-env clean
+build: clean setup-env
 	python3 -m pip install --upgrade setuptools wheel
 	python3 -m setup -q sdist bdist_wheel
 
@@ -89,7 +89,7 @@ count-loc:
 .PHONY: terraform-demo
 terraform-demo: install
 	azure-guardrails --help
-	azure-guardrails generate-terraform --service all --subscription-name example --no-params > examples/terraform-demo/main.tf
+	azure-guardrails generate-terraform --service all --subscription example --no-params > examples/terraform-demo/main.tf
 
 .PHONY: update-policy-table
 update-policy-table: install
