@@ -82,4 +82,10 @@ params*.md
 no-params*.md
 no-params*.csv
 all_policies.csv
+NP-*.csv
+RP-*.csv
+PO-*.csv
+NP-*.md
+RP-*.md
+PO-*.md
 examples/terraform-testing/

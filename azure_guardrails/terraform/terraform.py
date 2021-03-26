@@ -128,6 +128,7 @@ class TerraformParameter:
             raise Exception(f"The Parameter type must be one of {','.join(allowed_parameter_types)}")
         return parameter_type
 
+    # TODO: This is where we can modify the parameter values
     @property
     def policy_definition_reference_value(self):
         """azurerm_policy_set_definition.policy_definition_reference.parameter_values: the 'value' section here"""
