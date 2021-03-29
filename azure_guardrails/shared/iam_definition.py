@@ -108,12 +108,17 @@ class AzurePolicies:
                 break
         return policy_definition
 
-    def get_policy_id_parameters(self, policy_id: str) -> dict:
+    def get_policy_id_by_display_name(self, display_name: str) -> str:
+        policy_definition = self.get_policy_definition_by_display_name(display_name=display_name)
+        return policy_definition.short_id
+
+    def get_parameters_by_policy_id(self, policy_id: str, include_effect: bool = False) -> dict:
         policy_definition = self.get_policy_definition(policy_id=policy_id)
         parameters = {}
         for parameter_name, parameter_details in policy_definition.parameters.items():
-            if parameter_details.name == "effect":
-                continue
+            if not include_effect:
+                if parameter_details.name == "effect":
+                    continue
             parameters[parameter_details.name] = parameter_details.json()
         return parameters
 

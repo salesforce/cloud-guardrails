@@ -113,5 +113,4 @@ def write_spreadsheets(results: list, results_path: str):
     print(f"Excel file updated! Wrote {len(results)} rows. Path: {excel_file_path}")
 
 
-if __name__ == '__main__':
-    update_data()
+

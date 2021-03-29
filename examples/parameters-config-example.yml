@@ -3,7 +3,7 @@
 # ---------------------------------------------------------------------------------------------------------------------
 API Management:
   API Management service should use a SKU that supports virtual networks:
-    effect: Audit # Audit, Deny, Disabled
+    effect: Deny # Audit, Deny, Disabled. Default: Audit
     listOfAllowedSKUs: # Developer, Basic, Standard, Premium, Isolated, Consumption
       - Developer
       - Premium
@@ -18,8 +18,8 @@ Kubernetes:
       - azure-arc
     namespaces: []
     labelSelector: {}
-    cpuLimit: ""
-    memoryLimit: ""
+    cpuLimit: "200m"
+    memoryLimit: "1Gi"
   Kubernetes cluster containers should not share host process ID or host IPC namespace:
     effect: Audit # Audit, Deny, Disabled
     excludedNamespaces:
@@ -28,14 +28,14 @@ Kubernetes:
       - azure-arc
     namespaces: [ ]
     labelSelector: {}
-  Kubernetes cluster containers hould not use forbidden sysctl interfaces:
+  Kubernetes cluster containers should not use forbidden sysctl interfaces:
     effect: Audit # Audit, Deny, Disabled
     excludedNamespaces:
       - kube-system
       - gatekeeper-system
       - azure-arc
     namespaces: [ ]
-    labelSelector: # TODO
+    labelSelector: {}
     forbiddenSysctls: [ ]
 #  Kubernetes cluster containers should only listen on allowed ports
 #  Kubernetes cluster containers should only use allowed AppArmor profiles

@@ -52,7 +52,8 @@ class ParameterTestCase(unittest.TestCase):
                     "gatekeeper-system",
                     "azure-arc"
                 ],
-                "allowed_values": None
+                "allowed_values": None,
+                "type": "Array"
             }
         }
         self.assertDictEqual(results, expected_results)

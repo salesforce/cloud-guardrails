@@ -128,7 +128,7 @@ class TerraformParameter:
             raise Exception(f"The Parameter type must be one of {','.join(allowed_parameter_types)}")
         return parameter_type
 
-    # TODO: This is where we can modify the parameter values
+    # # TODO: This is where we can modify the parameter values
     @property
     def policy_definition_reference_value(self):
         """azurerm_policy_set_definition.policy_definition_reference.parameter_values: the 'value' section here"""
@@ -199,7 +199,7 @@ class TerraformTemplateWithParams:
         return initiative_name
 
     @staticmethod
-    def _parameters(parameters: dict) -> dict:
+    def _parameters(policy_id_pairs: dict) -> dict:
         """
         Takes the output of Services.get_display_names_sorted_by_service_with_params and places them here.
 
@@ -208,7 +208,7 @@ class TerraformTemplateWithParams:
         """
         # TODO: Figure out how to supply the parameter values here if we have a parameters config file for them?
         results = {}
-        for service_name, service_policies in parameters.items():
+        for service_name, service_policies in policy_id_pairs.items():
             results[service_name] = {}
             # results["Kubernetes"] = {  "Do not allow privileged containers in Kubernetes cluster": { "excludedNamespaces": {stuff} }}
             for policy_definition_name, policy_definition_details in service_policies.items():

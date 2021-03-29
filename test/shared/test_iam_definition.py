@@ -5,6 +5,7 @@ from azure_guardrails.shared.iam_definition import AzurePolicies
 from azure_guardrails.guardrails.policy_definition import PolicyDefinition
 from azure_guardrails.shared import utils
 
+
 class IamDefinitionTestCase(unittest.TestCase):
     def setUp(self) -> None:
         self.azure_policies = AzurePolicies()
@@ -50,9 +51,118 @@ class IamDefinitionTestCase(unittest.TestCase):
         policy_definition = self.azure_policies.get_policy_definition(policy_id=policy_id)
         self.assertIsInstance(policy_definition, PolicyDefinition)
         print(policy_definition.short_id)
+        print(policy_definition.display_name)
+        self.assertEqual(policy_definition.display_name, "API Management service should use a SKU that supports virtual networks")
         # print(type(result))
 
-    def test_get_display_names(self):
+    def test_get_policy_definition_by_display_name(self):
+        display_name = "API Management service should use a SKU that supports virtual networks"
+        policy_id = "73ef9241-5d81-4cd4-b483-8443d1730fe5"
+        policy_definition = self.azure_policies.get_policy_definition_by_display_name(display_name=display_name)
+        self.assertEqual(policy_definition.short_id, policy_id)
+
+    def test_get_policy_id_by_display_name(self):
+        display_name = "API Management service should use a SKU that supports virtual networks"
+        policy_id = "73ef9241-5d81-4cd4-b483-8443d1730fe5"
+        result = self.azure_policies.get_policy_id_by_display_name(display_name=display_name)
+        self.assertEqual(result, policy_id)
+
+    def test_get_policy_id_parameters_case_1_skip_effect(self):
+        policy_id = "73ef9241-5d81-4cd4-b483-8443d1730fe5"
+        results = self.azure_policies.get_parameters_by_policy_id(policy_id=policy_id)
+        print(json.dumps(results, indent=4))
+        expected_results = {
+            "listOfAllowedSKUs": {
+                "name": "listOfAllowedSKUs",
+                "type": "Array",
+                "description": "The list of SKUs that can be specified for Azure API Management service.",
+                "display_name": "Allowed SKUs",
+                "default_value": [
+                    "Developer",
+                    "Premium",
+                    "Isolated"
+                ],
+                "allowed_values": [
+                    "Developer",
+                    "Basic",
+                    "Standard",
+                    "Premium",
+                    "Isolated",
+                    "Consumption"
+                ]
+            }
+        }
+        self.assertDictEqual(results, expected_results)
+
+    def test_get_policy_id_parameters_case_2_include_effect(self):
+        # Case 2: include_effect=True
+        policy_id = "73ef9241-5d81-4cd4-b483-8443d1730fe5"
+        results = self.azure_policies.get_parameters_by_policy_id(policy_id=policy_id, include_effect=True)
+        print(json.dumps(results, indent=4))
+        expected_results = {
+            "effect": {
+                "name": "effect",
+                "type": "String",
+                "description": "Enable or disable the execution of the policy",
+                "display_name": "Effect",
+                "default_value": "Audit",
+                "allowed_values": [
+                    "Audit",
+                    "Deny",
+                    "Disabled"
+                ]
+            },
+            "listOfAllowedSKUs": {
+                "name": "listOfAllowedSKUs",
+                "type": "Array",
+                "description": "The list of SKUs that can be specified for Azure API Management service.",
+                "display_name": "Allowed SKUs",
+                "default_value": [
+                    "Developer",
+                    "Premium",
+                    "Isolated"
+                ],
+                "allowed_values": [
+                    "Developer",
+                    "Basic",
+                    "Standard",
+                    "Premium",
+                    "Isolated",
+                    "Consumption"
+                ]
+            }
+        }
+        self.assertDictEqual(results, expected_results)
+
+    def test_is_policy_excluded_case_1_deprecated(self):
+        # Case 1: display name starts with [Deprecated] or has properties.metadata.deprecated = true
+        policy_id = "d1cb47db-b7a1-4c46-814e-aad1c0e84f3c"
+        display_name = "[Deprecated]: Audit Function Apps that are not using custom domains"
+        result = self.azure_policies.is_policy_id_excluded(policy_id=policy_id)
+        self.assertTrue(result)
+
+    def test_is_policy_excluded_case_2_modify(self):
+        # Case 2: Policy has "Modify" effect
+        display_name = "Configure App Configuration to disable public network access"
+        policy_id = "73290fa2-dfa7-4bbb-945d-a5e23b75df2c"
+        result = self.azure_policies.is_policy_id_excluded(policy_id=policy_id)
+        self.assertTrue(result)
+
+    def test_is_policy_excluded_case_3_deploy(self):
+        # Case 3: Policy has "Deploy" effect
+        display_name = "Deploy - Configure Azure Event Grid domains to use private DNS zones"
+        policy_id = "d389df0a-e0d7-4607-833c-75a6fdac2c2d"
+        result = self.azure_policies.is_policy_id_excluded(policy_id=policy_id)
+        self.assertTrue(result)
+
+    def test_is_policy_excluded_case_4_by_user(self):
+        # Case 4: Policy is excluded by the user
+        display_name = "Allow resource creation only in Asia data centers"
+        policy_id = "c1b9cbed-08e3-427d-b9ce-7c535b1e9b94"
+        result = self.azure_policies.is_policy_id_excluded(policy_id=policy_id)
+        self.assertTrue(result)
+
+    def test_display_names(self):
         results = self.azure_policies.display_names()
         print(len(results))
         self.assertTrue(len(results) > 400)
