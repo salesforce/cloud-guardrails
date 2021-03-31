@@ -123,7 +123,8 @@ class ParametersConfig:
         try:
             user_supplied_value = self.config[service_name][display_name][parameter_name]
         except KeyError as missing_key:
-            logger.warning(traceback.print_exc())
+            # logger.warning(traceback.print_exc())
+            logger.debug(f"User did not supply a parameter; key {missing_key} was not found in the parameters config.")
             user_supplied_value = None
 
         # Python thinks [] or {} is the same as None. Let's circumvent that

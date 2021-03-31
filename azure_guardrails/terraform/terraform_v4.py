@@ -14,10 +14,11 @@ class TerraformTemplateWithParamsV4:
             self,
             policy_id_pairs: dict,
             parameter_requirement_str: str,
+            parameters_config: ParametersConfig,
             subscription_name: str = "",
             management_group: str = "",
             enforcement_mode: bool = False,
-            category: str = "Testing"
+            category: str = "Testing",
     ):
         self.enforce = enforcement_mode
         self.name = self._initiative_name(
@@ -28,7 +29,8 @@ class TerraformTemplateWithParamsV4:
         self.management_group = management_group
         self.category = category
         self.policy_id_pairs = self._policy_id_pairs(policy_id_pairs)
-        self.policy_definition_reference_parameters = self._policy_definition_reference_parameters(policy_id_pairs)
+        self.parameters_config = parameters_config
+        self.policy_definition_reference_parameters = self._policy_definition_reference_parameters(policy_id_pairs=policy_id_pairs, parameters_config=parameters_config)
         if enforcement_mode:
             self.enforcement_string = "true"
         else:
@@ -63,10 +65,9 @@ class TerraformTemplateWithParamsV4:
                     raise Exception("There should be a short_id")
         return policy_id_pairs
 
-    @staticmethod
-    def _policy_definition_reference_parameters(policy_id_pairs: dict, parameters_config: ParametersConfig) -> dict:
+    def _policy_definition_reference_parameters(self, policy_id_pairs: dict, parameters_config: ParametersConfig) -> dict:
         results = {}
-        for service_name, service_policies in policy_id_pairs.items():
+        for service_name, service_policies in self.parameters_config.parameters.items():
             results[service_name] = {}
             # results["Kubernetes"] = {  "Do not allow privileged containers in Kubernetes cluster": { "excludedNamespaces": {stuff} }}
             for policy_definition_name, policy_definition_details in service_policies.items():
@@ -83,7 +84,8 @@ class TerraformTemplateWithParamsV4:
                     results[service_name][policy_definition_name][parameter_name] = parameter
         return results
 
-    def rendered(self) -> str:
+    @property
+    def template_contents_json(self) -> dict:
         template_contents = dict(
             name=self.name,
             subscription_name=self.subscription_name,
@@ -93,9 +95,12 @@ class TerraformTemplateWithParamsV4:
             policy_definition_reference_parameters=self.policy_definition_reference_parameters,
             category=self.category
         )
-        template_path = os.path.join(os.path.dirname(__file__), "parameters")
+        return template_contents
+
+    def rendered(self) -> str:
+        template_path = os.path.join(os.path.dirname(__file__), "parameters-v4")
         env = Environment(loader=FileSystemLoader(template_path))  # nosec
         env.filters["debug"] = print
-        template = env.get_template("policy-initiative-with-parameters.tf")
-        result = template.render(t=template_contents)
+        template = env.get_template("policy-initiative-with-parameters-v4.tf")
+        result = template.render(t=self.template_contents_json)
         return result

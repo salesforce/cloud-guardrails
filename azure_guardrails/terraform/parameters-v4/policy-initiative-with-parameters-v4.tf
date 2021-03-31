@@ -59,11 +59,11 @@ resource "azurerm_policy_set_definition" "{{ t.name }}" {
   }))
 
   {% for service_name, service_policy_details in t.policy_definition_reference_parameters.items() %}
-  {% for policy_definition_name, policy_definition_params in service_policy_details.items() %}
+  {% for policy_definition_name, policy_definition_details in service_policy_details.items() %}
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "{{ policy_definition_name }}")
-    parameter_values = jsonencode({ {% for key, value in policy_definition_params.items() %}
-      {{ value.name }} = { "value" : "{{ value.policy_definition_reference_value }}" }{% endfor %}
+    parameter_values = jsonencode({ {% for parameter, parameter_details in policy_definition_details.items() %}
+      {{ parameter_details["parameter_name"] }} = { "value" : "{{ parameter_details['parameter_value'] }}" }{% endfor %}
     })
     reference_id = null
   }

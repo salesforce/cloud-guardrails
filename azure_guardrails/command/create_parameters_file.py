@@ -17,6 +17,14 @@ logger = logging.getLogger(__name__)
     "-o",
     type=click.Path(exists=False),
     required=True,
+    default="parameters.yml",
+    help="The path to the output file",
+)
+@click.option(
+    "--config-file",
+    "-c",
+    type=click.Path(exists=False),
+    required=True,
     default="config.yml",
     help="The path to the output file",
 )
