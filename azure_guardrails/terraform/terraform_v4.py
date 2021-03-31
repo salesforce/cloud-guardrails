@@ -1,4 +1,11 @@
+import os
+import json
+import logging
+from jinja2 import Environment, FileSystemLoader
 from azure_guardrails.shared import utils
+from azure_guardrails.shared.parameters_config import ParametersConfig
+
+logger = logging.getLogger(__name__)
 
 
 class TerraformTemplateWithParamsV4:
@@ -17,11 +24,11 @@ class TerraformTemplateWithParamsV4:
             subscription_name=subscription_name, management_group=management_group,
             parameter_requirement_str=parameter_requirement_str
         )
-        self.service_parameters = self._parameters(policy_id_pairs)
         self.subscription_name = subscription_name
         self.management_group = management_group
         self.category = category
         self.policy_id_pairs = self._policy_id_pairs(policy_id_pairs)
+        self.policy_definition_reference_parameters = self._policy_definition_reference_parameters(policy_id_pairs)
         if enforcement_mode:
             self.enforcement_string = "true"
         else:
@@ -55,3 +62,40 @@ class TerraformTemplateWithParamsV4:
                 if not policy_details.get("short_id", None):
                     raise Exception("There should be a short_id")
         return policy_id_pairs
+
+    @staticmethod
+    def _policy_definition_reference_parameters(policy_id_pairs: dict, parameters_config: ParametersConfig) -> dict:
+        results = {}
+        for service_name, service_policies in policy_id_pairs.items():
+            results[service_name] = {}
+            # results["Kubernetes"] = {  "Do not allow privileged containers in Kubernetes cluster": { "excludedNamespaces": {stuff} }}
+            for policy_definition_name, policy_definition_details in service_policies.items():
+                results[service_name][policy_definition_name] = {}
+                for parameter_name, parameter_value in policy_definition_details.items():
+                    # TODO: Determine if the user hasn't supplied certain parameters? You will have to determine the parameters they supplied vs the policies requested.
+                    value = parameters_config.get_parameter_value_from_config(display_name=policy_definition_name, parameter_name=parameter_name)
+                    if not value:
+                        logger.critical("No value supplied by the user. Check it.")
+                    parameter = dict(
+                        parameter_name=parameter_name,
+                        parameter_value=value
+                    )
+                    results[service_name][policy_definition_name][parameter_name] = parameter
+        return results
+
+    def rendered(self) -> str:
+        template_contents = dict(
+            name=self.name,
+            subscription_name=self.subscription_name,
+            management_group=self.management_group,
+            enforcement_mode=self.enforcement_string,
+            policy_id_pairs=self.policy_id_pairs,
+            policy_definition_reference_parameters=self.policy_definition_reference_parameters,
+            category=self.category
+        )
+        template_path = os.path.join(os.path.dirname(__file__), "parameters")
+        env = Environment(loader=FileSystemLoader(template_path))  # nosec
+        env.filters["debug"] = print
+        template = env.get_template("policy-initiative-with-parameters.tf")
+        result = template.render(t=template_contents)
+        return result

@@ -121,7 +121,7 @@ class TerraformParameterV4TestCase(unittest.TestCase):
             },
             "defaultValue": []
         }
-        value = None
+        value = ["example"]
         parameter_type = "Array"
         default_value = []
         self.terraform_parameter = TerraformParameterV4(
@@ -152,6 +152,6 @@ class TerraformParameterV4TestCase(unittest.TestCase):
             },
             "parameter_type": "Array",
             "default_value": [],
-            "value": None
+            "value": ["example"]
         }
         self.assertDictEqual(results, expected_results)
