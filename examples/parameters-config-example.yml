@@ -8,7 +8,9 @@ API Management:
       - Developer
       - Premium
       - Isolated
-
+# ---------------------------------------------------------------------------------------------------------------------
+#
+# ---------------------------------------------------------------------------------------------------------------------
 Kubernetes:
   Kubernetes cluster containers CPU and memory resource limits should not exceed the specified limits:
     effect: Audit # Audit, Deny, Disabled
