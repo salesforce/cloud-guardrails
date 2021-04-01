@@ -67,7 +67,7 @@ class TerraformTemplateWithParamsV4:
 
     def _policy_definition_reference_parameters(self, policy_id_pairs: dict, parameters_config: ParametersConfig) -> dict:
         results = {}
-        for service_name, service_policies in self.parameters_config.parameters.items():
+        for service_name, service_policies in self.parameters_config.parameters().items():
             results[service_name] = {}
             # results["Kubernetes"] = {  "Do not allow privileged containers in Kubernetes cluster": { "excludedNamespaces": {stuff} }}
             for policy_definition_name, policy_definition_details in service_policies.items():

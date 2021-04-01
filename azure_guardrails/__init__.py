@@ -51,3 +51,9 @@ def set_log_level(verbose):
         set_stream_logger(level=getattr(logging, "DEBUG"))
     else:
         set_stream_logger(level=getattr(logging, "CRITICAL"))
+
+
+def set_log_format_to_simple_warning(name: str, level : int = logging.WARNING):
+    """A basic wrapper around set_stream_logger that sets the log formatter to a simple formatted warning"""
+    format_string = "[%(levelname)s] %(message)s"
+    set_stream_logger(name=name, level=level, format_string=format_string)

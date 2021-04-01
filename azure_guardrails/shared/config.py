@@ -8,7 +8,7 @@ from azure_guardrails.shared import utils
 logger = logging.getLogger(__name__)
 
 DEFAULT_CONFIG_FILE = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), "default-config.yml")
+    os.path.join(os.path.dirname(__file__), "config-template.yml")
 )
 
 
@@ -20,7 +20,7 @@ def get_config_template() -> str:
     )
     template_path = os.path.join(os.path.dirname(__file__))
     env = Environment(loader=FileSystemLoader(template_path))  # nosec
-    template = env.get_template("default-config.yml")
+    template = env.get_template("config-template.yml")
     return template.render(t=template_contents)
 
 

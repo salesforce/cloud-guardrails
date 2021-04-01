@@ -20,20 +20,20 @@ class TerraformTemplateWithParamsV4TestCase(unittest.TestCase):
             "parameters-config-example.yml"
         ))
         # Let's view the logs
-        # set_stream_logger("azure_guardrails.shared.parameters_config", level=logging.DEBUG)
+        set_stream_logger("azure_guardrails.shared.parameters_config", level=logging.DEBUG)
 
+        config = get_default_config(exclude_services=None)
+
+        azure_policies = AzurePolicies(service_names=["Kubernetes"], config=config)
+        policy_id_pairs = azure_policies.get_all_policy_ids_sorted_by_service(
+            no_params=False, params_optional=True, params_required=True,
+            audit_only=False)
+        parameter_requirement_str = "PR"
         self.parameters_config = ParametersConfig(
             parameter_config_file=example_config_file,
             params_optional=True,
             params_required=True
         )
-        config = get_default_config(exclude_services=None)
-
-        azure_policies = AzurePolicies(service_names=["Kubernetes"], config=config)
-        policy_id_pairs = azure_policies.get_all_policy_ids_sorted_by_service(
-            no_params=False, params_optional=False, params_required=True,
-            audit_only=False)
-        parameter_requirement_str = "PR"
         # parameter_requirement_str = "PO"
         self.terraform_template_with_params = TerraformTemplateWithParamsV4(
             policy_id_pairs=policy_id_pairs,

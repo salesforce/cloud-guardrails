@@ -6,6 +6,7 @@ from azure_guardrails.guardrails.policy_definition import PolicyDefinition
 from azure_guardrails.shared import utils
 from azure_guardrails import set_stream_logger
 import logging
+from jinja2 import Template, Environment, FileSystemLoader
 
 
 class ParametersConfigTestCase(unittest.TestCase):
@@ -88,6 +89,7 @@ class ParametersConfigTestCase(unittest.TestCase):
         display_name = "API Management service should use a SKU that supports virtual networks"
         parameter_name = "effect"
         result = self.parameters_config.get_parameter_value_from_config(display_name=display_name, parameter_name=parameter_name)
+        print(result)
         # default_value is "Audit", but our user-supplied config set the value to "Deny". It should return the user-supplied value.
         self.assertEqual(result, "Deny")
 
@@ -101,12 +103,44 @@ class ParametersConfigTestCase(unittest.TestCase):
         self.assertListEqual(results, [])
 
     # TODO: test_get_parameter_value_from_config_case_3_user_needs_to_supply_required_value
-    # def test_get_parameter_value_from_config_case_3_user_needs_to_supply_required_value(self):
-    #     print()
+    # TODO: Do this one next!!! It will fix your problem with required values
+    def test_get_parameter_value_from_config_case_3_user_needs_to_supply_required_value(self):
+        print()
+        display_name = "Only approved VM extensions should be installed"
+        parameter_name = "approvedExtensions"
+        results = self.parameters_config.get_parameter_value_from_config(display_name=display_name, parameter_name=parameter_name)
+        print(json.dumps(results, indent=4))
+        # It should be none, because the user didn't provide anything
+        self.assertIsNone(results)
 
     def test_parameter_config_parameters(self):
-        print(json.dumps(self.parameters_config.parameters, indent=4))
+        print(json.dumps(self.parameters_config.parameters(), indent=4))
         # print(self.parameters_config.parameters)
+
+    def test_format_parameter_config_segment(self):
+        class ParameterSegment:
+            def __init__(self, parameter_name: str, parameter_type: str,  value=None, default_value=None, allowed_values: list = None):
+                self.name = parameter_name
+                self.type = parameter_type
+                self.allowed_values = allowed_values
+                self.default_value = default_value
+                self.value = value
+        allowed_values_metric_name = None
+        metric_name = ParameterSegment(parameter_name="metricName", parameter_type="String", default_value=None,
+                                       value=None, allowed_values=allowed_values_metric_name)
+        allowed_values_effect = ["AuditIfNotExists", "Disabled"]
+        effect = ParameterSegment(parameter_name="effect", parameter_type="String", default_value="Audit",
+                                  value="Audit", allowed_values=allowed_values_effect)
+        parameter_segments = [metric_name, effect]
+        template_contents = dict(
+            parameter_segments=parameter_segments
+        )
+        template_path = os.path.join(os.path.dirname(__file__))
+        env = Environment(loader=FileSystemLoader(template_path), lstrip_blocks=True)  # nosec
+        env.tests['is_none_instance'] = utils.is_none_instance
+        template = env.get_template("parameter-yaml-segment.yml")
+        result = template.render(t=template_contents)
+        print(result)
 
 
 class TerraformParameterV4TestCase(unittest.TestCase):

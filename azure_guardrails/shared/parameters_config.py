@@ -1,15 +1,33 @@
+import os
 import logging
 import json
 import traceback
 import yaml
+from typing import Union
+from jinja2 import Template, Environment, FileSystemLoader
 from azure_guardrails.shared.iam_definition import AzurePolicies
 from azure_guardrails.shared import utils
 from azure_guardrails.shared.config import DEFAULT_CONFIG
-from typing import Union
 
 default_service_names = utils.get_service_names()
 default_service_names.sort()
 logger = logging.getLogger(__name__)
+
+DEFAULT_PARAMETERS_FILE = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), "default-parameters-config.yml")
+)
+
+
+def get_parameters_template() -> str:
+    template_contents = dict(
+        match_only_keywords=[],
+        exclude_keywords=[],
+        service_names=utils.get_service_names(),
+    )
+    template_path = os.path.join(os.path.dirname(__file__))
+    env = Environment(loader=FileSystemLoader(template_path))  # nosec
+    template = env.get_template("parameters-template.yml")
+    return template.render(t=template_contents)
 
 
 class ParametersConfig:
@@ -31,7 +49,7 @@ class ParametersConfig:
         self.audit_only = audit_only
         self.parameter_config_file = parameter_config_file
         self.config = self._config()
-        self.parameters = self._parameters()
+        # self.parameters = self._parameters()
 
     def _config(self) -> dict:
         results = {}
@@ -80,7 +98,7 @@ class ParametersConfig:
                 results[service_name][display_name]["policy_id"] = policy_definition.short_id
         return results
 
-    def _parameters(self) -> dict:
+    def parameters(self) -> dict:
         results = {}
         policy_id_pairs = self.azure_policies.get_all_policy_ids_sorted_by_service(
             no_params=False, params_optional=self.params_optional, params_required=self.params_required,
@@ -91,7 +109,16 @@ class ParametersConfig:
                 results[service_name][policy_definition_name] = {}
                 if "parameters" in policy_definition_details.keys():
                     for parameter_name, parameter_details in policy_definition_details.get("parameters").items():
-
+                        # print(parameter_details.get("value"))
+                        # print(parameter_details.get("default_value"))
+                        if isinstance(parameter_details.get("value", None), type(None)):
+                            # TODO: Check for empty lists etc.
+                            if isinstance(parameter_details.get("default_value", None), type(None)):
+                                value = None
+                            else:
+                                value = parameter_details.get("default_value")
+                        else:
+                            value = parameter_details.get("value")
                         parameter = TerraformParameterV4(
                             name=parameter_name,
                             service=service_name,
@@ -99,10 +126,11 @@ class ParametersConfig:
                             initiative_parameters_json=parameter_details,
                             parameter_type=parameter_details.get("type"),
                             default_value=parameter_details.get("default_value"),
-                            # TODO: There is no value here. Need to insert it.
-                            value=parameter_details.get("value"),
+                            value=value,
                         )
                         results[service_name][policy_definition_name][parameter_name] = parameter.json()
+                else:
+                    logger.warning(f"No parameters provided. Policy Name: \"{policy_definition_name}\"")
         return results
 
     def get_parameter_value_from_config(self, display_name: str, parameter_name: str):
@@ -134,19 +162,32 @@ class ParametersConfig:
                 if default_value:
                     logger.debug(f"Parameter value not supplied by user. Using default value. Parameter: {parameter_name}. Value: {default_value}. Policy ID: {policy_id}")
                     return default_value
+                elif isinstance(user_supplied_value, list):
+                    user_supplied_value = []
+                    logger.debug(
+                        f"Parameter value supplied by user - an empty list. Using user-supplied value. Parameter: {parameter_name}. Value: {user_supplied_value}. Policy ID: {policy_id}")
+                    return user_supplied_value
+                elif isinstance(user_supplied_value, dict):
+                    logger.debug(
+                        f"Parameter value supplied by user - an empty object. Using user-supplied value. Parameter: {parameter_name}. Value: {user_supplied_value}. Policy ID: {policy_id}")
+                    user_supplied_value = {}
+                    return user_supplied_value
                 else:
                     # TODO: Should throw an exception here. Let the user know that they need to supply a value!
                     logger.debug(f"Parameter value not supplied by user. No default value available. Parameter: {parameter_name}. Policy ID: {policy_id}")
                     return None
             # TODO: How do we differentiate between when Azure says an empty list is okay vs when it is not?
-            elif isinstance(user_supplied_value, list):
-                user_supplied_value = []
-                logger.debug(f"Parameter value supplied by user - an empty list. Using user-supplied value. Parameter: {parameter_name}. Value: {user_supplied_value}. Policy ID: {policy_id}")
-                return user_supplied_value
-            elif isinstance(user_supplied_value, dict):
-                logger.debug(f"Parameter value supplied by user - an empty object. Using user-supplied value. Parameter: {parameter_name}. Value: {user_supplied_value}. Policy ID: {policy_id}")
-                user_supplied_value = {}
-                return user_supplied_value
+            else:
+                if isinstance(user_supplied_value, list):
+                    user_supplied_value = []
+                    logger.debug(f"Parameter value supplied by user - an empty list. Using user-supplied value. Parameter: {parameter_name}. Value: {user_supplied_value}. Policy ID: {policy_id}")
+                    return user_supplied_value
+                elif isinstance(user_supplied_value, dict):
+                    logger.debug(f"Parameter value supplied by user - an empty object. Using user-supplied value. Parameter: {parameter_name}. Value: {user_supplied_value}. Policy ID: {policy_id}")
+                    user_supplied_value = {}
+                    return user_supplied_value
+                else:
+                    return user_supplied_value
         else:
             logger.debug(f"Parameter supplied by user. Using user-supplied value. Parameter: {parameter_name}. Value: {user_supplied_value}. Policy ID: {policy_id}")
             return user_supplied_value

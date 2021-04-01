@@ -1,0 +1,18 @@
+#Batch:
+#  Metric alert rules should be configured on Batch accounts:
+#    effect: Audit # AuditIfNotExists, Disabled
+#    metricName: # no default parameters
+
+# The actual output
+Batch:
+  Metric alert rules should be configured on Batch accounts:
+  {%- for parameter_segment in t.parameter_segments -%}
+{% filter indent(width=2) %}
+    {{ parameter_segment.name }}:
+  {%- if parameter_segment.value is is_none_instance -%}{{" # no parameters provided"}}{% endif %}
+  {#- Example: AuditIfNotExists, Disabled -#}
+  {%- if parameter_segment.allowed_values -%}
+  {{''}} # {{ parameter_segment.allowed_values|join(", ") }}
+  {%- endif -%}{% endfilter %}
+  {%- endfor -%}
+

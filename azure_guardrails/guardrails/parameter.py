@@ -23,6 +23,10 @@ class Parameter:
                     self.default_value = None
 
         self.default_value = parameter_json.get("defaultValue", None)
+        if not isinstance(self.default_value, type(None)):
+            self.value = self.default_value
+        else:
+            self.value = None
         self.allowed_values = parameter_json.get("allowedValues", None)
 
         # Metadata
@@ -47,6 +51,8 @@ class Parameter:
         # Return default value only if it has a value, or if it is an empty list or empty string
         if self.default_value or self.default_value == [] or self.default_value == "":
             result["default_value"] = self.default_value
+        if not isinstance(self.value, type(None)):
+            result["value"] = self.value
         if self.allowed_values:
             result["allowed_values"] = self.allowed_values
         if self.category:

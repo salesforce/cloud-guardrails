@@ -82,6 +82,11 @@ class IamDefinitionTestCase(unittest.TestCase):
                     "Premium",
                     "Isolated"
                 ],
+                "value": [
+                    "Developer",
+                    "Premium",
+                    "Isolated"
+                ],
                 "allowed_values": [
                     "Developer",
                     "Basic",
@@ -106,6 +111,7 @@ class IamDefinitionTestCase(unittest.TestCase):
                 "description": "Enable or disable the execution of the policy",
                 "display_name": "Effect",
                 "default_value": "Audit",
+                "value": "Audit",
                 "allowed_values": [
                     "Audit",
                     "Deny",
@@ -118,6 +124,11 @@ class IamDefinitionTestCase(unittest.TestCase):
                 "description": "The list of SKUs that can be specified for Azure API Management service.",
                 "display_name": "Allowed SKUs",
                 "default_value": [
+                    "Developer",
+                    "Premium",
+                    "Isolated"
+                ],
+                "value": [
                     "Developer",
                     "Premium",
                     "Isolated"
@@ -175,7 +186,7 @@ class IamDefinitionTestCase(unittest.TestCase):
 
     def test_get_all_policy_ids_sorted_by_service(self):
         results = self.azure_policies.get_all_policy_ids_sorted_by_service(no_params=True)
-        # print(json.dumps(results, indent=4))
+        print(json.dumps(results, indent=4))
         api_management_result = results.get("API Management")
         expected_result = {
             "API Management service should use a SKU that supports virtual networks": {
@@ -188,6 +199,11 @@ class IamDefinitionTestCase(unittest.TestCase):
                         "description": "The list of SKUs that can be specified for Azure API Management service.",
                         "display_name": "Allowed SKUs",
                         "default_value": [
+                            "Developer",
+                            "Premium",
+                            "Isolated"
+                        ],
+                        "value": [
                             "Developer",
                             "Premium",
                             "Isolated"

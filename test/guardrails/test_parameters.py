@@ -38,6 +38,11 @@ class ParameterTestCase(unittest.TestCase):
                 "kube-system",
                 "gatekeeper-system",
                 "azure-arc"
+            ],
+            "value": [
+                "kube-system",
+                "gatekeeper-system",
+                "azure-arc"
             ]
         }
         self.assertDictEqual(self.array_parameter.json(), expected_result)
