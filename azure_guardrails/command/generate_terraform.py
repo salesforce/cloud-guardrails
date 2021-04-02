@@ -6,10 +6,13 @@ import logging
 import click
 from click_option_group import optgroup, RequiredMutuallyExclusiveOptionGroup
 from azure_guardrails import set_log_level
-from azure_guardrails.terraform.terraform import TerraformTemplateNoParams, TerraformTemplateWithParams
+from azure_guardrails.terraform.terraform import TerraformTemplateNoParams
+from azure_guardrails.terraform.terraform_v5 import TerraformTemplateWithParamsV5
 from azure_guardrails.shared.iam_definition import AzurePolicies
 from azure_guardrails.shared import utils, validate
 from azure_guardrails.shared.config import get_default_config, get_config_from_file
+from azure_guardrails.shared.parameters_config import ParametersConfig, TerraformParameterV4
+from azure_guardrails.shared.parameters_categorized import OverallCategorizedParameters
 
 logger = logging.getLogger(__name__)
 
@@ -52,6 +55,15 @@ supported_services_argument_values.append("all")
     type=click.Path(exists=False),
     required=False,
     help="The config file",
+)
+@optgroup.option(
+    "--parameters-file",
+    "-p",
+    "parameters_config_file",
+    type=click.Path(exists=False),
+    required=False,
+    default=None,
+    help="The parameters config file",
 )
 @optgroup.group(
     "Parameter Options",
@@ -115,6 +127,7 @@ def generate_terraform(
     service: str,
     exclude_services: list,
     config_file: str,
+    parameters_config_file: str,
     no_params: bool,
     params_optional: bool,
     params_required: bool,
@@ -154,6 +167,7 @@ def generate_terraform(
 
     # Policy Initiative Category
     category = "Testing"
+    audit_only = False
 
     if service == "all":
         azure_policies = AzurePolicies(service_names=["all"], config=config)
@@ -161,7 +175,6 @@ def generate_terraform(
         azure_policies = AzurePolicies(service_names=[service], config=config)
 
     if no_params:
-        audit_only = False
         policy_id_pairs = azure_policies.get_all_policy_ids_sorted_by_service(
             no_params=True, params_optional=params_optional, params_required=params_required,
             audit_only=audit_only)
@@ -173,16 +186,28 @@ def generate_terraform(
             category=category
         )
     else:
-        audit_only = False
-        policy_id_pairs = azure_policies.get_all_policy_ids_sorted_by_service(
+        policy_ids_sorted_by_service = azure_policies.get_all_policy_ids_sorted_by_service(
             no_params=no_params, params_optional=params_optional, params_required=params_required,
             audit_only=audit_only)
-        terraform_template = TerraformTemplateWithParams(
-            policy_id_pairs=policy_id_pairs,
+        parameters_config = ParametersConfig(
+            parameter_config_file=parameters_config_file,
+            params_optional=params_optional,
+            params_required=params_required
+        )
+        categorized_parameters = OverallCategorizedParameters(
+            azure_policies=azure_policies,
+            params_required=params_required,
+            params_optional=params_optional,
+            audit_only=audit_only
+        )
+
+        terraform_template = TerraformTemplateWithParamsV5(
+            policy_id_pairs=policy_ids_sorted_by_service,
+            parameter_requirement_str=parameter_requirement_str,
+            categorized_parameters=categorized_parameters,
             subscription_name=subscription,
             management_group=management_group,
             enforcement_mode=enforcement_mode,
-            parameter_requirement_str=parameter_requirement_str,
             category=category
         )
     result = terraform_template.rendered()

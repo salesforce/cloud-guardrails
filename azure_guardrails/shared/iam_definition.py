@@ -65,13 +65,31 @@ class AzurePolicies:
             service_names: list = default_service_names,
             config: Config = DEFAULT_CONFIG,
     ):
+        # if service_names == ["all"]:
+        #     service_names = utils.get_service_names()
+        #     service_names.sort()
+        # service_names_to_remove = []
+        # for service_name in service_names:
+        #     if config.is_service_excluded(service_name=service_name):
+        #         service_names_to_remove.append(service_name)
+        # for service_name in service_names_to_remove:
+        #     service_names.remove(service_name)
+        self.config = config
+        self.service_names = self.set_service_names(service_names=service_names)
+        self.service_definitions = iam_definition["service_definitions"]
+        self.policy_definitions = iam_definition["policy_definitions"]
+
+    def set_service_names(self, service_names: list):
         if service_names == ["all"]:
             service_names = utils.get_service_names()
             service_names.sort()
-        self.service_names = service_names
-        self.config = config
-        self.service_definitions = iam_definition["service_definitions"]
-        self.policy_definitions = iam_definition["policy_definitions"]
+        service_names_to_remove = []
+        for service_name in service_names:
+            if self.config.is_service_excluded(service_name=service_name):
+                service_names_to_remove.append(service_name)
+        for service_name in service_names_to_remove:
+            service_names.remove(service_name)
+        return service_names
 
     def policy_ids(self, service_name: str = None) -> list:
         results = []
@@ -210,6 +228,8 @@ class AzurePolicies:
 
         results = {}
         for service_name, service_policies in self.service_definitions.items():
+            if self.config.is_service_excluded(service_name=service_name):
+                continue
             service_results = {}
             for policy_id, policy_details in service_policies.items():
                 if not self.is_policy_id_excluded(policy_id=policy_id):

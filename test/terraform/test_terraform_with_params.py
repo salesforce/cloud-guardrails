@@ -27,7 +27,6 @@ class TerraformTemplateWithParamsV4TestCase(unittest.TestCase):
         # Let's view the logs
         set_stream_logger("azure_guardrails.shared.parameters_config", level=logging.DEBUG)
 
-
         azure_policies = AzurePolicies(service_names=["Kubernetes"], config=config)
         policy_id_pairs = azure_policies.get_all_policy_ids_sorted_by_service(
             no_params=False, params_optional=True, params_required=True,

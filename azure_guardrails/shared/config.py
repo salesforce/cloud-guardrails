@@ -169,6 +169,12 @@ class Config:
         else:
             return False
 
+    def is_service_excluded(self, service_name: str) -> bool:
+        if service_name in self.exclude_services:
+            return True
+        else:
+            return False
+
 
 def get_default_config(exclude_services: list = None, match_only_keywords: list = None, exclude_keywords: list = None) -> Config:
     config_cfg = yaml.safe_load(DEFAULT_CONFIG_TEMPLATE)

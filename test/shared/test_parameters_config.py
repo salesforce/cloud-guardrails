@@ -105,8 +105,6 @@ class ParametersConfigTestCase(unittest.TestCase):
         self.assertTrue(isinstance(results, list))
         self.assertListEqual(results, [])
 
-    # TODO: test_get_parameter_value_from_config_case_3_user_needs_to_supply_required_value
-    # TODO: Do this one next!!! It will fix your problem with required values
     def test_get_parameter_value_from_config_case_3_user_needs_to_supply_required_value(self):
         print()
         display_name = "Only approved VM extensions should be installed"

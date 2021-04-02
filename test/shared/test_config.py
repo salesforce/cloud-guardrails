@@ -88,6 +88,13 @@ class ConfigTestCase(unittest.TestCase):
         self.assertTrue(config.is_excluded("App Configuration", "App Configuration should use private link"))
         self.assertTrue(config.is_excluded("Cosmos DB", "CosmosDB accounts should use private link"))
 
+    def test_exclude_services_config(self):
+        config = get_default_config(exclude_services=["Guest Configuration"])
+        response = config.is_service_excluded(service_name="Guest Configuration")
+        print(response)
+        self.assertTrue(response)
+
+
     def test_gh_44_bad_config_file(self):
         bad_config_file = os.path.abspath(os.path.join(
             os.path.dirname(__file__),
