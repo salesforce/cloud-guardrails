@@ -65,7 +65,12 @@ class TerraformTemplateWithParamsV5TestCase(unittest.TestCase):
             no_params=False, params_optional=True, params_required=True,
             audit_only=False)
         parameter_requirement_str = "PR"
-        categorized_parameters = OverallCategorizedParameters(azure_policies=azure_policies, params_required=True, params_optional=True, audit_only=False)
+        categorized_parameters = OverallCategorizedParameters(
+            azure_policies=azure_policies,
+            params_required=True,
+            params_optional=True,
+            audit_only=False
+        )
 
         self.terraform_template_with_params = TerraformTemplateWithParamsV5(
             policy_id_pairs=policy_ids_sorted_by_service,

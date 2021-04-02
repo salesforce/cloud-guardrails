@@ -44,7 +44,10 @@ exclude_policies:
   App Platform:
     # This collides with the same one from API Management
     - "Azure Spring Cloud should use network injection"
-{% set existing_exclusions = ["General", "Tags", "API Management", "App Platform"] %}
+  Guest Configuration:
+    # This outputs a parameter called "Cert:" that breaks the parameter yaml format
+    - "Audit Windows machines that contain certificates expiring within the specified number of days"
+{% set existing_exclusions = ["General", "Tags", "API Management", "App Platform", "Guest Configuration"] %}
 {% for service in t.service_names %}{% if service not in existing_exclusions %}
   {{ service }}:
     - ""

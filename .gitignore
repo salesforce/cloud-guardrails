@@ -91,3 +91,5 @@ PO-*.md
 examples/terraform-testing/
 /PR-Kubernetes-table.csv
 /PR-Kubernetes-table.md
+/parameters.yml
+/parameters-*.yml

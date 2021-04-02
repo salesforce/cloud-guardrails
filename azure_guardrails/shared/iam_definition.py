@@ -140,6 +140,46 @@ class AzurePolicies:
             parameters[parameter_details.name] = parameter_details.json()
         return parameters
 
+    def get_allowed_values_for_parameter(self, policy_id: str, parameter_name: str):
+        """Given a policy ID and a parameter name, get the allowed_values for a parameter"""
+        policy_definition = self.get_policy_definition(policy_id=policy_id)
+        try:
+            parameter = policy_definition.properties.parameters.get(parameter_name)
+            if isinstance(parameter.allowed_values, type(None)):
+                return None
+            elif isinstance(parameter.allowed_values, list):
+                return parameter.allowed_values
+            else:
+                return []
+        except Exception as error:
+            logger.debug(error)
+            return None
+
+    def get_default_value_for_parameter(self, policy_id: str, parameter_name: str):
+        """Given a policy ID and a parameter name, get the allowed_values for a parameter"""
+        policy_definition = self.get_policy_definition(policy_id=policy_id)
+        try:
+            parameter = policy_definition.properties.parameters.get(parameter_name)
+            if isinstance(parameter.default_value, type(None)):
+                return None
+            elif (
+                isinstance(parameter.default_value, list)
+                or isinstance(parameter.default_value, dict)
+                or isinstance(parameter.default_value, bool)
+                or isinstance(parameter.default_value, int)
+                or isinstance(parameter.default_value, str)
+            ):
+                return parameter.default_value
+        except Exception as error:
+            logger.debug(error)
+            return []
+
+    def get_parameter_type(self, policy_id: str, parameter_name: str):
+        """Given a policy ID and a parameter name, get the type of a parameter"""
+        policy_definition = self.get_policy_definition(policy_id=policy_id)
+        parameter = policy_definition.properties.parameters.get(parameter_name, None)
+        return parameter.type
+
     def is_policy_id_excluded(self, policy_id: str) -> bool:
         policy_definition = self.get_policy_definition(policy_id=policy_id)
         # Quality control

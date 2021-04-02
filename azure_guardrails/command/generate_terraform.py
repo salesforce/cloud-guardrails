@@ -194,6 +194,10 @@ def generate_terraform(
             params_optional=params_optional,
             params_required=params_required
         )
+        if parameters_config_file:
+            parameters_config = utils.read_yaml_file(parameters_config_file)
+        else:
+            parameters_config = {}
         categorized_parameters = OverallCategorizedParameters(
             azure_policies=azure_policies,
             params_required=params_required,

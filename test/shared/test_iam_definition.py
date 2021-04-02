@@ -67,7 +67,7 @@ class IamDefinitionTestCase(unittest.TestCase):
         result = self.azure_policies.get_policy_id_by_display_name(display_name=display_name)
         self.assertEqual(result, policy_id)
 
-    def test_get_policy_id_parameters_case_1_skip_effect(self):
+    def test_get_parameters_by_policy_id_case_1_skip_effect(self):
         policy_id = "73ef9241-5d81-4cd4-b483-8443d1730fe5"
         results = self.azure_policies.get_parameters_by_policy_id(policy_id=policy_id)
         print(json.dumps(results, indent=4))
@@ -99,7 +99,7 @@ class IamDefinitionTestCase(unittest.TestCase):
         }
         self.assertDictEqual(results, expected_results)
 
-    def test_get_policy_id_parameters_case_2_include_effect(self):
+    def test_get_parameters_by_policy_id_case_2_include_effect(self):
         # Case 2: include_effect=True
         policy_id = "73ef9241-5d81-4cd4-b483-8443d1730fe5"
         results = self.azure_policies.get_parameters_by_policy_id(policy_id=policy_id, include_effect=True)
@@ -144,6 +144,19 @@ class IamDefinitionTestCase(unittest.TestCase):
             }
         }
         self.assertDictEqual(results, expected_results)
+
+    def test_get_allowed_values_for_parameter(self):
+        policy_id = "73ef9241-5d81-4cd4-b483-8443d1730fe5"
+        results = self.azure_policies.get_allowed_values_for_parameter(policy_id=policy_id, parameter_name="effect")
+        print(results)
+        expected_results = ['Audit', 'Deny', 'Disabled']
+        self.assertListEqual(results, expected_results)
+
+    def test_get_default_values_for_parameter(self):
+        policy_id = "73ef9241-5d81-4cd4-b483-8443d1730fe5"
+        result = self.azure_policies.get_default_value_for_parameter(policy_id=policy_id, parameter_name="effect")
+        print(result)
+        self.assertEqual(result, "Audit")
 
     def test_is_policy_excluded_case_1_deprecated(self):
         # Case 1: display name starts with [Deprecated] or has properties.metadata.deprecated = true

@@ -7,7 +7,7 @@
     {#- policy_name: 'Metric alert rules should be configured on Batch accounts' -#}
     {%- for this_policy_name, parameter_segments in policy_name.items() -%}
         {#- for parameter_segment in [effect, denyListOfStuff] -#}
-        {{ "\n  " }}{{ this_policy_name }}{{ ':\n' }}
+        {{ "\n  \"" }}{{ this_policy_name }}{{ '":\n' }}
         {%- for parameter_segment in parameter_segments -%}
             {%- filter indent(width=2) -%}
                 {#- List the name of the parameter -#}

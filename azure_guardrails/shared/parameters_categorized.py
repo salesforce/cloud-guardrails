@@ -2,9 +2,11 @@ from jinja2 import Template, Environment, FileSystemLoader
 import os
 import json
 import copy
+import yaml
 import logging
 from azure_guardrails.shared.iam_definition import AzurePolicies
 from azure_guardrails.shared.config import DEFAULT_CONFIG
+from azure_guardrails.shared import utils
 from azure_guardrails.guardrails.policy_definition import PolicyDefinition
 
 DEFAULT_PARAMETERS_FILE = os.path.abspath(
@@ -12,18 +14,26 @@ DEFAULT_PARAMETERS_FILE = os.path.abspath(
 )
 logger = logging.getLogger(__name__)
 
-
-def get_parameters_template(categorized_parameters: dict = None) -> str:
-    if not categorized_parameters:
-        with open(DEFAULT_PARAMETERS_FILE, "r") as file:
-            default_categorized_parameters = json.load(file)
-        categorized_parameters = default_categorized_parameters
-
+def get_parameters_template() -> str:
+    # if not categorized_parameters:
+    #     with open(DEFAULT_PARAMETERS_FILE, "r") as file:
+    #         default_categorized_parameters = yaml.safe_load(file)
+    #     categorized_parameters = default_categorized_parameters
+    azure_policies = AzurePolicies(service_names=["all"], config=DEFAULT_CONFIG)
+    categorized_parameters = OverallCategorizedParameters(azure_policies=azure_policies, params_optional=True, params_required=True, audit_only=False)
     template_contents = dict(
-        categorized_parameters=categorized_parameters,
+        categorized_parameters=categorized_parameters.service_categorized_parameters,
     )
     template_path = os.path.join(os.path.dirname(__file__))
     env = Environment(loader=FileSystemLoader(template_path))  # nosec
+
+    def is_list(value):
+        return isinstance(value, list)
+
+    env.tests['is_a_list'] = is_list
+    env.filters["debug"] = print
+    env.filters['tojson'] = json.dumps
+    env.tests['is_none_instance'] = utils.is_none_instance
     template = env.get_template("parameters-template.yml.j2")
     return template.render(t=template_contents)
 
@@ -34,6 +44,7 @@ class OverallCategorizedParameters:
     def __init__(
         self,
         azure_policies: AzurePolicies = AzurePolicies(service_names=["all"], config=DEFAULT_CONFIG),
+        parameters_config: dict = None,
         params_optional: bool = False,
         params_required: bool = False,
         audit_only: bool = False
@@ -42,7 +53,58 @@ class OverallCategorizedParameters:
         self.params_required = params_required
         self.audit_only = audit_only
         self.azure_policies = azure_policies
+        if parameters_config:
+            self.parameters_config = self.set_parameters_config(parameters_config)
+        else:
+            self.parameters_config = {}
         self.service_categorized_parameters = self.set_service_categorized_parameters()
+
+    def set_parameters_config(self, parameters_config: dict) -> dict:
+        # If the parameters config has invalid values, this will throw an exception
+        self.validate_parameters_config(parameters_config=parameters_config)
+        return parameters_config
+
+    def validate_parameters_config(self, parameters_config: dict):
+        """If the parameters config has invalid values, this will throw an exception"""
+        # Validate the input first
+        # Let's validate the top level keys.
+        valid_service_names = utils.get_service_names()
+        for service_name, service_policies in parameters_config.items():
+            # Service name should be valid
+            if service_name not in valid_service_names:
+                raise Exception(
+                    f"The service name {service_name} is not a valid service name. Please adjust your config file.")
+            for policy_name, policy_parameters in service_policies.items():
+                policy_definition = self.azure_policies.get_policy_definition_by_display_name(display_name=policy_name)
+                if not policy_definition:
+                    raise Exception(
+                        f'"{policy_name}" was not found in the policy definitions. Check the spelling and list of policy display names and try again.')
+                for parameter_name, parameter_value in policy_parameters.items():
+                    # Parameter name must be valid
+                    if parameter_name not in policy_definition.parameters:
+                        raise Exception(
+                            f"The parameter {parameter_name} in the policy {policy_name} under the {service_name} is not valid. Please provide a valid value.")
+                        # If allowed_values are supplied, make sure the values are legit
+                    if policy_definition.properties.parameters[parameter_name].allowed_values:
+                        allowed_values = policy_definition.properties.parameters[parameter_name].allowed_values
+                        # if the supplied value is a list, make sure it matches the allowed values
+                        if isinstance(parameter_value, list):
+                            for value in parameter_value:
+                                if value not in policy_definition.properties.parameters[parameter_name].allowed_values:
+                                    raise Exception(
+                                        f"The value {value} is not in the list of allowed_values: {', '.join(policy_definition.properties.parameters[parameter_name].allowed_values)}. Parameter: {parameter_name}. Display name: {policy_name}. Service: {service_name}")
+                        else:
+                            # If the parameter name is effect, let's evaluate in lowercase
+                            if parameter_name.lower() == "effect":
+                                lowercase_allowed_values = [x.lower() for x in allowed_values]
+                                if parameter_value.lower() not in lowercase_allowed_values:
+                                    raise Exception(
+                                        f"The value {parameter_value} is not in the list of allowed_values: {', '.join(policy_definition.properties.parameters[parameter_name].allowed_values)}. Parameter: {parameter_name}. Display name: {policy_name}. Service: {service_name}")
+                            # If the name is not effect, we can evaluate case sensitive
+                            else:
+                                if parameter_value not in policy_definition.properties.parameters[parameter_name].allowed_values:
+                                    raise Exception(
+                                        f"The value {parameter_value} is not in the list of allowed_values: {', '.join(policy_definition.properties.parameters[parameter_name].allowed_values)}. Parameter: {parameter_name}. Display name: {policy_name}. Service: {service_name}")
 
     def set_service_categorized_parameters(self):
         all_policy_ids_sorted_by_service = self.azure_policies.get_all_policy_ids_sorted_by_service(
@@ -202,7 +264,6 @@ class OverallCategorizedParameters:
                 if "parameters" in policy_definition_details.keys():
                     for parameter_name, parameter_details in policy_definition_details.get("parameters").items():
                         if isinstance(parameter_details.get("value", None), type(None)):
-                            # TODO: Check for empty lists etc.
                             if isinstance(parameter_details.get("default_value", None), type(None)):
                                 value = None
                             else:

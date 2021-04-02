@@ -2,6 +2,7 @@ import os
 import re
 import json
 import csv
+import yaml
 import logging
 from pathlib import Path
 from colorama import Fore
@@ -148,3 +149,15 @@ def get_real_value(value):
             return []
         else:
             raise Exception("The value is something weird")
+
+
+def read_yaml_file(filename: str) -> dict:
+    """
+    Reads a YAML file, safe loads, and returns the dictionary
+
+    :param filename: name of the yaml file
+    :return: dictionary of YAML file contents
+    """
+    with open(filename, "r") as yaml_file:
+        cfg = yaml.safe_load(yaml_file)
+    return cfg
