@@ -186,11 +186,12 @@ class IamDefinitionTestCase(unittest.TestCase):
 
     def test_get_all_policy_ids_sorted_by_service(self):
         results = self.azure_policies.get_all_policy_ids_sorted_by_service(no_params=True)
-        print(json.dumps(results, indent=4))
+        # print(json.dumps(results, indent=4))
         api_management_result = results.get("API Management")
         expected_result = {
             "API Management service should use a SKU that supports virtual networks": {
                 "short_id": "73ef9241-5d81-4cd4-b483-8443d1730fe5",
+                "long_id": "/providers/Microsoft.Authorization/policyDefinitions/73ef9241-5d81-4cd4-b483-8443d1730fe5",
                 "display_name": "API Management service should use a SKU that supports virtual networks",
                 "parameters": {
                     "listOfAllowedSKUs": {
@@ -220,6 +221,7 @@ class IamDefinitionTestCase(unittest.TestCase):
                 }
             }
         }
+        print(json.dumps(api_management_result, indent=4))
         self.assertDictEqual(api_management_result, expected_result)
         # Case: No parameters
         container_registry_result = results.get("Container Registry")
@@ -228,6 +230,7 @@ class IamDefinitionTestCase(unittest.TestCase):
         self.assertTrue(cmk_message in keys)
         expected_result = {
             "short_id": "5b9159ae-1701-4a6f-9a7a-aa9c8ddd0580",
+            "long_id": "/providers/Microsoft.Authorization/policyDefinitions/5b9159ae-1701-4a6f-9a7a-aa9c8ddd0580",
             "display_name": "Container registries should be encrypted with a customer-managed key"
         }
         # print(json.dumps(container_registry_result.get(cmk_message), indent=4))
