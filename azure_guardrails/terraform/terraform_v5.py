@@ -111,44 +111,56 @@ class TerraformTemplateWithParamsV5:
         env.filters["debug"] = print
         env.filters['tojson'] = json.dumps
         env.filters['format_parameter_value'] = format_parameter_value
-        template = env.get_template("policy-initiative-with-parameters-v5.tf")
+        env.filters['get_placeholder_value_given_type'] = get_placeholder_value_given_type
+        env.tests['is_none_instance'] = utils.is_none_instance
+        template = env.get_template("policy-initiative-with-parameters-v5.tf.j2")
         result = template.render(t=self.template_contents_json)
         return result
 
 
 def format_parameter_value(value):
     """Formats policy_definition_reference.parameter_values.value properly"""
-    result = ""
-
+    # Instead of using replace('\\', '\\\\')|replace('\'', '"') in the Jinja2 template, since that doesn't handle strings well
     def remove_escapes_and_single_quotes(some_val):
         some_val = some_val.replace("\\", "\\\\")
         some_val = some_val.replace("\'", '"')
         return some_val
+
     if isinstance(value, bool):
-        # print(f"bool: {value}")
-        # return value
         return str(value).lower()
     elif isinstance(value, int):
-        # print(f"int: {value}")
         return value
     elif isinstance(value, list):
         return json.dumps(value)
     elif isinstance(value, dict):
         return json.dumps(value)
     elif isinstance(value, str):
+        # print(value)
         if "[" in value or "{" in value:
             result = remove_escapes_and_single_quotes(value)
             return json.dumps(result)
         else:
-            return json.dumps(result)
+            return json.dumps(value)
     elif isinstance(value, type(None)):
         return json.dumps("")
-    # elif "{" in value:
-    #     result = value.replace("\\", "\\\\").replace("\'", '"')
-    #     return result
     else:
-        # print("We iterated through all types, nothing should be here.")
-        # print(value)
-        # result = remove_escapes_and_single_quotes(value)
         return json.dumps("")
-# Instead of using replace('\\', '\\\\')|replace('\'', '"') in the Jinja2 template, since that doesn't handle strings well
+
+
+def get_placeholder_value_given_type(value):
+    """Given an a parameter type, return a placeholder value"""
+    # string, array, object, boolean, integer, float, or datetime.
+    if value.lower() == "string":
+        return json.dumps("")
+    elif value.lower() == "array":
+        return []
+    elif value.lower() == "object":
+        return {}
+    elif value.lower() == "boolean":
+        return "false"
+    elif value.lower() == "integer":
+        return 0
+    elif value.lower() == "float":
+        return 0
+    elif value.lower() == "datetime":
+        return "2021-04-01T00:00:00.fffffffZ"

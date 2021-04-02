@@ -3,7 +3,7 @@ import os
 import json
 from azure_guardrails.shared.parameters_config import ParametersConfig, TerraformParameterV4
 from azure_guardrails.terraform.terraform_v4 import TerraformTemplateWithParamsV4
-from azure_guardrails.terraform.terraform_v5 import TerraformTemplateWithParamsV5
+from azure_guardrails.terraform.terraform_v5 import TerraformTemplateWithParamsV5, get_placeholder_value_given_type
 from azure_guardrails.shared.parameters_categorized import OverallCategorizedParameters
 from azure_guardrails.shared import utils
 from azure_guardrails import set_stream_logger
@@ -85,3 +85,9 @@ class TerraformTemplateWithParamsV5TestCase(unittest.TestCase):
     def test_template_contents_rendered(self):
         results = self.terraform_template_with_params.rendered()
         print(results)
+
+    def test_get_placeholder_value_given_type(self):
+        results = get_placeholder_value_given_type("array")
+        self.assertListEqual(results, [])
+        self.assertEqual(get_placeholder_value_given_type("string"), '""')
+        self.assertDictEqual(get_placeholder_value_given_type("object"), {})
