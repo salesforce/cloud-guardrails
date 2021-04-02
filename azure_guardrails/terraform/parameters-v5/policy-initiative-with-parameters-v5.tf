@@ -11,10 +11,6 @@ locals {
     "{{ policy_details.short_id }}", # {{ policy_details.display_name }} {% endfor %}
     {% endfor %}
   ]
-//  policy_definition_map = zipmap(
-//    data.azurerm_policy_definition.{{ t.name }}_definition_lookups.*.display_name,
-//    data.azurerm_policy_definition.{{ t.name }}_definition_lookups.*.id
-//  )
   policy_definition_map = {
   {%- for service_name, service_policies in t.policy_id_pairs.items() -%}
   {% for policy_id, policy_details in service_policies.items() -%}
@@ -22,9 +18,6 @@ locals {
     {% endfor %}
     {%- endfor -%}
 }
-//    data.azurerm_policy_definition.{{ t.name }}_definition_lookups.*.display_name,
-//    data.azurerm_policy_definition.{{ t.name }}_definition_lookups.*.id
-//  )
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
