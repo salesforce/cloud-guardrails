@@ -207,6 +207,7 @@ class AzurePolicies:
 
     def get_all_policy_ids_sorted_by_service(self, no_params: bool = True, params_optional: bool = True,
                                              params_required: bool = True, audit_only: bool = False) -> dict:
+
         results = {}
         for service_name, service_policies in self.service_definitions.items():
             service_results = {}
@@ -214,8 +215,10 @@ class AzurePolicies:
                 if not self.is_policy_id_excluded(policy_id=policy_id):
                     if no_params:
                         if policy_details.get("no_params"):
+                            policy_definition = self.get_policy_definition(policy_id=policy_details.get("short_id"))
                             service_results[policy_details.get("display_name")] = dict(
                                 short_id=policy_details.get("short_id"),
+                                long_id=policy_definition.id,
                                 display_name=policy_details.get("display_name")
                             )
                     if params_optional:
@@ -231,7 +234,8 @@ class AzurePolicies:
                                 parameters[parameter_details.name] = parameter_details.json()
                             service_results[policy_details.get("display_name")] = dict(
                                 short_id=policy_details.get("short_id"),
-                                display_name=policy_details.get("display_name"),
+                                long_id=policy_definition.id,
+                                display_name=policy_details.get("display_name").replace("[Preview]: ", ""),
                                 parameters=parameters
                             )
                     if params_required:
@@ -247,6 +251,7 @@ class AzurePolicies:
                                 parameters[parameter_details.name] = parameter_details.json()
                             service_results[policy_details.get("display_name")] = dict(
                                 short_id=policy_details.get("short_id"),
+                                long_id=policy_definition.id,
                                 display_name=policy_details.get("display_name")
                             )
                     # If audit_only is flagged, create a new list to hold the audit-only ones, then save it as the new service results

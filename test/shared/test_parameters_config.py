@@ -2,6 +2,7 @@ import unittest
 import os
 import json
 from azure_guardrails.shared.parameters_config import ParametersConfig, TerraformParameterV4
+from azure_guardrails.shared.parameters_categorized import OverallCategorizedParameters
 from azure_guardrails.guardrails.policy_definition import PolicyDefinition
 from azure_guardrails.shared import utils
 from azure_guardrails import set_stream_logger
@@ -169,7 +170,7 @@ class ParametersConfigTestCase(unittest.TestCase):
 
         env.tests['is_a_list'] = is_list
 
-        template = env.get_template("parameter-yaml-segment.yml.j2")
+        template = env.get_template("parameters-template.yml.j2")
         result = template.render(t=template_contents)
         print(result)
         expected_result = """# ---------------------------------------------------------------------------------------------------------------------
@@ -186,6 +187,11 @@ Batch:
 """
         self.assertEqual(result, expected_result)
         # print()
+
+    def test_parameter_config_output(self):
+        categorized_parameters = OverallCategorizedParameters()
+        results = categorized_parameters.service_categorized_parameters
+        print(json.dumps(results, indent=4))
 
 
 class TerraformParameterV4TestCase(unittest.TestCase):
@@ -234,3 +240,4 @@ class TerraformParameterV4TestCase(unittest.TestCase):
             "value": ["example"]
         }
         self.assertDictEqual(results, expected_results)
+

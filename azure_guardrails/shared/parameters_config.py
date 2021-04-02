@@ -13,22 +13,6 @@ default_service_names = utils.get_service_names()
 default_service_names.sort()
 logger = logging.getLogger(__name__)
 
-DEFAULT_PARAMETERS_FILE = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), "default-parameters-config.yml")
-)
-
-
-def get_parameters_template() -> str:
-    template_contents = dict(
-        match_only_keywords=[],
-        exclude_keywords=[],
-        service_names=utils.get_service_names(),
-    )
-    template_path = os.path.join(os.path.dirname(__file__))
-    env = Environment(loader=FileSystemLoader(template_path))  # nosec
-    template = env.get_template("parameters-template.yml")
-    return template.render(t=template_contents)
-
 
 class ParametersConfig:
     def __init__(
@@ -64,38 +48,38 @@ class ParametersConfig:
                 raise Exception(f"The service name {service_name} is not valid. Please adjust your config file.")
             results[service_name] = {}
 
-            for display_name, parameter_details in service_policies.items():
-                results[service_name][display_name] = {}
-                policy_definition = self.azure_policies.get_policy_definition_by_display_name(display_name=display_name)
+            for policy_name, policy_parameters in service_policies.items():
+                results[service_name][policy_name] = {}
+                policy_definition = self.azure_policies.get_policy_definition_by_display_name(display_name=policy_name)
                 if not policy_definition:
-                    raise Exception(f'"{display_name}" was not found in the policy definitions. Check the spelling and list of policy display names and try again.')
-                for parameter_name, parameter_value in parameter_details.items():
+                    raise Exception(f'"{policy_name}" was not found in the policy definitions. Check the spelling and list of policy display names and try again.')
+                for parameter_name, parameter_value in policy_parameters.items():
                     # Parameter name must be valid
                     if parameter_name not in policy_definition.parameters:
-                        raise Exception(f"The parameter {parameter_name} in the policy {display_name} under the {service_name} is not valid. Please provide a valid value.")
+                        raise Exception(f"The parameter {parameter_name} in the policy {policy_name} under the {service_name} is not valid. Please provide a valid value.")
                     # If allowed_values are supplied, make sure the values are legit
                     if policy_definition.properties.parameters[parameter_name].allowed_values:
                         allowed_values = policy_definition.properties.parameters[parameter_name].allowed_values
-                        # if the supplied value is a list, make sure it matches the
+                        # if the supplied value is a list, make sure it matches the allowed values
                         if isinstance(parameter_value, list):
                             for value in parameter_value:
                                 if value not in policy_definition.properties.parameters[parameter_name].allowed_values:
-                                    raise Exception(f"The value {value} is not in the list of allowed_values: {', '.join(policy_definition.properties.parameters[parameter_name].allowed_values)}. Parameter: {parameter_name}. Display name: {display_name}. Service: {service_name}")
+                                    raise Exception(f"The value {value} is not in the list of allowed_values: {', '.join(policy_definition.properties.parameters[parameter_name].allowed_values)}. Parameter: {parameter_name}. Display name: {policy_name}. Service: {service_name}")
                         else:
                             # If the parameter name is effect, let's evaluate in lowercase
                             if parameter_name.lower() == "effect":
                                 lowercase_allowed_values = [x.lower() for x in allowed_values]
                                 if parameter_value.lower() not in lowercase_allowed_values:
-                                    raise Exception(f"The value {parameter_value} is not in the list of allowed_values: {', '.join(policy_definition.properties.parameters[parameter_name].allowed_values)}. Parameter: {parameter_name}. Display name: {display_name}. Service: {service_name}")
+                                    raise Exception(f"The value {parameter_value} is not in the list of allowed_values: {', '.join(policy_definition.properties.parameters[parameter_name].allowed_values)}. Parameter: {parameter_name}. Display name: {policy_name}. Service: {service_name}")
                             # If the name is not effect, we can evaluate case sensitive
                             else:
                                 if parameter_value not in policy_definition.properties.parameters[parameter_name].allowed_values:
-                                    raise Exception(f"The value {parameter_value} is not in the list of allowed_values: {', '.join(policy_definition.properties.parameters[parameter_name].allowed_values)}. Parameter: {parameter_name}. Display name: {display_name}. Service: {service_name}")
-                        results[service_name][display_name][parameter_name] = parameter_value
+                                    raise Exception(f"The value {parameter_value} is not in the list of allowed_values: {', '.join(policy_definition.properties.parameters[parameter_name].allowed_values)}. Parameter: {parameter_name}. Display name: {policy_name}. Service: {service_name}")
+                        results[service_name][policy_name][parameter_name] = parameter_value
                     else:
-                        results[service_name][display_name][parameter_name] = parameter_value
+                        results[service_name][policy_name][parameter_name] = parameter_value
                 # Let's also store the policy ID as a parameter, even though that isn't a thing
-                results[service_name][display_name]["policy_id"] = policy_definition.short_id
+                results[service_name][policy_name]["policy_id"] = policy_definition.short_id
         return results
 
     def parameters(self) -> dict:
