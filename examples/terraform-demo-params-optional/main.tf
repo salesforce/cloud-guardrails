@@ -104,7 +104,8 @@ locals {
     "e04e5000-cd89-451d-bb21-a14d24ff9c73", # Auditing on Synapse workspace should be enabled
 
   ]
-  policy_definition_map = {"API Management service should use a SKU that supports virtual networks" = "/providers/Microsoft.Authorization/policyDefinitions/73ef9241-5d81-4cd4-b483-8443d1730fe5",
+  policy_definition_map = {
+    "API Management service should use a SKU that supports virtual networks" = "/providers/Microsoft.Authorization/policyDefinitions/73ef9241-5d81-4cd4-b483-8443d1730fe5",
     "Ensure that 'Java version' is the latest, if used as a part of the API app" = "/providers/Microsoft.Authorization/policyDefinitions/88999f4c-376a-45c8-bcb3-4058f713cf39",
     "Ensure that 'Java version' is the latest, if used as a part of the Function app" = "/providers/Microsoft.Authorization/policyDefinitions/9d0b6ea4-93e2-4578-bf2f-6bb17d22b4bc",
     "Ensure that 'Java version' is the latest, if used as a part of the Web app" = "/providers/Microsoft.Authorization/policyDefinitions/496223c3-ad65-4ecd-878a-bae78737e9ed",
@@ -181,8 +182,6 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
   metadata = tostring(jsonencode({
     category = local.category_example_PO_Audit
   }))
-
-
 
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "API Management service should use a SKU that supports virtual networks")
@@ -309,7 +308,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
 
 
   policy_definition_reference {
-    policy_definition_id = lookup(local.policy_definition_map, "[Preview]: Azure Data Factory integration runtime should have a limit for number of cores")
+    policy_definition_id = lookup(local.policy_definition_map, "Azure Data Factory integration runtime should have a limit for number of cores")
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
         maxCores = { "value" : 32 }
@@ -376,7 +375,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
   }
 
   policy_definition_reference {
-    policy_definition_id = lookup(local.policy_definition_map, "[Preview]: Certificates should be issued by the specified integrated certificate authority")
+    policy_definition_id = lookup(local.policy_definition_map, "Certificates should be issued by the specified integrated certificate authority")
     parameter_values = jsonencode({
         allowedCAs = { "value" : ["DigiCert", "GlobalSign"] }
         effect = { "value" : "audit" }
@@ -385,7 +384,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
   }
 
   policy_definition_reference {
-    policy_definition_id = lookup(local.policy_definition_map, "[Preview]: Certificates should have the specified maximum validity period")
+    policy_definition_id = lookup(local.policy_definition_map, "Certificates should have the specified maximum validity period")
     parameter_values = jsonencode({
         maximumValidityInMonths = { "value" : 12 }
         effect = { "value" : "audit" }
@@ -394,7 +393,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
   }
 
   policy_definition_reference {
-    policy_definition_id = lookup(local.policy_definition_map, "[Preview]: Certificates should use allowed key types")
+    policy_definition_id = lookup(local.policy_definition_map, "Certificates should use allowed key types")
     parameter_values = jsonencode({
         allowedKeyTypes = { "value" : ["RSA", "RSA-HSM"] }
         effect = { "value" : "audit" }
@@ -403,7 +402,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
   }
 
   policy_definition_reference {
-    policy_definition_id = lookup(local.policy_definition_map, "[Preview]: Certificates using elliptic curve cryptography should have allowed curve names")
+    policy_definition_id = lookup(local.policy_definition_map, "Certificates using elliptic curve cryptography should have allowed curve names")
     parameter_values = jsonencode({
         allowedECNames = { "value" : ["P-256", "P-256K", "P-384", "P-521"] }
         effect = { "value" : "audit" }
@@ -412,7 +411,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
   }
 
   policy_definition_reference {
-    policy_definition_id = lookup(local.policy_definition_map, "[Preview]: Keys should be the specified cryptographic type RSA or EC")
+    policy_definition_id = lookup(local.policy_definition_map, "Keys should be the specified cryptographic type RSA or EC")
     parameter_values = jsonencode({
         allowedKeyTypes = { "value" : ["RSA", "RSA-HSM", "EC", "EC-HSM"] }
         effect = { "value" : "Audit" }
@@ -421,7 +420,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
   }
 
   policy_definition_reference {
-    policy_definition_id = lookup(local.policy_definition_map, "[Preview]: Keys using elliptic curve cryptography should have the specified curve names")
+    policy_definition_id = lookup(local.policy_definition_map, "Keys using elliptic curve cryptography should have the specified curve names")
     parameter_values = jsonencode({
         allowedECNames = { "value" : ["P-256", "P-256K", "P-384", "P-521"] }
         effect = { "value" : "Audit" }

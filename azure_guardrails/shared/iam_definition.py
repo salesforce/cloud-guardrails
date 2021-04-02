@@ -279,7 +279,7 @@ class AzurePolicies:
                             service_results[policy_details.get("display_name")] = dict(
                                 short_id=policy_details.get("short_id"),
                                 long_id=policy_definition.id,
-                                display_name=policy_details.get("display_name")
+                                display_name=policy_details.get("display_name").replace("[Preview]: ", ""),
                             )
                     if params_optional:
                         if policy_details.get("params_optional"):
@@ -312,7 +312,7 @@ class AzurePolicies:
                             service_results[policy_details.get("display_name")] = dict(
                                 short_id=policy_details.get("short_id"),
                                 long_id=policy_definition.id,
-                                display_name=policy_details.get("display_name")
+                                display_name=policy_details.get("display_name").replace("[Preview]: ", ""),
                             )
                     # If audit_only is flagged, create a new list to hold the audit-only ones, then save it as the new service results
                     if audit_only:

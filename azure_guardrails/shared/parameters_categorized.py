@@ -91,20 +91,25 @@ class OverallCategorizedParameters:
                         if isinstance(parameter_value, list):
                             for value in parameter_value:
                                 if value not in policy_definition.properties.parameters[parameter_name].allowed_values:
-                                    raise Exception(
-                                        f"The value {value} is not in the list of allowed_values: {', '.join(policy_definition.properties.parameters[parameter_name].allowed_values)}. Parameter: {parameter_name}. Display name: {policy_name}. Service: {service_name}")
+                                    logger.warning(f"The value {value} is not in the list of allowed_values: {', '.join(policy_definition.properties.parameters[parameter_name].allowed_values)}. "
+                                                   f"Parameter: {parameter_name}. Display name: {policy_name}. Service: {service_name}")
                         else:
                             # If the parameter name is effect, let's evaluate in lowercase
                             if parameter_name.lower() == "effect":
                                 lowercase_allowed_values = [x.lower() for x in allowed_values]
                                 if parameter_value.lower() not in lowercase_allowed_values:
-                                    raise Exception(
-                                        f"The value {parameter_value} is not in the list of allowed_values: {', '.join(policy_definition.properties.parameters[parameter_name].allowed_values)}. Parameter: {parameter_name}. Display name: {policy_name}. Service: {service_name}")
+                                    logger.warning(
+                                        f"The value {parameter_value} is not in the list of allowed_values: {', '.join(policy_definition.properties.parameters[parameter_name].allowed_values)}. "
+                                        f"Parameter: {parameter_name}. Display name: {policy_name}. Service: {service_name}")
+                            elif isinstance(parameter_value, type(None)):
+                                logger.warning(f"The value was not provided for {parameter_name}. "
+                                               f"Parameter: {parameter_name}. Display name: {policy_name}. Service: {service_name}")
                             # If the name is not effect, we can evaluate case sensitive
                             else:
                                 if parameter_value not in policy_definition.properties.parameters[parameter_name].allowed_values:
-                                    raise Exception(
-                                        f"The value {parameter_value} is not in the list of allowed_values: {', '.join(policy_definition.properties.parameters[parameter_name].allowed_values)}. Parameter: {parameter_name}. Display name: {policy_name}. Service: {service_name}")
+                                    logger.warning(
+                                        f"The value {str(parameter_value)} is not in the list of allowed_values: {', '.join(policy_definition.properties.parameters[parameter_name].allowed_values)}. "
+                                        f"Parameter: {parameter_name}. Display name: {policy_name}. Service: {service_name}")
 
     def set_service_categorized_parameters(self):
         all_policy_ids_sorted_by_service = self.azure_policies.get_all_policy_ids_sorted_by_service(

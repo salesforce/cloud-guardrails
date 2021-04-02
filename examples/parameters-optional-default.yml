@@ -1,0 +1,193 @@
+# ---------------------------------------------------------------------------------------------------------------------
+# App Service
+# ---------------------------------------------------------------------------------------------------------------------
+App Service:
+  "Ensure that 'Java version' is the latest, if used as a part of the API app":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+    JavaLatestVersion: 11
+
+  "Ensure that 'Java version' is the latest, if used as a part of the Function app":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+    JavaLatestVersion: 11
+
+  "Ensure that 'Java version' is the latest, if used as a part of the Web app":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+    JavaLatestVersion: 11
+
+  "Ensure that 'PHP version' is the latest, if used as a part of the API app":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+    PHPLatestVersion: 7.3
+
+  "Ensure that 'PHP version' is the latest, if used as a part of the WEB app":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+    PHPLatestVersion: 7.3
+
+  "Ensure that 'Python version' is the latest, if used as a part of the API app":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+    WindowsPythonLatestVersion: 3.6
+    LinuxPythonLatestVersion: 3.9
+
+  "Ensure that 'Python version' is the latest, if used as a part of the Function app":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+    WindowsPythonLatestVersion: 3.6
+    LinuxPythonLatestVersion: 3.9
+
+  "Ensure that 'Python version' is the latest, if used as a part of the Web app":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+    WindowsPythonLatestVersion: 3.6
+    LinuxPythonLatestVersion: 3.9
+
+  "Resource logs in App Services should be enabled":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+    requiredRetentionDays: 365
+# ---------------------------------------------------------------------------------------------------------------------
+# Batch
+# ---------------------------------------------------------------------------------------------------------------------
+Batch:
+  "Resource logs in Batch accounts should be enabled":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+    requiredRetentionDays: 365
+# ---------------------------------------------------------------------------------------------------------------------
+# Data Box
+# ---------------------------------------------------------------------------------------------------------------------
+Data Box:
+  "Azure Data Box jobs should enable double encryption for data at rest on the device":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+    supportedSKUs:
+        - DataBox
+        - DataBoxHeavy # Allowed: ["DataBox", "DataBoxHeavy"]
+
+  "Azure Data Box jobs should use a customer-managed key to encrypt the device unlock password":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+    supportedSKUs:
+        - DataBox
+        - DataBoxHeavy # Allowed: ["DataBox", "DataBoxHeavy"]
+# ---------------------------------------------------------------------------------------------------------------------
+# Data Lake
+# ---------------------------------------------------------------------------------------------------------------------
+Data Lake:
+  "Resource logs in Azure Data Lake Store should be enabled":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+    requiredRetentionDays: 365
+
+  "Resource logs in Data Lake Analytics should be enabled":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+    requiredRetentionDays: 365
+# ---------------------------------------------------------------------------------------------------------------------
+# Event Hub
+# ---------------------------------------------------------------------------------------------------------------------
+Event Hub:
+  "Resource logs in Event Hub should be enabled":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+    requiredRetentionDays: 365
+# ---------------------------------------------------------------------------------------------------------------------
+# Internet of Things
+# ---------------------------------------------------------------------------------------------------------------------
+Internet of Things:
+  "Resource logs in IoT Hub should be enabled":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+    requiredRetentionDays: 365
+# ---------------------------------------------------------------------------------------------------------------------
+# Key Vault
+# ---------------------------------------------------------------------------------------------------------------------
+Key Vault:
+  "Resource logs in Azure Key Vault Managed HSM should be enabled":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+    requiredRetentionDays: 365
+
+  "Resource logs in Key Vault should be enabled":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+    requiredRetentionDays: 365
+
+  "[Preview]: Certificates should be issued by the specified integrated certificate authority":
+    allowedCAs:
+        - DigiCert
+        - GlobalSign # Allowed: ["DigiCert", "GlobalSign"]
+    effect: audit  # Allowed: ["audit", "deny", "disabled"]
+
+  "[Preview]: Certificates should have the specified maximum validity period":
+    maximumValidityInMonths: 12
+    effect: audit  # Allowed: ["audit", "deny", "disabled"]
+
+  "[Preview]: Certificates should use allowed key types":
+    allowedKeyTypes:
+        - RSA
+        - RSA-HSM # Allowed: ["RSA", "RSA-HSM", "EC", "EC-HSM"]
+    effect: audit  # Allowed: ["audit", "deny", "disabled"]
+
+  "[Preview]: Certificates using elliptic curve cryptography should have allowed curve names":
+    allowedECNames:
+        - P-256
+        - P-256K
+        - P-384
+        - P-521 # Allowed: ["P-256", "P-256K", "P-384", "P-521"]
+    effect: audit  # Allowed: ["audit", "deny", "disabled"]
+
+  "[Preview]: Keys should be the specified cryptographic type RSA or EC":
+    allowedKeyTypes:
+        - RSA
+        - RSA-HSM
+        - EC
+        - EC-HSM # Allowed: ["RSA", "RSA-HSM", "EC", "EC-HSM"]
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "[Preview]: Keys using elliptic curve cryptography should have the specified curve names":
+    allowedECNames:
+        - P-256
+        - P-256K
+        - P-384
+        - P-521 # Allowed: ["P-256", "P-256K", "P-384", "P-521"]
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+# ---------------------------------------------------------------------------------------------------------------------
+# Logic Apps
+# ---------------------------------------------------------------------------------------------------------------------
+Logic Apps:
+  "Resource logs in Logic Apps should be enabled":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+    requiredRetentionDays: 365
+# ---------------------------------------------------------------------------------------------------------------------
+# Network
+# ---------------------------------------------------------------------------------------------------------------------
+Network:
+  "Web Application Firewall (WAF) should use the specified mode for Application Gateway":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+    modeRequirement: Detection  # Allowed: ["Prevention", "Detection"]
+
+  "Web Application Firewall (WAF) should use the specified mode for Azure Front Door Service":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+    modeRequirement: Detection  # Allowed: ["Prevention", "Detection"]
+# ---------------------------------------------------------------------------------------------------------------------
+# SQL
+# ---------------------------------------------------------------------------------------------------------------------
+SQL:
+  "Auditing on SQL server should be enabled":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+    setting: enabled  # Allowed: ["enabled", "disabled"]
+# ---------------------------------------------------------------------------------------------------------------------
+# Search
+# ---------------------------------------------------------------------------------------------------------------------
+Search:
+  "Resource logs in Search services should be enabled":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+    requiredRetentionDays: 365
+# ---------------------------------------------------------------------------------------------------------------------
+# Service Bus
+# ---------------------------------------------------------------------------------------------------------------------
+Service Bus:
+  "Resource logs in Service Bus should be enabled":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+    requiredRetentionDays: 365
+# ---------------------------------------------------------------------------------------------------------------------
+# Stream Analytics
+# ---------------------------------------------------------------------------------------------------------------------
+Stream Analytics:
+  "Resource logs in Azure Stream Analytics should be enabled":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+    requiredRetentionDays: 365
+# ---------------------------------------------------------------------------------------------------------------------
+# Synapse
+# ---------------------------------------------------------------------------------------------------------------------
+Synapse:
+  "Auditing on Synapse workspace should be enabled":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+    setting: enabled  # Allowed: ["enabled", "disabled"]

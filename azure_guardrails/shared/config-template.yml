@@ -23,8 +23,8 @@ exclude_keywords:
 # Uncomment the services mentioned below if you want to exclude them.
 exclude_services:
   - ""
-#  - "Guest Configuration"
-{% set existing_exclude_services = [] %}
+  - "Guest Configuration"
+{% set existing_exclude_services = ["Guest Configuration"] %}
 {% for service in t.service_names %}{% if service not in existing_exclude_services %}  #- "{{ service }}"
 {% endif %}{% endfor %}
 

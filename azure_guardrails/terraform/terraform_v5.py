@@ -68,7 +68,6 @@ class TerraformTemplateWithParamsV5:
 
     def _policy_definition_reference_parameters(self) -> dict:
         results = {}
-        parameters = self.categorized_parameters.parameters()
         for service_name, service_policies in self.categorized_parameters.service_categorized_parameters.items():
             results[service_name] = {}
             # results["Kubernetes"] = {  "Do not allow privileged containers in Kubernetes cluster": { "excludedNamespaces": {stuff} }}
@@ -112,6 +111,7 @@ class TerraformTemplateWithParamsV5:
         env.filters['tojson'] = json.dumps
         env.filters['format_parameter_value'] = format_parameter_value
         env.filters['get_placeholder_value_given_type'] = get_placeholder_value_given_type
+        env.filters['normalize_display_name_string'] = utils.normalize_display_name_string
         env.tests['is_none_instance'] = utils.is_none_instance
         template = env.get_template("policy-initiative-with-parameters-v5.tf.j2")
         result = template.render(t=self.template_contents_json)

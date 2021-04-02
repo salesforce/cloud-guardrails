@@ -93,3 +93,5 @@ examples/terraform-testing/
 /PR-Kubernetes-table.md
 /parameters.yml
 /parameters-*.yml
+/config-example-params-required.yml
+/config-example-params-optional.yml

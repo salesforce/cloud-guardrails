@@ -12,7 +12,7 @@ locals {
     {% endfor %}
   ]
   policy_definition_map = {
-  {%- for service_name, service_policies in t.policy_id_pairs.items() -%}
+    {% for service_name, service_policies in t.policy_id_pairs.items() -%}
   {% for policy_id, policy_details in service_policies.items() -%}
   "{{ policy_details.display_name }}" = "{{ policy_details.long_id }}",
     {% endfor %}
@@ -60,11 +60,10 @@ resource "azurerm_policy_set_definition" "{{ t.name }}" {
   metadata = tostring(jsonencode({
     category = local.category_{{ t.name }}
   }))
-
-  {% for service_name, service_policy_details in t.policy_definition_reference_parameters.items() %}
+  {%- for service_name, service_policy_details in t.policy_definition_reference_parameters.items() -%}
   {% for policy_definition_name, policy_definition_details in service_policy_details.items() %}
   policy_definition_reference {
-    policy_definition_id = lookup(local.policy_definition_map, "{{ policy_definition_name }}")
+    policy_definition_id = lookup(local.policy_definition_map, "{{ policy_definition_name|normalize_display_name_string }}")
     parameter_values = jsonencode({
       {%- for parameter, parameter_details in policy_definition_details.items() %}
       {%- if 'value' not in parameter_details['parameter_value'].keys() -%}
@@ -76,7 +75,7 @@ resource "azurerm_policy_set_definition" "{{ t.name }}" {
     })
     reference_id = null
   }
-  {% endfor %}{% endfor %}
+{% endfor %}{%- endfor -%}
 }
 
 # ---------------------------------------------------------------------------------------------------------------------

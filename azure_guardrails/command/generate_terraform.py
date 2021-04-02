@@ -189,17 +189,13 @@ def generate_terraform(
         policy_ids_sorted_by_service = azure_policies.get_all_policy_ids_sorted_by_service(
             no_params=no_params, params_optional=params_optional, params_required=params_required,
             audit_only=audit_only)
-        parameters_config = ParametersConfig(
-            parameter_config_file=parameters_config_file,
-            params_optional=params_optional,
-            params_required=params_required
-        )
         if parameters_config_file:
             parameters_config = utils.read_yaml_file(parameters_config_file)
         else:
-            parameters_config = {}
+            parameters_config = None
         categorized_parameters = OverallCategorizedParameters(
             azure_policies=azure_policies,
+            parameters_config=parameters_config,
             params_required=params_required,
             params_optional=params_optional,
             audit_only=audit_only
