@@ -15,7 +15,7 @@ class IamDefinitionTestCase(unittest.TestCase):
         # print(self.azure_policies.policy_ids())
         print(len(self.azure_policies.policy_ids()))
         # Length of all policies is expected to be 800+
-        self.assertTrue(len(self.azure_policies.policy_ids()) > 800)
+        self.assertTrue(len(self.azure_policies.policy_ids()) > 600)
 
         # Key Vault Policies should be greater than 25
         key_vault_policies = self.azure_policies.policy_ids(service_name="Key Vault")

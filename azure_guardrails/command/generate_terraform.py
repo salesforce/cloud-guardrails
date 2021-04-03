@@ -6,12 +6,11 @@ import logging
 import click
 from click_option_group import optgroup, RequiredMutuallyExclusiveOptionGroup
 from azure_guardrails import set_log_level
-from azure_guardrails.terraform.terraform import TerraformTemplateNoParams
-from azure_guardrails.terraform.terraform_v5 import TerraformTemplateWithParamsV5
+from azure_guardrails.terraform.terraform_no_params import TerraformTemplateNoParams
+from azure_guardrails.terraform.terraform_with_params import TerraformTemplateWithParamsV5
 from azure_guardrails.shared.iam_definition import AzurePolicies
 from azure_guardrails.shared import utils, validate
 from azure_guardrails.shared.config import get_default_config, get_config_from_file
-from azure_guardrails.shared.parameters_config import ParametersConfig, TerraformParameterV4
 from azure_guardrails.shared.parameters_categorized import OverallCategorizedParameters
 
 logger = logging.getLogger(__name__)

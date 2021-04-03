@@ -1,9 +1,6 @@
 import unittest
 import os
 import json
-from azure_guardrails.shared.parameters_config import ParametersConfig, TerraformParameterV4
-from azure_guardrails.terraform.terraform_v4 import TerraformTemplateWithParamsV4
-from azure_guardrails.terraform.terraform_v5 import TerraformTemplateWithParamsV5, get_placeholder_value_given_type
 from azure_guardrails.shared.parameters_categorized import OverallCategorizedParameters
 from azure_guardrails.shared import utils
 from azure_guardrails import set_stream_logger

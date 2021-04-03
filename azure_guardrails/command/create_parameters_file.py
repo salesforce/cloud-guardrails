@@ -29,8 +29,8 @@ logger = logging.getLogger(__name__)
     "--config-file",
     "-c",
     type=click.Path(exists=False),
-    required=True,
-    default="config.yml",
+    required=False,
+    # default="config.yml",
     help="The path to the output file",
 )
 @click.option(

@@ -9,10 +9,8 @@ from azure_guardrails.shared.config import DEFAULT_CONFIG
 from azure_guardrails.shared import utils
 from azure_guardrails.guardrails.policy_definition import PolicyDefinition
 
-DEFAULT_PARAMETERS_FILE = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), "default-parameters-config.yml")
-)
 logger = logging.getLogger(__name__)
+
 
 def get_parameters_template() -> str:
     # if not categorized_parameters:

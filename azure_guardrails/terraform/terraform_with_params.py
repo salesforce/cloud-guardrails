@@ -3,18 +3,18 @@ import json
 import logging
 from jinja2 import Environment, FileSystemLoader
 from azure_guardrails.shared import utils
-from azure_guardrails.shared.parameters_config import ParametersConfig
+from azure_guardrails.shared.parameters_categorized import OverallCategorizedParameters
 
 logger = logging.getLogger(__name__)
 
 
-class TerraformTemplateWithParamsV4:
+class TerraformTemplateWithParamsV5:
     """Terraform Template with Parameters"""
     def __init__(
             self,
             policy_id_pairs: dict,
             parameter_requirement_str: str,
-            parameters_config: ParametersConfig,
+            categorized_parameters: OverallCategorizedParameters,
             subscription_name: str = "",
             management_group: str = "",
             enforcement_mode: bool = False,
@@ -29,8 +29,8 @@ class TerraformTemplateWithParamsV4:
         self.management_group = management_group
         self.category = category
         self.policy_id_pairs = self._policy_id_pairs(policy_id_pairs)
-        self.parameters_config = parameters_config
-        self.policy_definition_reference_parameters = self._policy_definition_reference_parameters(policy_id_pairs=policy_id_pairs, parameters_config=parameters_config)
+        self.categorized_parameters = categorized_parameters
+        self.policy_definition_reference_parameters = self._policy_definition_reference_parameters()
         if enforcement_mode:
             self.enforcement_string = "true"
         else:
@@ -65,21 +65,27 @@ class TerraformTemplateWithParamsV4:
                     raise Exception("There should be a short_id")
         return policy_id_pairs
 
-    def _policy_definition_reference_parameters(self, policy_id_pairs: dict, parameters_config: ParametersConfig) -> dict:
+    def _policy_definition_reference_parameters(self) -> dict:
         results = {}
-        for service_name, service_policies in self.parameters_config.parameters.items():
+        for service_name, service_policies in self.categorized_parameters.service_categorized_parameters.items():
             results[service_name] = {}
             # results["Kubernetes"] = {  "Do not allow privileged containers in Kubernetes cluster": { "excludedNamespaces": {stuff} }}
             for policy_definition_name, policy_definition_details in service_policies.items():
                 results[service_name][policy_definition_name] = {}
                 for parameter_name, parameter_value in policy_definition_details.items():
+                    if parameter_name == "policy_id":
+                        continue
                     # TODO: Determine if the user hasn't supplied certain parameters? You will have to determine the parameters they supplied vs the policies requested.
-                    value = parameters_config.get_parameter_value_from_config(display_name=policy_definition_name, parameter_name=parameter_name)
+                    value = self.categorized_parameters.get_parameter_value_from_config(
+                        display_name=policy_definition_name, parameter_name=parameter_name
+                    )
+                    if "\\" in value:
+                        value = value.replace("\\", "\\\\")
                     if not value:
                         logger.critical("No value supplied by the user. Check it.")
                     parameter = dict(
                         parameter_name=parameter_name,
-                        parameter_value=value
+                        parameter_value=value,
                     )
                     results[service_name][policy_definition_name][parameter_name] = parameter
         return results
@@ -98,9 +104,62 @@ class TerraformTemplateWithParamsV4:
         return template_contents
 
     def rendered(self) -> str:
-        template_path = os.path.join(os.path.dirname(__file__), "parameters-v4")
+        template_path = os.path.join(os.path.dirname(__file__), "with-parameters")
         env = Environment(loader=FileSystemLoader(template_path))  # nosec
         env.filters["debug"] = print
-        template = env.get_template("policy-initiative-with-parameters-v4.tf")
+        env.filters['tojson'] = json.dumps
+        env.filters['format_parameter_value'] = format_parameter_value
+        env.filters['get_placeholder_value_given_type'] = get_placeholder_value_given_type
+        env.filters['normalize_display_name_string'] = utils.normalize_display_name_string
+        env.tests['is_none_instance'] = utils.is_none_instance
+        template = env.get_template("policy-initiative-with-parameters.tf.j2")
         result = template.render(t=self.template_contents_json)
         return result
+
+
+def format_parameter_value(value):
+    """Formats policy_definition_reference.parameter_values.value properly"""
+    # Instead of using replace('\\', '\\\\')|replace('\'', '"') in the Jinja2 template, since that doesn't handle strings well
+    def remove_escapes_and_single_quotes(some_val):
+        some_val = some_val.replace("\\", "\\\\")
+        some_val = some_val.replace("\'", '"')
+        return some_val
+
+    if isinstance(value, bool):
+        return str(value).lower()
+    elif isinstance(value, int):
+        return value
+    elif isinstance(value, list):
+        return json.dumps(value)
+    elif isinstance(value, dict):
+        return json.dumps(value)
+    elif isinstance(value, str):
+        # print(value)
+        if "[" in value or "{" in value:
+            result = remove_escapes_and_single_quotes(value)
+            return json.dumps(result)
+        else:
+            return json.dumps(value)
+    elif isinstance(value, type(None)):
+        return json.dumps("")
+    else:
+        return json.dumps("")
+
+
+def get_placeholder_value_given_type(value):
+    """Given an a parameter type, return a placeholder value"""
+    # string, array, object, boolean, integer, float, or datetime.
+    if value.lower() == "string":
+        return json.dumps("")
+    elif value.lower() == "array":
+        return []
+    elif value.lower() == "object":
+        return {}
+    elif value.lower() == "boolean":
+        return "false"
+    elif value.lower() == "integer":
+        return 0
+    elif value.lower() == "float":
+        return 0
+    elif value.lower() == "datetime":
+        return "2021-04-01T00:00:00.fffffffZ"
