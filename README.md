@@ -35,11 +35,13 @@ azure-guardrails create-config-file
 ## Other commands
 
 ```bash
-# List all the existing built-in Azure Policies
-azure-guardrails list-policies
-
 # List all the services supported by Azure built-in Policies
 azure-guardrails list-services
+
+# List all the existing built-in Azure Policies
+azure-guardrails list-policies --service all --all-policies
+azure-guardrails list-policies --service "Service Bus" --all-policies
+
 ```
 
 # Instructions

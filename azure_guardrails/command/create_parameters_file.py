@@ -16,7 +16,7 @@ from azure_guardrails.shared.config import get_default_config, get_config_from_f
 logger = logging.getLogger(__name__)
 
 
-@click.command(name="create-parameters-file", short_help="")
+@click.command(name="create-parameters-file", short_help="Create a YAML file containing Policy Parameters and default values.")
 @click.option(
     "--output-file",
     "-o",
@@ -72,10 +72,6 @@ def create_parameters_file(
     exclude_services: list,
     verbosity: int
 ):
-    """
-    Create a file of parameters to supply to Azure Policies
-    """
-
     set_log_level(verbosity)
     if not config_file:
         logger.info(

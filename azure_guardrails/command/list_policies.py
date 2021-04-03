@@ -12,7 +12,7 @@ from azure_guardrails.shared import utils, validate
 logger = logging.getLogger(__name__)
 
 
-@click.command(name="list-policies", short_help="")
+@click.command(name="list-policies", short_help="List available built-in Azure Policies.")
 @click.option(
     "--service",
     "-s",
@@ -59,7 +59,11 @@ logger = logging.getLogger(__name__)
     default=False,
     help="Only generate policies where parameters are REQUIRED",
 )
-@click.option(
+@optgroup.group(
+    "Other Options",
+    help="",
+)
+@optgroup.option(
     "--format",
     "-f",
     "fmt",

@@ -1,5 +1,5 @@
 """
-
+List services supported by Azure Built-in policies
 """
 import logging
 import os
@@ -10,7 +10,7 @@ from azure_guardrails.shared import utils
 logger = logging.getLogger(__name__)
 
 
-@click.command(name="list-services", short_help="")
+@click.command(name="list-services", short_help="List services supported by Azure Built-in policies")
 @click.option(
     "-v",
     "--verbose",
@@ -18,10 +18,7 @@ logger = logging.getLogger(__name__)
     count=True,
 )
 def list_services(verbosity):
-    """
-    Get Azure Policies
-    """
-
+    """List services supported by Azure Built-in policies"""
     set_log_level(verbosity)
     services = utils.get_service_names()
     for service in services:

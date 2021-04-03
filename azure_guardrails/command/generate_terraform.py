@@ -19,14 +19,12 @@ supported_services_argument_values = utils.get_service_names()
 supported_services_argument_values.append("all")
 
 
-@click.command(name="generate-terraform", short_help="")
+@click.command(name="generate-terraform", short_help="Generate Terraform to deploy built-in Azure Policies rapidly.")
 @optgroup.group("Azure Policy selection", help="")
 @optgroup.option(
     "--service",
     "-s",
     type=str,
-    # type=click.Choice(supported_services_argument_values),
-    required=True,
     default="all",
     help="Services supported by Azure Policy definitions. Set to 'all' for all policies",
     callback=validate.click_validate_supported_azure_service,
@@ -136,9 +134,6 @@ def generate_terraform(
     no_summary: bool,
     verbosity: int,
 ):
-    """
-    Get Azure Policies
-    """
     set_log_level(verbosity)
 
     if not config_file:

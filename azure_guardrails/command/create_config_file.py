@@ -11,7 +11,7 @@ from azure_guardrails.shared.config import get_config_template
 logger = logging.getLogger(__name__)
 
 
-@click.command(name="create-config-file", short_help="")
+@click.command(name="create-config-file", short_help="Create a config file to specify which policies to select or exclude.")
 @click.option(
     "--output-file",
     "-o",

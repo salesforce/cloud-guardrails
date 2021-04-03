@@ -12,7 +12,7 @@ from azure_guardrails.shared.config import get_empty_config
 logger = logging.getLogger(__name__)
 
 
-@click.command(name="describe-policy", short_help="Supply a Policy's display name or a policy ID and get some metadata about the policy.")
+@click.command(name="describe-policy", short_help="Get metadata about a Policy, given the policy name or ID.")
 @optgroup.group(
     "Policy Lookup Options",
     cls=RequiredMutuallyExclusiveOptionGroup,
@@ -32,7 +32,11 @@ logger = logging.getLogger(__name__)
     type=str,
     help="The short ID of the policy",
 )
-@click.option(
+@optgroup.group(
+    "Other Options",
+    help="",
+)
+@optgroup.option(
     "--format",
     "-f",
     "fmt",
