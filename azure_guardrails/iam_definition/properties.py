@@ -1,5 +1,5 @@
 import json
-from azure_guardrails.guardrails.parameter import Parameter
+from azure_guardrails.iam_definition.parameter import Parameter
 
 
 class Properties:

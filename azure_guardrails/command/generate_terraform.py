@@ -8,10 +8,10 @@ from click_option_group import optgroup, RequiredMutuallyExclusiveOptionGroup
 from azure_guardrails import set_log_level
 from azure_guardrails.terraform.terraform_no_params import TerraformTemplateNoParams
 from azure_guardrails.terraform.terraform_with_params import TerraformTemplateWithParamsV5
-from azure_guardrails.shared.iam_definition import AzurePolicies
+from azure_guardrails.iam_definition.azure_policies import AzurePolicies
 from azure_guardrails.shared import utils, validate
 from azure_guardrails.shared.config import get_default_config, get_config_from_file
-from azure_guardrails.shared.parameters_categorized import OverallCategorizedParameters
+from azure_guardrails.shared.parameters_categorized import CategorizedParameters
 
 logger = logging.getLogger(__name__)
 
@@ -192,7 +192,7 @@ def generate_terraform(
             parameters_config = utils.read_yaml_file(parameters_config_file)
         else:
             parameters_config = None
-        categorized_parameters = OverallCategorizedParameters(
+        categorized_parameters = CategorizedParameters(
             azure_policies=azure_policies,
             parameters_config=parameters_config,
             params_required=params_required,

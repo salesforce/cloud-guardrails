@@ -2,8 +2,8 @@
 # import os
 # import json
 # from azure_guardrails.shared.parameters_config import ParametersConfig, TerraformParameterV4
-# from azure_guardrails.shared.parameters_categorized import OverallCategorizedParameters
-# from azure_guardrails.guardrails.policy_definition import PolicyDefinition
+# from azure_guardrails.shared.parameters_categorized import CategorizedParameters
+# from azure_guardrails.iam_definition.policy_definition import PolicyDefinition
 # from azure_guardrails.shared import utils
 # from azure_guardrails import set_stream_logger
 # import logging
@@ -187,7 +187,7 @@
 # #         # print()
 #
 #     def test_parameter_config_output(self):
-#         categorized_parameters = OverallCategorizedParameters()
+#         categorized_parameters = CategorizedParameters()
 #         results = categorized_parameters.service_categorized_parameters
 #         print(json.dumps(results, indent=4))
 #
