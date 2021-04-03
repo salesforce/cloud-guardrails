@@ -1,30 +1,10 @@
-import os
 import logging
 import json
 import yaml
-from jinja2 import Template, Environment, FileSystemLoader
 from azure_guardrails.shared import utils
+from azure_guardrails.templates.config_template import get_config_template
 
 logger = logging.getLogger(__name__)
-
-DEFAULT_CONFIG_FILE = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), "config-template.yml")
-)
-
-
-def get_config_template() -> str:
-    template_contents = dict(
-        match_only_keywords=[],
-        exclude_keywords=[],
-        service_names=utils.get_service_names(),
-    )
-    template_path = os.path.join(os.path.dirname(__file__))
-    env = Environment(loader=FileSystemLoader(template_path))  # nosec
-    template = env.get_template("config-template.yml")
-    return template.render(t=template_contents)
-
-
-DEFAULT_CONFIG_TEMPLATE = get_config_template()
 
 
 class Config:
@@ -208,9 +188,6 @@ def get_default_config(exclude_services: list = None, match_only_keywords: list 
     return config
 
 
-DEFAULT_CONFIG = get_default_config()
-
-
 def get_config_from_file(config_file: str, exclude_services: list = None) -> Config:
     with open(config_file, "r") as yaml_file:
         config_cfg = yaml.safe_load(yaml_file)
@@ -246,3 +223,7 @@ def get_empty_config() -> Config:
         exclude_keywords=None
     )
     return config
+
+
+DEFAULT_CONFIG_TEMPLATE = get_config_template()
+DEFAULT_CONFIG = get_default_config()

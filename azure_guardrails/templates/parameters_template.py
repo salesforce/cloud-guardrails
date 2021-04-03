@@ -1,10 +1,10 @@
-from azure_guardrails.shared.iam_definition import AzurePolicies
-from azure_guardrails.shared.parameters_categorized import OverallCategorizedParameters
-from jinja2 import Template, Environment, FileSystemLoader
+import os
+import json
+from jinja2 import Environment, FileSystemLoader
+from azure_guardrails.iam_definition.azure_policies import AzurePolicies
+from azure_guardrails.shared.parameters_categorized import CategorizedParameters
 from azure_guardrails.shared.config import DEFAULT_CONFIG, Config
 from azure_guardrails.shared import utils
-from azure_guardrails.guardrails.policy_definition import PolicyDefinition
-import os
 
 
 class ParameterSegment:
@@ -16,6 +16,18 @@ class ParameterSegment:
         self.default_value = default_value
         self.value = value
 
+    def json(self):
+        return dict(
+            name=self.name,
+            type=self.type,
+            allowed_values=self.allowed_values,
+            default_value=self.default_value,
+            value=self.value
+        )
+
+    def __repr__(self) -> str:
+        return json.dumps(self.__dict__)
+
 
 class ParameterTemplate:
     def __init__(
@@ -25,15 +37,29 @@ class ParameterTemplate:
         params_required: bool = False,
     ):
         self.azure_policies = AzurePolicies(service_names=["all"], config=config)
-        categorized_parameters = OverallCategorizedParameters(
+        categorized_parameters = CategorizedParameters(
             azure_policies=self.azure_policies,
             params_optional=params_optional,
             params_required=params_required,
             audit_only=False
         )
-        self.config = self.set_config(categorized_parameters=categorized_parameters)
+        self.parameters_config = self.set_parameter_config(categorized_parameters=categorized_parameters)
 
-    def set_config(self, categorized_parameters: OverallCategorizedParameters) -> dict:
+    def json(self):
+        results = {}
+        for service_name, service_policies in self.parameters_config.items():
+            results[service_name] = {}
+            for policy_name, policy_parameters in service_policies.items():
+                results[service_name][policy_name] = []
+                for parameter_segment in policy_parameters:
+                    results[service_name][policy_name].append(parameter_segment.json())
+
+        return results
+
+    def __repr__(self):
+        return json.dumps(self.json())
+
+    def set_parameter_config(self, categorized_parameters: CategorizedParameters) -> dict:
         results = {}
         for service_name, service_policies in categorized_parameters.service_categorized_parameters.items():
             results[service_name] = {}
@@ -55,8 +81,7 @@ class ParameterTemplate:
 
     def rendered(self) -> str:
         template_contents = dict(
-            # parameter_segments=parameter_segments,
-            categorized_parameters=self.config
+            categorized_parameters=self.parameters_config
         )
         template_path = os.path.join(os.path.dirname(__file__))
         env = Environment(loader=FileSystemLoader(template_path), lstrip_blocks=True)  # nosec

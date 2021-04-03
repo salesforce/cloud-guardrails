@@ -2,8 +2,8 @@ import unittest
 import os
 import json
 from azure_guardrails.shared import utils
-from azure_guardrails.guardrails.policy_definition import PolicyDefinition
-from azure_guardrails.shared.iam_definition import skip_display_names
+from azure_guardrails.iam_definition.policy_definition import PolicyDefinition
+from azure_guardrails.iam_definition.azure_policies import skip_display_names
 
 # No Params
 policy_definition_file = os.path.abspath(os.path.join(

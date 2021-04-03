@@ -1,7 +1,7 @@
 import os
 import json
 import unittest
-from azure_guardrails.guardrails.properties import Properties
+from azure_guardrails.iam_definition.properties import Properties
 # Params Required
 policy_definition_file = os.path.abspath(os.path.join(
     os.path.dirname(__file__),

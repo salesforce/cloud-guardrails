@@ -3,7 +3,7 @@ import json
 import logging
 from jinja2 import Environment, FileSystemLoader
 from azure_guardrails.shared import utils
-from azure_guardrails.shared.parameters_categorized import OverallCategorizedParameters
+from azure_guardrails.shared.parameters_categorized import CategorizedParameters
 
 logger = logging.getLogger(__name__)
 
@@ -14,7 +14,7 @@ class TerraformTemplateWithParamsV5:
             self,
             policy_id_pairs: dict,
             parameter_requirement_str: str,
-            categorized_parameters: OverallCategorizedParameters,
+            categorized_parameters: CategorizedParameters,
             subscription_name: str = "",
             management_group: str = "",
             enforcement_mode: bool = False,

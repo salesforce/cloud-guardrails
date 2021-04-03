@@ -1,6 +1,6 @@
 import logging
 import json
-from azure_guardrails.guardrails.properties import Properties
+from azure_guardrails.iam_definition.properties import Properties
 from azure_guardrails.shared import utils
 logger = logging.getLogger(__name__)
 

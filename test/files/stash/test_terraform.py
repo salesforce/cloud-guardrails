@@ -2,7 +2,7 @@
 # import json
 # from azure_guardrails.shared import utils
 # from azure_guardrails.terraform.terraform import TerraformTemplateNoParams
-# from azure_guardrails.guardrails.services import Services, Service
+# from azure_guardrails.iam_definition.services import Services, Service
 #
 #
 # class TerraformTemplateNoParamsTestCase(unittest.TestCase):

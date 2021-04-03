@@ -1,42 +1,13 @@
-from jinja2 import Template, Environment, FileSystemLoader
-import os
-import json
-import copy
-import yaml
 import logging
-from azure_guardrails.shared.iam_definition import AzurePolicies
+from azure_guardrails.iam_definition.azure_policies import AzurePolicies
 from azure_guardrails.shared.config import DEFAULT_CONFIG
 from azure_guardrails.shared import utils
-from azure_guardrails.guardrails.policy_definition import PolicyDefinition
+from azure_guardrails.iam_definition.policy_definition import PolicyDefinition
 
 logger = logging.getLogger(__name__)
 
 
-def get_parameters_template() -> str:
-    # if not categorized_parameters:
-    #     with open(DEFAULT_PARAMETERS_FILE, "r") as file:
-    #         default_categorized_parameters = yaml.safe_load(file)
-    #     categorized_parameters = default_categorized_parameters
-    azure_policies = AzurePolicies(service_names=["all"], config=DEFAULT_CONFIG)
-    categorized_parameters = OverallCategorizedParameters(azure_policies=azure_policies, params_optional=True, params_required=True, audit_only=False)
-    template_contents = dict(
-        categorized_parameters=categorized_parameters.service_categorized_parameters,
-    )
-    template_path = os.path.join(os.path.dirname(__file__))
-    env = Environment(loader=FileSystemLoader(template_path))  # nosec
-
-    def is_list(value):
-        return isinstance(value, list)
-
-    env.tests['is_a_list'] = is_list
-    env.filters["debug"] = print
-    env.filters['tojson'] = json.dumps
-    env.tests['is_none_instance'] = utils.is_none_instance
-    template = env.get_template("parameters-template.yml.j2")
-    return template.render(t=template_contents)
-
-
-class OverallCategorizedParameters:
+class CategorizedParameters:
     """Feed the results of the JSON File into here and store it in the class structure"""
 
     def __init__(
@@ -134,11 +105,8 @@ class OverallCategorizedParameters:
                 policy_definition = self.azure_policies.get_policy_definition(policy_id=policy_details.get("short_id"))
                 # See if it has parameters
                 if not policy_definition.parameters:
-                    # if "parameters" not in policy_details.keys():
                     continue
                 results[service_name][policy_name] = {}
-                # policy_definition = self.azure_policies.get_policy_definition_by_display_name(display_name=policy_name)
-                # policy_parameters = policy_details.get("parameters", None)
 
                 for parameter_name in policy_definition.parameters:
                     if policy_definition.properties.parameters[parameter_name].allowed_values:
@@ -232,11 +200,9 @@ class OverallCategorizedParameters:
                     user_supplied_value = {}
                     return user_supplied_value
                 else:
-                    # TODO: Should throw an exception here. Let the user know that they need to supply a value!
                     logger.debug(
                         f"Parameter value not supplied by user. No default value available. Parameter: {parameter_name}. Policy ID: {policy_id}")
                     return None
-            # TODO: How do we differentiate between when Azure says an empty list is okay vs when it is not?
             else:
                 if isinstance(user_supplied_value, list):
                     user_supplied_value = []
@@ -255,34 +221,3 @@ class OverallCategorizedParameters:
                 f"Parameter supplied by user. Using user-supplied value. Parameter: {parameter_name}. Value: {user_supplied_value}. Policy ID: {policy_id}")
             return user_supplied_value
 
-    def parameters(self) -> dict:
-        results = {}
-        policy_id_pairs = self.azure_policies.get_all_policy_ids_sorted_by_service(
-            no_params=False, params_optional=self.params_optional, params_required=self.params_required,
-            audit_only=self.audit_only)
-        for service_name, service_policies in policy_id_pairs.items():
-            results[service_name] = {}
-            for policy_definition_name, policy_definition_details in service_policies.items():
-                results[service_name][policy_definition_name] = {}
-                if "parameters" in policy_definition_details.keys():
-                    for parameter_name, parameter_details in policy_definition_details.get("parameters").items():
-                        if isinstance(parameter_details.get("value", None), type(None)):
-                            if isinstance(parameter_details.get("default_value", None), type(None)):
-                                value = None
-                            else:
-                                value = parameter_details.get("default_value")
-                        else:
-                            value = parameter_details.get("value")
-                        parameter = dict(
-                            name=parameter_name,
-                            service=service_name,
-                            policy_definition_name=policy_definition_name,
-                            initiative_parameters_json=parameter_details,
-                            parameter_type=parameter_details.get("type"),
-                            default_value=parameter_details.get("default_value"),
-                            value=value,
-                        )
-                        results[service_name][policy_definition_name][parameter_name] = parameter
-                else:
-                    logger.warning(f"No parameters provided. Policy Name: \"{policy_definition_name}\"")
-        return results

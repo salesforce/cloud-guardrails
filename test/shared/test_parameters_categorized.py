@@ -1,12 +1,9 @@
 import unittest
 import os
 import json
-from azure_guardrails.shared.parameters_categorized import OverallCategorizedParameters
+from azure_guardrails.shared.parameters_categorized import CategorizedParameters
 from azure_guardrails.shared import utils
-from azure_guardrails import set_stream_logger
-from azure_guardrails.shared.iam_definition import AzurePolicies
-from azure_guardrails.shared.config import get_default_config, get_config_from_file
-import logging
+from azure_guardrails.iam_definition.azure_policies import AzurePolicies
 
 parameters_config_file = os.path.abspath(os.path.join(
     os.path.dirname(__file__),
@@ -24,7 +21,7 @@ class ParametersCategorizedTestCase(unittest.TestCase):
         self.policy_ids_sorted_by_service = azure_policies.get_all_policy_ids_sorted_by_service(
             no_params=False, params_optional=True, params_required=True,
             audit_only=False)
-        self.categorized_parameters = OverallCategorizedParameters(
+        self.categorized_parameters = CategorizedParameters(
             azure_policies=azure_policies,
             parameters_config=parameters_config,
             params_required=True,
@@ -87,7 +84,3 @@ class ParametersCategorizedTestCase(unittest.TestCase):
     def test_parameter_config_output(self):
         results = self.categorized_parameters.service_categorized_parameters
         print(json.dumps(results, indent=4))
-
-    def test_parameter_config_parameters(self):
-        print(json.dumps(self.categorized_parameters.parameters(), indent=4))
-        # print(self.parameters_config.parameters)

@@ -10,7 +10,7 @@ from collections import OrderedDict
 import logging
 from azure_guardrails.shared import utils
 from azure_guardrails.shared.config import DEFAULT_CONFIG, Config
-from azure_guardrails.guardrails.policy_definition import PolicyDefinition
+from azure_guardrails.iam_definition.policy_definition import PolicyDefinition
 
 logger = logging.getLogger(__name__)
 
@@ -338,7 +338,7 @@ class AzurePolicies:
         results = {}
         compliance_data_file = os.path.abspath(
             os.path.join(
-                os.path.dirname(__file__), os.path.pardir, "shared", "data", "compliance-data.json"
+                os.path.dirname(__file__), os.path.pardir, "shared", "../shared/data", "compliance-data.json"
             )
         )
         with open(compliance_data_file) as json_file:

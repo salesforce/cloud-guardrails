@@ -1,12 +1,12 @@
 import unittest
 import os
 import json
-from azure_guardrails.shared.iam_definition import AzurePolicies
-from azure_guardrails.guardrails.policy_definition import PolicyDefinition
+from azure_guardrails.iam_definition.azure_policies import AzurePolicies
+from azure_guardrails.iam_definition.policy_definition import PolicyDefinition
 from azure_guardrails.shared import utils
 
 
-class IamDefinitionTestCase(unittest.TestCase):
+class AzurePoliciesTestCase(unittest.TestCase):
     def setUp(self) -> None:
         self.azure_policies = AzurePolicies()
         self.kv_azure_policies = AzurePolicies(service_names=["Key Vault"])

@@ -6,12 +6,12 @@ import os
 import logging
 from pathlib import Path
 import click
-from click_option_group import optgroup, RequiredMutuallyExclusiveOptionGroup
+from click_option_group import optgroup
 from azure_guardrails import set_log_level
 # from azure_guardrails.shared.parameters_categorized import get_parameters_template
-from azure_guardrails.shared.parameters_template import ParameterTemplate
-from azure_guardrails.shared import utils, validate
-from azure_guardrails.shared.config import Config, get_default_config, get_config_from_file
+from azure_guardrails.templates.parameters_template import ParameterTemplate
+from azure_guardrails.shared import validate
+from azure_guardrails.shared.config import get_default_config, get_config_from_file
 
 logger = logging.getLogger(__name__)
 
