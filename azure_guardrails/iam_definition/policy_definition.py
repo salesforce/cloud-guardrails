@@ -42,6 +42,7 @@ class PolicyDefinition:
             short_id=self.name,
             id=self.id,
             name=self.name,
+            github_link=self.github_link,
             category=self.category,
             allowed_effects=self.allowed_effects,
             parameter_names=self.parameter_names,
