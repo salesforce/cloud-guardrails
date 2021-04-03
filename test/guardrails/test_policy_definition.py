@@ -158,3 +158,146 @@ class PolicyDefinitionV2TestCase(unittest.TestCase):
         print(policy_definition.audit_only)
         print(policy_definition.allowed_effects)
         self.assertFalse(policy_definition.audit_only)
+
+    def test_parameters_config(self):
+        results = self.no_params_definition.parameters_config()
+        self.assertDictEqual(results, {})
+        results = self.params_optional_definition.parameters_config()
+        expected_results = {
+            "effect": {
+                "effect": {
+                    "type": "string",
+                    "default_value": "AuditIfNotExists",
+                    "allowed_values": [
+                        "AuditIfNotExists",
+                        "Disabled"
+                    ]
+                }
+            },
+            "setting": {
+                "setting": {
+                    "type": "String",
+                    "default_value": "enabled",
+                    "allowed_values": [
+                        "enabled",
+                        "disabled"
+                    ]
+                }
+            }
+        }
+        # print(json.dumps(results, indent=4))
+        self.assertDictEqual(results, expected_results)
+        results = self.params_required_definition.parameters_config()
+        expected_results = {
+            "effect": {
+                "effect": {
+                    "type": "String",
+                    "default_value": "audit",
+                    "allowed_values": [
+                        "audit",
+                        "deny",
+                        "disabled"
+                    ]
+                }
+            },
+            "excludedNamespaces": {
+                "excludedNamespaces": {
+                    "type": "Array",
+                    "default_value": [
+                        "kube-system",
+                        "gatekeeper-system",
+                        "azure-arc"
+                    ],
+                    "allowed_values": None
+                }
+            },
+            "namespaces": {
+                "namespaces": {
+                    "type": "Array",
+                    "default_value": [],
+                    "allowed_values": None
+                }
+            },
+            "runAsUserRule": {
+                "runAsUserRule": {
+                    "type": "String",
+                    "default_value": "MustRunAsNonRoot",
+                    "allowed_values": [
+                        "MustRunAs",
+                        "MustRunAsNonRoot",
+                        "RunAsAny"
+                    ]
+                }
+            },
+            "runAsUserRanges": {
+                "runAsUserRanges": {
+                    "type": "Object",
+                    "default_value": {
+                        "ranges": []
+                    },
+                    "allowed_values": None
+                }
+            },
+            "runAsGroupRule": {
+                "runAsGroupRule": {
+                    "type": "String",
+                    "default_value": "RunAsAny",
+                    "allowed_values": [
+                        "MustRunAs",
+                        "MayRunAs",
+                        "RunAsAny"
+                    ]
+                }
+            },
+            "runAsGroupRanges": {
+                "runAsGroupRanges": {
+                    "type": "Object",
+                    "default_value": {
+                        "ranges": []
+                    },
+                    "allowed_values": None
+                }
+            },
+            "supplementalGroupsRule": {
+                "supplementalGroupsRule": {
+                    "type": "String",
+                    "default_value": "RunAsAny",
+                    "allowed_values": [
+                        "MustRunAs",
+                        "MayRunAs",
+                        "RunAsAny"
+                    ]
+                }
+            },
+            "supplementalGroupsRanges": {
+                "supplementalGroupsRanges": {
+                    "type": "Object",
+                    "default_value": {
+                        "ranges": []
+                    },
+                    "allowed_values": None
+                }
+            },
+            "fsGroupRule": {
+                "fsGroupRule": {
+                    "type": "String",
+                    "default_value": "RunAsAny",
+                    "allowed_values": [
+                        "MustRunAs",
+                        "MayRunAs",
+                        "RunAsAny"
+                    ]
+                }
+            },
+            "fsGroupRanges": {
+                "fsGroupRanges": {
+                    "type": "Object",
+                    "default_value": {
+                        "ranges": []
+                    },
+                    "allowed_values": None
+                }
+            }
+        }
+        print(json.dumps(results, indent=4))
+        self.assertDictEqual(results, expected_results)

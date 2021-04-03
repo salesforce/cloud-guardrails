@@ -1,6 +1,6 @@
 import unittest
 import os
-from azure_guardrails.terraform.terraform import TerraformTemplateNoParams
+from azure_guardrails.terraform.terraform_no_params import TerraformTemplateNoParams
 from azure_guardrails.shared.iam_definition import AzurePolicies
 from azure_guardrails.shared.config import get_default_config
 from azure_guardrails.shared import utils

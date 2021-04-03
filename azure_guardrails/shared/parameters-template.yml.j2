@@ -1,0 +1,40 @@
+{# service: Batch #}
+{%- for service, policy_name in t.categorized_parameters.items() -%}
+# ---------------------------------------------------------------------------------------------------------------------
+# {{ service }}
+# ---------------------------------------------------------------------------------------------------------------------
+{{ service }}{{ ':' }}
+    {#- policy_name: 'Metric alert rules should be configured on Batch accounts' -#}
+    {%- for this_policy_name, parameter_segments in policy_name.items() -%}
+        {#- for parameter_segment in [effect, denyListOfStuff] -#}
+        {{ "\n  \"" }}{{ this_policy_name }}{{ '":\n' }}
+        {%- for parameter_segment in parameter_segments -%}
+            {%- filter indent(width=2) -%}
+                {#- List the name of the parameter -#}
+                {{ "   " }} {{ parameter_segment.name }}:
+                {#- If the value is not null -#}
+                {%- if parameter_segment.value is not is_none_instance -%}
+                    {#- If the value is a list -#}
+                    {%- if parameter_segment.value is is_a_list -%}
+                        {#- If the list has values in it -#}
+                        {%- if parameter_segment.value %}
+                            {#- If it's [], set it to [] -#}
+                            {{ '\n      - ' }}{{ parameter_segment.value|join('\n      - ') }}
+                        {%- else -%}
+                            {{ ' []' }}
+                        {%- endif -%}
+                    {%- else -%}
+                        {{ ' ' }}{{ parameter_segment.value }}{{ ' ' }}
+                    {%- endif -%}
+                {%- endif -%}
+                {#- When there are no default parameters, insert a comment -#}
+                {%- if parameter_segment.default_value is is_none_instance -%}
+                    {{ " # Note: No default parameters" }}
+                {%- endif -%}
+                {#- Example: AuditIfNotExists, Disabled -#}
+                {%- if parameter_segment.allowed_values is not is_none_instance -%}
+                    {{ ''-}}{{ '' }} # Allowed: ["{{ parameter_segment.allowed_values|join("\", \"") }}"]
+                {%- endif -%}{% endfilter %}{{ "\n" }}
+        {%- endfor -%}
+    {%- endfor -%}
+{%- endfor -%}

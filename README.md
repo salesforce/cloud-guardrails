@@ -2,6 +2,8 @@
 
 Command-line tool that generates Azure Policies based on requirements and transforms them into Terraform.
 
+Note: Requires Terraform 0.13.5
+
 # Cheatsheet
 
 ## Generating Terraform
@@ -108,7 +110,7 @@ locals {
     "[Preview]: Keys should be backed by a hardware security module (HSM)",
     "[Preview]: Private endpoint should be configured for Key Vault",
     "[Preview]: Secrets should have content type set",
-    
+
   ]
 }
 

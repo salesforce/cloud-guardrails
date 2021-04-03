@@ -3,6 +3,7 @@ Supply a Policy's display name or a policy ID and get some metadata about the po
 """
 import logging
 import yaml
+import json
 import ruamel.yaml
 import click
 from azure_guardrails import set_log_level
@@ -33,12 +34,21 @@ logger = logging.getLogger(__name__)
     help="The short ID of the policy",
 )
 @click.option(
+    "--format",
+    "-f",
+    "fmt",
+    type=click.Choice(["json", "yaml"]),
+    required=False,
+    default="yaml",
+    help="Output format",
+)
+@click.option(
     "--verbose",
     "-v",
     "verbosity",
     count=True,
 )
-def describe_policy(display_name: str, policy_id: str, verbosity: bool):
+def describe_policy(display_name: str, policy_id: str, fmt: str, verbosity: bool):
     set_log_level(verbosity)
     azure_policies = AzurePolicies(config=get_empty_config())
     # services = Services(config=get_empty_config())
@@ -48,6 +58,9 @@ def describe_policy(display_name: str, policy_id: str, verbosity: bool):
         policy_definition = azure_policies.get_policy_definition_by_display_name(display_name=display_name)
     results_json = policy_definition.json()
     results_json.pop("id", None)
-    results_str = ruamel.yaml.dump(results_json, Dumper=ruamel.yaml.RoundTripDumper)
-    print()
-    print(results_str)
+    if fmt == "yaml":
+        results_str = ruamel.yaml.dump(results_json, Dumper=ruamel.yaml.RoundTripDumper)
+        print()
+        print(results_str)
+    else:
+        print(json.dumps(results_json, indent=4))

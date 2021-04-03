@@ -16,15 +16,17 @@ class Properties:
         self.version = self.metadata_json.get("version", None)
         self.category = self.metadata_json.get("category", None)
         self.preview = self.metadata_json.get("preview", None)
-        if self.preview:
-            # Sometimes, Preview is already in the display name. For example, "[ASC Private Preview] Deploy - Configure system-assigned managed identity to enable Azure Monitor assignments on VMs"
-            if "Preview" not in display_name:
-                self.display_name = f"[Preview]: {display_name}"
-            # If the word 'Preview' is already in the display name, leave it
-            else:
-                self.display_name = display_name
-        else:
-            self.display_name = display_name
+        # if self.preview:
+        #     # # Sometimes, Preview is already in the display name. For example, "[ASC Private Preview] Deploy - Configure system-assigned managed identity to enable Azure Monitor assignments on VMs"
+        #     # if "Preview" not in display_name:
+        #     #     self.display_name = f"[Preview]: {display_name}"
+        #     # # If the word 'Preview' is already in the display name, leave it
+        #     # else:
+        #     #     self.display_name = display_name
+        # else:
+        if "[Preview]: " in display_name:
+            display_name.replace("[Preview]: ", "")
+        self.display_name = display_name
         self.deprecated = self.metadata_json.get("deprecated", None)
 
         # PolicyDefinition Rule and Parameters

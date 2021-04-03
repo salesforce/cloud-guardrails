@@ -7,7 +7,6 @@ from tabulate import tabulate
 from operator import itemgetter
 import csv
 from collections import OrderedDict
-
 import logging
 from azure_guardrails.shared import utils
 from azure_guardrails.shared.config import DEFAULT_CONFIG, Config
@@ -66,13 +65,31 @@ class AzurePolicies:
             service_names: list = default_service_names,
             config: Config = DEFAULT_CONFIG,
     ):
+        # if service_names == ["all"]:
+        #     service_names = utils.get_service_names()
+        #     service_names.sort()
+        # service_names_to_remove = []
+        # for service_name in service_names:
+        #     if config.is_service_excluded(service_name=service_name):
+        #         service_names_to_remove.append(service_name)
+        # for service_name in service_names_to_remove:
+        #     service_names.remove(service_name)
+        self.config = config
+        self.service_names = self.set_service_names(service_names=service_names)
+        self.service_definitions = iam_definition["service_definitions"]
+        self.policy_definitions = iam_definition["policy_definitions"]
+
+    def set_service_names(self, service_names: list):
         if service_names == ["all"]:
             service_names = utils.get_service_names()
             service_names.sort()
-        self.service_names = service_names
-        self.config = config
-        self.service_definitions = iam_definition["service_definitions"]
-        self.policy_definitions = iam_definition["policy_definitions"]
+        service_names_to_remove = []
+        for service_name in service_names:
+            if self.config.is_service_excluded(service_name=service_name):
+                service_names_to_remove.append(service_name)
+        for service_name in service_names_to_remove:
+            service_names.remove(service_name)
+        return service_names
 
     def policy_ids(self, service_name: str = None) -> list:
         results = []
@@ -109,14 +126,59 @@ class AzurePolicies:
                 break
         return policy_definition
 
-    def get_policy_id_parameters(self, policy_id: str) -> dict:
+    def get_policy_id_by_display_name(self, display_name: str) -> str:
+        policy_definition = self.get_policy_definition_by_display_name(display_name=display_name)
+        return policy_definition.short_id
+
+    def get_parameters_by_policy_id(self, policy_id: str, include_effect: bool = False) -> dict:
         policy_definition = self.get_policy_definition(policy_id=policy_id)
         parameters = {}
         for parameter_name, parameter_details in policy_definition.parameters.items():
-            if parameter_details.name == "effect":
-                continue
+            if not include_effect:
+                if parameter_details.name == "effect":
+                    continue
             parameters[parameter_details.name] = parameter_details.json()
         return parameters
+
+    def get_allowed_values_for_parameter(self, policy_id: str, parameter_name: str):
+        """Given a policy ID and a parameter name, get the allowed_values for a parameter"""
+        policy_definition = self.get_policy_definition(policy_id=policy_id)
+        try:
+            parameter = policy_definition.properties.parameters.get(parameter_name)
+            if isinstance(parameter.allowed_values, type(None)):
+                return None
+            elif isinstance(parameter.allowed_values, list):
+                return parameter.allowed_values
+            else:
+                return []
+        except Exception as error:
+            logger.debug(error)
+            return None
+
+    def get_default_value_for_parameter(self, policy_id: str, parameter_name: str):
+        """Given a policy ID and a parameter name, get the allowed_values for a parameter"""
+        policy_definition = self.get_policy_definition(policy_id=policy_id)
+        try:
+            parameter = policy_definition.properties.parameters.get(parameter_name)
+            if isinstance(parameter.default_value, type(None)):
+                return None
+            elif (
+                isinstance(parameter.default_value, list)
+                or isinstance(parameter.default_value, dict)
+                or isinstance(parameter.default_value, bool)
+                or isinstance(parameter.default_value, int)
+                or isinstance(parameter.default_value, str)
+            ):
+                return parameter.default_value
+        except Exception as error:
+            logger.debug(error)
+            return []
+
+    def get_parameter_type(self, policy_id: str, parameter_name: str):
+        """Given a policy ID and a parameter name, get the type of a parameter"""
+        policy_definition = self.get_policy_definition(policy_id=policy_id)
+        parameter = policy_definition.properties.parameters.get(parameter_name, None)
+        return parameter.type
 
     def is_policy_id_excluded(self, policy_id: str) -> bool:
         policy_definition = self.get_policy_definition(policy_id=policy_id)
@@ -203,16 +265,21 @@ class AzurePolicies:
 
     def get_all_policy_ids_sorted_by_service(self, no_params: bool = True, params_optional: bool = True,
                                              params_required: bool = True, audit_only: bool = False) -> dict:
+
         results = {}
         for service_name, service_policies in self.service_definitions.items():
+            if self.config.is_service_excluded(service_name=service_name):
+                continue
             service_results = {}
             for policy_id, policy_details in service_policies.items():
                 if not self.is_policy_id_excluded(policy_id=policy_id):
                     if no_params:
                         if policy_details.get("no_params"):
+                            policy_definition = self.get_policy_definition(policy_id=policy_details.get("short_id"))
                             service_results[policy_details.get("display_name")] = dict(
                                 short_id=policy_details.get("short_id"),
-                                display_name=policy_details.get("display_name")
+                                long_id=policy_definition.id,
+                                display_name=policy_details.get("display_name").replace("[Preview]: ", ""),
                             )
                     if params_optional:
                         if policy_details.get("params_optional"):
@@ -227,7 +294,8 @@ class AzurePolicies:
                                 parameters[parameter_details.name] = parameter_details.json()
                             service_results[policy_details.get("display_name")] = dict(
                                 short_id=policy_details.get("short_id"),
-                                display_name=policy_details.get("display_name"),
+                                long_id=policy_definition.id,
+                                display_name=policy_details.get("display_name").replace("[Preview]: ", ""),
                                 parameters=parameters
                             )
                     if params_required:
@@ -243,7 +311,8 @@ class AzurePolicies:
                                 parameters[parameter_details.name] = parameter_details.json()
                             service_results[policy_details.get("display_name")] = dict(
                                 short_id=policy_details.get("short_id"),
-                                display_name=policy_details.get("display_name")
+                                long_id=policy_definition.id,
+                                display_name=policy_details.get("display_name").replace("[Preview]: ", ""),
                             )
                     # If audit_only is flagged, create a new list to hold the audit-only ones, then save it as the new service results
                     if audit_only:

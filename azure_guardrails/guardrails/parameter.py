@@ -23,6 +23,10 @@ class Parameter:
                     self.default_value = None
 
         self.default_value = parameter_json.get("defaultValue", None)
+        if not isinstance(self.default_value, type(None)):
+            self.value = self.default_value
+        else:
+            self.value = None
         self.allowed_values = parameter_json.get("allowedValues", None)
 
         # Metadata
@@ -47,6 +51,8 @@ class Parameter:
         # Return default value only if it has a value, or if it is an empty list or empty string
         if self.default_value or self.default_value == [] or self.default_value == "":
             result["default_value"] = self.default_value
+        if not isinstance(self.value, type(None)):
+            result["value"] = self.value
         if self.allowed_values:
             result["allowed_values"] = self.allowed_values
         if self.category:
@@ -62,3 +68,25 @@ class Parameter:
         allowed_values = parameter_json.get("allowedValues", None)
         allowed_values = [x.lower() for x in allowed_values]
         return allowed_values
+
+    def parameter_config(self) -> dict:
+        """The config format for this parameter to be fed into YAML"""
+        result = {}
+        # If there is no default value set, but it is a dict or a list, return an empty data type
+        if self.default_value:
+            default_value = self.default_value
+        else:
+            if self.type.lower() == "object":
+                default_value = {}
+            elif self.type.lower() == "array":
+                default_value = []
+            elif self.type.lower() == "string":
+                default_value = ""
+            else:
+                default_value = None
+        result[self.name] = dict(
+            type=self.type,
+            default_value=default_value,
+            allowed_values=self.allowed_values
+        )
+        return result

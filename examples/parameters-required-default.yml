@@ -1,0 +1,515 @@
+# ---------------------------------------------------------------------------------------------------------------------
+# Batch
+# ---------------------------------------------------------------------------------------------------------------------
+Batch:
+  "Metric alert rules should be configured on Batch accounts":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+    metricName: # Note: No default parameters
+# ---------------------------------------------------------------------------------------------------------------------
+# Compute
+# ---------------------------------------------------------------------------------------------------------------------
+Compute:
+  "Managed disks should use a specific set of disk encryption sets for the customer-managed key encryption":
+    allowedEncryptionSets: # Note: No default parameters
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Only approved VM extensions should be installed":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+    approvedExtensions: # Note: No default parameters
+
+  "Resource logs in Virtual Machine Scale Sets should be enabled":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+    includeAKSClusters: False
+# ---------------------------------------------------------------------------------------------------------------------
+# Cosmos DB
+# ---------------------------------------------------------------------------------------------------------------------
+Cosmos DB:
+  "Azure Cosmos DB allowed locations":
+    listOfAllowedLocations: # Note: No default parameters
+    policyEffect: deny  # Allowed: ["deny", "audit", "disabled"]
+
+  "Azure Cosmos DB throughput should be limited":
+    throughputMax: # Note: No default parameters
+    effect: deny  # Allowed: ["audit", "deny", "disabled"]
+# ---------------------------------------------------------------------------------------------------------------------
+# Data Factory
+# ---------------------------------------------------------------------------------------------------------------------
+Data Factory:
+  "[Preview]: Azure Data Factory linked service resource type should be in allow list":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+    allowedLinkedServiceResourceTypes: # Note: No default parameters # Allowed: ["AdlsGen2CosmosStructuredStream", "AdobeExperiencePlatform", "AdobeIntegration", "AmazonRedshift", "AmazonS3", "AzureBlobFS", "AzureBlobStorage", "AzureDataExplorer", "AzureDataLakeStore", "AzureDataLakeStoreCosmosStructuredStream", "AzureDataShare", "AzureFileStorage", "AzureKeyVault", "AzureMariaDB", "AzureMySql", "AzurePostgreSql", "AzureSearch", "AzureSqlDatabase", "AzureSqlDW", "AzureSqlMI", "AzureTableStorage", "Cassandra", "CommonDataServiceForApps", "CosmosDb", "CosmosDbMongoDbApi", "Db2", "DynamicsCrm", "FileServer", "FtpServer", "GitHub", "GoogleCloudStorage", "Hdfs", "Hive", "HttpServer", "Informix", "Kusto", "MicrosoftAccess", "MySql", "Netezza", "Odata", "Odbc", "Office365", "Oracle", "PostgreSql", "Salesforce", "SalesforceServiceCloud", "SapBw", "SapHana", "SapOpenHub", "SapTable", "Sftp", "SharePointOnlineList", "Snowflake", "SqlServer", "Sybase", "Teradata", "HDInsightOnDemand", "HDInsight", "AzureDataLakeAnalytics", "AzureBatch", "AzureFunction", "AzureML", "AzureMLService", "MongoDb", "GoogleBigQuery", "Impala", "ServiceNow", "Dynamics", "AzureDatabricks", "AmazonMWS", "SapCloudForCustomer", "SapEcc", "Web", "MongoDbAtlas", "HBase", "Spark", "Phoenix", "PayPal", "Marketo", "Responsys", "SalesforceMarketingCloud", "Presto", "Square", "Xero", "Jira", "Magento", "Shopify", "Concur", "Hubspot", "Zoho", "Eloqua", "QuickBooks", "Couchbase", "Drill", "Greenplum", "MariaDB", "Vertica", "MongoDbV2", "OracleServiceCloud", "GoogleAdWords", "RestService", "DynamicsAX", "AzureDataCatalog", "AzureDatabricksDeltaLake"]
+# ---------------------------------------------------------------------------------------------------------------------
+# General
+# ---------------------------------------------------------------------------------------------------------------------
+General:
+  "Allowed locations":
+    listOfAllowedLocations: # Note: No default parameters
+
+  "Allowed locations for resource groups":
+    listOfAllowedLocations: # Note: No default parameters
+
+  "Allowed resource types":
+    listOfResourceTypesAllowed: # Note: No default parameters
+
+  "Not allowed resource types":
+    listOfResourceTypesNotAllowed: # Note: No default parameters
+    effect: Deny  # Allowed: ["Audit", "Deny", "Disabled"]
+# ---------------------------------------------------------------------------------------------------------------------
+# Key Vault
+# ---------------------------------------------------------------------------------------------------------------------
+Key Vault:
+  "[Preview]: Certificates should be issued by the specified non-integrated certificate authority":
+    caCommonName: # Note: No default parameters
+    effect: audit  # Allowed: ["audit", "deny", "disabled"]
+
+  "[Preview]: Certificates should have the specified lifetime action triggers":
+    maximumPercentageLife: # Note: No default parameters
+    minimumDaysBeforeExpiry: # Note: No default parameters
+    effect: audit  # Allowed: ["audit", "deny", "disabled"]
+
+  "[Preview]: Certificates should not expire within the specified number of days":
+    daysToExpire: # Note: No default parameters
+    effect: audit  # Allowed: ["audit", "deny", "disabled"]
+
+  "[Preview]: Certificates using RSA cryptography should have the specified minimum key size":
+    minimumRSAKeySize: # Note: No default parameters # Allowed: ["2048", "3072", "4096"]
+    effect: audit  # Allowed: ["audit", "deny", "disabled"]
+
+  "[Preview]: Keys should have more than the specified number of days before expiration":
+    minimumDaysBeforeExpiration: # Note: No default parameters
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "[Preview]: Keys should have the specified maximum validity period":
+    maximumValidityInDays: # Note: No default parameters
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "[Preview]: Keys should not be active for longer than the specified number of days":
+    maximumValidityInDays: # Note: No default parameters
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "[Preview]: Keys using RSA cryptography should have a specified minimum key size":
+    minimumRSAKeySize: # Note: No default parameters # Allowed: ["2048", "3072", "4096"]
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "[Preview]: Secrets should have more than the specified number of days before expiration":
+    minimumDaysBeforeExpiration: # Note: No default parameters
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "[Preview]: Secrets should have the specified maximum validity period":
+    maximumValidityInDays: # Note: No default parameters
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "[Preview]: Secrets should not be active for longer than the specified number of days":
+    maximumValidityInDays: # Note: No default parameters
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+# ---------------------------------------------------------------------------------------------------------------------
+# Kubernetes
+# ---------------------------------------------------------------------------------------------------------------------
+Kubernetes:
+  "Kubernetes cluster containers CPU and memory resource limits should not exceed the specified limits":
+    effect: deny  # Allowed: ["audit", "deny", "disabled"]
+    excludedNamespaces:
+        - kube-system
+        - gatekeeper-system
+        - azure-arc
+    namespaces: []
+    labelSelector: {}
+    cpuLimit: # Note: No default parameters
+    memoryLimit: # Note: No default parameters
+
+  "Kubernetes cluster containers should not share host process ID or host IPC namespace":
+    effect: audit  # Allowed: ["audit", "deny", "disabled"]
+    excludedNamespaces:
+        - kube-system
+        - gatekeeper-system
+        - azure-arc
+    namespaces: []
+    labelSelector: {}
+
+  "Kubernetes cluster containers should not use forbidden sysctl interfaces":
+    effect: audit  # Allowed: ["audit", "deny", "disabled"]
+    excludedNamespaces:
+        - kube-system
+        - gatekeeper-system
+        - azure-arc
+    namespaces: []
+    labelSelector: {}
+    forbiddenSysctls: # Note: No default parameters
+
+  "Kubernetes cluster containers should only listen on allowed ports":
+    effect: deny  # Allowed: ["audit", "deny", "disabled"]
+    excludedNamespaces:
+        - kube-system
+        - gatekeeper-system
+        - azure-arc
+    namespaces: []
+    labelSelector: {}
+    allowedContainerPortsList: # Note: No default parameters
+
+  "Kubernetes cluster containers should only use allowed AppArmor profiles":
+    effect: audit  # Allowed: ["audit", "deny", "disabled"]
+    excludedNamespaces:
+        - kube-system
+        - gatekeeper-system
+        - azure-arc
+    namespaces: []
+    labelSelector: {}
+    allowedProfiles: []
+
+  "Kubernetes cluster containers should only use allowed ProcMountType":
+    effect: audit  # Allowed: ["audit", "deny", "disabled"]
+    excludedNamespaces:
+        - kube-system
+        - gatekeeper-system
+        - azure-arc
+    namespaces: []
+    labelSelector: {}
+    procMountType: Default  # Allowed: ["Unmasked", "Default"]
+
+  "Kubernetes cluster containers should only use allowed capabilities":
+    effect: audit  # Allowed: ["audit", "deny", "disabled"]
+    excludedNamespaces:
+        - kube-system
+        - gatekeeper-system
+        - azure-arc
+    namespaces: []
+    labelSelector: {}
+    allowedCapabilities: []
+    requiredDropCapabilities: []
+
+  "Kubernetes cluster containers should only use allowed images":
+    effect: deny  # Allowed: ["audit", "deny", "disabled"]
+    excludedNamespaces:
+        - kube-system
+        - gatekeeper-system
+        - azure-arc
+    namespaces: []
+    labelSelector: {}
+    allowedContainerImagesRegex: # Note: No default parameters
+
+  "Kubernetes cluster containers should only use allowed seccomp profiles":
+    effect: audit  # Allowed: ["audit", "deny", "disabled"]
+    excludedNamespaces:
+        - kube-system
+        - gatekeeper-system
+        - azure-arc
+    namespaces: []
+    labelSelector: {}
+    allowedProfiles: []
+
+  "Kubernetes cluster containers should run with a read only root file system":
+    effect: audit  # Allowed: ["audit", "deny", "disabled"]
+    excludedNamespaces:
+        - kube-system
+        - gatekeeper-system
+        - azure-arc
+    namespaces: []
+    labelSelector: {}
+
+  "Kubernetes cluster pod FlexVolume volumes should only use allowed drivers":
+    effect: audit  # Allowed: ["audit", "deny", "disabled"]
+    excludedNamespaces:
+        - kube-system
+        - gatekeeper-system
+        - azure-arc
+    namespaces: []
+    labelSelector: {}
+    allowedFlexVolumeDrivers: []
+
+  "Kubernetes cluster pod hostPath volumes should only use allowed host paths":
+    effect: audit  # Allowed: ["audit", "deny", "disabled"]
+    excludedNamespaces:
+        - kube-system
+        - gatekeeper-system
+        - azure-arc
+    namespaces: []
+    labelSelector: {}
+    allowedHostPaths: {'paths': []}
+
+  "Kubernetes cluster pods and containers should only run with approved user and group IDs":
+    effect: audit  # Allowed: ["audit", "deny", "disabled"]
+    excludedNamespaces:
+        - kube-system
+        - gatekeeper-system
+        - azure-arc
+    namespaces: []
+    labelSelector: {}
+    runAsUserRule: MustRunAsNonRoot  # Allowed: ["MustRunAs", "MustRunAsNonRoot", "RunAsAny"]
+    runAsUserRanges: {'ranges': []}
+    runAsGroupRule: RunAsAny  # Allowed: ["MustRunAs", "MayRunAs", "RunAsAny"]
+    runAsGroupRanges: {'ranges': []}
+    supplementalGroupsRule: RunAsAny  # Allowed: ["MustRunAs", "MayRunAs", "RunAsAny"]
+    supplementalGroupsRanges: {'ranges': []}
+    fsGroupRule: RunAsAny  # Allowed: ["MustRunAs", "MayRunAs", "RunAsAny"]
+    fsGroupRanges: {'ranges': []}
+
+  "Kubernetes cluster pods and containers should only use allowed SELinux options":
+    effect: audit  # Allowed: ["audit", "deny", "disabled"]
+    excludedNamespaces:
+        - kube-system
+        - gatekeeper-system
+        - azure-arc
+    namespaces: []
+    labelSelector: {}
+    allowedSELinuxOptions: {'options': []}
+
+  "Kubernetes cluster pods should only use allowed volume types":
+    effect: audit  # Allowed: ["audit", "deny", "disabled"]
+    excludedNamespaces:
+        - kube-system
+        - gatekeeper-system
+        - azure-arc
+    namespaces: []
+    labelSelector: {}
+    allowedVolumeTypes: []
+
+  "Kubernetes cluster pods should only use approved host network and port range":
+    effect: audit  # Allowed: ["audit", "deny", "disabled"]
+    excludedNamespaces:
+        - kube-system
+        - gatekeeper-system
+        - azure-arc
+    namespaces: []
+    labelSelector: {}
+    allowHostNetwork: False
+    minPort: 0
+    maxPort: 0
+
+  "Kubernetes cluster pods should use specified labels":
+    effect: deny  # Allowed: ["audit", "deny", "disabled"]
+    excludedNamespaces:
+        - kube-system
+        - gatekeeper-system
+        - azure-arc
+    namespaces: []
+    labelSelector: {}
+    labelsList: # Note: No default parameters
+
+  "Kubernetes cluster services should listen only on allowed ports":
+    effect: deny  # Allowed: ["audit", "deny", "disabled"]
+    excludedNamespaces:
+        - kube-system
+        - gatekeeper-system
+        - azure-arc
+    namespaces: []
+    labelSelector: {}
+    allowedServicePortsList: # Note: No default parameters
+
+  "Kubernetes cluster should not allow privileged containers":
+    effect: deny  # Allowed: ["audit", "deny", "disabled"]
+    excludedNamespaces:
+        - kube-system
+        - gatekeeper-system
+        - azure-arc
+    namespaces: []
+    labelSelector: {}
+
+  "Kubernetes clusters should be accessible only over HTTPS":
+    effect: deny  # Allowed: ["audit", "deny", "disabled"]
+    excludedNamespaces:
+        - kube-system
+        - gatekeeper-system
+        - azure-arc
+    namespaces: []
+    labelSelector: {}
+
+  "Kubernetes clusters should not allow container privilege escalation":
+    effect: audit  # Allowed: ["audit", "deny", "disabled"]
+    excludedNamespaces:
+        - kube-system
+        - gatekeeper-system
+        - azure-arc
+    namespaces: []
+    labelSelector: {}
+
+  "Kubernetes clusters should use internal load balancers":
+    effect: deny  # Allowed: ["audit", "deny", "disabled"]
+    excludedNamespaces:
+        - kube-system
+        - gatekeeper-system
+        - azure-arc
+    namespaces: []
+    labelSelector: {}
+
+  "[Preview]: Kubernetes cluster services should only use allowed external IPs":
+    effect: audit  # Allowed: ["audit", "deny", "disabled"]
+    excludedNamespaces:
+        - kube-system
+        - gatekeeper-system
+        - azure-arc
+    namespaces: []
+    labelSelector: {}
+    allowedExternalIPs: []
+
+  "[Preview]: Kubernetes clusters should disable automounting API credentials":
+    effect: audit  # Allowed: ["audit", "deny", "disabled"]
+    excludedNamespaces:
+        - kube-system
+        - gatekeeper-system
+        - azure-arc
+    namespaces: []
+    labelSelector: {}
+
+  "[Preview]: Kubernetes clusters should not grant CAP_SYS_ADMIN security capabilities":
+    effect: audit  # Allowed: ["audit", "deny", "disabled"]
+    excludedNamespaces:
+        - kube-system
+        - gatekeeper-system
+        - azure-arc
+    namespaces: []
+    labelSelector: {}
+
+  "[Preview]: Kubernetes clusters should not use specific security capabilities":
+    effect: audit  # Allowed: ["audit", "deny", "disabled"]
+    excludedNamespaces:
+        - kube-system
+        - gatekeeper-system
+        - azure-arc
+    namespaces: []
+    labelSelector: {}
+    disallowedCapabilities: []
+
+  "[Preview]: Kubernetes clusters should not use the default namespace":
+    effect: audit  # Allowed: ["audit", "deny", "disabled"]
+    excludedNamespaces:
+        - kube-system
+        - gatekeeper-system
+        - azure-arc
+    namespaces: []
+    labelSelector: {}
+# ---------------------------------------------------------------------------------------------------------------------
+# Lighthouse
+# ---------------------------------------------------------------------------------------------------------------------
+Lighthouse:
+  "Allow managing tenant ids to onboard through Azure Lighthouse":
+    listOfAllowedTenants: # Note: No default parameters
+# ---------------------------------------------------------------------------------------------------------------------
+# Machine Learning
+# ---------------------------------------------------------------------------------------------------------------------
+Machine Learning:
+  "[Preview]: Configure allowed Python packages for specified Azure Machine Learning computes":
+    computeNames: []
+    allowedPythonPackageChannels: []
+    effect: enforceSetting  # Allowed: ["enforceSetting", "disabled"]
+
+  "[Preview]: Configure allowed module authors for specified Azure Machine Learning computes":
+    computeNames: []
+    allowedModuleAuthors: []
+    effect: enforceSetting  # Allowed: ["enforceSetting", "disabled"]
+
+  "[Preview]: Configure allowed registries for specified Azure Machine Learning computes":
+    computeNames: []
+    allowedACRs: []
+    effect: enforceSetting  # Allowed: ["enforceSetting", "disabled"]
+
+  "[Preview]: Configure an approval endpoint called prior to jobs running for specified Azure Machine Learning computes":
+    computeNames: []
+    approvalEndpoint: # Note: No default parameters
+    effect: enforceSetting  # Allowed: ["enforceSetting", "disabled"]
+
+  "[Preview]: Configure code signing for training code for specified Azure Machine Learning computes":
+    computeNames: []
+    signingKey: # Note: No default parameters
+    effect: enforceSetting  # Allowed: ["enforceSetting", "disabled"]
+
+  "[Preview]: Configure log filter expressions and datastore to be used for full logs for specified Azure Machine Learning computes":
+    computeNames: []
+    logFilters: []
+    datastore: # Note: No default parameters
+    effect: enforceSetting  # Allowed: ["enforceSetting", "disabled"]
+# ---------------------------------------------------------------------------------------------------------------------
+# Monitoring
+# ---------------------------------------------------------------------------------------------------------------------
+Monitoring:
+  "An activity log alert should exist for specific Administrative operations":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+    operationName: # Note: No default parameters # Allowed: ["Microsoft.Sql/servers/firewallRules/write", "Microsoft.Sql/servers/firewallRules/delete", "Microsoft.Network/networkSecurityGroups/write", "Microsoft.Network/networkSecurityGroups/delete", "Microsoft.ClassicNetwork/networkSecurityGroups/write", "Microsoft.ClassicNetwork/networkSecurityGroups/delete", "Microsoft.Network/networkSecurityGroups/securityRules/write", "Microsoft.Network/networkSecurityGroups/securityRules/delete", "Microsoft.ClassicNetwork/networkSecurityGroups/securityRules/write", "Microsoft.ClassicNetwork/networkSecurityGroups/securityRules/delete"]
+
+  "An activity log alert should exist for specific Policy operations":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+    operationName: # Note: No default parameters # Allowed: ["Microsoft.Authorization/policyAssignments/write", "Microsoft.Authorization/policyAssignments/delete"]
+
+  "An activity log alert should exist for specific Security operations":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+    operationName: # Note: No default parameters # Allowed: ["Microsoft.Security/policies/write", "Microsoft.Security/securitySolutions/write", "Microsoft.Security/securitySolutions/delete"]
+
+  "Audit Log Analytics workspace for VM - Report Mismatch":
+    logAnalyticsWorkspaceId: # Note: No default parameters
+
+  "Audit diagnostic setting":
+    listOfResourceTypes: # Note: No default parameters
+
+  "Dependency agent should be enabled for listed virtual machine images":
+    listOfImageIdToInclude_windows: []
+    listOfImageIdToInclude_linux: []
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Dependency agent should be enabled in virtual machine scale sets for listed virtual machine images":
+    listOfImageIdToInclude_windows: []
+    listOfImageIdToInclude_linux: []
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Log Analytics agent should be enabled in virtual machine scale sets for listed virtual machine images":
+    listOfImageIdToInclude_windows: []
+    listOfImageIdToInclude_linux: []
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "[Preview]: Log Analytics Agent should be enabled for listed virtual machine images":
+    listOfImageIdToInclude_windows: []
+    listOfImageIdToInclude_linux: []
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+# ---------------------------------------------------------------------------------------------------------------------
+# Network
+# ---------------------------------------------------------------------------------------------------------------------
+Network:
+  "A custom IPsec/IKE policy must be applied to all Azure virtual network gateway connections":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+    IPsecEncryption: # Note: No default parameters
+    IPsecIntegrity: # Note: No default parameters
+    IKEEncryption: # Note: No default parameters
+    IKEIntegrity: # Note: No default parameters
+    DHGroup: # Note: No default parameters
+    PFSGroup: # Note: No default parameters
+
+  "Network Watcher should be enabled":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+    listOfLocations: # Note: No default parameters
+    resourceGroupName: NetworkWatcherRG
+
+  "Virtual machines should be connected to an approved virtual network":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+    virtualNetworkId: # Note: No default parameters
+
+  "Virtual networks should use specified virtual network gateway":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+    virtualNetworkGatewayId: # Note: No default parameters
+# ---------------------------------------------------------------------------------------------------------------------
+# SQL
+# ---------------------------------------------------------------------------------------------------------------------
+SQL:
+  "Virtual network firewall rule on Azure SQL Database should be enabled to allow traffic from the specified subnet":
+    subnetId: # Note: No default parameters
+# ---------------------------------------------------------------------------------------------------------------------
+# Synapse
+# ---------------------------------------------------------------------------------------------------------------------
+Synapse:
+  "Synapse managed private endpoints should only connect to resources in approved Azure Active Directory tenants":
+    allowedTenantIds: []
+    effect: Audit  # Allowed: ["Audit", "Disabled", "Deny"]
+# ---------------------------------------------------------------------------------------------------------------------
+# Tags
+# ---------------------------------------------------------------------------------------------------------------------
+Tags:
+  "Require a tag and its value on resource groups":
+    tagName: # Note: No default parameters
+    tagValue: # Note: No default parameters
+
+  "Require a tag and its value on resources":
+    tagName: # Note: No default parameters
+    tagValue: # Note: No default parameters
+
+  "Require a tag on resource groups":
+    tagName: # Note: No default parameters
+
+  "Require a tag on resources":
+    tagName: # Note: No default parameters

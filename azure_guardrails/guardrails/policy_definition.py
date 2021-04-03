@@ -189,3 +189,11 @@ class PolicyDefinition:
         else:
             return False
 
+    def parameters_config(self) -> dict:
+        """Return the parameters config for this policy definition"""
+        if not self.params_optional and not self.params_required:
+            return {}
+        parameters = dict()
+        for parameter, parameter_details in self.parameters.items():
+            parameters[parameter_details.name] = parameter_details.parameter_config()
+        return parameters

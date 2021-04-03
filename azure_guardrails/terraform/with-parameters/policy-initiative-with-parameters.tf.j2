@@ -11,10 +11,13 @@ locals {
     "{{ policy_details.short_id }}", # {{ policy_details.display_name }} {% endfor %}
     {% endfor %}
   ]
-  policy_definition_map = zipmap(
-    data.azurerm_policy_definition.{{ t.name }}_definition_lookups.*.display_name,
-    data.azurerm_policy_definition.{{ t.name }}_definition_lookups.*.id
-  )
+  policy_definition_map = {
+    {% for service_name, service_policies in t.policy_id_pairs.items() -%}
+  {% for policy_id, policy_details in service_policies.items() -%}
+  "{{ policy_details.display_name }}" = "{{ policy_details.long_id }}",
+    {% endfor %}
+    {%- endfor -%}
+}
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -57,21 +60,22 @@ resource "azurerm_policy_set_definition" "{{ t.name }}" {
   metadata = tostring(jsonencode({
     category = local.category_{{ t.name }}
   }))
-
-  {% for service_name, service_policy_details in t.policy_definition_reference_parameters.items() %}
-  {% for policy_definition_name, policy_definition_params in service_policy_details.items() %}
+  {%- for service_name, service_policy_details in t.policy_definition_reference_parameters.items() -%}
+  {% for policy_definition_name, policy_definition_details in service_policy_details.items() %}
   policy_definition_reference {
-    policy_definition_id = lookup(local.policy_definition_map, "{{ policy_definition_name }}")
-    parameter_values = jsonencode({ {% for key, value in policy_definition_params.items() %}
-      {{ value.name }} = { "value" : "{{ value.policy_definition_reference_value }}" }{% endfor %}
+    policy_definition_id = lookup(local.policy_definition_map, "{{ policy_definition_name|normalize_display_name_string }}")
+    parameter_values = jsonencode({
+      {%- for parameter, parameter_details in policy_definition_details.items() %}
+      {%- if 'value' not in parameter_details['parameter_value'].keys() -%}
+          {{ "\n        " }}{{ parameter_details["parameter_name"] }} = { "value" : {{ parameter_details['parameter_value']['type']|get_placeholder_value_given_type }} }
+      {%- else -%}
+          {{ "\n        " }}{{ parameter_details["parameter_name"] }} = { "value" : {{ parameter_details['parameter_value']['value']|format_parameter_value }} }
+      {%- endif -%}
+{% endfor %}
     })
     reference_id = null
   }
-  {% endfor %}{% endfor %}
-
-  parameters = <<PARAMETERS
-{{ t.initiative_parameters }}
-PARAMETERS
+{% endfor %}{%- endfor -%}
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -83,9 +87,6 @@ resource "azurerm_policy_assignment" "{{ t.name }}" {
   policy_definition_id = azurerm_policy_set_definition.{{ t.name }}.id
   scope                = local.scope
   enforcement_mode     = local.enforcement_mode_{{ t.name }}
-  parameters = jsonencode({
-    {{ t.policy_assignment_parameters }}
-})
 }
 
 

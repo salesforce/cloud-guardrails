@@ -12,6 +12,7 @@ def azure_guardrails():
     """
 
 
+azure_guardrails.add_command(command.create_parameters_file.create_parameters_file)
 azure_guardrails.add_command(command.create_config_file.create_config_file)
 azure_guardrails.add_command(command.describe_policy.describe_policy)
 azure_guardrails.add_command(command.generate_terraform.generate_terraform)

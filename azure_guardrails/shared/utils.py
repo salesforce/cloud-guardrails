@@ -2,8 +2,11 @@ import os
 import re
 import json
 import csv
+import yaml
+import logging
 from pathlib import Path
 from colorama import Fore
+logger = logging.getLogger(__name__)
 
 END = "\033[0m"
 GREY = "\33[90m"
@@ -124,3 +127,37 @@ def format_policy_name(name: str, parameter_requirement_str: str) -> str:
     initiative_name = initiative_name.replace("-", "_")
     # initiative_name = initiative_name.lower()
     return initiative_name
+
+
+def is_none_instance(value) -> bool:
+    """Given a value, check if it is just an empty list or an empty object, or return None"""
+    if isinstance(value, type(None)):
+        return True
+    else:
+        return False
+
+
+def get_real_value(value):
+    if value:
+        return value
+    elif is_none_instance(value=value):
+        return None
+    else:
+        if isinstance(value, dict):
+            return {}
+        elif isinstance(value, list):
+            return []
+        else:
+            raise Exception("The value is something weird")
+
+
+def read_yaml_file(filename: str) -> dict:
+    """
+    Reads a YAML file, safe loads, and returns the dictionary
+
+    :param filename: name of the yaml file
+    :return: dictionary of YAML file contents
+    """
+    with open(filename, "r") as yaml_file:
+        cfg = yaml.safe_load(yaml_file)
+    return cfg
