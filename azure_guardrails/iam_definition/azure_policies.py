@@ -65,15 +65,6 @@ class AzurePolicies:
             service_names: list = default_service_names,
             config: Config = DEFAULT_CONFIG,
     ):
-        # if service_names == ["all"]:
-        #     service_names = utils.get_service_names()
-        #     service_names.sort()
-        # service_names_to_remove = []
-        # for service_name in service_names:
-        #     if config.is_service_excluded(service_name=service_name):
-        #         service_names_to_remove.append(service_name)
-        # for service_name in service_names_to_remove:
-        #     service_names.remove(service_name)
         self.config = config
         self.service_names = self.set_service_names(service_names=service_names)
         self.service_definitions = iam_definition["service_definitions"]
@@ -179,6 +170,16 @@ class AzurePolicies:
         policy_definition = self.get_policy_definition(policy_id=policy_id)
         parameter = policy_definition.properties.parameters.get(parameter_name, None)
         return parameter.type
+
+    def get_required_parameters(self, policy_id: str) -> list:
+        policy_definition = self.get_policy_definition(policy_id=policy_id)
+        parameters = policy_definition.get_required_parameters()
+        return parameters
+
+    def get_optional_parameters(self, policy_id: str) -> list:
+        policy_definition = self.get_policy_definition(policy_id=policy_id)
+        parameters = policy_definition.get_optional_parameters()
+        return parameters
 
     def is_policy_id_excluded(self, policy_id: str) -> bool:
         policy_definition = self.get_policy_definition(policy_id=policy_id)

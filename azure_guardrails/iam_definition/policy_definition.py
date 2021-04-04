@@ -102,6 +102,32 @@ class PolicyDefinition:
         else:
             return True
 
+    def get_optional_parameters(self) -> list:
+        """Return a list of optional parameters"""
+        results = []
+        if self.no_params or self.params_required:
+            return []
+        else:
+            for parameter, parameter_details in self.parameters.items():
+                if parameter == "effect":
+                    continue
+                if parameter_details.default_value:
+                    results.append(parameter_details.name)
+        return results
+
+    def get_required_parameters(self) -> list:
+        """Return a list of required parameters"""
+        results = []
+        if self.no_params or self.params_optional:
+            return []
+        else:
+            for parameter, parameter_details in self.parameters.items():
+                if parameter == "effect":
+                    continue
+                if not parameter_details.default_value:
+                    results.append(parameter_details.name)
+        return results
+
     @property
     def allowed_effects(self) -> list:
         allowed_effects = []
