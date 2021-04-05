@@ -480,83 +480,68 @@ output "example_PO_Audit_policy_set_definition_id" {
 
 # Policy Characteristics and Support Statuses
 
-<style type="text/css">
-.tg  {border-collapse:collapse;border-spacing:0;}
-.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-  overflow:hidden;padding:10px 5px;word-break:normal;}
-.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
-.tg .tg-cly1{text-align:left;vertical-align:middle}
-.tg .tg-lboi{border-color:inherit;text-align:left;vertical-align:middle}
-.tg .tg-baqh{text-align:center;vertical-align:top}
-.tg .tg-u0o7{border-color:inherit;font-weight:bold;text-align:left;text-decoration:underline;vertical-align:top}
-.tg .tg-t2cw{font-weight:bold;text-align:center;text-decoration:underline;vertical-align:top}
-.tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
-.tg .tg-9353{border-color:inherit;font-weight:bold;text-align:center;text-decoration:underline;vertical-align:top}
-.tg .tg-0lax{text-align:left;vertical-align:top}
-</style>
-<table class="tg">
+<table>
 <thead>
   <tr>
-    <th class="tg-u0o7">Characteristic</th>
-    <th class="tg-u0o7">azure-guardrails support</th>
-    <th class="tg-u0o7">Description</th>
+    <th>Characteristic</th>
+    <th>azure-guardrails support</th>
+    <th>Description</th>
   </tr>
 </thead>
 <tbody>
   <tr>
-    <td class="tg-t2cw" colspan="3">Parameters</td>
+    <td colspan="3">Parameters</td>
   </tr>
   <tr>
-    <td class="tg-lboi">Policies with <span style="font-weight:bold">No Parameters</span></td>
-    <td class="tg-0pky">✅</td>
-    <td class="tg-0pky">These policies do not require any parameters. These are the easiest policies to apply.</td>
+    <td>Policies with No Parameters</td>
+    <td>✅</td>
+    <td>These policies do not require any parameters. These are the easiest policies to apply.</td>
   </tr>
   <tr>
-    <td class="tg-lboi">Policies with <span style="font-weight:bold">Optional Parameters</span></td>
-    <td class="tg-0pky"><span style="font-weight:400;font-style:normal">✅</span></td>
-    <td class="tg-0pky">These policies allow the use of parameters, but the parameters have default values. These are easy to apply at first, but you will likely want to adjust the parameters throughout the lifecycle.</td>
+    <td>Policies with Optional Parameters</td>
+    <td>✅</td>
+    <td>These policies allow the use of parameters, but the parameters have default values. These are easy to apply at first, but you will likely want to adjust the parameters throughout the lifecycle.</td>
   </tr>
   <tr>
-    <td class="tg-lboi">Policies with <span style="font-weight:bold">Required Parameters</span></td>
-    <td class="tg-0pky"><span style="font-weight:400;font-style:normal">✅</span></td>
-    <td class="tg-0pky">These policies require parameters which do not have default values. While rollout is significantly less time consuming than the Azure recommended workflow, finding the best values for your environment requires careful thinking.</td>
+    <td>Policies with Required Parameters</td>
+    <td>✅</td>
+    <td>These policies require parameters which do not have default values. While rollout is significantly less time consuming than the Azure recommended workflow, finding the best values for your environment requires careful thinking.</td>
   </tr>
   <tr>
-    <td class="tg-9353" colspan="3">Effects</td>
+    <td colspan="3">Effects</td>
   </tr>
   <tr>
-    <td class="tg-lboi">Policies with "<span style="font-weight:bold">Deny</span>" Effects</td>
-    <td class="tg-0pky">✅</td>
-    <td class="tg-0pky">   <br><span style="font-weight:normal;font-style:normal;text-decoration:none">These Policies block bad actions, acting as true guardrails.</span></td>
+    <td>Policies with "Deny" Effects</td>
+    <td>✅</td>
+    <td>   <br>These Policies block bad actions, acting as true guardrails.</td>
   </tr>
   <tr>
-    <td class="tg-cly1">Policies with "<span style="font-weight:bold">Audit</span>" Effects</td>
-    <td class="tg-0lax"><span style="font-weight:400;font-style:normal">✅</span></td>
-    <td class="tg-0lax"><span style="font-weight:normal;font-style:normal;text-decoration:none">These Policies do not actually prevent bad actions, even if “enforcement mode” is set to True - they just flag the bad actions.</span></td>
+    <td>Policies with "Audit" Effects</td>
+    <td>✅</td>
+    <td>These Policies do not actually prevent bad actions, even if “enforcement mode” is set to True - they just flag the bad actions.</td>
   </tr>
   <tr>
-    <td class="tg-cly1">Policies with "<span style="font-weight:bold">Deploy</span>" Effects</td>
-    <td class="tg-0lax">❌</td>
-    <td class="tg-0lax"><span style="font-weight:normal;font-style:normal;text-decoration:none">Some Azure Policies have </span><a href="https://docs.microsoft.com/en-us/azure/governance/policy/concepts/effects#deployifnotexists" target="_blank" rel="noopener noreferrer">DeployIfNotExists</a> effects, which create resources via an ARM Template when the condition is met. For example, the policy "<a href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2Fa9b99dd8-06c5-4317-8629-9d86a3c6e7d9" target="_blank" rel="noopener noreferrer">Deploy network watcher when virtual networks are created</a>" will create a resource group called networkWatcherRG.</td>
+    <td>Policies with "Deploy" Effects</td>
+    <td>❌</td>
+    <td>Some Azure Policies have <a href="https://docs.microsoft.com/en-us/azure/governance/policy/concepts/effects#deployifnotexists" target="_blank" rel="noopener noreferrer">DeployIfNotExists</a> effects, which create resources via an ARM Template when the condition is met. For example, the policy "<a href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2Fa9b99dd8-06c5-4317-8629-9d86a3c6e7d9" target="_blank" rel="noopener noreferrer">Deploy network watcher when virtual networks are created</a>" will create a resource group called networkWatcherRG.</td>
   </tr>
   <tr>
-    <td class="tg-cly1">Policies with "<span style="font-weight:bold">Modify</span>" Effects</td>
-    <td class="tg-0lax"><span style="font-weight:400;font-style:normal">❌</span></td>
-    <td class="tg-0lax"><span style="font-weight:normal;font-style:normal;text-decoration:none">Some Azure Policies have </span><a href="https://docs.microsoft.com/en-us/azure/governance/policy/concepts/effects" target="_blank" rel="noopener noreferrer">Policy Effects</a> that allow the modification of resources, such as the "<a href="https://docs.microsoft.com/en-us/azure/governance/policy/concepts/effects#modify" target="_blank" rel="noopener noreferrer">Modify</a>" or "<a href="https://docs.microsoft.com/en-us/azure/governance/policy/concepts/effects#append" target="_blank" rel="noopener noreferrer">Append</a>" effects.</td>
+    <td>Policies with "Modify" Effects</td>
+    <td>❌</td>
+    <td>Some Azure Policies have <a href="https://docs.microsoft.com/en-us/azure/governance/policy/concepts/effects" target="_blank" rel="noopener noreferrer">Policy Effects</a> that allow the modification of resources, such as the "<a href="https://docs.microsoft.com/en-us/azure/governance/policy/concepts/effects#modify" target="_blank" rel="noopener noreferrer">Modify</a>" or "<a href="https://docs.microsoft.com/en-us/azure/governance/policy/concepts/effects#append" target="_blank" rel="noopener noreferrer">Append</a>" effects.</td>
   </tr>
   <tr>
-    <td class="tg-baqh" colspan="3"><span style="font-weight:bold;text-decoration:underline">Built-in vs. Custom</span></td>
+    <td colspan="3">Built-in vs. Custom</td>
   </tr>
   <tr>
-    <td class="tg-0lax"><span style="font-weight:bold">Built-in</span> Policies</td>
-    <td class="tg-0lax"><span style="font-weight:400;font-style:normal">✅</span></td>
-    <td class="tg-0lax">Microsoft provides 400+ built-in policy definitions. azure-guardrails leverages these Built-in Policy definitions so you can get rapidly started and maximize your coverage.</td>
+    <td>Built-in Policies</td>
+    <td>✅</td>
+    <td>Microsoft provides 400+ built-in policy definitions. azure-guardrails leverages these Built-in Policy definitions so you can get rapidly started and maximize your coverage.</td>
   </tr>
   <tr>
-    <td class="tg-0lax"><span style="font-weight:bold">Custom</span> Policies</td>
-    <td class="tg-0lax"><span style="font-weight:400;font-style:normal">❌</span></td>
-    <td class="tg-0lax">azure-guardrails does not support creation of Custom Policies. Consider leveraging Custom Policies after you have built out your process and workflow using azure-guardrails.</td>
+    <td>Custom Policies</td>
+    <td>❌</td>
+    <td>azure-guardrails does not support creation of Custom Policies. Consider leveraging Custom Policies after you have built out your process and workflow using azure-guardrails.</td>
   </tr>
 </tbody>
 </table>
