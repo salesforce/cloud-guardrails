@@ -7,7 +7,7 @@ import click
 from click_option_group import optgroup, RequiredMutuallyExclusiveOptionGroup
 from azure_guardrails import set_log_level
 from azure_guardrails.terraform.terraform_no_params import TerraformTemplateNoParams
-from azure_guardrails.terraform.terraform_with_params import TerraformTemplateWithParamsV5
+from azure_guardrails.terraform.terraform_with_params import TerraformTemplateWithParams
 from azure_guardrails.iam_definition.azure_policies import AzurePolicies
 from azure_guardrails.shared import utils, validate
 from azure_guardrails.shared.config import get_default_config, get_config_from_file, Config
@@ -167,7 +167,7 @@ def generate_terraform(
     else:
         parameters_config = None
 
-    terraform_guardrails = TerraformGuardrails(
+    terraform = TerraformGuardrails(
         service=service,
         config=config,
         subscription=subscription,
@@ -179,13 +179,21 @@ def generate_terraform(
         verbosity=verbosity
     )
 
-    terraform_content = terraform_guardrails.generate_terraform(enforcement_mode=enforcement_mode, category=category)
+    terraform_content = terraform.generate_terraform(enforcement_mode=enforcement_mode, category=category)
+
+    output_file = os.path.join(output_directory, terraform.file_name)
+    if os.path.exists(output_file):
+        logger.info("%s exists. Removing the file and replacing its contents." % output_file)
+        os.remove(output_file)
+    with open(output_file, "w") as f:
+        f.write(terraform_content)
+
     print(terraform_content)
 
     # Markdown and CSV Summary files
     if not no_summary:
-        terraform_guardrails.create_markdown_summary_file()
-        terraform_guardrails.create_csv_summary_file()
+        terraform.create_markdown_summary_file()
+        terraform.create_csv_summary_file()
 
 
 class TerraformGuardrails:
@@ -195,7 +203,6 @@ class TerraformGuardrails:
         config: Config,
         subscription: str,
         management_group: str,
-        # category: str,
         parameters_config: dict,
         no_params: bool,
         params_optional: bool,
@@ -207,7 +214,6 @@ class TerraformGuardrails:
         self.azure_policies = self.set_iam_definition()
         self.subscription = subscription
         self.management_group = management_group
-        # self.category = category
 
         self.parameters_config = parameters_config
         self.no_params = no_params
@@ -218,7 +224,7 @@ class TerraformGuardrails:
 
         self.verbosity = verbosity
 
-    def set_iam_definition(self):
+    def set_iam_definition(self) -> AzurePolicies:
         # Initialize the IAM Definition
         if self.service == "all":
             azure_policies = AzurePolicies(service_names=["all"], config=self.config)
@@ -227,7 +233,7 @@ class TerraformGuardrails:
         return azure_policies
 
     @property
-    def parameter_requirement_str(self):
+    def parameter_requirement_str(self) -> str:
         if self.no_params:
             return "NP"
         elif self.params_optional:
@@ -235,7 +241,22 @@ class TerraformGuardrails:
         elif self.params_required:
             return "PR"
 
-    def generate_terraform(self, enforcement_mode: bool, category: str):
+    @property
+    def file_name(self) -> str:
+        """A file name based on parameter requirements and service name"""
+        if self.service == "all":
+            service_string = ""
+        else:
+            service_string = f"-{self.service.lower().strip()}"
+
+        if self.no_params:
+            return f"no_params{service_string}.tf"
+        elif self.params_optional:
+            return f"params_optional{service_string}.tf"
+        elif self.params_required:
+            return f"params_required{service_string}.tf"
+
+    def generate_terraform(self, enforcement_mode: bool, category: str) -> str:
         # Generate the Terraform file content
         if self.no_params:
             policy_id_pairs = self.azure_policies.get_all_policy_ids_sorted_by_service(
@@ -261,7 +282,7 @@ class TerraformGuardrails:
                 audit_only=self.audit_only
             )
 
-            terraform_template = TerraformTemplateWithParamsV5(
+            terraform_template = TerraformTemplateWithParams(
                 policy_id_pairs=policy_ids_sorted_by_service,
                 parameter_requirement_str=self.parameter_requirement_str,
                 categorized_parameters=categorized_parameters,
@@ -278,7 +299,7 @@ class TerraformGuardrails:
         markdown_table = self.azure_policies.markdown_table(
             no_params=self.no_params, params_optional=self.params_optional, params_required=self.params_required
         )
-        markdown_file_name = f"{self.parameter_requirement_str}-{self.service}.md"
+        markdown_file_name = f"{self.parameter_requirement_str}-{self.service}-table.md"
         if os.path.exists(markdown_file_name):
             if self.verbosity >= 1:
                 utils.print_grey(f"Removing the previous file: {markdown_file_name}")
@@ -287,11 +308,10 @@ class TerraformGuardrails:
             f.write(markdown_table)
 
     def create_csv_summary_file(self):
-        parameter_requirement_str = f"{self.parameter_requirement_str}-{self.service}-table"
         # Write CSV summary
-        csv_file = f"{parameter_requirement_str}.csv"
+        csv_file_name = f"{self.parameter_requirement_str}-{self.service}-table.csv"
         self.azure_policies.csv_summary(
-            csv_file,
+            csv_file_name,
             verbosity=self.verbosity,
             no_params=self.no_params,
             params_optional=self.params_optional,

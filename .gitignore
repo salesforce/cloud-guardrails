@@ -97,3 +97,6 @@ examples/terraform-testing/
 /config-example-params-optional.yml
 /test/command/parameters-optional.yml
 /test/command/parameters-required.yml
+/params_required.tf
+/params_optional.tf
+/no_params.tf
