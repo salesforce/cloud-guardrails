@@ -8,7 +8,7 @@ from azure_guardrails.shared.parameters_categorized import CategorizedParameters
 logger = logging.getLogger(__name__)
 
 
-class TerraformTemplateWithParamsV5:
+class TerraformTemplateWithParams:
     """Terraform Template with Parameters"""
     def __init__(
             self,

@@ -5,7 +5,7 @@ import pandas as pd
 
 
 def combine_csvs():
-    csv_folder = os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir, "docs"))
+    csv_folder = os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir, "docs", "summaries"))
     file = os.path.join(csv_folder, "all_policies.csv")
     os.chdir(csv_folder)
     extension = 'csv'

@@ -1,7 +1,7 @@
 import unittest
 import os
 import json
-from azure_guardrails.terraform.terraform_with_params import TerraformTemplateWithParamsV5, get_placeholder_value_given_type
+from azure_guardrails.terraform.terraform_with_params import TerraformTemplateWithParams, get_placeholder_value_given_type
 from azure_guardrails.shared.parameters_categorized import CategorizedParameters
 from azure_guardrails.iam_definition.azure_policies import AzurePolicies
 from azure_guardrails.shared.config import get_default_config
@@ -30,7 +30,7 @@ class TerraformTemplateWithParamsV5TestCase(unittest.TestCase):
             audit_only=False
         )
 
-        self.terraform_template_with_params = TerraformTemplateWithParamsV5(
+        self.terraform_template_with_params = TerraformTemplateWithParams(
             policy_id_pairs=policy_ids_sorted_by_service,
             parameter_requirement_str=parameter_requirement_str,
             categorized_parameters=categorized_parameters,

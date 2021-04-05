@@ -82,6 +82,18 @@ def print_red(string):
     print(f"{Fore.RED}{string}{END}")
 
 
+def print_yellow(string):
+    print(f"{Fore.YELLOW}{string}{END}")
+
+
+def print_blue(string):
+    print(f"{Fore.BLUE}{string}{END}")
+
+
+def print_green(string):
+    print(f"{Fore.GREEN}{string}{END}")
+
+
 def print_grey(string):
     print(f"{GREY}{string}{END}")
     # Color code from here: https://stackoverflow.com/a/39452138
@@ -152,12 +164,13 @@ def get_real_value(value):
 
 
 def read_yaml_file(filename: str) -> dict:
-    """
-    Reads a YAML file, safe loads, and returns the dictionary
-
-    :param filename: name of the yaml file
-    :return: dictionary of YAML file contents
-    """
+    """Reads a YAML file, safe loads, and returns the dictionary"""
     with open(filename, "r") as yaml_file:
         cfg = yaml.safe_load(yaml_file)
     return cfg
+
+
+def read_file(file: str) -> str:
+    with open(file, "r") as f:
+        content = f.read()
+    return content

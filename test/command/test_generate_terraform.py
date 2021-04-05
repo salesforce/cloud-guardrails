@@ -3,6 +3,7 @@ import json
 import unittest
 from click.testing import CliRunner
 from azure_guardrails.command.generate_terraform import generate_terraform
+from azure_guardrails.shared import utils
 
 test_files_directory = os.path.abspath(os.path.join(
     os.path.dirname(__file__),
@@ -25,15 +26,21 @@ class GenerateTerraformClickUnitTests(unittest.TestCase):
         result = self.runner.invoke(generate_terraform, args)
         print(result.output)
         self.assertTrue(result.exit_code == 0)
+        output_file = "no_params.tf"
+        os.remove(output_file)
 
     def test_generate_terraform_command_with_config(self):
         """command.generate_terraform: with config file"""
         args = ["--service", "all", "--subscription", "example", "--no-params", "-n", "--config-file", default_config_file]
         result = self.runner.invoke(generate_terraform, args)
         self.assertTrue(result.exit_code == 0)
-        # print(result.output)
-        self.assertTrue("private link" in result.output)
-        self.assertTrue("encrypt" not in result.output)
+
+        output_file = "no_params.tf"
+        self.assertTrue(os.path.exists(output_file))
+        contents = utils.read_file(output_file)
+        self.assertTrue("private link" in contents)
+        self.assertTrue("encrypt" not in contents)
+        os.remove(output_file)
 
     def test_generate_terraform_with_explicit_matches(self):
         """command.generate_terraform: with config file that matches keywords"""
@@ -45,8 +52,13 @@ class GenerateTerraformClickUnitTests(unittest.TestCase):
         # We also know that by default, there will be a lot of ones that have customer-managed key.
         # It goes to reason that if this works properly, we should not see customer-managed key anywhere.
         # Let's search for it
-        self.assertTrue("customer-managed key" not in result.output)
-        self.assertTrue("private link" in result.output)
+
+        output_file = "no_params.tf"
+        self.assertTrue(os.path.exists(output_file))
+        contents = utils.read_file(output_file)
+        self.assertTrue("customer-managed key" not in contents)
+        self.assertTrue("private link" in contents)
+        os.remove(output_file)
 
     def test_generate_terraform_params_optional(self):
         args = ["--service", "all",
@@ -55,22 +67,36 @@ class GenerateTerraformClickUnitTests(unittest.TestCase):
         result = self.runner.invoke(generate_terraform, args)
         # print(result.output)
         # We expect that a certain parameter will be in the output. Assert that it exists in the output
-        self.assertTrue("modeRequirement" in result.output)
+        output_file = "params_optional.tf"
+        self.assertTrue(os.path.exists(output_file))
+        contents = utils.read_file(output_file)
+        self.assertTrue("modeRequirement" in contents)
+        os.remove(output_file)
 
+    def test_generate_terraform_params_optional_key_vault(self):
         args = ["--service", "Key Vault",
                 "--subscription", "example",
                 "--params-optional", "-n"]
         result = self.runner.invoke(generate_terraform, args)
-        print(result.output)
+        # print(result.output)
         # We expect that a certain parameter will be in the output. Assert that it exists in the output
-        self.assertTrue("allowedECNames" in result.output)
+        output_file = "params_optional_key vault.tf"
+        self.assertTrue(os.path.exists(output_file))
+        contents = utils.read_file(output_file)
+        self.assertTrue("allowedECNames" in contents)
+        os.remove(output_file)
 
     def test_generate_terraform_params_required(self):
         args = ["--service", "Kubernetes",
                 "--subscription", "example",
                 "--params-required", "-n"]
         result = self.runner.invoke(generate_terraform, args)
-        print(result.output)
+        # print(result.output)
         # We expect that a certain parameter will be in the output. Assert that it exists in the output
         expected = "Kubernetes cluster should not allow privileged containers"
-        self.assertTrue(expected in result.output)
+
+        output_file = "params_required_kubernetes.tf"
+        self.assertTrue(os.path.exists(output_file))
+        contents = utils.read_file(output_file)
+        self.assertTrue(expected in contents)
+        os.remove(output_file)
