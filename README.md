@@ -493,17 +493,17 @@ output "example_PO_Audit_policy_set_definition_id" {
     <td colspan="3"><p align="center"><b><u>Parameters</u></b></p></td>
   </tr>
   <tr>
-    <td>Policies with **No Parameters**</td>
+    <td>Policies with <b>No Parameters</b></td>
     <td>✅</td>
     <td>These policies do not require any parameters. These are the easiest policies to apply.</td>
   </tr>
   <tr>
-    <td>Policies with Optional Parameters</td>
+    <td>Policies with <b>Optional Parameters</b></td>
     <td>✅</td>
     <td>These policies allow the use of parameters, but the parameters have default values. These are easy to apply at first, but you will likely want to adjust the parameters throughout the lifecycle.</td>
   </tr>
   <tr>
-    <td>Policies with Required Parameters</td>
+    <td>Policies with <b>Required Parameters</b></td>
     <td>✅</td>
     <td>These policies require parameters which do not have default values. While rollout is significantly less time consuming than the Azure recommended workflow, finding the best values for your environment requires careful thinking.</td>
   </tr>
@@ -511,22 +511,22 @@ output "example_PO_Audit_policy_set_definition_id" {
     <td colspan="3"><p align="center"><b><u>Effects</u></b></p></td>
   </tr>
   <tr>
-    <td>Policies with "Deny" Effects</td>
+    <td>Policies with <b>"Deny" Effects</b></td>
     <td>✅</td>
     <td>   <br>These Policies block bad actions, acting as true guardrails.</td>
   </tr>
   <tr>
-    <td>Policies with "Audit" Effects</td>
+    <td>Policies with <b>"Audit" Effects</b></td>
     <td>✅</td>
     <td>These Policies do not actually prevent bad actions, even if “enforcement mode” is set to True - they just flag the bad actions.</td>
   </tr>
   <tr>
-    <td>Policies with "Deploy" Effects</td>
+    <td>Policies with <b>"Deploy" Effects</b></td>
     <td>❌</td>
     <td>Some Azure Policies have <a href="https://docs.microsoft.com/en-us/azure/governance/policy/concepts/effects#deployifnotexists" target="_blank" rel="noopener noreferrer">DeployIfNotExists</a> effects, which create resources via an ARM Template when the condition is met. For example, the policy "<a href="https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2Fa9b99dd8-06c5-4317-8629-9d86a3c6e7d9" target="_blank" rel="noopener noreferrer">Deploy network watcher when virtual networks are created</a>" will create a resource group called networkWatcherRG.</td>
   </tr>
   <tr>
-    <td>Policies with "Modify" Effects</td>
+    <td>Policies with <b>"Modify" Effects</b></td>
     <td>❌</td>
     <td>Some Azure Policies have <a href="https://docs.microsoft.com/en-us/azure/governance/policy/concepts/effects" target="_blank" rel="noopener noreferrer">Policy Effects</a> that allow the modification of resources, such as the "<a href="https://docs.microsoft.com/en-us/azure/governance/policy/concepts/effects#modify" target="_blank" rel="noopener noreferrer">Modify</a>" or "<a href="https://docs.microsoft.com/en-us/azure/governance/policy/concepts/effects#append" target="_blank" rel="noopener noreferrer">Append</a>" effects.</td>
   </tr>
@@ -534,12 +534,12 @@ output "example_PO_Audit_policy_set_definition_id" {
     <td colspan="3"><p align="center"><b><u>Built-in vs. Custom</u></b></p></td>
   </tr>
   <tr>
-    <td>Built-in Policies</td>
+    <td><b>Built-in Policies</b></td>
     <td>✅</td>
     <td>Microsoft provides 400+ built-in policy definitions. azure-guardrails leverages these Built-in Policy definitions so you can get rapidly started and maximize your coverage.</td>
   </tr>
   <tr>
-    <td>Custom Policies</td>
+    <td><b>Custom Policies</b></td>
     <td>❌</td>
     <td>azure-guardrails does not support creation of Custom Policies. Consider leveraging Custom Policies after you have built out your process and workflow using azure-guardrails.</td>
   </tr>
