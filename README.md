@@ -483,14 +483,14 @@ output "example_PO_Audit_policy_set_definition_id" {
 <table>
 <thead>
   <tr>
-    <th>Characteristic</th>
-    <th>azure-guardrails support</th>
-    <th>Description</th>
+    <th><b><u>Characteristic</u></b></th>
+    <th><b><u>Support</u></b></th>
+    <th><b><u>Description</u></b></th>
   </tr>
 </thead>
 <tbody>
-  <tr>
-    <td colspan="3">Parameters</td>
+  <tr style="text-align:center">
+    <td colspan="3"><b><u>Parameters</u></b></td>
   </tr>
   <tr>
     <td>Policies with No Parameters</td>
@@ -507,8 +507,8 @@ output "example_PO_Audit_policy_set_definition_id" {
     <td>✅</td>
     <td>These policies require parameters which do not have default values. While rollout is significantly less time consuming than the Azure recommended workflow, finding the best values for your environment requires careful thinking.</td>
   </tr>
-  <tr>
-    <td colspan="3">Effects</td>
+  <tr style="text-align:center">
+    <td colspan="3"><b><u>Effects</u></b></td>
   </tr>
   <tr>
     <td>Policies with "Deny" Effects</td>
@@ -530,8 +530,8 @@ output "example_PO_Audit_policy_set_definition_id" {
     <td>❌</td>
     <td>Some Azure Policies have <a href="https://docs.microsoft.com/en-us/azure/governance/policy/concepts/effects" target="_blank" rel="noopener noreferrer">Policy Effects</a> that allow the modification of resources, such as the "<a href="https://docs.microsoft.com/en-us/azure/governance/policy/concepts/effects#modify" target="_blank" rel="noopener noreferrer">Modify</a>" or "<a href="https://docs.microsoft.com/en-us/azure/governance/policy/concepts/effects#append" target="_blank" rel="noopener noreferrer">Append</a>" effects.</td>
   </tr>
-  <tr>
-    <td colspan="3">Built-in vs. Custom</td>
+  <tr style="text-align:center">
+    <td colspan="3"><b><u>Built-in vs. Custom</u></b></td>
   </tr>
   <tr>
     <td>Built-in Policies</td>
