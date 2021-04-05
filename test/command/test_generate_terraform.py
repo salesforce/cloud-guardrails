@@ -31,7 +31,7 @@ class GenerateTerraformClickUnitTests(unittest.TestCase):
 
     def test_generate_terraform_command_with_config(self):
         """command.generate_terraform: with config file"""
-        args = ["--service", "all", "--subscription", "example", "--no-params", "-n", "--config-file", default_config_file]
+        args = ["--service", "all", "--subscription", "example", "--no-params", "-n", "--config", default_config_file]
         result = self.runner.invoke(generate_terraform, args)
         self.assertTrue(result.exit_code == 0)
 
@@ -44,7 +44,7 @@ class GenerateTerraformClickUnitTests(unittest.TestCase):
 
     def test_generate_terraform_with_explicit_matches(self):
         """command.generate_terraform: with config file that matches keywords"""
-        args = ["--service", "all", "--subscription", "example", "--no-params", "-n", "--config-file", config_with_keyword_matches]
+        args = ["--service", "all", "--subscription", "example", "--no-params", "-n", "--config", config_with_keyword_matches]
         result = self.runner.invoke(generate_terraform, args)
         print(result.output)
         # We know for sure that no policies that match "customer-managed key" will also
