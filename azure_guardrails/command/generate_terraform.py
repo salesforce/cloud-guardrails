@@ -321,7 +321,7 @@ class TerraformGuardrails:
     def print_success_message(self, output_file: str, enforcement_mode: bool, output_directory: str):
         utils.print_green("Success!")
         print()
-        utils.print_green(f"Generated Terraform file: {output_file}")
+        utils.print_green(f"Generated Terraform file: {os.path.relpath(output_file)}")
 
         if enforcement_mode:
             enforcement_message = "Enables security policies in *Enforcement mode* (illegal resource changes will be denied)"
@@ -350,7 +350,7 @@ class TerraformGuardrails:
 
         utils.print_blue("To apply these policies with Terraform:")
 
-        if os.path.relpath(output_directory) == ".":
+        if output_directory == os.getcwd():
             directory_string = ""
         else:
             directory_string = f"\n\tcd {os.path.relpath(output_directory)}"
