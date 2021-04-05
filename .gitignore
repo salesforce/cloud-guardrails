@@ -67,36 +67,32 @@ packer_cache/
 *.pem
 .notes/*
 tmp/*
+research.py
+
+# Local testing
+azure-guardrails-*
+
+# Terraform testing
+examples/terraform-testing/
+**/state.tf
+
+# Excel sheets
+**/~$*.xlsx
+
+# Local testing yml files
 exclusions.yml
 config.yml
-**/state.tf
-azure-guardrails-*
-**/~$*.xlsx
-research.py
-*-example.csv
-*-example.md
-*-all-table.csv
-*-all-table.md
-params*.csv
-params*.md
-no-params*.md
-no-params*.csv
-all_policies.csv
+/parameters.yml
+/parameters-*.yml
+
+# Generated files
+/params_required.tf
+/params_optional.tf
+/no_params.tf
+/params*.tf
 NP-*.csv
 RP-*.csv
 PO-*.csv
 NP-*.md
 RP-*.md
 PO-*.md
-examples/terraform-testing/
-/PR-Kubernetes-table.csv
-/PR-Kubernetes-table.md
-/parameters.yml
-/parameters-*.yml
-/config-example-params-required.yml
-/config-example-params-optional.yml
-/test/command/parameters-optional.yml
-/test/command/parameters-required.yml
-/params_required.tf
-/params_optional.tf
-/no_params.tf

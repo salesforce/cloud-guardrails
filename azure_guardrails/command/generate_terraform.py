@@ -153,12 +153,6 @@ def generate_terraform(
             config_file=config_file, exclude_services=exclude_services
         )
 
-    # Set some default values
-    if subscription:
-        management_group = ""
-    else:
-        subscription = ""
-
     # Policy Initiative Category
     category = "Testing"
 
@@ -188,7 +182,8 @@ def generate_terraform(
     with open(output_file, "w") as f:
         f.write(terraform_content)
 
-    print(terraform_content)
+    # Print success message
+    terraform.print_success_message(output_file=output_file, output_directory=output_directory, enforcement_mode=enforcement_mode)
 
     # Markdown and CSV Summary files
     if not no_summary:
@@ -212,8 +207,13 @@ class TerraformGuardrails:
         self.service = service
         self.config = config
         self.azure_policies = self.set_iam_definition()
-        self.subscription = subscription
-        self.management_group = management_group
+
+        if subscription:
+            self.subscription = subscription
+            self.management_group = ""
+        else:
+            self.subscription = ""
+            self.management_group = management_group
 
         self.parameters_config = parameters_config
         self.no_params = no_params
@@ -247,7 +247,7 @@ class TerraformGuardrails:
         if self.service == "all":
             service_string = ""
         else:
-            service_string = f"-{self.service.lower().strip()}"
+            service_string = f"_{self.service.lower().strip()}"
 
         if self.no_params:
             return f"no_params{service_string}.tf"
@@ -317,3 +317,63 @@ class TerraformGuardrails:
             params_optional=self.params_optional,
             params_required=self.params_required
         )
+
+    def print_success_message(self, output_file: str, enforcement_mode: bool, output_directory: str):
+        utils.print_green("Success!")
+        print()
+        utils.print_green(f"Generated Terraform file: {output_file}")
+
+        if enforcement_mode:
+            enforcement_message = "Enables security policies in *Enforcement mode* (illegal resource changes will be denied)"
+        else:
+            enforcement_message = "Enables security policies in *Audit mode* (illegal resource changes will be logged)"
+
+        if self.service == "all":
+            service_message = "Covers *all* services supported by Azure Policies."
+        else:
+            service_message = f"Covers *{self.service}* policies."
+
+        if self.no_params:
+            params_message = "Targets policies that do *not* require parameters"
+        elif self.params_optional:
+            params_message = "Targets policies where parameters are *optional* (because the parameters default values)"
+        else:
+            params_message = "Targets policies where parameters are *required* (because the parameters do not have default values)"
+
+        summary_message = f"""
+    The Terraform creates an Azure Policy Initiative that:
+    - {enforcement_message}
+    - {service_message}
+    - {params_message}
+    """
+        print(summary_message)
+
+        utils.print_blue("To apply these policies with Terraform:")
+
+        if os.path.relpath(output_directory) == ".":
+            directory_string = ""
+        else:
+            directory_string = f"\n\tcd {os.path.relpath(output_directory)}"
+
+        if self.subscription != "":
+            target_string = "subscription"
+        else:
+            target_string = "management group"
+
+        instructions_message = f"""
+    Log in to Azure and set your subscription:
+        az login
+        az account set --subscription my-subscription
+
+    Then navigate to the directory with your Terraform files and apply the policies:{directory_string}
+        terraform init
+        terraform plan
+        terraform apply -auto-approve
+
+    You will see that the Azure Policy Initiative is now applied to your {target_string}!
+        """
+
+        print(instructions_message)
+
+        # TODO: Explain exemptions?
+        # TODO: Give summary of the control categories?

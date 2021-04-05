@@ -485,6 +485,7 @@ class AzurePolicies:
                     "New Zealand ISM": new_zealand_id,
                     "Parameters": parameter_names,
                     "Link": github_link,
+                    "ID": policy_definition_obj.short_id
                 }
                 results.append(result)
         results = sorted(results, key=itemgetter("Service", "Policy Definition"))
@@ -506,6 +507,7 @@ class AzurePolicies:
             "New Zealand ISM",
             "Parameters",
             "Link",
+            "ID"
         ]
 
         # results = headers.copy()

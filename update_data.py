@@ -96,6 +96,7 @@ def write_spreadsheets(results: list, results_path: str):
         "effects",
         "github_link",
         "github_version",
+        "id"
     ]
     csv_file_path = os.path.join(results_path, "compliance-data.csv")
     with open(csv_file_path, 'w', newline='') as csv_file:
