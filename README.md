@@ -493,7 +493,7 @@ output "example_PO_Audit_policy_set_definition_id" {
     <td colspan="3"><p align="center"><b><u>Parameters</u></b></p></td>
   </tr>
   <tr>
-    <td>Policies with No Parameters</td>
+    <td>Policies with **No Parameters**</td>
     <td>✅</td>
     <td>These policies do not require any parameters. These are the easiest policies to apply.</td>
   </tr>
