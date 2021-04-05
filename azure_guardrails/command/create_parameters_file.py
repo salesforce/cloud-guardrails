@@ -18,16 +18,18 @@ logger = logging.getLogger(__name__)
 
 @click.command(name="create-parameters-file", short_help="Create a YAML file containing Policy Parameters and default values.")
 @click.option(
-    "--output-file",
+    "--output",
     "-o",
+    "output_file",
     type=click.Path(exists=False),
     required=True,
     default="parameters.yml",
     help="The path to the output file",
 )
 @click.option(
-    "--config-file",
+    "--config",
     "-c",
+    "config_file",
     type=click.Path(exists=False),
     required=False,
     # default="config.yml",

@@ -88,7 +88,7 @@ config.yml
 # Generated files
 /params_required.tf
 /params_optional.tf
-/no_params.tf
+/no_param*.tf
 /params*.tf
 NP-*.csv
 RP-*.csv
