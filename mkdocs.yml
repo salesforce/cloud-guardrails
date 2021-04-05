@@ -1,0 +1,34 @@
+site_name: Azure Guardrails
+site_url: https://azure-guardrails.readthedocs.io/
+repo_url: https://github.com/salesforce/azure-guardrails/
+theme: material
+use_directory_urls: true
+markdown_extensions:
+    - codehilite
+    - tables
+plugins:
+  - search
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          rendering:
+            show_source: true
+      watch:
+        - azure_guardrails/
+extra_css:
+  - custom.css
+
+nav:
+  - Home: 'index.md'
+  - Installation: 'installation.md'
+  - Cheatsheet: 'cheatsheet.md'
+
+  - "<b>Tutorials</b>":
+    - Basic - No Parameters: 'tutorials/basic.md'
+    - Basic - Single Service: 'tutorials/basic-key-vault.md'
+    - Intermediate - Parameters Optional: 'tutorials/parameters-optional.md'
+    - Advanced - Parameters Required: 'tutorials/parameters-required.md'
+
+  - "<b>Contributing</b>":
+    - Contributing: 'contributing/contributing.md'
