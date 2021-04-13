@@ -21,6 +21,6 @@ mkdocs-material-extensions==1.0.1
 mkdocstrings==0.15.0
 
 # Automation to create the excel spreadsheets
-openpyxl==3.0.6
+openpyxl==3.0.7
 pandas==1.2.3
 lxml==4.6.3
