@@ -22,5 +22,5 @@ mkdocstrings==0.15.0
 
 # Automation to create the excel spreadsheets
 openpyxl==3.0.7
-pandas==1.2.3
+pandas==1.2.4
 lxml==4.6.3
