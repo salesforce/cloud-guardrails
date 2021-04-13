@@ -16,7 +16,7 @@ bc-python-hcl2==0.3.18
 
 # Documentation
 mkdocs==1.1.2
-mkdocs-material==6.2.8
+mkdocs-material==7.1.1
 mkdocs-material-extensions==1.0.1
 mkdocstrings==0.14.0
 
