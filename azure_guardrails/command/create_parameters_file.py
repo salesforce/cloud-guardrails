@@ -16,56 +16,18 @@ from azure_guardrails.shared.config import get_default_config, get_config_from_f
 logger = logging.getLogger(__name__)
 
 
-@click.command(name="create-parameters-file", short_help="Create a YAML file containing Policy Parameters and default values.")
-@click.option(
-    "--output",
-    "-o",
-    "output_file",
-    type=click.Path(exists=False),
-    required=True,
-    default="parameters.yml",
-    help="The path to the output file",
+@click.command(
+    name="create-parameters-file",
+    short_help="Create a YAML file containing Policy Parameters and default values."
 )
-@click.option(
-    "--config",
-    "-c",
-    "config_file",
-    type=click.Path(exists=False),
-    required=False,
-    # default="config.yml",
-    help="The path to the output file",
-)
-@click.option(
-    "--exclude-services",
-    "exclude_services",
-    type=str,
-    help="Exclude specific services (comma-separated) without using a config file.",
-    callback=validate.click_validate_comma_separated_excluded_services,
-)
-@optgroup.group(
-    "Parameter Options",
-    help="",
-)
-@optgroup.option(
-    "--optional-only",
-    "-oo",
-    is_flag=True,
-    default=False,
-    help="Include policies containing OPTIONAL parameters",
-)
-@optgroup.option(
-    "--required-only",
-    "-ro",
-    is_flag=True,
-    default=False,
-    help="Include policies containing REQUIRED parameters",
-)
-@click.option(
-    "--verbose",
-    "-v",
-    "verbosity",
-    count=True,
-)
+@click.option("--output", "-o", "output_file", type=click.Path(exists=False), required=True, default="parameters.yml", help="The path to the output file")
+@click.option("--config", "-c", "config_file", type=click.Path(exists=False), required=False, help="The path to the output file")
+@click.option("--exclude-services", "exclude_services", type=str, help="Exclude specific services (comma-separated) without using a config file.", callback=validate.click_validate_comma_separated_excluded_services)
+# Parameter Options
+@optgroup.group("Parameter Options", help="",)
+@optgroup.option("--optional-only", "-oo", is_flag=True, default=False, help="Include policies containing OPTIONAL parameters")
+@optgroup.option("--required-only", "-ro", is_flag=True, default=False, help="Include policies containing REQUIRED parameters")
+@click.option("--verbose", "-v", "verbosity", count=True)
 def create_parameters_file(
     output_file: str,
     config_file: str,

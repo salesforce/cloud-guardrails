@@ -11,22 +11,12 @@ from azure_guardrails.shared.config import get_config_template
 logger = logging.getLogger(__name__)
 
 
-@click.command(name="create-config-file", short_help="Create a config file to specify which policies to select or exclude.")
-@click.option(
-    "--output",
-    "-o",
-    "output_file",
-    type=click.Path(exists=False),
-    required=True,
-    default="config.yml",
-    help="The path to the output file",
+@click.command(
+    name="create-config-file",
+    short_help="Create a config file to specify which policies to select or exclude."
 )
-@click.option(
-    "--verbose",
-    "-v",
-    "verbosity",
-    count=True,
-)
+@click.option("--output", "-o", "output_file", type=click.Path(exists=False), required=True, default="config.yml", help="The path to the output file",)
+@click.option("--verbose", "-v", "verbosity", count=True)
 def create_config_file(output_file: str, verbosity: int):
     """
     Get Azure Policies
