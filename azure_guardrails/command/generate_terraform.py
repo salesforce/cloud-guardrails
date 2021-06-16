@@ -74,6 +74,7 @@ def generate_terraform(
     # Policy Initiative Category
     category = "Testing"
 
+    # Read the config file
     if parameters_config_file:
         parameters_config = utils.read_yaml_file(parameters_config_file)
     else:
@@ -88,17 +89,13 @@ def generate_terraform(
         no_params=no_params,
         params_optional=params_optional,
         params_required=params_required,
+        category=category,
+        enforcement_mode=enforcement_mode,
         verbosity=verbosity
     )
 
-    terraform_content = terraform.generate_terraform(enforcement_mode=enforcement_mode, category=category)
-
     output_file = os.path.join(output_directory, terraform.file_name)
-    if os.path.exists(output_file):
-        logger.info("%s exists. Removing the file and replacing its contents." % output_file)
-        os.remove(output_file)
-    with open(output_file, "w") as f:
-        f.write(terraform_content)
+    terraform.create_terraform_file(output_file=output_file)
 
     # Print success message
     terraform.print_success_message(output_file=output_file, output_directory=output_directory, enforcement_mode=enforcement_mode)

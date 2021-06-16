@@ -1,10 +1,13 @@
 import os
+import logging
+from colorama import Fore
 from azure_guardrails.shared import utils
 from azure_guardrails.terraform.terraform_no_params import TerraformTemplateNoParams
 from azure_guardrails.terraform.terraform_with_params import TerraformTemplateWithParams
 from azure_guardrails.iam_definition.azure_policies import AzurePolicies
 from azure_guardrails.shared.parameters_categorized import CategorizedParameters
 from azure_guardrails.shared.config import Config
+logger = logging.getLogger(__name__)
 
 
 class TerraformGuardrails:
@@ -18,7 +21,9 @@ class TerraformGuardrails:
         no_params: bool,
         params_optional: bool,
         params_required: bool,
-        verbosity: int
+        enforcement_mode: bool,
+        verbosity: int,
+        category: str = "Testing"
     ):
         self.service = service
         self.config = config
@@ -37,7 +42,9 @@ class TerraformGuardrails:
         self.params_required = params_required
 
         self.audit_only = False
+        self.enforcement_mode = enforcement_mode
 
+        self.category = category
         self.verbosity = verbosity
 
     def set_iam_definition(self) -> AzurePolicies:
@@ -72,24 +79,44 @@ class TerraformGuardrails:
         elif self.params_required:
             return f"params_required{service_string}.tf"
 
-    def generate_terraform(self, enforcement_mode: bool, category: str) -> str:
-        # Generate the Terraform file content
+    def policy_id_pairs(self) -> dict:
         if self.no_params:
-            policy_id_pairs = self.azure_policies.get_all_policy_ids_sorted_by_service(
+            policy_ids_sorted_by_service = self.azure_policies.get_all_policy_ids_sorted_by_service(
                 no_params=True, params_optional=self.params_optional, params_required=self.params_required,
                 audit_only=self.audit_only)
-            terraform_template = TerraformTemplateNoParams(
-                policy_id_pairs=policy_id_pairs,
-                subscription_name=self.subscription,
-                management_group=self.management_group,
-                enforcement_mode=enforcement_mode,
-                category=category
-            )
         else:
             policy_ids_sorted_by_service = self.azure_policies.get_all_policy_ids_sorted_by_service(
                 no_params=self.no_params, params_optional=self.params_optional, params_required=self.params_required,
                 audit_only=self.audit_only)
+        return policy_ids_sorted_by_service
 
+    def policy_names(self) -> list:
+        policy_id_pairs = self.policy_id_pairs()
+        policies = []
+        for service_name, service_policies in policy_id_pairs.items():
+            for service_policy_name, service_policy_content in service_policies.items():
+                policies.append(service_policy_name)
+        return policies
+
+    def policy_ids(self) -> list:
+        policy_id_pairs = self.policy_id_pairs()
+        policies = []
+        for service_name, service_policies in policy_id_pairs.items():
+            for service_policy_name, service_policy_content in service_policies.items():
+                policies.append(service_policy_content.get("display_name"))
+        return policies
+
+    def generate_terraform(self) -> str:
+        # Generate the Terraform file content
+        if self.no_params:
+            terraform_template = TerraformTemplateNoParams(
+                policy_id_pairs=self.policy_id_pairs(),
+                subscription_name=self.subscription,
+                management_group=self.management_group,
+                enforcement_mode=self.enforcement_mode,
+                category=self.category
+            )
+        else:
             categorized_parameters = CategorizedParameters(
                 azure_policies=self.azure_policies,
                 parameters_config=self.parameters_config,
@@ -99,16 +126,24 @@ class TerraformGuardrails:
             )
 
             terraform_template = TerraformTemplateWithParams(
-                policy_id_pairs=policy_ids_sorted_by_service,
+                policy_id_pairs=self.policy_id_pairs(),
                 parameter_requirement_str=self.parameter_requirement_str,
                 categorized_parameters=categorized_parameters,
                 subscription_name=self.subscription,
                 management_group=self.management_group,
-                enforcement_mode=enforcement_mode,
-                category=category
+                enforcement_mode=self.enforcement_mode,
+                category=self.category
             )
         result = terraform_template.rendered()
         return result
+
+    def create_terraform_file(self, output_file: str):
+        terraform_content = self.generate_terraform()
+        if os.path.exists(output_file):
+            logger.info("%s exists. Removing the file and replacing its contents." % output_file)
+            os.remove(output_file)
+        with open(output_file, "w") as f:
+            f.write(terraform_content)
 
     def create_markdown_summary_file(self, directory: str = None):
         # Write Markdown summary
@@ -138,27 +173,30 @@ class TerraformGuardrails:
             params_required=self.params_required
         )
 
+    def green_policy_count(self) -> str:
+        return f"{Fore.GREEN}{len(self.policy_names())}{utils.END}"
+
     def print_success_message(self, output_file: str, enforcement_mode: bool, output_directory: str):
         utils.print_green("Success!")
         print()
         utils.print_green(f"Generated Terraform file: {os.path.relpath(output_file)}")
 
         if enforcement_mode:
-            enforcement_message = "Enables security policies in *Enforcement mode* (illegal resource changes will be denied)"
+            enforcement_message = f"Enables {self.green_policy_count()} security policies in {Fore.GREEN}Enforcement mode{utils.END} (illegal resource changes will be denied)"
         else:
-            enforcement_message = "Enables security policies in *Audit mode* (illegal resource changes will be logged)"
+            enforcement_message = f"Enables {self.green_policy_count()} security policies in {Fore.GREEN}Audit mode{utils.END} (illegal resource changes will be logged)"
 
         if self.service == "all":
-            service_message = "Covers *all* services supported by Azure Policies."
+            service_message = f"Covers {Fore.GREEN}all{utils.END} services supported by Azure Policies."
         else:
-            service_message = f"Covers *{self.service}* policies."
+            service_message = f"Covers {Fore.GREEN}{self.service}{utils.END} policies."
 
         if self.no_params:
-            params_message = "Targets policies that do *not* require parameters"
+            params_message = f"Targets {self.green_policy_count()} policies that do {Fore.GREEN}not{utils.END} require parameters"
         elif self.params_optional:
-            params_message = "Targets policies where parameters are *optional* (because the parameters default values)"
+            params_message = f"Targets {self.green_policy_count()} policies where parameters are {Fore.GREEN}optional{utils.END} (because the parameters default values)"
         else:
-            params_message = "Targets policies where parameters are *required* (because the parameters do not have default values)"
+            params_message = f"Targets {self.green_policy_count()} policies where parameters are {Fore.GREEN}required{utils.END} (because the parameters do not have default values)"
 
         summary_message = f"""
     The Terraform creates an Azure Policy Initiative that:
@@ -173,7 +211,7 @@ class TerraformGuardrails:
         if output_directory == os.getcwd():
             directory_string = ""
         else:
-            directory_string = f"\n\tcd {os.path.relpath(output_directory)}"
+            directory_string = f"Navigate to the directory with your Terraform files.\n\tcd {os.path.relpath(output_directory)}"
 
         if self.subscription != "":
             target_string = "subscription"
@@ -184,8 +222,11 @@ class TerraformGuardrails:
     Log in to Azure and set your subscription:
         az login
         az account set --subscription my-subscription
+    {directory_string}
+    Create a Terraform file required by the Azure Terraform Provider:
+        echo 'provider "azurerm" {{ version = "=2.56.0" features {{}}}}' > provider.tf
 
-    Then navigate to the directory with your Terraform files and apply the policies:{directory_string}
+    Now apply the policies:
         terraform init
         terraform plan
         terraform apply -auto-approve
@@ -196,5 +237,4 @@ class TerraformGuardrails:
         print(instructions_message)
 
         # TODO: Explain exemptions?
-        # TODO: Give which policies are in enforcement vs not.
         # TODO: Give summary of the control categories?
