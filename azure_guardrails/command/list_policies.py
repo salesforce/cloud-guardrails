@@ -13,71 +13,20 @@ logger = logging.getLogger(__name__)
 
 
 @click.command(name="list-policies", short_help="List available built-in Azure Policies.")
-@click.option(
-    "--service",
-    "-s",
-    type=str,
-    required=True,
-    help="Services supported by Azure Policy definitions",
-    callback=validate.click_validate_supported_azure_service,
-)
+@click.option("--service", "-s", type=str, required=True, help="Services supported by Azure Policy definitions", callback=validate.click_validate_supported_azure_service)
+# Effects
 @optgroup.group("Effects", help="")
-@optgroup.option(
-    "--audit-only",
-    "-a",
-    is_flag=True,
-    required=False,
-    default=False,
-    help="Policies with 'Audit' or 'AuditIfNotExists' effect only",
-)
-@optgroup.group(
-    "Parameter Options",
-    cls=RequiredMutuallyExclusiveOptionGroup,
-    help="",
-)
-@optgroup.option(
-    "--all-policies",
-    is_flag=True,
-    default=False,
-    help="Show all policies, regardless of whether or not they have parameters",
-)
-@optgroup.option(
-    "--no-params",
-    is_flag=True,
-    default=False,
-    help="Only generate policies that do NOT require parameters",
-)
-@optgroup.option(
-    "--params-optional",
-    is_flag=True,
-    default=False,
-    help="Only generate policies where parameters are OPTIONAL",
-)
-@optgroup.option(
-    "--params-required",
-    is_flag=True,
-    default=False,
-    help="Only generate policies where parameters are REQUIRED",
-)
-@optgroup.group(
-    "Other Options",
-    help="",
-)
-@optgroup.option(
-    "--format",
-    "-f",
-    "fmt",
-    type=click.Choice(["stdout", "yaml"]),
-    required=False,
-    default="stdout",
-    help="Output format",
-)
-@click.option(
-    "--verbose",
-    "-v",
-    "verbosity",
-    count=True,
-)
+@optgroup.option("--audit-only", "-a", is_flag=True, required=False, default=False, help="Policies with 'Audit' or 'AuditIfNotExists' effect only")
+# Parameter Options
+@optgroup.group("Parameter Options", cls=RequiredMutuallyExclusiveOptionGroup, help="")
+@optgroup.option("--all-policies", is_flag=True, default=False, help="Show all policies, regardless of whether or not they have parameters")
+@optgroup.option("--no-params", is_flag=True, default=False, help="Only generate policies that do NOT require parameters")
+@optgroup.option("--params-optional", is_flag=True, default=False, help="Only generate policies where parameters are OPTIONAL")
+@optgroup.option("--params-required", is_flag=True, default=False, help="Only generate policies where parameters are REQUIRED")
+# Other options=
+@optgroup.group("Other Options", help="")
+@optgroup.option("--format", "-f", "fmt", type=click.Choice(["stdout", "yaml"]), required=False, default="stdout", help="Output format")
+@click.option("--verbose", "-v", "verbosity", count=True,)
 def list_policies(
     service: str,
     audit_only: bool,
