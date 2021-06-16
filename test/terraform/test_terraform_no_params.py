@@ -32,6 +32,8 @@ class TerraformTemplateNoParamsTestCase(unittest.TestCase):
         kv_policy_id_pairs = self.kv_azure_policies.get_all_policy_ids_sorted_by_service(
             no_params=True
         )
+        import json
+        print(json.dumps(kv_policy_id_pairs, indent=4))
         self.kv_terraform_template = TerraformTemplateNoParams(
             policy_id_pairs=kv_policy_id_pairs,
             subscription_name=subscription,
