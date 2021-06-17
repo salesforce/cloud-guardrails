@@ -19,8 +19,16 @@ mkdocs==1.1.2
 mkdocs-material==7.1.1
 mkdocs-material-extensions==1.0.1
 mkdocstrings==0.15.0
+Pygments==2.8.1
+pymdown-extensions==8.1.1
+pytkdocs==0.11.1
 
 # Automation to create the excel spreadsheets
 openpyxl==3.0.7
 pandas==1.2.4
 lxml==4.6.3
+
+# Docs
+# atomicwrites==1.4.0
+# distlib==0.3.1
+# filelock==3.0.12
