@@ -1,0 +1,41 @@
+name: Update Azure Policy Data
+
+on:
+  schedule:
+    - cron: '0 0 1 * *'
+  workflow_dispatch:
+
+jobs:
+  update-azure-data:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+
+      - name: Update IAM Definition
+        run: make update-iam-definition
+
+      - name: Update Compliance Data
+        run: make update-compliance-data
+
+      - name: Update Policy Tables
+        run: make update-policy-table
+
+      - name: Set outputs
+        id: vars
+        run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+
+      - name: PR if files were updated
+        uses: peter-evans/create-pull-request@v3
+        with:
+          commit-message: Update database
+          title: 'Updates database'
+          body: This is an automated PR created because Azure Policy resources were updated.
+          branch: ${{ steps.vars.outputs.sha_short }}
+          delete-branch: true
+          labels: |
+            automation
