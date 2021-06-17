@@ -11,12 +11,7 @@ logger = logging.getLogger(__name__)
 
 
 @click.command(name="list-services", short_help="List services supported by Azure Built-in policies")
-@click.option(
-    "-v",
-    "--verbose",
-    "verbosity",
-    count=True,
-)
+@click.option("-v", "--verbose", "verbosity", count=True)
 def list_services(verbosity):
     """List services supported by Azure Built-in policies"""
     set_log_level(verbosity)

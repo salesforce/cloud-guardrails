@@ -6,7 +6,7 @@ Azure Guardrails is a command-line tool that allows you to rapidly cherry-pick s
 
 [Azure Policies](https://docs.microsoft.com/en-us/azure/governance/policy/overview) - similar to [AWS Service Control Policies (SCPs)](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps.html) - allows Azure customers to enforce organizational standards and enforce security policies at scale. You can use Azure Policies to evaluate the overall state of your environment, and drill down to the security status per resource and per policy. **For example, you can prevent users from creating any unencrypted resources or security group rules that allow SSH/RDP Access to 0.0.0.0/0**.
 
-Azure Provides **400+ built-in security policies**. This presents an incredible opportunity for customers who want to enforce preventative security guardrails from the start. However, deciding which of the 400+ built-in policies you want to enforce, and which stages you want to roll them out in can be a bit intimidating at the start.
+Azure provides **400+ built-in security policies**. This presents an incredible opportunity for customers who want to enforce preventative security guardrails from the start. However, deciding which of the 400+ built-in policies you want to enforce, and which stages you want to roll them out in can be a bit intimidating at the start.
 
 To help maximize coverage and ease the rollout process, I created this tool so that you can:
 
@@ -56,10 +56,24 @@ azure-guardrails describe-policy --name "Storage accounts should use customer-ma
 
 ## Installation
 
+* First, clone the repository and run the installation command.
+
 ```bash
+# Clone the git repository
+git clone https://github.com/salesforce/azure-guardrails.git
+
 # Install
 make install
 ```
+
+* Install Terraform if you haven't already. I recommend using [tfenv](https://github.com/tfutils/tfenv), a Terraform version manager:
+
+```bash
+brew install tfenv
+tfenv install 0.12.28
+```
+
+Now you can follow the rest of the tutorial.
 
 # Tutorial
 

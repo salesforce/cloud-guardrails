@@ -1,3 +1,6 @@
+# Repository specific
+provider.tf
+
 # IDEs
 .idea
 .vscode

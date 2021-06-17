@@ -12,45 +12,18 @@ from azure_guardrails.shared.config import get_empty_config
 logger = logging.getLogger(__name__)
 
 
-@click.command(name="describe-policy", short_help="Get metadata about a Policy, given the policy name or ID.")
-@optgroup.group(
-    "Policy Lookup Options",
-    cls=RequiredMutuallyExclusiveOptionGroup,
-    help="",
+@click.command(
+    name="describe-policy",
+    short_help="Get metadata about a Policy, given the policy name or ID."
 )
-@optgroup.option(
-    "--name",
-    "-n",
-    "display_name",
-    type=str,
-    help="The display name of the policy",
-)
-@optgroup.option(
-    "--id",
-    "-i",
-    "policy_id",
-    type=str,
-    help="The short ID of the policy",
-)
-@optgroup.group(
-    "Other Options",
-    help="",
-)
-@optgroup.option(
-    "--format",
-    "-f",
-    "fmt",
-    type=click.Choice(["json", "yaml"]),
-    required=False,
-    default="yaml",
-    help="Output format",
-)
-@click.option(
-    "--verbose",
-    "-v",
-    "verbosity",
-    count=True,
-)
+# Policy Lookup Options
+@optgroup.group("Policy Lookup Options", cls=RequiredMutuallyExclusiveOptionGroup, help="")
+@optgroup.option("--name", "-n", "display_name", type=str, help="The display name of the policy")
+@optgroup.option("--id", "-i", "policy_id", type=str, help="The short ID of the policy")
+# Other Options
+@optgroup.group("Other Options", help="")
+@optgroup.option("--format", "-f", "fmt", type=click.Choice(["json", "yaml"]), required=False, default="yaml", help="Output format")
+@click.option("--verbose", "-v", "verbosity", count=True)
 def describe_policy(display_name: str, policy_id: str, fmt: str, verbosity: bool):
     set_log_level(verbosity)
     azure_policies = AzurePolicies(config=get_empty_config())

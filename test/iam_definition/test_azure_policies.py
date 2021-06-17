@@ -4,6 +4,7 @@ import json
 from azure_guardrails.iam_definition.azure_policies import AzurePolicies
 from azure_guardrails.iam_definition.policy_definition import PolicyDefinition
 from azure_guardrails.shared import utils
+from azure_guardrails.shared.utils import remove_preview_name
 
 
 class AzurePoliciesTestCase(unittest.TestCase):
@@ -253,12 +254,16 @@ class AzurePoliciesTestCase(unittest.TestCase):
         policy_id_pairs = self.kv_azure_policies.get_all_policy_ids_sorted_by_service(no_params=True)
         # print(json.dumps(policy_id_pairs, indent=4))
         kv_policy_names = list(policy_id_pairs.get("Key Vault").keys())
+        revised_names = []
+        for name in kv_policy_names:
+            revised_names.append(remove_preview_name(name))
         expected_results_file = os.path.join(os.path.dirname(__file__), os.path.pardir, "files", "policy_id_pairs_kv.json")
         expected_results = utils.read_json_file(expected_results_file)
         # print(json.dumps(expected_results, indent=4))
         # print(kv_policy_names)
         for policy_name, policy_details in expected_results["Key Vault"].items():
-            self.assertTrue(policy_name in kv_policy_names)
+            print(f"{remove_preview_name(policy_name)}: {remove_preview_name(policy_name) in revised_names}")
+            self.assertTrue(remove_preview_name(policy_name) in revised_names)
 
     def test_compliance_coverage_data_azure_policies(self):
         results = self.azure_policies.compliance_coverage_data()
