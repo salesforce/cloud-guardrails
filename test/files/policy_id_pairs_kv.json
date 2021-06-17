@@ -2,45 +2,23 @@
     "Key Vault": {
         "Azure Key Vault Managed HSM should have purge protection enabled": {
             "short_id": "c39ba22d-4428-4149-b981-70acb31fc383",
+            "long_id": "/providers/Microsoft.Authorization/policyDefinitions/c39ba22d-4428-4149-b981-70acb31fc383",
             "display_name": "Azure Key Vault Managed HSM should have purge protection enabled"
         },
-        "Key vaults should have purge protection enabled": {
-            "short_id": "0b60c0b2-2dc2-4e1c-b5c9-abbed971de53",
-            "display_name": "Key vaults should have purge protection enabled"
+        "Azure Key Vault should disable public network access": {
+            "short_id": "55615ac9-af46-4a59-874e-391cc3dfb490",
+            "long_id": "/providers/Microsoft.Authorization/policyDefinitions/55615ac9-af46-4a59-874e-391cc3dfb490",
+            "display_name": "Azure Key Vault should disable public network access"
         },
-        "Key vaults should have soft delete enabled": {
-            "short_id": "1e66c121-a66a-4b1f-9b83-0fd99bf0fc2d",
-            "display_name": "Key vaults should have soft delete enabled"
+        "Azure Key Vaults should use private link": {
+            "short_id": "a6abeaec-4d90-4a02-805f-6b26c4d3fbe9",
+            "long_id": "/providers/Microsoft.Authorization/policyDefinitions/a6abeaec-4d90-4a02-805f-6b26c4d3fbe9",
+            "display_name": "Azure Key Vaults should use private link"
         },
-        "Resource logs in Azure Key Vault Managed HSM should be enabled": {
-            "short_id": "a2a5b911-5617-447e-a49e-59dbe0e0434b",
-            "display_name": "Resource logs in Azure Key Vault Managed HSM should be enabled",
-            "parameters": {
-                "requiredRetentionDays": {
-                    "name": "requiredRetentionDays",
-                    "type": "String",
-                    "description": "The required resource logs retention in days",
-                    "display_name": "Required retention (days)",
-                    "default_value": "365"
-                }
-            }
-        },
-        "Resource logs in Key Vault should be enabled": {
-            "short_id": "cf820ca0-f99e-4f3e-84fb-66e913812d21",
-            "display_name": "Resource logs in Key Vault should be enabled",
-            "parameters": {
-                "requiredRetentionDays": {
-                    "name": "requiredRetentionDays",
-                    "type": "String",
-                    "description": "The required resource logs retention in days",
-                    "display_name": "Required retention (days)",
-                    "default_value": "365"
-                }
-            }
-        },
-        "[Preview]: Certificates should be issued by the specified integrated certificate authority": {
+        "Certificates should be issued by the specified integrated certificate authority": {
             "short_id": "8e826246-c976-48f6-b03e-619bb92b3d82",
-            "display_name": "[Preview]: Certificates should be issued by the specified integrated certificate authority",
+            "long_id": "/providers/Microsoft.Authorization/policyDefinitions/8e826246-c976-48f6-b03e-619bb92b3d82",
+            "display_name": "Certificates should be issued by the specified integrated certificate authority",
             "parameters": {
                 "allowedCAs": {
                     "name": "allowedCAs",
@@ -51,6 +29,10 @@
                         "DigiCert",
                         "GlobalSign"
                     ],
+                    "value": [
+                        "DigiCert",
+                        "GlobalSign"
+                    ],
                     "allowed_values": [
                         "DigiCert",
                         "GlobalSign"
@@ -58,34 +40,40 @@
                 }
             }
         },
-        "[Preview]: Certificates should be issued by the specified non-integrated certificate authority": {
+        "Certificates should be issued by the specified non-integrated certificate authority": {
             "short_id": "a22f4a40-01d3-4c7d-8071-da157eeff341",
-            "display_name": "[Preview]: Certificates should be issued by the specified non-integrated certificate authority"
+            "long_id": "/providers/Microsoft.Authorization/policyDefinitions/a22f4a40-01d3-4c7d-8071-da157eeff341",
+            "display_name": "Certificates should be issued by the specified non-integrated certificate authority"
         },
-        "[Preview]: Certificates should have the specified lifetime action triggers": {
+        "Certificates should have the specified lifetime action triggers": {
             "short_id": "12ef42cb-9903-4e39-9c26-422d29570417",
-            "display_name": "[Preview]: Certificates should have the specified lifetime action triggers"
+            "long_id": "/providers/Microsoft.Authorization/policyDefinitions/12ef42cb-9903-4e39-9c26-422d29570417",
+            "display_name": "Certificates should have the specified lifetime action triggers"
         },
-        "[Preview]: Certificates should have the specified maximum validity period": {
+        "Certificates should have the specified maximum validity period": {
             "short_id": "0a075868-4c26-42ef-914c-5bc007359560",
-            "display_name": "[Preview]: Certificates should have the specified maximum validity period",
+            "long_id": "/providers/Microsoft.Authorization/policyDefinitions/0a075868-4c26-42ef-914c-5bc007359560",
+            "display_name": "Certificates should have the specified maximum validity period",
             "parameters": {
                 "maximumValidityInMonths": {
                     "name": "maximumValidityInMonths",
                     "type": "Integer",
                     "description": "The limit to how long a certificate may be valid for. Certificates with lengthy validity periods aren't best practice.",
                     "display_name": "The maximum validity in months",
-                    "default_value": 12
+                    "default_value": 12,
+                    "value": 12
                 }
             }
         },
-        "[Preview]: Certificates should not expire within the specified number of days": {
+        "Certificates should not expire within the specified number of days": {
             "short_id": "f772fb64-8e40-40ad-87bc-7706e1949427",
-            "display_name": "[Preview]: Certificates should not expire within the specified number of days"
+            "long_id": "/providers/Microsoft.Authorization/policyDefinitions/f772fb64-8e40-40ad-87bc-7706e1949427",
+            "display_name": "Certificates should not expire within the specified number of days"
         },
-        "[Preview]: Certificates should use allowed key types": {
+        "Certificates should use allowed key types": {
             "short_id": "1151cede-290b-4ba0-8b38-0ad145ac888f",
-            "display_name": "[Preview]: Certificates should use allowed key types",
+            "long_id": "/providers/Microsoft.Authorization/policyDefinitions/1151cede-290b-4ba0-8b38-0ad145ac888f",
+            "display_name": "Certificates should use allowed key types",
             "parameters": {
                 "allowedKeyTypes": {
                     "name": "allowedKeyTypes",
@@ -93,6 +81,10 @@
                     "description": "The list of allowed certificate key types.",
                     "display_name": "Allowed key types",
                     "default_value": [
+                        "RSA",
+                        "RSA-HSM"
+                    ],
+                    "value": [
                         "RSA",
                         "RSA-HSM"
                     ],
@@ -105,13 +97,15 @@
                 }
             }
         },
-        "[Preview]: Certificates using RSA cryptography should have the specified minimum key size": {
+        "Certificates using RSA cryptography should have the specified minimum key size": {
             "short_id": "cee51871-e572-4576-855c-047c820360f0",
-            "display_name": "[Preview]: Certificates using RSA cryptography should have the specified minimum key size"
+            "long_id": "/providers/Microsoft.Authorization/policyDefinitions/cee51871-e572-4576-855c-047c820360f0",
+            "display_name": "Certificates using RSA cryptography should have the specified minimum key size"
         },
-        "[Preview]: Certificates using elliptic curve cryptography should have allowed curve names": {
+        "Certificates using elliptic curve cryptography should have allowed curve names": {
             "short_id": "bd78111f-4953-4367-9fd5-7e08808b54bf",
-            "display_name": "[Preview]: Certificates using elliptic curve cryptography should have allowed curve names",
+            "long_id": "/providers/Microsoft.Authorization/policyDefinitions/bd78111f-4953-4367-9fd5-7e08808b54bf",
+            "display_name": "Certificates using elliptic curve cryptography should have allowed curve names",
             "parameters": {
                 "allowedECNames": {
                     "name": "allowedECNames",
@@ -119,6 +113,12 @@
                     "description": "The list of allowed curve names for elliptic curve cryptography certificates.",
                     "display_name": "Allowed elliptic curve names",
                     "default_value": [
+                        "P-256",
+                        "P-256K",
+                        "P-384",
+                        "P-521"
+                    ],
+                    "value": [
                         "P-256",
                         "P-256K",
                         "P-384",
@@ -133,25 +133,35 @@
                 }
             }
         },
-        "[Preview]: Firewall should be enabled on Key Vault": {
-            "short_id": "55615ac9-af46-4a59-874e-391cc3dfb490",
-            "display_name": "[Preview]: Firewall should be enabled on Key Vault"
-        },
-        "[Preview]: Key Vault keys should have an expiration date": {
+        "Key Vault keys should have an expiration date": {
             "short_id": "152b15f7-8e1f-4c1f-ab71-8c010ba5dbc0",
-            "display_name": "[Preview]: Key Vault keys should have an expiration date"
+            "long_id": "/providers/Microsoft.Authorization/policyDefinitions/152b15f7-8e1f-4c1f-ab71-8c010ba5dbc0",
+            "display_name": "Key Vault keys should have an expiration date"
         },
-        "[Preview]: Key Vault secrets should have an expiration date": {
+        "Key Vault secrets should have an expiration date": {
             "short_id": "98728c90-32c7-4049-8429-847dc0f4fe37",
-            "display_name": "[Preview]: Key Vault secrets should have an expiration date"
+            "long_id": "/providers/Microsoft.Authorization/policyDefinitions/98728c90-32c7-4049-8429-847dc0f4fe37",
+            "display_name": "Key Vault secrets should have an expiration date"
         },
-        "[Preview]: Keys should be backed by a hardware security module (HSM)": {
+        "Key vaults should have purge protection enabled": {
+            "short_id": "0b60c0b2-2dc2-4e1c-b5c9-abbed971de53",
+            "long_id": "/providers/Microsoft.Authorization/policyDefinitions/0b60c0b2-2dc2-4e1c-b5c9-abbed971de53",
+            "display_name": "Key vaults should have purge protection enabled"
+        },
+        "Key vaults should have soft delete enabled": {
+            "short_id": "1e66c121-a66a-4b1f-9b83-0fd99bf0fc2d",
+            "long_id": "/providers/Microsoft.Authorization/policyDefinitions/1e66c121-a66a-4b1f-9b83-0fd99bf0fc2d",
+            "display_name": "Key vaults should have soft delete enabled"
+        },
+        "Keys should be backed by a hardware security module (HSM)": {
             "short_id": "587c79fe-dd04-4a5e-9d0b-f89598c7261b",
-            "display_name": "[Preview]: Keys should be backed by a hardware security module (HSM)"
+            "long_id": "/providers/Microsoft.Authorization/policyDefinitions/587c79fe-dd04-4a5e-9d0b-f89598c7261b",
+            "display_name": "Keys should be backed by a hardware security module (HSM)"
         },
-        "[Preview]: Keys should be the specified cryptographic type RSA or EC": {
+        "Keys should be the specified cryptographic type RSA or EC": {
             "short_id": "75c4f823-d65c-4f29-a733-01d0077fdbcb",
-            "display_name": "[Preview]: Keys should be the specified cryptographic type RSA or EC",
+            "long_id": "/providers/Microsoft.Authorization/policyDefinitions/75c4f823-d65c-4f29-a733-01d0077fdbcb",
+            "display_name": "Keys should be the specified cryptographic type RSA or EC",
             "parameters": {
                 "allowedKeyTypes": {
                     "name": "allowedKeyTypes",
@@ -164,6 +174,12 @@
                         "EC",
                         "EC-HSM"
                     ],
+                    "value": [
+                        "RSA",
+                        "RSA-HSM",
+                        "EC",
+                        "EC-HSM"
+                    ],
                     "allowed_values": [
                         "RSA",
                         "RSA-HSM",
@@ -173,25 +189,30 @@
                 }
             }
         },
-        "[Preview]: Keys should have more than the specified number of days before expiration": {
+        "Keys should have more than the specified number of days before expiration": {
             "short_id": "5ff38825-c5d8-47c5-b70e-069a21955146",
-            "display_name": "[Preview]: Keys should have more than the specified number of days before expiration"
+            "long_id": "/providers/Microsoft.Authorization/policyDefinitions/5ff38825-c5d8-47c5-b70e-069a21955146",
+            "display_name": "Keys should have more than the specified number of days before expiration"
         },
-        "[Preview]: Keys should have the specified maximum validity period": {
+        "Keys should have the specified maximum validity period": {
             "short_id": "49a22571-d204-4c91-a7b6-09b1a586fbc9",
-            "display_name": "[Preview]: Keys should have the specified maximum validity period"
+            "long_id": "/providers/Microsoft.Authorization/policyDefinitions/49a22571-d204-4c91-a7b6-09b1a586fbc9",
+            "display_name": "Keys should have the specified maximum validity period"
         },
-        "[Preview]: Keys should not be active for longer than the specified number of days": {
+        "Keys should not be active for longer than the specified number of days": {
             "short_id": "c26e4b24-cf98-4c67-b48b-5a25c4c69eb9",
-            "display_name": "[Preview]: Keys should not be active for longer than the specified number of days"
+            "long_id": "/providers/Microsoft.Authorization/policyDefinitions/c26e4b24-cf98-4c67-b48b-5a25c4c69eb9",
+            "display_name": "Keys should not be active for longer than the specified number of days"
         },
-        "[Preview]: Keys using RSA cryptography should have a specified minimum key size": {
+        "Keys using RSA cryptography should have a specified minimum key size": {
             "short_id": "82067dbb-e53b-4e06-b631-546d197452d9",
-            "display_name": "[Preview]: Keys using RSA cryptography should have a specified minimum key size"
+            "long_id": "/providers/Microsoft.Authorization/policyDefinitions/82067dbb-e53b-4e06-b631-546d197452d9",
+            "display_name": "Keys using RSA cryptography should have a specified minimum key size"
         },
-        "[Preview]: Keys using elliptic curve cryptography should have the specified curve names": {
+        "Keys using elliptic curve cryptography should have the specified curve names": {
             "short_id": "ff25f3c8-b739-4538-9d07-3d6d25cfb255",
-            "display_name": "[Preview]: Keys using elliptic curve cryptography should have the specified curve names",
+            "long_id": "/providers/Microsoft.Authorization/policyDefinitions/ff25f3c8-b739-4538-9d07-3d6d25cfb255",
+            "display_name": "Keys using elliptic curve cryptography should have the specified curve names",
             "parameters": {
                 "allowedECNames": {
                     "name": "allowedECNames",
@@ -199,6 +220,12 @@
                     "description": "The list of allowed curve names for elliptic curve cryptography certificates.",
                     "display_name": "Allowed elliptic curve names",
                     "default_value": [
+                        "P-256",
+                        "P-256K",
+                        "P-384",
+                        "P-521"
+                    ],
+                    "value": [
                         "P-256",
                         "P-256K",
                         "P-384",
@@ -213,25 +240,60 @@
                 }
             }
         },
-        "[Preview]: Private endpoint should be configured for Key Vault": {
+        "Private endpoint should be configured for Key Vault": {
             "short_id": "5f0bc445-3935-4915-9981-011aa2b46147",
-            "display_name": "[Preview]: Private endpoint should be configured for Key Vault"
+            "long_id": "/providers/Microsoft.Authorization/policyDefinitions/5f0bc445-3935-4915-9981-011aa2b46147",
+            "display_name": "Private endpoint should be configured for Key Vault"
         },
-        "[Preview]: Secrets should have content type set": {
+        "Resource logs in Azure Key Vault Managed HSM should be enabled": {
+            "short_id": "a2a5b911-5617-447e-a49e-59dbe0e0434b",
+            "long_id": "/providers/Microsoft.Authorization/policyDefinitions/a2a5b911-5617-447e-a49e-59dbe0e0434b",
+            "display_name": "Resource logs in Azure Key Vault Managed HSM should be enabled",
+            "parameters": {
+                "requiredRetentionDays": {
+                    "name": "requiredRetentionDays",
+                    "type": "String",
+                    "description": "The required resource logs retention in days",
+                    "display_name": "Required retention (days)",
+                    "default_value": "365",
+                    "value": "365"
+                }
+            }
+        },
+        "Resource logs in Key Vault should be enabled": {
+            "short_id": "cf820ca0-f99e-4f3e-84fb-66e913812d21",
+            "long_id": "/providers/Microsoft.Authorization/policyDefinitions/cf820ca0-f99e-4f3e-84fb-66e913812d21",
+            "display_name": "Resource logs in Key Vault should be enabled",
+            "parameters": {
+                "requiredRetentionDays": {
+                    "name": "requiredRetentionDays",
+                    "type": "String",
+                    "description": "The required resource logs retention in days",
+                    "display_name": "Required retention (days)",
+                    "default_value": "365",
+                    "value": "365"
+                }
+            }
+        },
+        "Secrets should have content type set": {
             "short_id": "75262d3e-ba4a-4f43-85f8-9f72c090e5e3",
-            "display_name": "[Preview]: Secrets should have content type set"
+            "long_id": "/providers/Microsoft.Authorization/policyDefinitions/75262d3e-ba4a-4f43-85f8-9f72c090e5e3",
+            "display_name": "Secrets should have content type set"
         },
-        "[Preview]: Secrets should have more than the specified number of days before expiration": {
+        "Secrets should have more than the specified number of days before expiration": {
             "short_id": "b0eb591a-5e70-4534-a8bf-04b9c489584a",
-            "display_name": "[Preview]: Secrets should have more than the specified number of days before expiration"
+            "long_id": "/providers/Microsoft.Authorization/policyDefinitions/b0eb591a-5e70-4534-a8bf-04b9c489584a",
+            "display_name": "Secrets should have more than the specified number of days before expiration"
         },
-        "[Preview]: Secrets should have the specified maximum validity period": {
+        "Secrets should have the specified maximum validity period": {
             "short_id": "342e8053-e12e-4c44-be01-c3c2f318400f",
-            "display_name": "[Preview]: Secrets should have the specified maximum validity period"
+            "long_id": "/providers/Microsoft.Authorization/policyDefinitions/342e8053-e12e-4c44-be01-c3c2f318400f",
+            "display_name": "Secrets should have the specified maximum validity period"
         },
-        "[Preview]: Secrets should not be active for longer than the specified number of days": {
+        "Secrets should not be active for longer than the specified number of days": {
             "short_id": "e8d99835-8a06-45ae-a8e0-87a91941ccfe",
-            "display_name": "[Preview]: Secrets should not be active for longer than the specified number of days"
+            "long_id": "/providers/Microsoft.Authorization/policyDefinitions/e8d99835-8a06-45ae-a8e0-87a91941ccfe",
+            "display_name": "Secrets should not be active for longer than the specified number of days"
         }
     }
 }

@@ -174,3 +174,10 @@ def read_file(file: str) -> str:
     with open(file, "r") as f:
         content = f.read()
     return content
+
+
+def remove_preview_name(some_name: str):
+    if some_name.startswith("[Preview]: "):
+        return some_name.lstrip("[Preview]: ")
+    else:
+        return some_name

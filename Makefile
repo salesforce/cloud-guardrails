@@ -85,6 +85,8 @@ github-actions-test:
 # ---------------------------------------------------------------------------------------------------------------------
 terraform-validate: install
 	sh utils/terraform-demo.sh
+update-iam-definition: setup-dev
+	python3 ./update_iam_definition.py
 update-policy-table: install
 	sh utils/update-policy-table.sh
 update-data: setup-dev
