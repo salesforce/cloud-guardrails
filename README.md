@@ -6,6 +6,21 @@ Azure Guardrails is a command-line tool that allows you to rapidly cherry-pick s
 [![Downloads](https://pepy.tech/badge/azure-guardrails)](https://pepy.tech/project/azure-guardrails)
 [![Twitter](https://img.shields.io/twitter/url/https/twitter.com/kmcquade3.svg?style=social&label=Follow%20the%20author)](https://twitter.com/kmcquade3)
 
+# Table of contents
+
+- [Overview](#overview)
+- [Cheatsheet](#cheatsheet)
+- [Installation](#installation)
+- [Tutorial](#tutorial)
+  - [Example: No Parameters](#example-no-parameters)
+  - [Example: Single Service](#example-single-service)
+  - [Example: Parameters](#example-parameters)
+- [Policy Characteristics and Support Statuses](#policy-characteristics-and-support-statuses)
+- [Contributing](#contributing)
+  - [Setup](#setup)
+  - [Other tasks](#other-tasks)
+- [Authors and Contributors](#authors-and-contributors)
+- [References](#references)
 
 # Overview
 
@@ -59,7 +74,7 @@ azure-guardrails describe-policy --id 7c1b1214-f927-48bf-8882-84f0af6588b1
 azure-guardrails describe-policy --name "Storage accounts should use customer-managed key for encryption"
 ```
 
-## Installation
+# Installation
 
 * First, clone the repository and run the installation command.
 
