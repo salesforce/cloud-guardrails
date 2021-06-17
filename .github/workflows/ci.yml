@@ -25,21 +25,19 @@ jobs:
           terraform_version: 0.12.28
 
       - name: Install dependencies
-        run: |
-          make setup-dev
+        run: make setup-dev
 
-      - name: Run pytest (unit tests) and bandit (security test)
-        run: |
-          make security-test
-          make test
+      - name: Run bandit (security test)
+        run: make security-test
+
+      - name: Run pytest (unit tests)
+        run: make test
 
       - name: Validate Terraform output
-        run: |
-          make terraform-validate
+        run: make terraform-validate
 
       - name: Install the package to make sure nothing is randomly broken
-        run: |
-          make install
+        run: make install
 
 #      - name: pylint
 #        run: |
