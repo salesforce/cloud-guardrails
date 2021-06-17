@@ -8,6 +8,8 @@ markdown_extensions:
     - tables
 plugins:
   - search
+  - table-reader:
+      data_path: "docs"
   - mkdocstrings:
       default_handler: python
       handlers:
@@ -32,3 +34,8 @@ nav:
 
   - "<b>Contributing</b>":
     - Contributing: 'contributing/contributing.md'
+
+  - "<b>Compliance Summaries</b>":
+    - All Policies: 'summaries/0-all.md'
+    - No Parameters: 'summaries/0-no-params.md'
+

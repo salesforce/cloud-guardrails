@@ -9,7 +9,7 @@ PROJECT_UNDERSCORE := azure_guardrails
 setup-env:
 	python3 -m venv ./venv && source venv/bin/activate
 	python3 -m pip install -r requirements.txt
-setup-dev: setup-env
+setup-dev: setup-env update-submodule
 	python3 -m pip install -r requirements-dev.txt
 clean:
 	rm -rf dist/

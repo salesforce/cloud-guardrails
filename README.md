@@ -2,6 +2,11 @@
 
 Azure Guardrails is a command-line tool that allows you to rapidly cherry-pick security guardrails in the form of Azure Policy Initiatives.
 
+![Continuous Integration Tests](https://github.com/salesforce/azure-guardrails/workflows/continuous-integration/badge.svg)
+[![Downloads](https://pepy.tech/badge/azure-guardrails)](https://pepy.tech/project/azure-guardrails)
+[![Twitter](https://img.shields.io/twitter/url/https/twitter.com/kmcquade3.svg?style=social&label=Follow%20the%20author)](https://twitter.com/kmcquade3)
+
+
 # Overview
 
 [Azure Policies](https://docs.microsoft.com/en-us/azure/governance/policy/overview) - similar to [AWS Service Control Policies (SCPs)](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps.html) - allows Azure customers to enforce organizational standards and enforce security policies at scale. You can use Azure Policies to evaluate the overall state of your environment, and drill down to the security status per resource and per policy. **For example, you can prevent users from creating any unencrypted resources or security group rules that allow SSH/RDP Access to 0.0.0.0/0**.
@@ -17,7 +22,7 @@ To help maximize coverage and ease the rollout process, I created this tool so t
 
 # Cheatsheet
 
-* Writing Policies:
+### Writing Policies
 
 ```bash
 # No Parameters
@@ -38,7 +43,7 @@ azure-guardrails create-config-file --output config.yml
 azure-guardrails create-parameters-file --output parameters.yml
 ```
 
-* Querying Policy Data:
+### Querying Policy Data
 
 ```
 # list-services: List all the services supported by Azure built-in Policies

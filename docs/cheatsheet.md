@@ -1,7 +1,6 @@
 # Cheatsheet
 
-* Generating Policies:
-
+### Writing Policies
 ```bash
 # No Parameters
 azure-guardrails generate-terraform --no-params --subscription example
@@ -21,7 +20,7 @@ azure-guardrails create-config-file --output config.yml
 azure-guardrails create-parameters-file --output parameters.yml
 ```
 
-* Querying Policy Data:
+### Querying Policy Data
 
 ```
 # list-services: List all the services supported by Azure built-in Policies

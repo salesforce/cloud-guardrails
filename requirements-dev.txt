@@ -15,13 +15,14 @@ invoke==1.5.0
 bc-python-hcl2==0.3.18
 
 # Documentation
-mkdocs==1.1.2
-mkdocs-material==7.1.1
+mkdocs==1.2.1
+mkdocs-material==7.1.8
 mkdocs-material-extensions==1.0.1
-mkdocstrings==0.15.0
-Pygments==2.8.1
-pymdown-extensions==8.1.1
+mkdocstrings==0.15.2
+Pygments==2.9.0
+pymdown-extensions==8.2
 pytkdocs==0.11.1
+mkdocs-table-reader-plugin==0.5
 
 # Automation to create the excel spreadsheets
 openpyxl==3.0.7
