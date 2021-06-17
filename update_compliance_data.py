@@ -29,7 +29,7 @@ logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
     default=False,
     help="Download the compliance files again, potentially overwriting the ones that already exist.",
 )
-def update_data(destination, download):
+def update_compliance_data(destination, download):
     links = {
         "cis_benchmark": "https://docs.microsoft.com/en-us/azure/governance/policy/samples/cis-azure-1-3-0",
         "azure_security_benchmark": "https://docs.microsoft.com/en-us/azure/governance/policy/samples/azure-security-benchmark",
