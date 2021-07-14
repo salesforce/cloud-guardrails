@@ -1,3 +1,8 @@
+# Copyright (c) 2021, salesforce.com, inc.
+# All rights reserved.
+# Licensed under the BSD 3-Clause license.
+# For full license text, see the LICENSE file in the repo root
+# or https://opensource.org/licenses/BSD-3-Clause
 import logging
 import json
 from azure_guardrails.iam_definition.properties import Properties

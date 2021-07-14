@@ -1,6 +1,9 @@
-"""
-
-"""
+# Copyright (c) 2021, salesforce.com, inc.
+# All rights reserved.
+# Licensed under the BSD 3-Clause license.
+# For full license text, see the LICENSE file in the repo root
+# or https://opensource.org/licenses/BSD-3-Clause
+"""Create a config file to specify which policies to select or exclude."""
 import os
 import logging
 from pathlib import Path

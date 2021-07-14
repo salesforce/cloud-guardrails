@@ -1,4 +1,9 @@
 #! /usr/bin/env python
+# Copyright (c) 2021, salesforce.com, inc.
+# All rights reserved.
+# Licensed under the BSD 3-Clause license.
+# For full license text, see the LICENSE file in the repo root
+# or https://opensource.org/licenses/BSD-3-Clause
 import click
 from azure_guardrails import command
 from azure_guardrails.bin.version import __version__

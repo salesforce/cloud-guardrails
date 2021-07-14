@@ -1,3 +1,8 @@
+# Copyright (c) 2021, salesforce.com, inc.
+# All rights reserved.
+# Licensed under the BSD 3-Clause license.
+# For full license text, see the LICENSE file in the repo root
+# or https://opensource.org/licenses/BSD-3-Clause
 import logging
 from azure_guardrails.iam_definition.azure_policies import AzurePolicies
 from azure_guardrails.shared.config import DEFAULT_CONFIG

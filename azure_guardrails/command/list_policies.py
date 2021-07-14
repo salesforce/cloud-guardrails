@@ -1,5 +1,10 @@
+# Copyright (c) 2021, salesforce.com, inc.
+# All rights reserved.
+# Licensed under the BSD 3-Clause license.
+# For full license text, see the LICENSE file in the repo root
+# or https://opensource.org/licenses/BSD-3-Clause
 """
-
+List available built-in Azure Policies
 """
 import logging
 import yaml

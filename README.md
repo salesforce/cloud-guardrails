@@ -1,6 +1,6 @@
-# azure-guardrails
+# Guardrails for Azure
 
-Azure Guardrails allows you to rapidly cherry-pick security guardrails in the form of Azure Policy Initiatives.
+Guardrails for Azure allows you to rapidly cherry-pick security guardrails in the form of Azure Policy Initiatives.
 
 ![Continuous Integration Tests](https://github.com/salesforce/azure-guardrails/workflows/continuous-integration/badge.svg)
 [![Downloads](https://pepy.tech/badge/azure-guardrails)](https://pepy.tech/project/azure-guardrails)
