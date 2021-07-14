@@ -2,6 +2,8 @@
 
 Guardrails for Azure allows you to rapidly cherry-pick security guardrails in the form of Azure Policy Initiatives.
 
+> Note: Microsoft and Azure are trademarks of the Microsoft group of companies.
+
 ![Continuous Integration Tests](https://github.com/salesforce/azure-guardrails/workflows/continuous-integration/badge.svg)
 [![Downloads](https://pepy.tech/badge/azure-guardrails)](https://pepy.tech/project/azure-guardrails)
 [![Twitter](https://img.shields.io/twitter/url/https/twitter.com/kmcquade3.svg?style=social&label=Follow%20the%20author)](https://twitter.com/kmcquade3)
