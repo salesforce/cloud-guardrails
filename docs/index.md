@@ -1,6 +1,6 @@
-# azure-guardrails
+# Guardrails for Azure
 
-Azure Guardrails is a command-line tool that allows you to rapidly cherry-pick security guardrails in the form of Azure Policy Initiatives.
+Guardrails for Azure is a command-line tool that allows you to rapidly cherry-pick security guardrails in the form of Azure Policy Initiatives.
 
 # Overview
 
