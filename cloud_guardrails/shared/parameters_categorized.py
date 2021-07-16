@@ -4,10 +4,10 @@
 # For full license text, see the LICENSE file in the repo root
 # or https://opensource.org/licenses/BSD-3-Clause
 import logging
-from azure_guardrails.iam_definition.azure_policies import AzurePolicies
-from azure_guardrails.shared.config import DEFAULT_CONFIG
-from azure_guardrails.shared import utils
-from azure_guardrails.iam_definition.policy_definition import PolicyDefinition
+from cloud_guardrails.iam_definition.azure_policies import AzurePolicies
+from cloud_guardrails.shared.config import DEFAULT_CONFIG
+from cloud_guardrails.shared import utils
+from cloud_guardrails.iam_definition.policy_definition import PolicyDefinition
 
 logger = logging.getLogger(__name__)
 

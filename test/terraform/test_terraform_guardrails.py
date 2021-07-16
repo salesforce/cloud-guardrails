@@ -1,7 +1,7 @@
 import unittest
 import json
-from azure_guardrails.shared.config import get_default_config
-from azure_guardrails.terraform.guardrails import TerraformGuardrails
+from cloud_guardrails.shared.config import get_default_config
+from cloud_guardrails.terraform.guardrails import TerraformGuardrails
 
 
 class AzurePoliciesTestCase(unittest.TestCase):

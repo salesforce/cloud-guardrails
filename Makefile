@@ -1,7 +1,7 @@
 SHELL:=/bin/bash
 
-PROJECT := azure-guardrails
-PROJECT_UNDERSCORE := azure_guardrails
+PROJECT := cloud-guardrails
+PROJECT_UNDERSCORE := cloud_guardrails
 
 # ---------------------------------------------------------------------------------------------------------------------
 # Environment setup and management
@@ -75,7 +75,7 @@ lint: setup-dev
 count-loc:
 	echo "If you don't have tokei installed, you can install it with 'brew install tokei'"
 	echo "Website: https://github.com/XAMPPRocky/tokei#installation'"
-	tokei ./* --exclude --exclude '**/*.html' --exclude '**/*.json' --exclude azure_guardrails/shared/data/ --exclude azure_guardrails/shared/azure-policy --exclude examples --exclude docs --exclude tmp --exclude venv
+	tokei ./* --exclude --exclude '**/*.html' --exclude '**/*.json' --exclude cloud_guardrails/shared/data/ --exclude cloud_guardrails/shared/azure-policy --exclude examples --exclude docs --exclude tmp --exclude venv
 github-actions-test:
 	act -l
 	# Run the CI job
@@ -90,4 +90,4 @@ update-iam-definition: setup-dev
 update-policy-table: install
 	sh utils/update-policy-table.sh
 update-compliance-data: setup-dev
-	python3 ./update_compliance_data.py --dest azure_guardrails/shared/data/ --download
+	python3 ./update_compliance_data.py --dest cloud_guardrails/shared/data/ --download

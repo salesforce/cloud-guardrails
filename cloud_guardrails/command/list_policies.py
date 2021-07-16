@@ -10,9 +10,9 @@ import logging
 import yaml
 import click
 from click_option_group import optgroup, RequiredMutuallyExclusiveOptionGroup
-from azure_guardrails import set_log_level
-from azure_guardrails.iam_definition.azure_policies import AzurePolicies
-from azure_guardrails.shared import utils, validate
+from cloud_guardrails import set_log_level
+from cloud_guardrails.iam_definition.azure_policies import AzurePolicies
+from cloud_guardrails.shared import utils, validate
 
 logger = logging.getLogger(__name__)
 

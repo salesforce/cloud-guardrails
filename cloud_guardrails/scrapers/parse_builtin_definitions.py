@@ -6,8 +6,8 @@
 import os
 import json
 import copy
-from azure_guardrails.shared import utils
-from azure_guardrails.iam_definition.policy_definition import PolicyDefinition
+from cloud_guardrails.shared import utils
+from cloud_guardrails.iam_definition.policy_definition import PolicyDefinition
 default_service_names = utils.get_service_names()
 default_service_names.sort()
 

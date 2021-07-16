@@ -3,7 +3,7 @@
 You can also generate policies for a single service. Consider the example below where we generate Terraform for Key Vault only:
 
 ```bash
-azure-guardrails generate-terraform --no-params \
+cloud-guardrails generate-terraform --no-params \
     --service "Key Vault" \
     --subscription example
 ```

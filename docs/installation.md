@@ -4,7 +4,7 @@
 
 ```bash
 # Clone the git repository
-git clone https://github.com/salesforce/azure-guardrails.git
+git clone https://github.com/salesforce/cloud-guardrails.git
 
 # Install
 make install

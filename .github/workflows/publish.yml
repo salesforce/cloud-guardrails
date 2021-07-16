@@ -70,7 +70,7 @@ jobs:
 
       - name: Bump version
         run: |
-          version_file="azure_guardrails/bin/version.py"
+          version_file="cloud_guardrails/bin/version.py"
 
           # https://github.com/bridgecrewio/checkov/blob/master/.github/workflows/build.yml#L87-L132
           git config --local user.email "action@github.com"

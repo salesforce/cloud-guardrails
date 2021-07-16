@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 set -x
 
-azure-guardrails --help
+cloud-guardrails --help
 
 # Run generate-terraform for all 3 types
-azure-guardrails generate-terraform --service all --subscription example --no-params
-azure-guardrails generate-terraform --service all --subscription example --params-optional
-azure-guardrails generate-terraform --service all --subscription example --params-required
+cloud-guardrails generate-terraform --service all --subscription example --no-params
+cloud-guardrails generate-terraform --service all --subscription example --params-optional
+cloud-guardrails generate-terraform --service all --subscription example --params-required
 
 # Copy files to the docs directory
 mv NP-all-table.csv docs/summaries/no-params.csv

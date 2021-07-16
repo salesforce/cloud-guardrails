@@ -13,9 +13,9 @@ from operator import itemgetter
 import csv
 from collections import OrderedDict
 import logging
-from azure_guardrails.shared import utils
-from azure_guardrails.shared.config import DEFAULT_CONFIG, Config
-from azure_guardrails.iam_definition.policy_definition import PolicyDefinition
+from cloud_guardrails.shared import utils
+from cloud_guardrails.shared.config import DEFAULT_CONFIG, Config
+from cloud_guardrails.iam_definition.policy_definition import PolicyDefinition
 
 logger = logging.getLogger(__name__)
 

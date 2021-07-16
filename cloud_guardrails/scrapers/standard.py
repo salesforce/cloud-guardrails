@@ -4,7 +4,7 @@
 # For full license text, see the LICENSE file in the repo root
 # or https://opensource.org/licenses/BSD-3-Clause
 from bs4 import BeautifulSoup
-from azure_guardrails.shared.utils import chomp_keep_single_spaces
+from cloud_guardrails.shared.utils import chomp_keep_single_spaces
 
 
 def get_requirement_id(input_text: str, replacement_string: str) -> str:

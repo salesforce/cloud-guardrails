@@ -6,8 +6,8 @@
 import click
 import os
 import json
-from azure_guardrails.shared import utils
-from azure_guardrails.scrapers.parse_builtin_definitions import create_azure_builtin_definition
+from cloud_guardrails.shared import utils
+from cloud_guardrails.scrapers.parse_builtin_definitions import create_azure_builtin_definition
 
 
 @click.command(

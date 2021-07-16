@@ -2,16 +2,16 @@
 import logging
 from logging import NullHandler
 
-# Set default handler when azure_guardrails is used as library to avoid "No handler found" warnings.
+# Set default handler when cloud_guardrails is used as library to avoid "No handler found" warnings.
 logging.getLogger(__name__).addHandler(NullHandler())
 
 
-def set_stream_logger(name="azure_guardrails", level=logging.DEBUG, format_string=None):
+def set_stream_logger(name="cloud_guardrails", level=logging.DEBUG, format_string=None):
     """
     Add a stream handler for the given name and level to the logging module.
-    By default, this logs all azure_guardrails messages to ``stdout``.
-        >>> import azure_guardrails
-        >>> azure_guardrails.set_stream_logger('azure_guardrails.database.build', logging.INFO)
+    By default, this logs all cloud_guardrails messages to ``stdout``.
+        >>> import cloud_guardrails
+        >>> cloud_guardrails.set_stream_logger('cloud_guardrails.database.build', logging.INFO)
     :type name: string
     :param name: Log name
     :type level: int

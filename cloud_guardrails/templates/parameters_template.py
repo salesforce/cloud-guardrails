@@ -6,10 +6,10 @@
 import os
 import json
 from jinja2 import Environment, FileSystemLoader
-from azure_guardrails.iam_definition.azure_policies import AzurePolicies
-from azure_guardrails.shared.parameters_categorized import CategorizedParameters
-from azure_guardrails.shared.config import DEFAULT_CONFIG, Config
-from azure_guardrails.shared import utils
+from cloud_guardrails.iam_definition.azure_policies import AzurePolicies
+from cloud_guardrails.shared.parameters_categorized import CategorizedParameters
+from cloud_guardrails.shared.config import DEFAULT_CONFIG, Config
+from cloud_guardrails.shared import utils
 
 
 class ParameterSegment:
