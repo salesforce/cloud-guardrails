@@ -1,6 +1,6 @@
-# Guardrails for Azure
+# Cloud Guardrails
 
-Guardrails for Azure allows you to rapidly cherry-pick security guardrails in the form of Azure Policy Initiatives.
+Cloud Guardrails allows you to rapidly cherry-pick security guardrails in the form of Azure Policy Initiatives.
 
 > Note: Microsoft and Azure are trademarks of the Microsoft group of companies.
 
