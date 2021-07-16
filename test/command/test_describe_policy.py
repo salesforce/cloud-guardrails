@@ -4,8 +4,8 @@ import yaml
 import unittest
 import time
 from click.testing import CliRunner
-from azure_guardrails.command.describe_policy import describe_policy
-from azure_guardrails.shared import utils
+from cloud_guardrails.command.describe_policy import describe_policy
+from cloud_guardrails.shared import utils
 
 
 class DescribePolicyTestCase(unittest.TestCase):

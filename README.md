@@ -1,11 +1,11 @@
-# Guardrails for Azure
+# Cloud Guardrails
 
-Guardrails for Azure allows you to rapidly cherry-pick security guardrails in the form of Azure Policy Initiatives.
+Cloud Guardrails allows you to rapidly cherry-pick security guardrails in the form of Azure Policy Initiatives.
 
 > Note: Microsoft and Azure are trademarks of the Microsoft group of companies.
 
-![Continuous Integration Tests](https://github.com/salesforce/azure-guardrails/workflows/continuous-integration/badge.svg)
-[![Downloads](https://pepy.tech/badge/azure-guardrails)](https://pepy.tech/project/azure-guardrails)
+![Continuous Integration Tests](https://github.com/salesforce/cloud-guardrails/workflows/continuous-integration/badge.svg)
+[![Downloads](https://pepy.tech/badge/cloud-guardrails)](https://pepy.tech/project/cloud-guardrails)
 [![Twitter](https://img.shields.io/twitter/url/https/twitter.com/kmcquade3.svg?style=social&label=Follow%20the%20author)](https://twitter.com/kmcquade3)
 
 # Table of contents
@@ -43,37 +43,37 @@ To help maximize coverage and ease the rollout process, I created this tool so t
 
 ```bash
 # No Parameters
-azure-guardrails generate-terraform --no-params --subscription example
+cloud-guardrails generate-terraform --no-params --subscription example
 
 # Optional Parameters (i.e., all the policies have default parameter values)
-azure-guardrails generate-terraform --params-optional --subscription example
+cloud-guardrails generate-terraform --params-optional --subscription example
 
 # Required Parameters
-azure-guardrails generate-terraform --params-required \
+cloud-guardrails generate-terraform --params-required \
     --service Kubernetes \
     --subscription example
 
 # Create Config file
-azure-guardrails create-config-file --output config.yml
+cloud-guardrails create-config-file --output config.yml
 
 # Create Parameters file
-azure-guardrails create-parameters-file --output parameters.yml
+cloud-guardrails create-parameters-file --output parameters.yml
 ```
 
 ### Querying Policy Data
 
 ```
 # list-services: List all the services supported by Azure built-in Policies
-azure-guardrails list-services
+cloud-guardrails list-services
 
 # list-policies: List all the existing built-in Azure Policies
-azure-guardrails list-policies --service "Kubernetes" --all-policies
-azure-guardrails list-policies --service "Kubernetes" --no-params
-azure-guardrails list-policies --service "Kubernetes" --audit-only
+cloud-guardrails list-policies --service "Kubernetes" --all-policies
+cloud-guardrails list-policies --service "Kubernetes" --no-params
+cloud-guardrails list-policies --service "Kubernetes" --audit-only
 
 # describe-policy: Describe a specific policy based on display name or the short policy ID
-azure-guardrails describe-policy --id 7c1b1214-f927-48bf-8882-84f0af6588b1
-azure-guardrails describe-policy --name "Storage accounts should use customer-managed key for encryption"
+cloud-guardrails describe-policy --id 7c1b1214-f927-48bf-8882-84f0af6588b1
+cloud-guardrails describe-policy --name "Storage accounts should use customer-managed key for encryption"
 ```
 
 # Installation
@@ -82,7 +82,7 @@ azure-guardrails describe-policy --name "Storage accounts should use customer-ma
 
 ```bash
 # Clone the git repository
-git clone https://github.com/salesforce/azure-guardrails.git
+git clone https://github.com/salesforce/cloud-guardrails.git
 
 # Install
 make install
@@ -111,7 +111,7 @@ az account set --subscription my-subscription
 * Then generate the Terraform files:
 
 ```bash
-azure-guardrails generate-terraform --no-params \
+cloud-guardrails generate-terraform --no-params \
     --subscription example
 ```
 
@@ -135,7 +135,7 @@ It will generate a file called `no_params.tf`. The file contents will look like 
 You can also generate policies for a single service. Consider the example below where we generate Terraform for Key Vault only:
 
 ```bash
-azure-guardrails generate-terraform --no-params \
+cloud-guardrails generate-terraform --no-params \
     --service "Key Vault" \
     --subscription example
 ```
@@ -282,7 +282,7 @@ However, [the process that Microsoft lays out for managing Policy as Code workfl
 
 That's a lot of JSON, and a lot of clicks.
 
-`azure-guardrails` offers a more elegant solution. You can specify your paramters in the form of a YAML file. The YAML file allows you to modify the parameters per policy in a fine-grained manner. Additionally, you don't have to write the parameters file yourself! Just run the `create-parameters-file` command, and it will create the file for you. You just have to fill in the values like a form.
+`cloud-guardrails` offers a more elegant solution. You can specify your paramters in the form of a YAML file. The YAML file allows you to modify the parameters per policy in a fine-grained manner. Additionally, you don't have to write the parameters file yourself! Just run the `create-parameters-file` command, and it will create the file for you. You just have to fill in the values like a form.
 
 Let's take a tour.
 
@@ -291,7 +291,7 @@ Let's take a tour.
 * Generate the parameters file:
 
 ```bash
-azure-guardrails create-parameters-file \
+cloud-guardrails create-parameters-file \
     --optional-only \
     -o parameters-optional.yml
 ```
@@ -318,13 +318,13 @@ Key Vault:
     effect: audit  # Allowed: ["audit", "deny", "disabled"]
 ```
 
-Notice how some parameters only allow specific values. For example, the policy named `"Certificates should be issued by the specified integrated certificate authority"` has a parameter called `allowedCAs`. However, you can't just provide **any** value to that parameter - it has to be one of two allowed values. `azure-guardrails` simplifies this process by including the allowed values in the comments - `# Allowed: ["DigiCert", "GlobalSign"]`.
+Notice how some parameters only allow specific values. For example, the policy named `"Certificates should be issued by the specified integrated certificate authority"` has a parameter called `allowedCAs`. However, you can't just provide **any** value to that parameter - it has to be one of two allowed values. `cloud-guardrails` simplifies this process by including the allowed values in the comments - `# Allowed: ["DigiCert", "GlobalSign"]`.
 
 
 * Now let's generate Terraform using this parameters file. Run the following command:
 
 ```bash
-azure-guardrails generate-terraform --params-optional \
+cloud-guardrails generate-terraform --params-optional \
     -s "Key Vault" \
     --subscription example \
     -p parameters-optional.yml
@@ -572,12 +572,12 @@ output "example_PO_Audit_policy_set_definition_id" {
   <tr>
     <td><b>Built-in Policies</b></td>
     <td>✅</td>
-    <td>Microsoft provides 400+ built-in policy definitions. azure-guardrails leverages these Built-in Policy definitions so you can get rapidly started and maximize your coverage.</td>
+    <td>Microsoft provides 400+ built-in policy definitions. cloud-guardrails leverages these Built-in Policy definitions so you can get rapidly started and maximize your coverage.</td>
   </tr>
   <tr>
     <td><b>Custom Policies</b></td>
     <td>❌</td>
-    <td>azure-guardrails does not support creation of Custom Policies. Consider leveraging Custom Policies after you have built out your process and workflow using azure-guardrails.</td>
+    <td>cloud-guardrails does not support creation of Custom Policies. Consider leveraging Custom Policies after you have built out your process and workflow using cloud-guardrails.</td>
   </tr>
 </tbody>
 </table>

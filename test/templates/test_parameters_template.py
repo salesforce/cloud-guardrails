@@ -1,8 +1,8 @@
 import unittest
 import json
-from azure_guardrails.shared.config import get_empty_config, get_default_config
-from azure_guardrails.templates.parameters_template import ParameterTemplate
-from azure_guardrails.shared import utils
+from cloud_guardrails.shared.config import get_empty_config, get_default_config
+from cloud_guardrails.templates.parameters_template import ParameterTemplate
+from cloud_guardrails.shared import utils
 
 
 class ParameterTemplateTestCase(unittest.TestCase):

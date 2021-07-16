@@ -6,8 +6,8 @@
 import logging
 import json
 import yaml
-from azure_guardrails.shared import utils
-from azure_guardrails.templates.config_template import get_config_template
+from cloud_guardrails.shared import utils
+from cloud_guardrails.templates.config_template import get_config_template
 
 logger = logging.getLogger(__name__)
 

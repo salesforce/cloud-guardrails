@@ -4,7 +4,7 @@
 # For full license text, see the LICENSE file in the repo root
 # or https://opensource.org/licenses/BSD-3-Clause
 import json
-from azure_guardrails.iam_definition.parameter import Parameter
+from cloud_guardrails.iam_definition.parameter import Parameter
 
 
 class Properties:

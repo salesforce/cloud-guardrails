@@ -2,8 +2,8 @@ import os
 import json
 import unittest
 from click.testing import CliRunner
-from azure_guardrails.command.generate_terraform import generate_terraform
-from azure_guardrails.shared import utils
+from cloud_guardrails.command.generate_terraform import generate_terraform
+from cloud_guardrails.shared import utils
 
 test_files_directory = os.path.abspath(os.path.join(
     os.path.dirname(__file__),

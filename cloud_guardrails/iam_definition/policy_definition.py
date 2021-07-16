@@ -5,8 +5,8 @@
 # or https://opensource.org/licenses/BSD-3-Clause
 import logging
 import json
-from azure_guardrails.iam_definition.properties import Properties
-from azure_guardrails.shared import utils
+from cloud_guardrails.iam_definition.properties import Properties
+from cloud_guardrails.shared import utils
 logger = logging.getLogger(__name__)
 
 

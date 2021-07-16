@@ -73,7 +73,7 @@ tmp/*
 research.py
 
 # Local testing
-azure-guardrails-*
+cloud-guardrails-*
 
 # Terraform testing
 examples/terraform-testing/

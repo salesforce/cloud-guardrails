@@ -4,7 +4,7 @@
 * Generate the parameters file:
 
 ```bash
-azure-guardrails create-parameters-file \
+cloud-guardrails create-parameters-file \
     --optional-only \
     -o parameters-optional.yml
 ```
@@ -31,13 +31,13 @@ Key Vault:
     effect: audit  # Allowed: ["audit", "deny", "disabled"]
 ```
 
-Notice how some parameters only allow specific values. For example, the policy named `"Certificates should be issued by the specified integrated certificate authority"` has a parameter called `allowedCAs`. However, you can't just provide **any** value to that parameter - it has to be one of two allowed values. `azure-guardrails` simplifies this process by including the allowed values in the comments - `# Allowed: ["DigiCert", "GlobalSign"]`.
+Notice how some parameters only allow specific values. For example, the policy named `"Certificates should be issued by the specified integrated certificate authority"` has a parameter called `allowedCAs`. However, you can't just provide **any** value to that parameter - it has to be one of two allowed values. `cloud-guardrails` simplifies this process by including the allowed values in the comments - `# Allowed: ["DigiCert", "GlobalSign"]`.
 
 
 * Now let's generate Terraform using this parameters file. Run the following command:
 
 ```bash
-azure-guardrails generate-terraform --params-optional \
+cloud-guardrails generate-terraform --params-optional \
     -s "Key Vault" \
     --subscription example \
     -p parameters-optional.yml

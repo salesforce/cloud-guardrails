@@ -3,8 +3,8 @@ import yaml
 import json
 import unittest
 from click.testing import CliRunner
-from azure_guardrails.command.list_policies import list_policies
-from azure_guardrails.shared import utils
+from cloud_guardrails.command.list_policies import list_policies
+from cloud_guardrails.shared import utils
 
 
 class ListPoliciesClickUnitTests(unittest.TestCase):

@@ -2,8 +2,8 @@ import os
 import json
 import unittest
 from click.testing import CliRunner
-from azure_guardrails.command.list_services import list_services
-from azure_guardrails.shared import utils
+from cloud_guardrails.command.list_services import list_services
+from cloud_guardrails.shared import utils
 
 
 class ListServicesClickUnitTests(unittest.TestCase):

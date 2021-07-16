@@ -1,6 +1,6 @@
-site_name: Azure Guardrails
-site_url: https://azure-guardrails.readthedocs.io/
-repo_url: https://github.com/salesforce/azure-guardrails/
+site_name: Cloud Guardrails
+site_url: https://cloud-guardrails.readthedocs.io/
+repo_url: https://github.com/salesforce/cloud-guardrails/
 theme: material
 use_directory_urls: true
 markdown_extensions:
@@ -17,7 +17,7 @@ plugins:
           rendering:
             show_source: true
       watch:
-        - azure_guardrails/
+        - cloud_guardrails/
 extra_css:
   - custom.css
 

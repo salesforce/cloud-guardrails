@@ -6,12 +6,12 @@
 import os
 import logging
 from colorama import Fore
-from azure_guardrails.shared import utils
-from azure_guardrails.terraform.terraform_no_params import TerraformTemplateNoParams
-from azure_guardrails.terraform.terraform_with_params import TerraformTemplateWithParams
-from azure_guardrails.iam_definition.azure_policies import AzurePolicies
-from azure_guardrails.shared.parameters_categorized import CategorizedParameters
-from azure_guardrails.shared.config import Config
+from cloud_guardrails.shared import utils
+from cloud_guardrails.terraform.terraform_no_params import TerraformTemplateNoParams
+from cloud_guardrails.terraform.terraform_with_params import TerraformTemplateWithParams
+from cloud_guardrails.iam_definition.azure_policies import AzurePolicies
+from cloud_guardrails.shared.parameters_categorized import CategorizedParameters
+from cloud_guardrails.shared.config import Config
 logger = logging.getLogger(__name__)
 
 

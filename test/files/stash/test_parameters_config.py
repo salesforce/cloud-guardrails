@@ -1,11 +1,11 @@
 # import unittest
 # import os
 # import json
-# from azure_guardrails.shared.parameters_config import ParametersConfig, TerraformParameterV4
-# from azure_guardrails.shared.parameters_categorized import CategorizedParameters
-# from azure_guardrails.iam_definition.policy_definition import PolicyDefinition
-# from azure_guardrails.shared import utils
-# from azure_guardrails import set_stream_logger
+# from cloud_guardrails.shared.parameters_config import ParametersConfig, TerraformParameterV4
+# from cloud_guardrails.shared.parameters_categorized import CategorizedParameters
+# from cloud_guardrails.iam_definition.policy_definition import PolicyDefinition
+# from cloud_guardrails.shared import utils
+# from cloud_guardrails import set_stream_logger
 # import logging
 # from jinja2 import Template, Environment, FileSystemLoader
 #
@@ -20,7 +20,7 @@
 #             "parameters-config-example.yml"
 #         ))
 #         # Let's view the logs
-#         set_stream_logger("azure_guardrails.shared.parameters_config", level=logging.DEBUG)
+#         set_stream_logger("cloud_guardrails.shared.parameters_config", level=logging.DEBUG)
 #
 #         self.parameters_config = ParametersConfig(
 #             parameter_config_file=example_config_file,

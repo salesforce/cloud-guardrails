@@ -4,8 +4,8 @@ import yaml
 import unittest
 import time
 from click.testing import CliRunner
-from azure_guardrails.command.create_parameters_file import create_parameters_file
-from azure_guardrails.shared import utils
+from cloud_guardrails.command.create_parameters_file import create_parameters_file
+from cloud_guardrails.shared import utils
 
 
 class CreateParametersFileTestCase(unittest.TestCase):

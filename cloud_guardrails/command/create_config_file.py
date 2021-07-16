@@ -8,8 +8,8 @@ import os
 import logging
 from pathlib import Path
 import click
-from azure_guardrails import set_log_level
-from azure_guardrails.shared.config import get_config_template
+from cloud_guardrails import set_log_level
+from cloud_guardrails.shared.config import get_config_template
 
 logger = logging.getLogger(__name__)
 

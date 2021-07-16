@@ -12,7 +12,7 @@ az account set --subscription my-subscription
 * Then generate the Terraform files:
 
 ```bash
-azure-guardrails generate-terraform --no-params \
+cloud-guardrails generate-terraform --no-params \
     --subscription example
 ```
 

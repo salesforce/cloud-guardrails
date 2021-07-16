@@ -1,10 +1,10 @@
 import unittest
 import os
 import json
-from azure_guardrails.iam_definition.azure_policies import AzurePolicies
-from azure_guardrails.iam_definition.policy_definition import PolicyDefinition
-from azure_guardrails.shared import utils
-from azure_guardrails.shared.utils import remove_preview_name
+from cloud_guardrails.iam_definition.azure_policies import AzurePolicies
+from cloud_guardrails.iam_definition.policy_definition import PolicyDefinition
+from cloud_guardrails.shared import utils
+from cloud_guardrails.shared.utils import remove_preview_name
 
 
 class AzurePoliciesTestCase(unittest.TestCase):

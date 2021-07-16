@@ -10,9 +10,9 @@ import csv
 import logging
 import click
 import pandas as pd
-from azure_guardrails.scrapers.azure_docs import get_azure_html
-from azure_guardrails.scrapers.standard import scrape_standard
-from azure_guardrails.scrapers.compliance_data import ComplianceResultsTransformer
+from cloud_guardrails.scrapers.azure_docs import get_azure_html
+from cloud_guardrails.scrapers.standard import scrape_standard
+from cloud_guardrails.scrapers.compliance_data import ComplianceResultsTransformer
 
 logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
 

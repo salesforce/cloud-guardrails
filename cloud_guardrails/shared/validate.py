@@ -5,7 +5,7 @@
 # or https://opensource.org/licenses/BSD-3-Clause
 import logging
 import click
-from azure_guardrails.shared import utils
+from cloud_guardrails.shared import utils
 
 
 def click_validate_supported_azure_service(ctx, param, value):

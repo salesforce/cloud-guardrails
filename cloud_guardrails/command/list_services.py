@@ -9,8 +9,8 @@ List services supported by Azure Built-in policies
 import logging
 import os
 import click
-from azure_guardrails import set_log_level
-from azure_guardrails.shared import utils
+from cloud_guardrails import set_log_level
+from cloud_guardrails.shared import utils
 
 logger = logging.getLogger(__name__)
 

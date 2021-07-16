@@ -1,9 +1,9 @@
 import unittest
 import os
 import json
-from azure_guardrails.shared import utils
-from azure_guardrails.iam_definition.policy_definition import PolicyDefinition
-from azure_guardrails.iam_definition.azure_policies import skip_display_names
+from cloud_guardrails.shared import utils
+from cloud_guardrails.iam_definition.policy_definition import PolicyDefinition
+from cloud_guardrails.iam_definition.azure_policies import skip_display_names
 
 # No Params
 policy_definition_file = os.path.abspath(os.path.join(
@@ -109,7 +109,7 @@ class PolicyDefinitionV2TestCase(unittest.TestCase):
         # Modify is in the body of the policy definition instead of the "effect" parameter
         weird_case_json = utils.get_policy_json(service_name="Monitoring", filename="AzureMonitoring_AddSystemIdentity_Prerequisite.json")
         self.weird_case = PolicyDefinition(policy_content=weird_case_json, service_name="Monitoring")
-        self.assertListEqual(self.weird_case.allowed_effects, ['modify'])
+        self.assertListEqual(self.weird_case.allowed_effects, ['modify', 'disabled'])
 
         # Append is in the body of the policy definition instead of the "effect" parameter
         weird_case_json = utils.get_policy_json(service_name="Cosmos DB", filename="Cosmos_DisableMetadata_Append.json")

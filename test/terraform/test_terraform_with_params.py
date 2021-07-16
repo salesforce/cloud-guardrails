@@ -1,10 +1,10 @@
 import unittest
 import os
 import json
-from azure_guardrails.terraform.terraform_with_params import TerraformTemplateWithParams, get_placeholder_value_given_type
-from azure_guardrails.shared.parameters_categorized import CategorizedParameters
-from azure_guardrails.iam_definition.azure_policies import AzurePolicies
-from azure_guardrails.shared.config import get_default_config
+from cloud_guardrails.terraform.terraform_with_params import TerraformTemplateWithParams, get_placeholder_value_given_type
+from cloud_guardrails.shared.parameters_categorized import CategorizedParameters
+from cloud_guardrails.iam_definition.azure_policies import AzurePolicies
+from cloud_guardrails.shared.config import get_default_config
 
 example_config_file = os.path.abspath(os.path.join(
     os.path.dirname(__file__),

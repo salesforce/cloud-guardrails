@@ -1,7 +1,7 @@
 import unittest
 import os
 import json
-from azure_guardrails.iam_definition.parameter import Parameter
+from cloud_guardrails.iam_definition.parameter import Parameter
 
 # Params Required
 policy_definition_file = os.path.abspath(os.path.join(

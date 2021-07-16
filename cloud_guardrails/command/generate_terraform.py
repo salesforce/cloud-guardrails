@@ -10,10 +10,10 @@ import os
 import logging
 import click
 from click_option_group import optgroup, RequiredMutuallyExclusiveOptionGroup
-from azure_guardrails import set_log_level
-from azure_guardrails.shared import utils, validate
-from azure_guardrails.shared.config import get_default_config, get_config_from_file
-from azure_guardrails.terraform.guardrails import TerraformGuardrails
+from cloud_guardrails import set_log_level
+from cloud_guardrails.shared import utils, validate
+from cloud_guardrails.shared.config import get_default_config, get_config_from_file
+from cloud_guardrails.terraform.guardrails import TerraformGuardrails
 
 logger = logging.getLogger(__name__)
 

@@ -1,9 +1,9 @@
 import unittest
 import os
-from azure_guardrails.terraform.terraform_no_params import TerraformTemplateNoParams
-from azure_guardrails.iam_definition.azure_policies import AzurePolicies
-from azure_guardrails.shared.config import get_default_config
-from azure_guardrails.shared import utils
+from cloud_guardrails.terraform.terraform_no_params import TerraformTemplateNoParams
+from cloud_guardrails.iam_definition.azure_policies import AzurePolicies
+from cloud_guardrails.shared.config import get_default_config
+from cloud_guardrails.shared import utils
 
 
 class TerraformTemplateNoParamsTestCase(unittest.TestCase):

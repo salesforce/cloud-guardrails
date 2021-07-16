@@ -21,7 +21,7 @@ REQUIRED_PACKAGES = [
 
 
 def get_version():
-    init = open(os.path.join(HERE, "azure_guardrails", "bin", "version.py")).read()
+    init = open(os.path.join(HERE, "cloud_guardrails", "bin", "version.py")).read()
     return VERSION_RE.search(init).group(1)
 
 
@@ -32,7 +32,7 @@ def get_description():
 
 
 setuptools.setup(
-    name="azure-guardrails",
+    name="cloud-guardrails",
     include_package_data=True,
     version=get_version(),
     author="Kinnaird McQuade",
@@ -40,7 +40,7 @@ setuptools.setup(
     description=DESCRIPTION,
     long_description=get_description(),
     long_description_content_type="text/markdown",
-    url="https://github.com/salesforce/azure-guardrails",
+    url="https://github.com/salesforce/cloud-guardrails",
     packages=setuptools.find_packages(exclude=["test*"]),
     tests_require=TESTS_REQUIRE,
     install_requires=REQUIRED_PACKAGES,
@@ -49,7 +49,7 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    entry_points={"console_scripts": "azure-guardrails=azure_guardrails.bin.cli:main"},
+    entry_points={"console_scripts": "cloud-guardrails=cloud_guardrails.bin.cli:main"},
     zip_safe=True,
     keywords="azure security",
     python_requires=">=3.7",

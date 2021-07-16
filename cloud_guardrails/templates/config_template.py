@@ -4,7 +4,7 @@
 # For full license text, see the LICENSE file in the repo root
 # or https://opensource.org/licenses/BSD-3-Clause
 import os
-from azure_guardrails.shared import utils
+from cloud_guardrails.shared import utils
 from jinja2 import Template, Environment, FileSystemLoader
 
 DEFAULT_CONFIG_FILE = os.path.abspath(

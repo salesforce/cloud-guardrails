@@ -7,7 +7,7 @@ import os
 import json
 from typing import Union
 from jinja2 import Environment, FileSystemLoader
-from azure_guardrails.shared import utils
+from cloud_guardrails.shared import utils
 
 
 class TerraformTemplateNoParams:

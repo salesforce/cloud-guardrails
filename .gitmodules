@@ -1,3 +1,3 @@
-[submodule "azure_guardrails/shared/azure-policy"]
-	path = azure_guardrails/shared/azure-policy
+[submodule "cloud_guardrails/shared/azure-policy"]
+	path = cloud_guardrails/shared/azure-policy
 	url = https://github.com/Azure/azure-policy.git

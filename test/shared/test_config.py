@@ -4,8 +4,8 @@ import yaml
 import json
 from yaml.constructor import ConstructorError
 import logging
-from azure_guardrails.shared import utils
-from azure_guardrails.shared.config import get_config_template, Config, get_config_from_file, get_default_config
+from cloud_guardrails.shared import utils
+from cloud_guardrails.shared.config import get_config_template, Config, get_config_from_file, get_default_config
 
 logger = logging.getLogger(__name__)
 example_config_file = os.path.abspath(os.path.join(

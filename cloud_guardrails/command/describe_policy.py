@@ -10,10 +10,10 @@ import logging
 import json
 import ruamel.yaml
 import click
-from azure_guardrails import set_log_level
+from cloud_guardrails import set_log_level
 from click_option_group import optgroup, RequiredMutuallyExclusiveOptionGroup
-from azure_guardrails.iam_definition.azure_policies import AzurePolicies
-from azure_guardrails.shared.config import get_empty_config
+from cloud_guardrails.iam_definition.azure_policies import AzurePolicies
+from cloud_guardrails.shared.config import get_empty_config
 logger = logging.getLogger(__name__)
 
 

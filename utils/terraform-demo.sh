@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 set -x
 
-# Validate that azure-guardrails tool is installed
-if ! command -v azure-guardrails &> /dev/null
+# Validate that cloud-guardrails tool is installed
+if ! command -v cloud-guardrails &> /dev/null
 then
-    echo "azure-guardrails could not be found. Please download and install the tool from https://github.com/salesforce/azure-guardrails/"
+    echo "cloud-guardrails could not be found. Please download and install the tool from https://github.com/salesforce/cloud-guardrails/"
     exit
 fi
 
@@ -26,30 +26,30 @@ else
   echo "Terraform 0.12.x is used. We can leverage that for running terraform validate";
 fi
 
-if ! command -v azure-guardrails &> /dev/null
+if ! command -v cloud-guardrails &> /dev/null
 then
-    echo "azure-guardrails could not be found. Please download and install the tool from https://github.com/salesforce/azure-guardrails/"
+    echo "cloud-guardrails could not be found. Please download and install the tool from https://github.com/salesforce/cloud-guardrails/"
     exit
 fi
 
 #### Generate the example Terraform files
 # No Parameters
 export no_params_folder="examples/terraform-demo-no-params"
-azure-guardrails generate-terraform --no-params \
+cloud-guardrails generate-terraform --no-params \
   --service all \
   --subscription example \
   --no-summary  > ${no_params_folder}/main.tf
 
 # Optional Parameters
 export params_optional_folder="examples/terraform-demo-params-optional"
-azure-guardrails generate-terraform --params-optional \
+cloud-guardrails generate-terraform --params-optional \
   --service all \
   --subscription example \
   --no-summary  > ${params_optional_folder}/main.tf
 
 # Required Parameters
 export params_required_folder="examples/terraform-demo-params-required"
-azure-guardrails generate-terraform --params-required \
+cloud-guardrails generate-terraform --params-required \
   --service all \
   --subscription example \
   --no-summary  > ${params_required_folder}/main.tf
