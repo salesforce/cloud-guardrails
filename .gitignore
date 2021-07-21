@@ -1,6 +1,3 @@
-# Repository specific
-provider.tf
-
 # IDEs
 .idea
 .vscode
@@ -65,15 +62,15 @@ override.tf
 packer_cache/
 *.box
 
-#### Other
-*.log
-*.pem
+#### Other Repository specific
+provider.tf
 .notes/*
 tmp/*
 research.py
 
 # Local testing
 cloud-guardrails-*
+utils/private-terraform-demo.sh
 
 # Terraform testing
 examples/terraform-testing/

@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -x
 
+SUBSCRIPTION_NAME="${SUBSCRIPTION_NAME:=example}"
+FOLDER="${FOLDER:=examples}"
+
 # Validate that cloud-guardrails tool is installed
 if ! command -v cloud-guardrails &> /dev/null
 then
@@ -32,27 +35,33 @@ then
     exit
 fi
 
+# Create Folders
+export no_params_folder="${FOLDER}/terraform-demo-no-params"
+mkdir -p ${no_params_folder}
+export params_optional_folder="${FOLDER}/terraform-demo-params-optional"
+mkdir -p ${params_optional_folder}
+export params_required_folder="${FOLDER}/terraform-demo-params-required"
+mkdir -p ${params_required_folder}
+
+
 #### Generate the example Terraform files
 # No Parameters
-export no_params_folder="examples/terraform-demo-no-params"
 cloud-guardrails generate-terraform --no-params \
   --service all \
-  --subscription example \
-  --no-summary  > ${no_params_folder}/main.tf
+  --subscription ${SUBSCRIPTION_NAME} \
+  --no-summary --output ${no_params_folder}
 
 # Optional Parameters
-export params_optional_folder="examples/terraform-demo-params-optional"
 cloud-guardrails generate-terraform --params-optional \
   --service all \
-  --subscription example \
-  --no-summary  > ${params_optional_folder}/main.tf
+  --subscription ${SUBSCRIPTION_NAME} \
+  --no-summary --output ${params_optional_folder}
 
 # Required Parameters
-export params_required_folder="examples/terraform-demo-params-required"
 cloud-guardrails generate-terraform --params-required \
   --service all \
-  --subscription example \
-  --no-summary  > ${params_required_folder}/main.tf
+  --subscription ${SUBSCRIPTION_NAME} \
+  --no-summary --output ${params_required_folder}
 
 # Run Terraform validate inside there
 echo "Running Terraform validate"

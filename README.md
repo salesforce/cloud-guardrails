@@ -128,7 +128,7 @@ The output will look like this:
 
 > ![Example output](docs/images/example-output.png)
 
-It will generate a file called `no_params.tf`. The file contents will look like this: [examples/terraform-demo-no-params/main.tf](examples/terraform-demo-no-params/main.tf).
+It will generate a file called `no_params.tf`. The file contents will look like this: [examples/terraform-demo-no-params/main.tf](examples/terraform-demo-no-params/no_params.tf).
 
 ## Example: Single Service
 
