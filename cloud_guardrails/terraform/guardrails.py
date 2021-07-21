@@ -6,6 +6,7 @@
 import os
 import logging
 from colorama import Fore
+from jinja2 import Environment, FileSystemLoader
 from cloud_guardrails.shared import utils
 from cloud_guardrails.terraform.terraform_no_params import TerraformTemplateNoParams
 from cloud_guardrails.terraform.terraform_with_params import TerraformTemplateWithParams
@@ -150,6 +151,20 @@ class TerraformGuardrails:
         with open(output_file, "w") as f:
             f.write(terraform_content)
 
+    def create_terraform_provider_file(self, output_file: str):
+        template_contents = dict(
+            provider_version="=2.56.0"
+        )
+        template_path = os.path.join(os.path.dirname(__file__), "provider")
+        env = Environment(loader=FileSystemLoader(template_path))  # nosec
+        template = env.get_template("provider.tf.j2")
+        rendered_template = template.render(t=template_contents)
+        if os.path.exists(output_file):
+            logger.info("%s exists. Removing the file and replacing its contents." % output_file)
+            os.remove(output_file)
+        with open(output_file, "w") as f:
+            f.write(rendered_template)
+
     def create_markdown_summary_file(self, directory: str = None):
         # Write Markdown summary
         markdown_table = self.azure_policies.markdown_table(
@@ -227,9 +242,8 @@ class TerraformGuardrails:
     Log in to Azure and set your subscription:
         az login
         az account set --subscription my-subscription
+
     {directory_string}
-    Create a Terraform file required by the Azure Terraform Provider:
-        echo 'provider "azurerm" {{ version = "=2.56.0" features {{}}}}' > provider.tf
 
     Now apply the policies:
         terraform init

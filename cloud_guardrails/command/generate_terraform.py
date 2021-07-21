@@ -98,9 +98,12 @@ def generate_terraform(
         enforcement_mode=enforcement_mode,
         verbosity=verbosity
     )
-
+    if not os.path.exists(output_directory):
+        os.makedirs(output_directory)
     output_file = os.path.join(output_directory, terraform.file_name)
     terraform.create_terraform_file(output_file=output_file)
+    provider_file = os.path.join(output_directory, "provider.tf")
+    terraform.create_terraform_provider_file(output_file=provider_file)
 
     # Print success message
     terraform.print_success_message(output_file=output_file, output_directory=output_directory, enforcement_mode=enforcement_mode)
