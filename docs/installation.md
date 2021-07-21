@@ -1,14 +1,19 @@
 # Installation
 
-* First, clone the repository and run the installation command.
+#### Option 1: Homebrew
 
 ```bash
-# Clone the git repository
-git clone https://github.com/salesforce/cloud-guardrails.git
-
-# Install
-make install
+brew tap salesforce/cloud-guardrails https://github.com/salesforce/cloud-guardrails
+brew install cloud-guardrails
 ```
+
+#### Option 2: Pip3
+
+```bash
+pip3 install --user cloud-guardrails
+```
+
+#### Terraform
 
 * Install Terraform if you haven't already. I recommend using [tfenv](https://github.com/tfutils/tfenv), a Terraform version manager:
 

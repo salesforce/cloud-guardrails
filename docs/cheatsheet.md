@@ -1,6 +1,31 @@
 # Cheatsheet
 
+### Quick start
+
+```bash
+# Install Terraform (prerequisite)
+brew install tfenv
+tfenv install 0.12.28
+
+# Install via Homebrew
+brew tap salesforce/cloud-guardrails https://github.com/salesforce/cloud-guardrails
+brew install cloud-guardrails
+
+# Generate files for Guardrails that do not require parameters
+cloud-guardrails generate-terraform --no-params --subscription example
+
+# Log into Azure and set your subscription
+az login
+az account set --subscription example
+
+# Apply the policies
+terraform init
+terraform plan
+terraform apply -auto-approve
+```
+
 ### Writing Policies
+
 ```bash
 # No Parameters
 cloud-guardrails generate-terraform --no-params --subscription example
