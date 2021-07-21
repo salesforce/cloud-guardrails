@@ -43,9 +43,8 @@ To help maximize coverage and ease the rollout process, I created this tool so t
 brew install tfenv
 tfenv install 0.12.28
 
-# Install via Homebrew
-brew tap salesforce/cloud-guardrails https://github.com/salesforce/cloud-guardrails
-brew install cloud-guardrails
+# Install via pip
+pip3 install cloud-guardrails --user
 
 # Generate files for Guardrails that do not require parameters
 cloud-guardrails generate-terraform --no-params --subscription example

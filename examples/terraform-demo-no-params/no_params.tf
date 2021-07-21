@@ -312,23 +312,15 @@ locals {
     # Network
     # -----------------------------------------------------------------------------------------------------------------
     "fc5e4038-4584-4632-8c85-c0448d374b2c", # All Internet traffic should be routed via your deployed Azure Firewall 
-    "2d21331d-a4c2-4def-a9ad-ee4e1e023beb", # App Service should use a virtual network service endpoint 
     "e345b6c3-24bd-4c93-9bbb-7e5e49a17b78", # Azure VPN gateways should not use 'basic' SKU 
-    "c4857be7-912a-4c75-87e6-e30292bcdf78", # Container Registry should use a virtual network service endpoint 
-    "e0a2b1a3-f7f9-4569-807f-2a9edebdf4d9", # Cosmos DB should use a virtual network service endpoint 
-    "d63edb4a-c612-454d-b47d-191a724fcbf0", # Event Hub should use a virtual network service endpoint 
     "c251913d-7d24-4958-af87-478ed3b9ba41", # Flow logs should be configured for every network security group 
     "27960feb-a23c-4577-8d36-ef8b5f35e0be", # Flow logs should be enabled for every network security group 
     "35f9c03a-cc27-418e-9c0c-539ff999d010", # Gateway subnets should not be configured with a network security group 
-    "ea4d6841-2173-4317-9747-ff522a45120f", # Key Vault should use a virtual network service endpoint 
     "2f080164-9f4d-497e-9db6-416dc9f7b48a", # Network Watcher flow logs should have traffic analytics enabled 
     "88c0b9da-ce96-4b03-9635-f29a937e2900", # Network interfaces should disable IP forwarding 
     "83a86a26-fd1f-447c-b59d-e51f44264114", # Network interfaces should not have public IPs 
     "e372f825-a257-4fb8-9175-797a8a8627d6", # RDP access from the Internet should be blocked 
-    "ae5d2f14-d830-42b6-9899-df6cfe9c71a3", # SQL Server should use a virtual network service endpoint 
     "2c89a2e5-7285-40fe-afe0-ae8654b92fab", # SSH access from the Internet should be blocked 
-    "235359c5-7c52-4b82-9055-01c75cf9f60e", # Service Bus should use a virtual network service endpoint 
-    "60d21c4f-21a3-4d94-85f4-b924e6aeeda4", # Storage Accounts should use a virtual network service endpoint 
     "564feb30-bf6a-4854-b4bb-0d2d2d1e6c66", # Web Application Firewall (WAF) should be enabled for Application Gateway 
     "055aa869-bc98-4af8-bafc-23f1ab6ffe2c", # Web Application Firewall (WAF) should be enabled for Azure Front Door Service service 
     
@@ -357,10 +349,7 @@ locals {
     "eb6f77b9-bd53-4e35-a23d-7f65d5f0e442", # Log connections should be enabled for PostgreSQL database servers 
     "eb6f77b9-bd53-4e35-a23d-7f65d5f0e8f3", # Log duration should be enabled for PostgreSQL database servers 
     "d38fc420-0735-4ef3-ac11-c806f651a570", # Long-term geo-redundant backup should be enabled for Azure SQL Databases 
-    "dfbd9a64-6114-48de-a47d-90574dc2e489", # MariaDB server should use a virtual network service endpoint 
-    "3375856c-3824-4e0e-ae6a-79e011dd4c47", # MySQL server should use a virtual network service endpoint 
     "83cef61d-dbd1-4b20-a4fc-5fbc7da10833", # MySQL servers should use customer-managed keys to encrypt data at rest 
-    "3c14b034-bcb6-4905-94e7-5b8e98a47b65", # PostgreSQL server should use a virtual network service endpoint 
     "18adea5e-f416-4d0f-8aa8-d24321e3e274", # PostgreSQL servers should use customer-managed keys to encrypt data at rest 
     "7698e800-9299-47a6-b3b6-5a0fee576eed", # Private endpoint connections on Azure SQL Database should be enabled 
     "0a1302fb-a631-4106-9753-f3d494733990", # Private endpoint should be enabled for MariaDB servers 
