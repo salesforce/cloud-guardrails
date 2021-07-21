@@ -15,6 +15,8 @@ match_only_keywords:
 
 exclude_keywords:
   - ""
+  - "virtual network service endpoint"
+  #- "private link"
 {% for keyword in t.exclude_keywords %}
   - "{{ keyword }}"
 {% endfor %}
@@ -47,6 +49,10 @@ exclude_policies:
   Guest Configuration:
     # This outputs a parameter called "Cert:" that breaks the parameter yaml format
     - "Audit Windows machines that contain certificates expiring within the specified number of days"
+  Network:
+    # This one is overly cumbersome for most organizations
+    - "Network interfaces should not have public IPs"
+
 {% set existing_exclusions = ["General", "Tags", "API Management", "App Platform", "Guest Configuration"] %}
 {% for service in t.service_names %}{% if service not in existing_exclusions %}
   {{ service }}:
