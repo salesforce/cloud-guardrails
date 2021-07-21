@@ -37,11 +37,11 @@ fi
 
 # Create Folders
 export no_params_folder="${FOLDER}/terraform-demo-no-params"
-mkdir -p no_params_folder
+mkdir -p ${no_params_folder}
 export params_optional_folder="${FOLDER}/terraform-demo-params-optional"
-mkdir -p params_optional_folder
+mkdir -p ${params_optional_folder}
 export params_required_folder="${FOLDER}/terraform-demo-params-required"
-mkdir -p params_required_folder
+mkdir -p ${params_required_folder}
 
 
 #### Generate the example Terraform files
