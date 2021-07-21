@@ -49,19 +49,19 @@ mkdir -p ${params_required_folder}
 cloud-guardrails generate-terraform --no-params \
   --service all \
   --subscription ${SUBSCRIPTION_NAME} \
-  --no-summary --output ${no_params_folder}
+  --output ${no_params_folder}
 
 # Optional Parameters
 cloud-guardrails generate-terraform --params-optional \
   --service all \
   --subscription ${SUBSCRIPTION_NAME} \
-  --no-summary --output ${params_optional_folder}
+  --output ${params_optional_folder}
 
 # Required Parameters
 cloud-guardrails generate-terraform --params-required \
   --service all \
   --subscription ${SUBSCRIPTION_NAME} \
-  --no-summary --output ${params_required_folder}
+  --output ${params_required_folder}
 
 # Run Terraform validate inside there
 echo "Running Terraform validate"

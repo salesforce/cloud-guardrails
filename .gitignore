@@ -41,7 +41,6 @@ venv/
 htmlcov/
 .tox/
 .nox/
-.coverage
 .coverage.*
 .cache
 nosetests.xml
@@ -92,7 +91,12 @@ config.yml
 /params*.tf
 NP-*.csv
 RP-*.csv
+PR-*.csv
 PO-*.csv
 NP-*.md
 RP-*.md
 PO-*.md
+PR-*.md
+!examples/terraform-demo-no-params/NP-all-table.*
+!examples/terraform-demo-params-optional/PO-all-table.*
+!examples/terraform-demo-params-required/PR-all-table.*
