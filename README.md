@@ -2,8 +2,6 @@
 
 Cloud Guardrails allows you to rapidly cherry-pick security guardrails in the form of Azure Policy Initiatives.
 
-> Note: Microsoft and Azure are trademarks of the Microsoft group of companies.
-
 ![Continuous Integration Tests](https://github.com/salesforce/cloud-guardrails/workflows/continuous-integration/badge.svg)
 [![Downloads](https://pepy.tech/badge/cloud-guardrails)](https://pepy.tech/project/cloud-guardrails)
 [![Twitter](https://img.shields.io/twitter/url/https/twitter.com/kmcquade3.svg?style=social&label=Follow%20the%20author)](https://twitter.com/kmcquade3)
@@ -36,8 +34,31 @@ To help maximize coverage and ease the rollout process, I created this tool so t
 * Enforce low-friction policies within **minutes**
 * Easily roll back policies that you don't want
 
-
 # Cheatsheet
+
+### Quick start
+
+```bash
+# Install Terraform (prerequisite)
+brew install tfenv
+tfenv install 0.12.28
+
+# Install via Homebrew
+brew tap salesforce/cloud-guardrails https://github.com/salesforce/cloud-guardrails
+brew install cloud-guardrails
+
+# Generate files for Guardrails that do not require parameters
+cloud-guardrails generate-terraform --no-params --subscription example
+
+# Log into Azure and set your subscription
+az login
+az account set --subscription example
+
+# Apply the policies
+terraform init
+terraform plan
+terraform apply -auto-approve
+```
 
 ### Writing Policies
 
@@ -78,15 +99,20 @@ cloud-guardrails describe-policy --name "Storage accounts should use customer-ma
 
 # Installation
 
-* First, clone the repository and run the installation command.
+#### Option 1: Homebrew
 
 ```bash
-# Clone the git repository
-git clone https://github.com/salesforce/cloud-guardrails.git
-
-# Install
-make install
+brew tap salesforce/cloud-guardrails https://github.com/salesforce/cloud-guardrails
+brew install cloud-guardrails
 ```
+
+#### Option 2: Pip3
+
+```bash
+pip3 install --user cloud-guardrails
+```
+
+#### Terraform
 
 * Install Terraform if you haven't already. I recommend using [tfenv](https://github.com/tfutils/tfenv), a Terraform version manager:
 
