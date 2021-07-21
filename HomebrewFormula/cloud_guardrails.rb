@@ -3,8 +3,8 @@ class CloudGuardrails < Formula
 
   desc "Shiny new formula"
   homepage "https://github.com/salesforce/cloud-guardrails"
-  url "https://files.pythonhosted.org/packages/31/35/577639935b907778cef99c7997887bc04a3b06b0f3e6c52c011ede1d7222/cloud-guardrails-0.2.6.tar.gz"
-  sha256 "6cd2fae813bea03dcb4eac1a2aaf20ee8cdb0e728c88e73c9cc8599265f02427"
+  url "https://files.pythonhosted.org/packages/1c/92/506dc06b995f0ab4ba66e25fc39cc78fd2216d4f240f843e8094668ba299/cloud-guardrails-0.2.7.tar.gz"
+  sha256 "34aa24917fe27b5d36767ae57e750c7b065b97ac75012091345eb4c27b0b3ff0"
 
   depends_on "python3"
 
