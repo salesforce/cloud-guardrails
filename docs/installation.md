@@ -19,7 +19,7 @@ pip3 install --user cloud-guardrails
 
 ```bash
 brew install tfenv
-tfenv install 0.12.28
+tfenv install 0.12.31
 ```
 
 Now you can follow the rest of the tutorial.
