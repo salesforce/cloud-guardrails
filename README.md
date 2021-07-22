@@ -7,7 +7,7 @@ Cloud Guardrails allows you to rapidly cherry-pick cloud security guardrails by 
 [![Twitter](https://img.shields.io/twitter/url/https/twitter.com/kmcquade3.svg?style=social&label=Follow%20the%20author)](https://twitter.com/kmcquade3)
 
 <p align="center">
-  <img src="docs/images/cloud-guardrails-demo-480.gif">
+  <img src="docs/images/demo-480.gif">
 </p>
 
 # Table of contents
