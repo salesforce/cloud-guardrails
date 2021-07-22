@@ -202,9 +202,11 @@ class TerraformGuardrails:
         utils.print_green(f"Generated Terraform file: {os.path.relpath(output_file)}")
 
         if enforcement_mode:
-            enforcement_message = f"Enables {self.green_policy_count()} security policies in {Fore.GREEN}Enforcement mode{utils.END} (illegal resource changes will be denied)"
+            enforcement_message = f"Enables {self.green_policy_count()} security policies in {Fore.GREEN}Enforcement mode{utils.END} (illegal resource " \
+                                  f"\n      changes will be denied)"
         else:
-            enforcement_message = f"Enables {self.green_policy_count()} security policies in {Fore.GREEN}Audit mode{utils.END} (illegal resource changes will be logged)"
+            enforcement_message = f"Enables {self.green_policy_count()} security policies in {Fore.GREEN}Audit mode{utils.END} (illegal resource " \
+                                  f"\n      changes will be logged)"
 
         if self.service == "all":
             service_message = f"Covers {Fore.GREEN}all{utils.END} services supported by Azure Policies."
@@ -229,9 +231,9 @@ class TerraformGuardrails:
         utils.print_blue("To apply these policies with Terraform:")
 
         if output_directory == os.getcwd():
-            directory_string = ""
+            directory_string = "\r"
         else:
-            directory_string = f"Navigate to the directory with your Terraform files.\n\tcd {os.path.relpath(output_directory)}"
+            directory_string = f"Navigate to the directory with your Terraform files.\n\t\tcd {os.path.relpath(output_directory)}"
 
         if self.subscription != "":
             target_string = "subscription"
@@ -250,7 +252,8 @@ class TerraformGuardrails:
         terraform plan
         terraform apply -auto-approve
 
-    You will see that the Azure Policy Initiative is now applied to your {target_string}!
+    You will see that the Azure Policy Initiative is now applied to
+    your {target_string}!
         """
 
         print(instructions_message)
