@@ -41,7 +41,7 @@ To help maximize coverage and ease the rollout process, I created this tool so t
 ```bash
 # Install Terraform (prerequisite)
 brew install tfenv
-tfenv install 0.12.28
+tfenv install 0.12.31
 
 # Install via pip
 pip3 install cloud-guardrails --user
@@ -117,7 +117,7 @@ pip3 install --user cloud-guardrails
 
 ```bash
 brew install tfenv
-tfenv install 0.12.28
+tfenv install 0.12.31
 ```
 
 Now you can follow the rest of the tutorial.

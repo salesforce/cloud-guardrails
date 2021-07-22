@@ -81,16 +81,16 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           pip install homebrew-pypi-poet
-          pip install cloud_guardrails -U
+          pip install cloud-guardrails -U
           git fetch origin
           git checkout --track origin/main
           latest_tag=$(git describe --tags `git rev-list --tags --max-count=1`)
           echo "latest tag: $latest_tag"
           git pull origin $latest_tag
-          mkdir -p "HomebrewFormula" && touch "HomebrewFormula/cloud_guardrails.rb"
-          poet -f cloud_guardrails > HomebrewFormula/cloud_guardrails.rb
+          mkdir -p "HomebrewFormula" && touch "HomebrewFormula/cloud-guardrails.rb"
+          poet -f cloud-guardrails > HomebrewFormula/cloud-guardrails.rb
           git add .
-          git commit -m "update brew formula" cloud_guardrails/bin/cli.py HomebrewFormula/cloud_guardrails.rb || echo "No brew changes to commit"
+          git commit -m "update brew formula" cloud_guardrails/bin/cli.py HomebrewFormula/cloud-guardrails.rb || echo "No brew changes to commit"
           git push -u origin main
 
   bump-version:
