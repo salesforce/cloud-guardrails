@@ -5,7 +5,7 @@
 ```bash
 # Install Terraform (prerequisite)
 brew install tfenv
-tfenv install 0.12.28
+tfenv install 0.12.31
 
 # Install via Homebrew
 brew tap salesforce/cloud-guardrails https://github.com/salesforce/cloud-guardrails

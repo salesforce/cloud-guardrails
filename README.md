@@ -6,6 +6,10 @@ Cloud Guardrails allows you to rapidly cherry-pick cloud security guardrails by 
 [![Downloads](https://pepy.tech/badge/cloud-guardrails)](https://pepy.tech/project/cloud-guardrails)
 [![Twitter](https://img.shields.io/twitter/url/https/twitter.com/kmcquade3.svg?style=social&label=Follow%20the%20author)](https://twitter.com/kmcquade3)
 
+<p align="center">
+  <img src="docs/images/demo-480.gif">
+</p>
+
 # Table of contents
 
 - [Overview](#overview)

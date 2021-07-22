@@ -1,6 +1,6 @@
-# Guardrails for Azure
+# Cloud Guardrails
 
-Guardrails for Azure is a command-line tool that allows you to rapidly cherry-pick security guardrails in the form of Azure Policy Initiatives.
+Cloud Guardrails allows you to rapidly cherry-pick cloud security guardrails by generating Terraform files that create Azure Policy Initiatives.
 
 # Overview
 
