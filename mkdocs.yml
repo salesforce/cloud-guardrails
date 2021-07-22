@@ -6,6 +6,9 @@ use_directory_urls: true
 markdown_extensions:
     - codehilite
     - tables
+    - pymdownx.superfences
+    - admonition
+    - pymdownx.details
 plugins:
   - search
   - table-reader:
@@ -31,11 +34,14 @@ nav:
     - Basic - Single Service: 'tutorials/basic-key-vault.md'
     - Intermediate - Parameters Optional: 'tutorials/parameters-optional.md'
     - Advanced - Parameters Required: 'tutorials/parameters-required.md'
+    - Selecting Policies using the Config File: 'tutorials/policy-selection-config.md'
 
   - "<b>Contributing</b>":
     - Contributing: 'contributing/contributing.md'
 
   - "<b>Compliance Summaries</b>":
     - All Policies: 'summaries/0-all.md'
-    - No Parameters: 'summaries/0-no-params.md'
+    - No Parameters: 'summaries/no-params.md'
+    - Parameters Optional: 'summaries/params-optional.md'
+    - Parameters Required: 'summaries/params-required.md'
 

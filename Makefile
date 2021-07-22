@@ -33,9 +33,13 @@ update-submodule-with-merge:
 # ---------------------------------------------------------------------------------------------------------------------
 # ReadTheDocs
 # ---------------------------------------------------------------------------------------------------------------------
-build-docs: setup-dev
+uninstall-dev:
+    python3 -m pip uninstall -r requirements-dev.txt -y
+setup-docs-dependencies: uninstall-dev
+    python3 -m pip install -r docs/requirements-docs.txt
+build-docs: setup-docs-dependencies
 	mkdocs build
-serve-docs: setup-dev
+serve-docs: setup-docs-dependencies
 	mkdocs serve --dev-addr "127.0.0.1:8001"
 # ---------------------------------------------------------------------------------------------------------------------
 # Package building and publishing
