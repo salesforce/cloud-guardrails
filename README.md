@@ -50,8 +50,10 @@ tfenv install 0.12.31
 # Install via pip
 pip3 install cloud-guardrails --user
 
-# Generate files for Guardrails that do not require parameters
+# Generate Terraform for security guardrails that do not require parameters, in audit mode only
 cloud-guardrails generate-terraform --no-params --subscription example
+# Generate Terraform to prevent insecure resources from being created
+cloud-guardrails generate-terraform --no-params --subscription example --enforce
 
 # Log into Azure and set your subscription
 az login
