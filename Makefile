@@ -34,9 +34,9 @@ update-submodule-with-merge:
 # ReadTheDocs
 # ---------------------------------------------------------------------------------------------------------------------
 uninstall-dev:
-    python3 -m pip uninstall -r requirements-dev.txt -y
+	python3 -m pip uninstall -r requirements-dev.txt -y
 setup-docs-dependencies: uninstall-dev
-    python3 -m pip install -r docs/requirements-docs.txt
+	python3 -m pip install -r docs/requirements-docs.txt
 build-docs: setup-docs-dependencies
 	mkdocs build
 serve-docs: setup-docs-dependencies
