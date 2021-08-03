@@ -1012,3 +1012,4 @@ make update-submodule-with-merge
 * [Azure Policy Parameters](https://docs.microsoft.com/en-us/azure/governance/policy/concepts/definition-structure#parameters)
 * [Azure Policy Assignment Structure](https://docs.microsoft.com/en-us/azure/governance/policy/concepts/assignment-structure)
 * [Authorization Schemas](https://github.com/Azure/azure-resource-manager-schemas/search?q=schemas+in%3Apath+filename%3AMicrosoft.Authorization.json)
+
