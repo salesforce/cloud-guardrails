@@ -3,14 +3,14 @@ class CloudGuardrails < Formula
 
   desc "Shiny new formula"
   homepage "https://github.com/salesforce/cloud-guardrails"
-  url "https://files.pythonhosted.org/packages/1c/92/506dc06b995f0ab4ba66e25fc39cc78fd2216d4f240f843e8094668ba299/cloud-guardrails-0.2.7.tar.gz"
-  sha256 "34aa24917fe27b5d36767ae57e750c7b065b97ac75012091345eb4c27b0b3ff0"
+  url "https://files.pythonhosted.org/packages/41/fd/2f1fd43995d3b134ff3680d02f308c65dd50c0af6cfc359954b6f0ae1cf0/cloud-guardrails-0.2.8.tar.gz"
+  sha256 "e28f23c3b1b0c58fb342e685f3d2710820231a21c1772ece5e6c355526e02cdb"
 
   depends_on "python3"
 
   resource "beautifulsoup4" do
-    url "https://files.pythonhosted.org/packages/6b/c3/d31704ae558dcca862e4ee8e8388f357af6c9d9acb0cad4ba0fbbd350d9a/beautifulsoup4-4.9.3.tar.gz"
-    sha256 "84729e322ad1d5b4d25f805bfa05b902dd96450f43842c4e99067d5e1369eb25"
+    url "https://files.pythonhosted.org/packages/a1/69/daeee6d8f22c997e522cdbeb59641c4d31ab120aba0f2c799500f7456b7e/beautifulsoup4-4.10.0.tar.gz"
+    sha256 "c23ad23c521d818955a4151a67d81580319d4bf548d3d49f4223ae041ff98891"
   end
 
   resource "certifi" do
@@ -19,8 +19,8 @@ class CloudGuardrails < Formula
   end
 
   resource "charset-normalizer" do
-    url "https://files.pythonhosted.org/packages/37/fd/05a04d7e14548474d30d90ad0db5d90ee2ba55cd967511a354cf88b534f1/charset-normalizer-2.0.3.tar.gz"
-    sha256 "c46c3ace2d744cfbdebceaa3c19ae691f53ae621b39fd7570f59d14fb7f2fd12"
+    url "https://files.pythonhosted.org/packages/e7/4e/2af0238001648ded297fb54ceb425ca26faa15b341b4fac5371d3938666e/charset-normalizer-2.0.4.tar.gz"
+    sha256 "f23667ebe1084be45f6ae0538e4a5a865206544097e4e8bbcacf42cd02a348f3"
   end
 
   resource "click" do
@@ -44,8 +44,8 @@ class CloudGuardrails < Formula
   end
 
   resource "importlib-metadata" do
-    url "https://files.pythonhosted.org/packages/a7/08/c5f2e6193c12ceb5b5048d579e8f1f82c9957b57427da808c15b44479dec/importlib_metadata-4.6.1.tar.gz"
-    sha256 "079ada16b7fc30dfbb5d13399a5113110dab1aa7c2bc62f66af75f0b717c8cac"
+    url "https://files.pythonhosted.org/packages/f0/70/ca3dd67cdd368b957e73a8156f7e1a10339f9813e314cb8b4549526070da/importlib_metadata-4.8.1.tar.gz"
+    sha256 "f284b3e11256ad1e5d03ab86bb2ccd6f5339688ff17a4d797a0fe7df326f23b1"
   end
 
   resource "Jinja2" do
@@ -69,8 +69,8 @@ class CloudGuardrails < Formula
   end
 
   resource "ruamel.yaml" do
-    url "https://files.pythonhosted.org/packages/83/59/4f576abb336d30b3d47061717224be714a9dc39c774061c34cb41c1795cf/ruamel.yaml-0.17.10.tar.gz"
-    sha256 "106bc8d6dc6a0ff7c9196a47570432036f41d556b779c6b4e618085f57e39e67"
+    url "https://files.pythonhosted.org/packages/71/81/f597606e81f53eb69330e3f8287e9b5a3f7ed0481824036d550da705cd82/ruamel.yaml-0.17.16.tar.gz"
+    sha256 "1a771fc92d3823682b7f0893ad56cb5a5c87c48e62b5399d6f42c8759a583b33"
   end
 
   resource "ruamel.yaml.clib" do
@@ -89,8 +89,8 @@ class CloudGuardrails < Formula
   end
 
   resource "typing-extensions" do
-    url "https://files.pythonhosted.org/packages/aa/55/62e2d4934c282a60b4243a950c9dbfa01ae7cac0e8d6c0b5315b87432c81/typing_extensions-3.10.0.0.tar.gz"
-    sha256 "50b6f157849174217d0656f99dc82fe932884fb250826c18350e159ec6cdf342"
+    url "https://files.pythonhosted.org/packages/ed/12/c5079a15cf5c01d7f4252b473b00f7e68ee711be605b9f001528f0298b98/typing_extensions-3.10.0.2.tar.gz"
+    sha256 "49f75d16ff11f1cd258e1b988ccff82a3ca5570217d7ad8c5f48205dd99a677e"
   end
 
   resource "urllib3" do
