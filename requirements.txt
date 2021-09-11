@@ -1,11 +1,11 @@
-click==7.1.2
-click_option_group==0.5.2
+click==8.0.1
+click_option_group==0.5.3
 PyYAML==5.4.1
 # Required for printing things
-jinja2==2.11.3
+jinja2==3.0.1
 tabulate==0.8.9
-ruamel.yaml==0.17.4
+ruamel.yaml==0.17.16
 colorama==0.4.4
 # Scrapers
-beautifulsoup4==4.9.3
-requests==2.25.1
+beautifulsoup4==4.10.0
+requests==2.26.0

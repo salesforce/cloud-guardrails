@@ -18,6 +18,9 @@ jobs:
         with:
           python-version: 3.7
 
+      - name: Update the Git submodule with the latest changes from Azure Policies
+        run: make update-submodule-with-merge
+
       - name: Update IAM Definition
         run: make update-iam-definition
 
