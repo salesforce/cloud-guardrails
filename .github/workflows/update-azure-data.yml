@@ -21,6 +21,19 @@ jobs:
       - name: Update the Git submodule with the latest changes from Azure Policies
         run: make update-submodule-with-merge
 
+      - name: Pull the updates from the Git submodule
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          cd cloud_guardrails/shared/azure-policy
+          current_commit=$(git rev-parse --short HEAD)
+          echo "current commit for Azure Policy repo: $current_commit"
+          git pull origin master
+          latest_commit=$(git rev-parse --short HEAD)
+          echo "latest commit for Azure Policy repo: $current_commit"
+          cd ../../../
+          echo "This should update Azure Policy submodule from ${current_commit} ${latest_commit}"
+
       - name: Update IAM Definition
         run: make update-iam-definition
 
