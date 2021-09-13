@@ -22,21 +22,24 @@ class CreateParametersFileTestCase(unittest.TestCase):
         parameters_file = os.path.join(os.path.dirname(__file__), "parameters-optional.yml")
         args = ["-o", parameters_file, "--optional-only"]
         result = self.runner.invoke(create_parameters_file, args)
-        print(result.output)
+        # print(result.output)
         self.assertTrue(result.exit_code == 0)
         content = utils.read_yaml_file(parameters_file)
         os.remove(parameters_file)
         # print(json.dumps(content, indent=4))
+        print(json.dumps(content.get("Synapse"), indent=4))
         # These expected results are meant to show the structure as well. There are other services as top level keys.
-        expected_results = {
-            "Synapse": {
-                "Auditing on Synapse workspace should be enabled": {
-                    "effect": "AuditIfNotExists",
-                    "setting": "enabled"
-                }
-            }
-        }
-        self.assertDictEqual(content.get("Synapse"), expected_results.get("Synapse"))
+        # expected_results = {
+        #     "Synapse": {
+        #         "Auditing on Synapse workspace should be enabled": {
+        #             "effect": "AuditIfNotExists",
+        #             "setting": "enabled"
+        #         }
+        #     }
+        # }
+        self.assertTrue(content["Synapse"]["Auditing on Synapse workspace should be enabled"]["effect"] == "AuditIfNotExists")
+        self.assertTrue(content["Synapse"]["Synapse workspace auditing settings should have action groups configured to capture critical activities"]["effect"] == "AuditIfNotExists")
+        # self.assertDictEqual(content.get("Synapse"), expected_results.get("Synapse"))
 
     def test_create_required_parameters_file(self):
         parameters_file = os.path.join(os.path.dirname(__file__), "parameters-required.yml")

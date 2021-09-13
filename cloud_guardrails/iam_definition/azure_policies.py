@@ -130,9 +130,10 @@ class AzurePolicies:
         policy_definition = self.get_policy_definition(policy_id=policy_id)
         parameters = {}
         for parameter_name, parameter_details in policy_definition.parameters.items():
-            if not include_effect:
-                if parameter_details.name == "effect":
-                    continue
+            # Fixing issue #92
+            # if not include_effect:
+                # if parameter_details.name == "effect":
+                #     continue
             parameters[parameter_details.name] = parameter_details.json()
         return parameters
 
@@ -295,8 +296,9 @@ class AzurePolicies:
                             # Look up the policy definition and set the object
                             # For parameter name, parameter details, do stuff from get_policy_definition_parameters
                             for parameter_name, parameter_details in policy_definition.parameters.items():
-                                if parameter_details.name == "effect":
-                                    continue
+                                # fix issue #92
+                                # if parameter_details.name == "effect":
+                                #     continue
                                 parameters[parameter_details.name] = parameter_details.json()
                             service_results[policy_details.get("display_name")] = dict(
                                 short_id=policy_details.get("short_id"),
@@ -467,8 +469,9 @@ class AzurePolicies:
                     parameter_requirements = "Required"
 
                 parameter_names = policy_definition_obj.parameter_names
-                if "effect" in parameter_names:
-                    parameter_names.remove("effect")
+                # Fixing issue #92
+                # if "effect" in parameter_names:
+                #     parameter_names.remove("effect")
                 parameter_names = ", ".join(parameter_names)
                 # Store Audit only result as a string
                 if policy_definition_obj.audit_only:

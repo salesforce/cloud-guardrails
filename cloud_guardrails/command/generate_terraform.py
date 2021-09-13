@@ -101,7 +101,9 @@ def generate_terraform(
     if not os.path.exists(output_directory):
         os.makedirs(output_directory)
     output_file = os.path.join(output_directory, terraform.file_name)
-    terraform.create_terraform_file(output_file=output_file)
+    result = terraform.create_terraform_file(output_file=output_file)
+    if not result:
+        raise Exception("The configuration you've provided does not match any Azure Policies. Consider opening up your configuration and try again.")
     provider_file = os.path.join(output_directory, "provider.tf")
     terraform.create_terraform_provider_file(output_file=provider_file)
 

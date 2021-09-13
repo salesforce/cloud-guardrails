@@ -4,6 +4,7 @@
 # For full license text, see the LICENSE file in the repo root
 # or https://opensource.org/licenses/BSD-3-Clause
 import os
+import sys
 import logging
 from colorama import Fore
 from jinja2 import Environment, FileSystemLoader
@@ -112,7 +113,7 @@ class TerraformGuardrails:
                 policies.append(service_policy_content.get("display_name"))
         return policies
 
-    def generate_terraform(self) -> str:
+    def generate_terraform(self):
         # Generate the Terraform file content
         if self.no_params:
             terraform_template = TerraformTemplateNoParams(
@@ -141,15 +142,22 @@ class TerraformGuardrails:
                 category=self.category
             )
         result = terraform_template.rendered()
-        return result
+        if not self.policy_id_pairs():
+            # raise Exception("The configuration you've provided does not match any Azure Policies. Consider opening up your configuration and try again.")
+            return False
+        else:
+            return result
 
     def create_terraform_file(self, output_file: str):
         terraform_content = self.generate_terraform()
-        if os.path.exists(output_file):
-            logger.info("%s exists. Removing the file and replacing its contents." % output_file)
-            os.remove(output_file)
-        with open(output_file, "w") as f:
-            f.write(terraform_content)
+        if terraform_content:
+            if os.path.exists(output_file):
+                logger.info("%s exists. Removing the file and replacing its contents." % output_file)
+                os.remove(output_file)
+            with open(output_file, "w") as f:
+                f.write(terraform_content)
+        else:
+            return False
 
     def create_terraform_provider_file(self, output_file: str):
         template_contents = dict(

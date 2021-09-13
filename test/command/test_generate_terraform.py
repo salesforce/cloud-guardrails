@@ -22,43 +22,55 @@ class GenerateTerraformClickUnitTests(unittest.TestCase):
         """command.generate_terraform: should return exit code 0"""
         result = self.runner.invoke(generate_terraform, ["--help"])
         self.assertTrue(result.exit_code == 0)
-        args = ["--service", "all", "--subscription", "example", "--no-params", "-n"]
+        args = ["--service", "all", "--subscription", "example", "--no-params", "-n", "--enforce"]
         result = self.runner.invoke(generate_terraform, args)
         print(result.output)
-        self.assertTrue(result.exit_code == 0)
-        output_file = "no_params.tf"
-        os.remove(output_file)
-
-    def test_generate_terraform_command_with_config(self):
-        """command.generate_terraform: with config file"""
-        args = ["--service", "all", "--subscription", "example", "--no-params", "-n", "--config", default_config_file]
-        result = self.runner.invoke(generate_terraform, args)
-        self.assertTrue(result.exit_code == 0)
-
+        self.assertTrue(result.exit_code == 1)
         output_file = "no_params.tf"
         self.assertTrue(os.path.exists(output_file))
         contents = utils.read_file(output_file)
-        self.assertTrue("private link" in contents)
-        self.assertTrue("encrypt" not in contents)
-        os.remove(output_file)
+        self.assertTrue("Audit VMs that do not use managed disks" in contents)
+        # os.remove(output_file)
+
+    def test_generate_terraform_command_with_config(self):
+        """command.generate_terraform: with config file that is overly restrictive"""
+        args = ["--service", "all", "--subscription", "example", "--no-params", "-n", "--config", default_config_file]
+        # with self.assertRaises(Exception):
+        result = self.runner.invoke(generate_terraform, args)
+        self.assertTrue(result.exit_code == 1)
+        self.assertTrue(isinstance(result.exception, Exception))
+        # self.assertTrue(result.exit_code == 0)
+        #
+        # output_file = "no_params.tf"
+        # self.assertTrue(os.path.exists(output_file))
+        # contents = utils.read_file(output_file)
+        # self.assertTrue("private link" in contents)
+        # self.assertTrue("encrypt" not in contents)
+        # os.remove(output_file)
 
     def test_generate_terraform_with_explicit_matches(self):
         """command.generate_terraform: with config file that matches keywords"""
         args = ["--service", "all", "--subscription", "example", "--no-params", "-n", "--config", config_with_keyword_matches]
+        # with self.assertRaises(Exception):
         result = self.runner.invoke(generate_terraform, args)
-        print(result.output)
+        self.assertTrue(result.exit_code == 1)
+        self.assertTrue(isinstance(result.exception, Exception))
+        print(result)
+        # result = self.runner.invoke(generate_terraform, args)
+        # print(result.output)
         # We know for sure that no policies that match "customer-managed key" will also
         # contain "private link" in it (which is what the config file above looks for)
         # We also know that by default, there will be a lot of ones that have customer-managed key.
         # It goes to reason that if this works properly, we should not see customer-managed key anywhere.
         # Let's search for it
 
-        output_file = "no_params.tf"
-        self.assertTrue(os.path.exists(output_file))
-        contents = utils.read_file(output_file)
-        self.assertTrue("customer-managed key" not in contents)
-        self.assertTrue("private link" in contents)
-        os.remove(output_file)
+        # output_file = "no_params.tf"
+        # # self.assertTrue(os.path.exists(output_file))
+        # contents = utils.read_file(output_file)
+        # print(contents)
+        # self.assertTrue("customer-managed key" not in contents)
+        # # self.assertTrue("private link" in contents)
+        # os.remove(output_file)
 
     def test_generate_terraform_params_optional(self):
         args = ["--service", "all",

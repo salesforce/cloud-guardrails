@@ -72,14 +72,18 @@ class PolicyDefinition:
     def no_params(self) -> bool:
         """Return true if there are no parameters for the Policy Definition or if the only parameter is 'effect'"""
         result = True
+        # Fixing issue #92
         if self.properties.parameters:
-            for parameter in self.properties.parameters:
-                if parameter == "effect":
-                    continue
-                else:
-                    result = False
-                    break
-        return result
+            return False
+        else:
+            return True
+            # for parameter in self.properties.parameters:
+            #     if parameter == "effect":
+            #         continue
+            #     else:
+            #         result = False
+            #         break
+        # return result
 
     @property
     def params_optional(self) -> bool:
@@ -89,8 +93,9 @@ class PolicyDefinition:
             # We will return False, because there are no params at all - optional or not.
             return False
         for parameter, parameter_details in self.parameters.items():
-            if parameter == "effect":
-                continue
+            # Fixing issue #92
+            # if parameter == "effect":
+            #     continue
             # We should allow you to print out the options to a YAML file and fill it out like a form.
             # So right now, it will create a long Kubernetes policy, but it will have lots of empty lists that we have to fill out. Oh well.
             if not parameter_details.default_value:
@@ -114,8 +119,9 @@ class PolicyDefinition:
             return []
         else:
             for parameter, parameter_details in self.parameters.items():
-                if parameter == "effect":
-                    continue
+                # Fixing issue #92
+                # if parameter == "effect":
+                #     continue
                 if parameter_details.default_value:
                     results.append(parameter_details.name)
         return results
@@ -127,8 +133,9 @@ class PolicyDefinition:
             return []
         else:
             for parameter, parameter_details in self.parameters.items():
-                if parameter == "effect":
-                    continue
+                # Fixing issue #92
+                # if parameter == "effect":
+                #     continue
                 if not parameter_details.default_value:
                     results.append(parameter_details.name)
         return results
