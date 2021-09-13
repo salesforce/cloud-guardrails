@@ -143,21 +143,21 @@ class TerraformGuardrails:
             )
         result = terraform_template.rendered()
         if not self.policy_id_pairs():
-            # raise Exception("The configuration you've provided does not match any Azure Policies. Consider opening up your configuration and try again.")
-            return False
-        else:
-            return result
+            raise Exception("The configuration you've provided does not match any Azure Policies. Consider opening up your configuration and try again.")
+            # return False
+        # else:
+        return result
 
     def create_terraform_file(self, output_file: str):
         terraform_content = self.generate_terraform()
-        if terraform_content:
-            if os.path.exists(output_file):
-                logger.info("%s exists. Removing the file and replacing its contents." % output_file)
-                os.remove(output_file)
-            with open(output_file, "w") as f:
-                f.write(terraform_content)
-        else:
-            return False
+        # if terraform_content:
+        if os.path.exists(output_file):
+            logger.info("%s exists. Removing the file and replacing its contents." % output_file)
+            os.remove(output_file)
+        with open(output_file, "w") as f:
+            f.write(terraform_content)
+        # else:
+        #     return False
 
     def create_terraform_provider_file(self, output_file: str):
         template_contents = dict(
