@@ -83,7 +83,7 @@ class GenerateTerraformClickUnitTests(unittest.TestCase):
         self.assertTrue(os.path.exists(output_file))
         contents = utils.read_file(output_file)
         self.assertTrue("modeRequirement" in contents)
-        os.remove(output_file)
+        # os.remove(output_file)
 
     def test_generate_terraform_params_optional_key_vault(self):
         args = ["--service", "Key Vault",
@@ -99,6 +99,17 @@ class GenerateTerraformClickUnitTests(unittest.TestCase):
         os.remove(output_file)
 
     def test_generate_terraform_params_required(self):
+        args = ["--service", "all",
+                "--subscription", "example",
+                "--params-required", "-n"]
+        result = self.runner.invoke(generate_terraform, args)
+        output_file = "params_required.tf"
+        self.assertTrue(os.path.exists(output_file))
+        contents = utils.read_file(output_file)
+        expected = "Only approved VM extensions should be installed"
+        self.assertTrue(expected in contents)
+
+    def test_generate_terraform_params_required_kubernetes(self):
         args = ["--service", "Kubernetes",
                 "--subscription", "example",
                 "--params-required", "-n"]
@@ -111,4 +122,4 @@ class GenerateTerraformClickUnitTests(unittest.TestCase):
         self.assertTrue(os.path.exists(output_file))
         contents = utils.read_file(output_file)
         self.assertTrue(expected in contents)
-        os.remove(output_file)
+        # os.remove(output_file)

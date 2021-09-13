@@ -25,7 +25,7 @@ class CreateParametersFileTestCase(unittest.TestCase):
         # print(result.output)
         self.assertTrue(result.exit_code == 0)
         content = utils.read_yaml_file(parameters_file)
-        os.remove(parameters_file)
+        # os.remove(parameters_file)
         # print(json.dumps(content, indent=4))
         print(json.dumps(content.get("Synapse"), indent=4))
         # These expected results are meant to show the structure as well. There are other services as top level keys.
