@@ -104,10 +104,10 @@ activate-env:
 test-help: activate-env
 	./cloud_guardrails/bin/cli.py --help
 test-list-policies: activate-env
-	#./cloud_guardrails/bin/cli.py list-policies --all-policies -s "Key Vault"
+	./cloud_guardrails/bin/cli.py list-policies --all-policies -s "Key Vault"
 	./cloud_guardrails/bin/cli.py list-policies --no-params -s "Storage"
-	#./cloud_guardrails/bin/cli.py list-policies --params-optional -s "Key Vault"
-	#./cloud_guardrails/bin/cli.py list-policies --params-required -s "Key Vault"
+	./cloud_guardrails/bin/cli.py list-policies --params-optional -s "Key Vault"
+	./cloud_guardrails/bin/cli.py list-policies --params-required -s "Key Vault"
 test-describe-policy: activate-env
 	./cloud_guardrails/bin/cli.py describe-policy --help
 	./cloud_guardrails/bin/cli.py describe-policy --name

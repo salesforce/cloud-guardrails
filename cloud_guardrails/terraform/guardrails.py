@@ -90,11 +90,11 @@ class TerraformGuardrails:
         if self.no_params:
             policy_ids_sorted_by_service = self.azure_policies.get_all_policy_ids_sorted_by_service(
                 no_params=True, params_optional=self.params_optional, params_required=self.params_required,
-                audit_only=self.audit_only)
+                audit_only=self.audit_only, enforce=self.enforcement_mode)
         else:
             policy_ids_sorted_by_service = self.azure_policies.get_all_policy_ids_sorted_by_service(
                 no_params=self.no_params, params_optional=self.params_optional, params_required=self.params_required,
-                audit_only=self.audit_only)
+                audit_only=self.audit_only, enforce=self.enforcement_mode)
         return policy_ids_sorted_by_service
 
     def policy_names(self) -> list:

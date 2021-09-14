@@ -93,7 +93,8 @@ class CategorizedParameters:
             no_params=False,
             params_optional=self.params_optional,
             params_required=self.params_required,
-            audit_only=self.audit_only
+            audit_only=self.audit_only,
+            enforce=self.enforce
         )
         results = {}
         for service_name, service_policies in all_policy_ids_sorted_by_service.items():
