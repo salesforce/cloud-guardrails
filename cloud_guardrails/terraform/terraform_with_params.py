@@ -80,6 +80,7 @@ class TerraformTemplateWithParams:
                 for parameter_name, parameter_value in policy_definition_details.items():
                     if parameter_name == "policy_id":
                         continue
+                    # TODO: Here is where we should supply the revised effect
                     # TODO: Determine if the user hasn't supplied certain parameters? You will have to determine the parameters they supplied vs the policies requested.
                     value = self.categorized_parameters.get_parameter_value_from_config(
                         display_name=policy_definition_name, parameter_name=parameter_name

@@ -40,8 +40,10 @@ class ParameterTemplate:
         config: Config = DEFAULT_CONFIG,
         params_optional: bool = False,
         params_required: bool = False,
+        enforce: bool = False
     ):
         self.azure_policies = AzurePolicies(service_names=["all"], config=config)
+        self.enforce = enforce
         categorized_parameters = CategorizedParameters(
             azure_policies=self.azure_policies,
             params_optional=params_optional,
@@ -64,6 +66,21 @@ class ParameterTemplate:
     def __repr__(self):
         return json.dumps(self.json())
 
+    def get_parameter_value(self, parameter_name: str, default_value, allowed_values):
+        """If the parameter value is a non-default, then we will return it here. Or if the user supplies --enforce, we will change 'Audit' to 'Deny'"""
+        # Azure Policy effects: https://docs.microsoft.com/en-us/azure/governance/policy/concepts/effects
+        result = default_value
+        # Let's handle the "effect" parameter
+        if parameter_name == "effect" or parameter_name == "Effect":  # This is faster than using .lower()
+            if self.enforce:
+                # It could be Capitalized or lowercase in allowed_values
+                if "Deny" in allowed_values:
+                    result = "Deny"
+                lowercase = [x.lower() for x in allowed_values]
+                if "deny" in lowercase:
+                    result = "deny"
+        return result
+
     def set_parameter_config(self, categorized_parameters: CategorizedParameters) -> dict:
         results = {}
         for service_name, service_policies in categorized_parameters.service_categorized_parameters.items():
@@ -76,8 +93,8 @@ class ParameterTemplate:
                         allowed_values = self.azure_policies.get_allowed_values_for_parameter(policy_id=policy_id, parameter_name=parameter_name)
                         default_value = self.azure_policies.get_default_value_for_parameter(policy_id=policy_id, parameter_name=parameter_name)
                         parameter_type = self.azure_policies.get_parameter_type(policy_id=policy_id, parameter_name=parameter_name)
-                        parameter_segment = ParameterSegment(parameter_name=parameter_name, parameter_type=parameter_type,
-                                                             default_value=default_value, value=default_value, allowed_values=allowed_values)
+                        value = self.get_parameter_value(parameter_name=parameter_name, default_value=default_value, allowed_values=allowed_values)
+                        parameter_segment = ParameterSegment(parameter_name=parameter_name, parameter_type=parameter_type, default_value=default_value, value=value, allowed_values=allowed_values)
                         results[service_name][policy_name].append(parameter_segment)
                     except AttributeError:
                         # This occurs sometimes because the IAM definition has some parameters that are not legit, like "policy_id"

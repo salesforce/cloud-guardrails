@@ -119,3 +119,6 @@ test-generate-terraform:
 	./cloud_guardrails/bin/cli.py generate-terraform --no-params --service all --subscription example
 	./cloud_guardrails/bin/cli.py generate-terraform --params-optional --service all --subscription example
 	./cloud_guardrails/bin/cli.py generate-terraform --params-required --service all --subscription example
+test-create-parameters-file:
+	./cloud_guardrails/bin/cli.py create-parameters-file --params-optional --service all --subscription example
+	./cloud_guardrails/bin/cli.py create-parameters-file --params-required --service all --subscription example

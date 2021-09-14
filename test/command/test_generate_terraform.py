@@ -25,7 +25,7 @@ class GenerateTerraformClickUnitTests(unittest.TestCase):
         args = ["--service", "all", "--subscription", "example", "--no-params", "-n", "--enforce"]
         result = self.runner.invoke(generate_terraform, args)
         print(result.output)
-        self.assertTrue(result.exit_code == 1)
+        self.assertTrue(result.exit_code == 0)
         output_file = "no_params.tf"
         self.assertTrue(os.path.exists(output_file))
         contents = utils.read_file(output_file)
