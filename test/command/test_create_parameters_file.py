@@ -41,6 +41,16 @@ class CreateParametersFileTestCase(unittest.TestCase):
         self.assertTrue(content["Synapse"]["Synapse workspace auditing settings should have action groups configured to capture critical activities"]["effect"] == "AuditIfNotExists")
         # self.assertDictEqual(content.get("Synapse"), expected_results.get("Synapse"))
 
+    def test_create_optional_parameters_file_enforce(self):
+        parameters_file = os.path.join(os.path.dirname(__file__), "parameters-optional-enforce.yml")
+        args = ["-o", parameters_file, "--optional-only", "--enforce"]
+        result = self.runner.invoke(create_parameters_file, args)
+        self.assertTrue(result.exit_code == 0)
+        content = utils.read_yaml_file(parameters_file)
+        policy_to_check = content["Storage"]["Storage account public access should be disallowed"]
+        print(json.dumps(policy_to_check, indent=4))
+        self.assertEqual(policy_to_check["effect"], "deny")
+
     def test_create_required_parameters_file(self):
         parameters_file = os.path.join(os.path.dirname(__file__), "parameters-required.yml")
         args = ["-o", parameters_file, "--required-only"]
