@@ -48,7 +48,8 @@ class ParameterTemplate:
             azure_policies=self.azure_policies,
             params_optional=params_optional,
             params_required=params_required,
-            audit_only=False
+            audit_only=False,
+            enforce=enforce
         )
         self.parameters_config = self.set_parameter_config(categorized_parameters=categorized_parameters)
 

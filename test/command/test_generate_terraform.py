@@ -98,6 +98,16 @@ class GenerateTerraformClickUnitTests(unittest.TestCase):
         self.assertTrue("allowedECNames" in contents)
         os.remove(output_file)
 
+    def test_gh_92_generate_terraform_params_optional_storage_enforce_without_parameters_file(self):
+        output_directory = os.path.join(os.path.dirname(__file__), "enforce")
+        args = ["--service", "Storage",
+                "--subscription", "example",
+                "--params-optional", "-n", "--enforce", "-o", output_directory]
+        result = self.runner.invoke(generate_terraform, args)
+        print(result.output)
+        output_file = os.path.join(output_directory, "params_optional_storage.tf")
+        # contents = utils.read_file(output_file)
+
     def test_generate_terraform_params_required(self):
         args = ["--service", "all",
                 "--subscription", "example",

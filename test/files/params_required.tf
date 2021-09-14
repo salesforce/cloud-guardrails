@@ -6,6 +6,11 @@ locals {
   enforcement_mode_example_PR_Audit = false
   policy_ids_example_PR_Audit = [
     # -----------------------------------------------------------------------------------------------------------------
+    # Backup
+    # -----------------------------------------------------------------------------------------------------------------
+    "2e94d99a-8a36-4563-bc77-810d8893b671", # Azure Recovery Services vaults should use customer-managed keys for encrypting backup data
+
+    # -----------------------------------------------------------------------------------------------------------------
     # Batch
     # -----------------------------------------------------------------------------------------------------------------
     "26ee67a2-f81a-4ba8-b9ce-8550bd5ee1a7", # Metric alert rules should be configured on Batch accounts
@@ -73,15 +78,15 @@ locals {
     "82985f06-dc18-4a48-bc1c-b9f4f0098cfe", # Kubernetes cluster pods should only use approved host network and port range
     "46592696-4c7b-4bf3-9e45-6c2763bdc0a6", # Kubernetes cluster pods should use specified labels
     "233a2a17-77ca-4fb1-9b6b-69223d272a44", # Kubernetes cluster services should listen only on allowed ports
+    "d46c275d-1680-448d-b2ec-e495a3b6cc89", # Kubernetes cluster services should only use allowed external IPs
     "95edb821-ddaf-4404-9732-666045e056b4", # Kubernetes cluster should not allow privileged containers
     "1a5b4dca-0b6f-4cf5-907c-56316bc1bf3d", # Kubernetes clusters should be accessible only over HTTPS
-    "1c6e92c9-99f0-4e55-9cf2-0c234dc48f99", # Kubernetes clusters should not allow container privilege escalation
-    "3fc4dc25-5baf-40d8-9b05-7fe74c1bc64e", # Kubernetes clusters should use internal load balancers
-    "d46c275d-1680-448d-b2ec-e495a3b6cc89", # Kubernetes cluster services should only use allowed external IPs
     "423dd1ba-798e-40e4-9c4d-b6902674b423", # Kubernetes clusters should disable automounting API credentials
+    "1c6e92c9-99f0-4e55-9cf2-0c234dc48f99", # Kubernetes clusters should not allow container privilege escalation
     "d2e7ea85-6b44-4317-a0be-1b951587f626", # Kubernetes clusters should not grant CAP_SYS_ADMIN security capabilities
     "a27c700f-8a22-44ec-961c-41625264370b", # Kubernetes clusters should not use specific security capabilities
     "9f061a12-e40d-4183-a00e-171812443373", # Kubernetes clusters should not use the default namespace
+    "3fc4dc25-5baf-40d8-9b05-7fe74c1bc64e", # Kubernetes clusters should use internal load balancers
 
     # -----------------------------------------------------------------------------------------------------------------
     # Lighthouse
@@ -99,17 +104,23 @@ locals {
     "1d413020-63de-11ea-bc55-0242ac130003", # Configure log filter expressions and datastore to be used for full logs for specified Azure Machine Learning computes
 
     # -----------------------------------------------------------------------------------------------------------------
+    # Media Services
+    # -----------------------------------------------------------------------------------------------------------------
+    "daccf7e4-9808-470c-a848-1c5b582a1afb", # Azure Media Services content key policies should use token authentication
+    "e9914afe-31cd-4b8a-92fa-c887f847d477", # Azure Media Services jobs with HTTPS inputs should limit input URIs to permitted URI patterns
+
+    # -----------------------------------------------------------------------------------------------------------------
     # Monitoring
     # -----------------------------------------------------------------------------------------------------------------
     "b954148f-4c11-4c38-8221-be76711e194a", # An activity log alert should exist for specific Administrative operations
     "c5447c04-a4d7-4ba8-a263-c9ee321a6858", # An activity log alert should exist for specific Policy operations
     "3b980d31-7904-4bb7-8575-5665739a8052", # An activity log alert should exist for specific Security operations
-    "f47b5582-33ec-4c5c-87c0-b010a6b2e917", # Audit Log Analytics workspace for VM - Report Mismatch
     "7f89b1eb-583c-429a-8828-af049802c1d9", # Audit diagnostic setting
     "11ac78e3-31bc-4f0c-8434-37ab963cea07", # Dependency agent should be enabled for listed virtual machine images
     "e2dd799a-a932-4e9d-ac17-d473bc3c6c10", # Dependency agent should be enabled in virtual machine scale sets for listed virtual machine images
-    "5c3bc7b8-a64c-4e08-a9cd-7ff0f31e1138", # Log Analytics agent should be enabled in virtual machine scale sets for listed virtual machine images
     "32133ab0-ee4b-4b44-98d6-042180979d50", # Log Analytics Agent should be enabled for listed virtual machine images
+    "5c3bc7b8-a64c-4e08-a9cd-7ff0f31e1138", # Log Analytics agent should be enabled in virtual machine scale sets for listed virtual machine images
+    "f47b5582-33ec-4c5c-87c0-b010a6b2e917", # Virtual machines should be connected to a specified workspace
 
     # -----------------------------------------------------------------------------------------------------------------
     # Network
@@ -144,6 +155,7 @@ locals {
 
   ]
   policy_definition_map = {
+    "Azure Recovery Services vaults should use customer-managed keys for encrypting backup data" = "/providers/Microsoft.Authorization/policyDefinitions/2e94d99a-8a36-4563-bc77-810d8893b671",
     "Metric alert rules should be configured on Batch accounts" = "/providers/Microsoft.Authorization/policyDefinitions/26ee67a2-f81a-4ba8-b9ce-8550bd5ee1a7",
     "Allowed virtual machine size SKUs" = "/providers/Microsoft.Authorization/policyDefinitions/cccc23c7-8427-4f53-ad12-b6a63eb452b3",
     "Managed disks should use a specific set of disk encryption sets for the customer-managed key encryption" = "/providers/Microsoft.Authorization/policyDefinitions/d461a302-a187-421a-89ac-84acdb4edc04",
@@ -185,15 +197,15 @@ locals {
     "Kubernetes cluster pods should only use approved host network and port range" = "/providers/Microsoft.Authorization/policyDefinitions/82985f06-dc18-4a48-bc1c-b9f4f0098cfe",
     "Kubernetes cluster pods should use specified labels" = "/providers/Microsoft.Authorization/policyDefinitions/46592696-4c7b-4bf3-9e45-6c2763bdc0a6",
     "Kubernetes cluster services should listen only on allowed ports" = "/providers/Microsoft.Authorization/policyDefinitions/233a2a17-77ca-4fb1-9b6b-69223d272a44",
+    "Kubernetes cluster services should only use allowed external IPs" = "/providers/Microsoft.Authorization/policyDefinitions/d46c275d-1680-448d-b2ec-e495a3b6cc89",
     "Kubernetes cluster should not allow privileged containers" = "/providers/Microsoft.Authorization/policyDefinitions/95edb821-ddaf-4404-9732-666045e056b4",
     "Kubernetes clusters should be accessible only over HTTPS" = "/providers/Microsoft.Authorization/policyDefinitions/1a5b4dca-0b6f-4cf5-907c-56316bc1bf3d",
-    "Kubernetes clusters should not allow container privilege escalation" = "/providers/Microsoft.Authorization/policyDefinitions/1c6e92c9-99f0-4e55-9cf2-0c234dc48f99",
-    "Kubernetes clusters should use internal load balancers" = "/providers/Microsoft.Authorization/policyDefinitions/3fc4dc25-5baf-40d8-9b05-7fe74c1bc64e",
-    "Kubernetes cluster services should only use allowed external IPs" = "/providers/Microsoft.Authorization/policyDefinitions/d46c275d-1680-448d-b2ec-e495a3b6cc89",
     "Kubernetes clusters should disable automounting API credentials" = "/providers/Microsoft.Authorization/policyDefinitions/423dd1ba-798e-40e4-9c4d-b6902674b423",
+    "Kubernetes clusters should not allow container privilege escalation" = "/providers/Microsoft.Authorization/policyDefinitions/1c6e92c9-99f0-4e55-9cf2-0c234dc48f99",
     "Kubernetes clusters should not grant CAP_SYS_ADMIN security capabilities" = "/providers/Microsoft.Authorization/policyDefinitions/d2e7ea85-6b44-4317-a0be-1b951587f626",
     "Kubernetes clusters should not use specific security capabilities" = "/providers/Microsoft.Authorization/policyDefinitions/a27c700f-8a22-44ec-961c-41625264370b",
     "Kubernetes clusters should not use the default namespace" = "/providers/Microsoft.Authorization/policyDefinitions/9f061a12-e40d-4183-a00e-171812443373",
+    "Kubernetes clusters should use internal load balancers" = "/providers/Microsoft.Authorization/policyDefinitions/3fc4dc25-5baf-40d8-9b05-7fe74c1bc64e",
     "Allow managing tenant ids to onboard through Azure Lighthouse" = "/providers/Microsoft.Authorization/policyDefinitions/7a8a51a3-ad87-4def-96f3-65a1839242b6",
     "Configure allowed Python packages for specified Azure Machine Learning computes" = "/providers/Microsoft.Authorization/policyDefinitions/77eeea86-7e81-4a7d-9067-de844d096752",
     "Configure allowed module authors for specified Azure Machine Learning computes" = "/providers/Microsoft.Authorization/policyDefinitions/53c70b02-63dd-11ea-bc55-0242ac130003",
@@ -201,15 +213,17 @@ locals {
     "Configure an approval endpoint called prior to jobs running for specified Azure Machine Learning computes" = "/providers/Microsoft.Authorization/policyDefinitions/3948394e-63de-11ea-bc55-0242ac130003",
     "Configure code signing for training code for specified Azure Machine Learning computes" = "/providers/Microsoft.Authorization/policyDefinitions/6a6f7384-63de-11ea-bc55-0242ac130003",
     "Configure log filter expressions and datastore to be used for full logs for specified Azure Machine Learning computes" = "/providers/Microsoft.Authorization/policyDefinitions/1d413020-63de-11ea-bc55-0242ac130003",
+    "Azure Media Services content key policies should use token authentication" = "/providers/Microsoft.Authorization/policyDefinitions/daccf7e4-9808-470c-a848-1c5b582a1afb",
+    "Azure Media Services jobs with HTTPS inputs should limit input URIs to permitted URI patterns" = "/providers/Microsoft.Authorization/policyDefinitions/e9914afe-31cd-4b8a-92fa-c887f847d477",
     "An activity log alert should exist for specific Administrative operations" = "/providers/Microsoft.Authorization/policyDefinitions/b954148f-4c11-4c38-8221-be76711e194a",
     "An activity log alert should exist for specific Policy operations" = "/providers/Microsoft.Authorization/policyDefinitions/c5447c04-a4d7-4ba8-a263-c9ee321a6858",
     "An activity log alert should exist for specific Security operations" = "/providers/Microsoft.Authorization/policyDefinitions/3b980d31-7904-4bb7-8575-5665739a8052",
-    "Audit Log Analytics workspace for VM - Report Mismatch" = "/providers/Microsoft.Authorization/policyDefinitions/f47b5582-33ec-4c5c-87c0-b010a6b2e917",
     "Audit diagnostic setting" = "/providers/Microsoft.Authorization/policyDefinitions/7f89b1eb-583c-429a-8828-af049802c1d9",
     "Dependency agent should be enabled for listed virtual machine images" = "/providers/Microsoft.Authorization/policyDefinitions/11ac78e3-31bc-4f0c-8434-37ab963cea07",
     "Dependency agent should be enabled in virtual machine scale sets for listed virtual machine images" = "/providers/Microsoft.Authorization/policyDefinitions/e2dd799a-a932-4e9d-ac17-d473bc3c6c10",
-    "Log Analytics agent should be enabled in virtual machine scale sets for listed virtual machine images" = "/providers/Microsoft.Authorization/policyDefinitions/5c3bc7b8-a64c-4e08-a9cd-7ff0f31e1138",
     "Log Analytics Agent should be enabled for listed virtual machine images" = "/providers/Microsoft.Authorization/policyDefinitions/32133ab0-ee4b-4b44-98d6-042180979d50",
+    "Log Analytics agent should be enabled in virtual machine scale sets for listed virtual machine images" = "/providers/Microsoft.Authorization/policyDefinitions/5c3bc7b8-a64c-4e08-a9cd-7ff0f31e1138",
+    "Virtual machines should be connected to a specified workspace" = "/providers/Microsoft.Authorization/policyDefinitions/f47b5582-33ec-4c5c-87c0-b010a6b2e917",
     "A custom IPsec/IKE policy must be applied to all Azure virtual network gateway connections" = "/providers/Microsoft.Authorization/policyDefinitions/50b83b09-03da-41c1-b656-c293c914862b",
     "Network Watcher should be enabled" = "/providers/Microsoft.Authorization/policyDefinitions/b6e2945c-0b7b-40f5-9233-7a5323b5cdc6",
     "Virtual machines should be connected to an approved virtual network" = "/providers/Microsoft.Authorization/policyDefinitions/d416745a-506c-48b6-8ab1-83cb814bcaa3",
@@ -264,6 +278,15 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
   metadata = tostring(jsonencode({
     category = local.category_example_PR_Audit
   }))
+  policy_definition_reference {
+    policy_definition_id = lookup(local.policy_definition_map, "Azure Recovery Services vaults should use customer-managed keys for encrypting backup data")
+    parameter_values = jsonencode({
+        effect = { "value" : "Audit" }
+        enableDoubleEncryption = { "value" : false }
+    })
+    reference_id = null
+  }
+
   policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Metric alert rules should be configured on Batch accounts")
     parameter_values = jsonencode({
@@ -694,12 +717,25 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
   }
 
   policy_definition_reference {
+    policy_definition_id = lookup(local.policy_definition_map, "Kubernetes cluster services should only use allowed external IPs")
+    parameter_values = jsonencode({
+        effect = { "value" : "audit" }
+        excludedNamespaces = { "value" : ["kube-system", "gatekeeper-system", "azure-arc"] }
+        namespaces = { "value" : [] }
+        labelSelector = { "value" : {} }
+        allowedExternalIPs = { "value" : [] }
+    })
+    reference_id = null
+  }
+
+  policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Kubernetes cluster should not allow privileged containers")
     parameter_values = jsonencode({
         effect = { "value" : "deny" }
         excludedNamespaces = { "value" : ["kube-system", "gatekeeper-system", "azure-arc"] }
         namespaces = { "value" : [] }
         labelSelector = { "value" : {} }
+        excludedContainers = { "value" : [] }
     })
     reference_id = null
   }
@@ -716,41 +752,18 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
   }
 
   policy_definition_reference {
-    policy_definition_id = lookup(local.policy_definition_map, "Kubernetes clusters should not allow container privilege escalation")
-    parameter_values = jsonencode({
-        effect = { "value" : "audit" }
-        excludedNamespaces = { "value" : ["kube-system", "gatekeeper-system", "azure-arc"] }
-        namespaces = { "value" : [] }
-        labelSelector = { "value" : {} }
-    })
-    reference_id = null
-  }
-
-  policy_definition_reference {
-    policy_definition_id = lookup(local.policy_definition_map, "Kubernetes clusters should use internal load balancers")
-    parameter_values = jsonencode({
-        effect = { "value" : "deny" }
-        excludedNamespaces = { "value" : ["kube-system", "gatekeeper-system", "azure-arc"] }
-        namespaces = { "value" : [] }
-        labelSelector = { "value" : {} }
-    })
-    reference_id = null
-  }
-
-  policy_definition_reference {
-    policy_definition_id = lookup(local.policy_definition_map, "Kubernetes cluster services should only use allowed external IPs")
-    parameter_values = jsonencode({
-        effect = { "value" : "audit" }
-        excludedNamespaces = { "value" : ["kube-system", "gatekeeper-system", "azure-arc"] }
-        namespaces = { "value" : [] }
-        labelSelector = { "value" : {} }
-        allowedExternalIPs = { "value" : [] }
-    })
-    reference_id = null
-  }
-
-  policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Kubernetes clusters should disable automounting API credentials")
+    parameter_values = jsonencode({
+        effect = { "value" : "audit" }
+        excludedNamespaces = { "value" : ["kube-system", "gatekeeper-system", "azure-arc"] }
+        namespaces = { "value" : [] }
+        labelSelector = { "value" : {} }
+    })
+    reference_id = null
+  }
+
+  policy_definition_reference {
+    policy_definition_id = lookup(local.policy_definition_map, "Kubernetes clusters should not allow container privilege escalation")
     parameter_values = jsonencode({
         effect = { "value" : "audit" }
         excludedNamespaces = { "value" : ["kube-system", "gatekeeper-system", "azure-arc"] }
@@ -795,6 +808,17 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
   }
 
   policy_definition_reference {
+    policy_definition_id = lookup(local.policy_definition_map, "Kubernetes clusters should use internal load balancers")
+    parameter_values = jsonencode({
+        effect = { "value" : "deny" }
+        excludedNamespaces = { "value" : ["kube-system", "gatekeeper-system", "azure-arc"] }
+        namespaces = { "value" : [] }
+        labelSelector = { "value" : {} }
+    })
+    reference_id = null
+  }
+
+  policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Allow managing tenant ids to onboard through Azure Lighthouse")
     parameter_values = jsonencode({
         listOfAllowedTenants = { "value" : [] }
@@ -806,6 +830,8 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
     policy_definition_id = lookup(local.policy_definition_map, "Configure allowed Python packages for specified Azure Machine Learning computes")
     parameter_values = jsonencode({
         computeNames = { "value" : [] }
+        computeType = { "value" : "Any" }
+        isIsolatedNetwork = { "value" : "Any" }
         allowedPythonPackageChannels = { "value" : [] }
         effect = { "value" : "enforceSetting" }
     })
@@ -816,6 +842,8 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
     policy_definition_id = lookup(local.policy_definition_map, "Configure allowed module authors for specified Azure Machine Learning computes")
     parameter_values = jsonencode({
         computeNames = { "value" : [] }
+        computeType = { "value" : "Any" }
+        isIsolatedNetwork = { "value" : "Any" }
         allowedModuleAuthors = { "value" : [] }
         effect = { "value" : "enforceSetting" }
     })
@@ -826,6 +854,8 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
     policy_definition_id = lookup(local.policy_definition_map, "Configure allowed registries for specified Azure Machine Learning computes")
     parameter_values = jsonencode({
         computeNames = { "value" : [] }
+        computeType = { "value" : "Any" }
+        isIsolatedNetwork = { "value" : "Any" }
         allowedACRs = { "value" : [] }
         effect = { "value" : "enforceSetting" }
     })
@@ -836,6 +866,8 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
     policy_definition_id = lookup(local.policy_definition_map, "Configure an approval endpoint called prior to jobs running for specified Azure Machine Learning computes")
     parameter_values = jsonencode({
         computeNames = { "value" : [] }
+        computeType = { "value" : "Any" }
+        isIsolatedNetwork = { "value" : "Any" }
         approvalEndpoint = { "value" : "" }
         effect = { "value" : "enforceSetting" }
     })
@@ -846,6 +878,8 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
     policy_definition_id = lookup(local.policy_definition_map, "Configure code signing for training code for specified Azure Machine Learning computes")
     parameter_values = jsonencode({
         computeNames = { "value" : [] }
+        computeType = { "value" : "Any" }
+        isIsolatedNetwork = { "value" : "Any" }
         signingKey = { "value" : "" }
         effect = { "value" : "enforceSetting" }
     })
@@ -856,9 +890,31 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
     policy_definition_id = lookup(local.policy_definition_map, "Configure log filter expressions and datastore to be used for full logs for specified Azure Machine Learning computes")
     parameter_values = jsonencode({
         computeNames = { "value" : [] }
+        computeType = { "value" : "Any" }
+        isIsolatedNetwork = { "value" : "Any" }
         logFilters = { "value" : [] }
         datastore = { "value" : "" }
         effect = { "value" : "enforceSetting" }
+    })
+    reference_id = null
+  }
+
+  policy_definition_reference {
+    policy_definition_id = lookup(local.policy_definition_map, "Azure Media Services content key policies should use token authentication")
+    parameter_values = jsonencode({
+        effect = { "value" : "Audit" }
+        openIdConnectDiscoveryDocument = { "value" : "" }
+        issuer = { "value" : "" }
+        audience = { "value" : "" }
+    })
+    reference_id = null
+  }
+
+  policy_definition_reference {
+    policy_definition_id = lookup(local.policy_definition_map, "Azure Media Services jobs with HTTPS inputs should limit input URIs to permitted URI patterns")
+    parameter_values = jsonencode({
+        effect = { "value" : "Deny" }
+        allowedJobInputHttpUriPatterns = { "value" : [] }
     })
     reference_id = null
   }
@@ -886,14 +942,6 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
         operationName = { "value" : "" }
-    })
-    reference_id = null
-  }
-
-  policy_definition_reference {
-    policy_definition_id = lookup(local.policy_definition_map, "Audit Log Analytics workspace for VM - Report Mismatch")
-    parameter_values = jsonencode({
-        logAnalyticsWorkspaceId = { "value" : "" }
     })
     reference_id = null
   }
@@ -927,6 +975,16 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
   }
 
   policy_definition_reference {
+    policy_definition_id = lookup(local.policy_definition_map, "Log Analytics Agent should be enabled for listed virtual machine images")
+    parameter_values = jsonencode({
+        listOfImageIdToInclude_windows = { "value" : [] }
+        listOfImageIdToInclude_linux = { "value" : [] }
+        effect = { "value" : "AuditIfNotExists" }
+    })
+    reference_id = null
+  }
+
+  policy_definition_reference {
     policy_definition_id = lookup(local.policy_definition_map, "Log Analytics agent should be enabled in virtual machine scale sets for listed virtual machine images")
     parameter_values = jsonencode({
         listOfImageIdToInclude_windows = { "value" : [] }
@@ -937,10 +995,9 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
   }
 
   policy_definition_reference {
-    policy_definition_id = lookup(local.policy_definition_map, "Log Analytics Agent should be enabled for listed virtual machine images")
+    policy_definition_id = lookup(local.policy_definition_map, "Virtual machines should be connected to a specified workspace")
     parameter_values = jsonencode({
-        listOfImageIdToInclude_windows = { "value" : [] }
-        listOfImageIdToInclude_linux = { "value" : [] }
+        logAnalyticsWorkspaceId = { "value" : "" }
         effect = { "value" : "AuditIfNotExists" }
     })
     reference_id = null

@@ -15,15 +15,16 @@ logger = logging.getLogger(__name__)
 
 class TerraformTemplateWithParams:
     """Terraform Template with Parameters"""
+
     def __init__(
-            self,
-            policy_id_pairs: dict,
-            parameter_requirement_str: str,
-            categorized_parameters: CategorizedParameters,
-            subscription_name: str = "",
-            management_group: str = "",
-            enforcement_mode: bool = False,
-            category: str = "Testing",
+        self,
+        policy_id_pairs: dict,
+        parameter_requirement_str: str,
+        categorized_parameters: CategorizedParameters,
+        subscription_name: str = "",
+        management_group: str = "",
+        enforcement_mode: bool = False,
+        category: str = "Testing",
     ):
         self.enforce = enforcement_mode
         self.name = self._initiative_name(
@@ -38,8 +39,10 @@ class TerraformTemplateWithParams:
         self.policy_definition_reference_parameters = self._policy_definition_reference_parameters()
         if enforcement_mode:
             self.enforcement_string = "true"
+            self.enforce = True
         else:
             self.enforcement_string = "false"
+            self.enforce = False
 
     def _initiative_name(self, subscription_name: str, management_group: str, parameter_requirement_str: str) -> str:
         if subscription_name == "" and management_group == "":
@@ -87,8 +90,17 @@ class TerraformTemplateWithParams:
                     )
                     if "\\" in value:
                         value = value.replace("\\", "\\\\")
+                    # if parameter_name == "effect" or parameter_name == "Effect":  # This is faster than using .lower()
+                    #     if self.enforce:
+                    #         # It could be Capitalized or lowercase in allowed_values
+                    #         if "Deny" in parameter_value["allowed_values"]:
+                    #             value["value"] = "Deny"
+                    #         lowercase = [x.lower() for x in parameter_value["allowed_values"]]
+                    #         if "deny" in lowercase:
+                    #             value["value"] = "deny"
                     if not value:
                         logger.critical("No value supplied by the user. Check it.")
+                    # TODO: This is where it's randomly returning a string or a dict?. Gotta figure that out
                     parameter = dict(
                         parameter_name=parameter_name,
                         parameter_value=value,
@@ -125,6 +137,7 @@ class TerraformTemplateWithParams:
 
 def format_parameter_value(value):
     """Formats policy_definition_reference.parameter_values.value properly"""
+
     # Instead of using replace('\\', '\\\\')|replace('\'', '"') in the Jinja2 template, since that doesn't handle strings well
     def remove_escapes_and_single_quotes(some_val):
         some_val = some_val.replace("\\", "\\\\")
@@ -169,3 +182,19 @@ def get_placeholder_value_given_type(value):
         return 0
     elif value.lower() == "datetime":
         return "2021-04-01T00:00:00.fffffffZ"
+
+
+# def handle_exception_has_no_keys_error(parameter_details_dict):
+#     try:
+#         tmp = parameter_details_dict.keys()
+#         return parameter_details_dict
+#     except:
+#         print(parameter_details_dict)
+#         raise AttributeError("Issue with the ")
+#         # handle the exception
+
+# def handle_catch(caller, on_exception):
+#     try:
+#         return caller()
+#     except:
+#         return on_exception

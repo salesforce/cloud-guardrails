@@ -129,7 +129,8 @@ class TerraformGuardrails:
                 parameters_config=self.parameters_config,
                 params_required=self.params_required,
                 params_optional=self.params_optional,
-                audit_only=self.audit_only
+                audit_only=self.audit_only,
+                enforce=self.enforcement_mode
             )
 
             terraform_template = TerraformTemplateWithParams(
@@ -150,14 +151,11 @@ class TerraformGuardrails:
 
     def create_terraform_file(self, output_file: str):
         terraform_content = self.generate_terraform()
-        # if terraform_content:
         if os.path.exists(output_file):
             logger.info("%s exists. Removing the file and replacing its contents." % output_file)
             os.remove(output_file)
         with open(output_file, "w") as f:
             f.write(terraform_content)
-        # else:
-        #     return False
 
     def create_terraform_provider_file(self, output_file: str):
         template_contents = dict(
