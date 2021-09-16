@@ -3,8 +3,8 @@ class CloudGuardrails < Formula
 
   desc "Shiny new formula"
   homepage "https://github.com/salesforce/cloud-guardrails"
-  url "https://files.pythonhosted.org/packages/41/fd/2f1fd43995d3b134ff3680d02f308c65dd50c0af6cfc359954b6f0ae1cf0/cloud-guardrails-0.2.8.tar.gz"
-  sha256 "e28f23c3b1b0c58fb342e685f3d2710820231a21c1772ece5e6c355526e02cdb"
+  url "https://files.pythonhosted.org/packages/7a/6b/32f06e5d20ab7804e6777e9bae30b1c0e472358bbf8e60b5acbec192f954/cloud-guardrails-0.3.0.tar.gz"
+  sha256 "dc45c66a24ec4df5ccded7e0c43793edb4694c47ae4488519ac4dd7b1048814d"
 
   depends_on "python3"
 
@@ -19,8 +19,8 @@ class CloudGuardrails < Formula
   end
 
   resource "charset-normalizer" do
-    url "https://files.pythonhosted.org/packages/e7/4e/2af0238001648ded297fb54ceb425ca26faa15b341b4fac5371d3938666e/charset-normalizer-2.0.4.tar.gz"
-    sha256 "f23667ebe1084be45f6ae0538e4a5a865206544097e4e8bbcacf42cd02a348f3"
+    url "https://files.pythonhosted.org/packages/68/32/95ddb68b9abeb89efd461852cdff5791d42fc5e4c528536f541091ffded3/charset-normalizer-2.0.5.tar.gz"
+    sha256 "7098e7e862f6370a2a8d1a6398cd359815c45d12626267652c3f13dec58e2367"
   end
 
   resource "click" do
