@@ -75,4 +75,4 @@ def create_parameters_file(
     with open(filename, "a") as file_obj:
         for line in parameters_template_rendered:
             file_obj.write(line)
-    print(f"Created config file: {filename}")
+    print(f"Created parameters file: {filename}")
