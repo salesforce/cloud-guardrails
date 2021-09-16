@@ -27,7 +27,7 @@ logger = logging.getLogger(__name__)
 )
 @click.option("--enforce", "-e", "enforce", type=str, is_flag=True, required=False, default=False, help="Where possible, set the effect for all policies to Deny.")
 @click.option("--output", "-o", "output_file", type=click.Path(exists=False), required=True, default="parameters.yml", help="The path to the output file")
-@click.option("--config", "-c", "config_file", type=click.Path(exists=False), required=False, help="The path to the output file")
+@click.option("--config", "-c", "config_file", type=click.Path(exists=False), required=False, help="The path to the config file")
 @click.option("--exclude-services", "exclude_services", type=str, help="Exclude specific services (comma-separated) without using a config file.", callback=validate.click_validate_comma_separated_excluded_services)
 # Parameter Options
 @optgroup.group("Parameter Options", help="",)
