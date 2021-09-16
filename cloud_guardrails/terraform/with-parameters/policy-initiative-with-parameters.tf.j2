@@ -66,10 +66,14 @@ resource "azurerm_policy_set_definition" "{{ t.name }}" {
     policy_definition_id = lookup(local.policy_definition_map, "{{ policy_definition_name|normalize_display_name_string }}")
     parameter_values = jsonencode({
       {%- for parameter, parameter_details in policy_definition_details.items() %}
-      {%- if 'value' not in parameter_details['parameter_value'].keys() -%}
-          {{ "\n        " }}{{ parameter_details["parameter_name"] }} = { "value" : {{ parameter_details['parameter_value']['type']|get_placeholder_value_given_type }} }
+      {%- if parameter_details['parameter_value'] is string -%}
+        {{ "\n        " }}{{ parameter_details["parameter_name"] }} = { "value" : {{ parameter_details['parameter_value']|format_parameter_value }} }
       {%- else -%}
-          {{ "\n        " }}{{ parameter_details["parameter_name"] }} = { "value" : {{ parameter_details['parameter_value']['value']|format_parameter_value }} }
+        {%- if 'value' not in parameter_details['parameter_value'].keys() -%}
+            {{ "\n        " }}{{ parameter_details["parameter_name"] }} = { "value" : {{ parameter_details['parameter_value']['type']|get_placeholder_value_given_type }} }
+        {%- else -%}
+            {{ "\n        " }}{{ parameter_details["parameter_name"] }} = { "value" : {{ parameter_details['parameter_value']['value']|format_parameter_value }} }
+        {%- endif -%}
       {%- endif -%}
 {% endfor %}
     })

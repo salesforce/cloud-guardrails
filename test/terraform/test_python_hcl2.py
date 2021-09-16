@@ -41,8 +41,10 @@ class HclParserTestCase(unittest.TestCase):
         policy_ids = self.no_params.get("locals")[0].get("policy_ids_no_params")[0]
         # There should be no parameters for any of the policy definitions with these IDs
         for policy_id in policy_ids:
-            parameters = self.azure_policies.get_parameters_by_policy_id(policy_id=policy_id, include_effect=False)
+            parameters = self.azure_policies.get_parameters_by_policy_id(policy_id=policy_id)
             # print(parameters)
+            # Note for #92: Here is where we can find the ones that don't have any parameters
+            # print(json.dumps(parameters, indent=4))
             self.assertDictEqual(parameters, {})
 
     def test_hcl_params_optional(self):

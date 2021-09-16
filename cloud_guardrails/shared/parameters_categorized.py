@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 
 
 class CategorizedParameters:
-    """Feed the results of the JSON File into here and store it in the class structure"""
+    """Feed the results of the JSON File into here and store it in the class structure so we can use it in the Terraform"""
 
     def __init__(
         self,
@@ -21,11 +21,13 @@ class CategorizedParameters:
         parameters_config: dict = None,
         params_optional: bool = False,
         params_required: bool = False,
-        audit_only: bool = False
+        audit_only: bool = False,
+        enforce: bool = False
     ):
         self.params_optional = params_optional
         self.params_required = params_required
         self.audit_only = audit_only
+        self.enforce = enforce
         self.azure_policies = azure_policies
         if parameters_config:
             self.parameters_config = self.set_parameters_config(parameters_config)
@@ -39,7 +41,7 @@ class CategorizedParameters:
         return parameters_config
 
     def validate_parameters_config(self, parameters_config: dict):
-        """If the parameters config has invalid values, this will throw an exception"""
+        """If the parameters config from the YAML file has invalid values, this will throw an exception"""
         # Validate the input first
         # Let's validate the top level keys.
         valid_service_names = utils.get_service_names()
@@ -86,11 +88,13 @@ class CategorizedParameters:
                                         f"Parameter: {parameter_name}. Display name: {policy_name}. Service: {service_name}")
 
     def set_service_categorized_parameters(self):
+        """Now that we have validated the parameters to be included in the HCL file, let's set the values"""
         all_policy_ids_sorted_by_service = self.azure_policies.get_all_policy_ids_sorted_by_service(
             no_params=False,
             params_optional=self.params_optional,
             params_required=self.params_required,
-            audit_only=self.audit_only
+            audit_only=self.audit_only,
+            enforce=self.enforce
         )
         results = {}
         for service_name, service_policies in all_policy_ids_sorted_by_service.items():
@@ -124,6 +128,15 @@ class CategorizedParameters:
                                                                    parameter_name=parameter_name, parameter_value=None)
                             results[service_name][policy_name][parameter_name] = policy_definition.parameters[
                                 parameter_name].json()
+                            if parameter_name == "effect" or parameter_name == "Effect":  # This is faster than using .lower()
+                                if self.enforce:
+                                    # It could be Capitalized or lowercase in allowed_values
+                                    if "Deny" in allowed_values:
+                                        results[service_name][policy_name][parameter_name]["value"] = "Deny"
+                                    # lowercase = [x.lower() for x in allowed_values]
+                                    if "deny" in allowed_values:
+                                        results[service_name][policy_name][parameter_name]["value"] = "deny"
+
                     else:
                         results[service_name][policy_name][parameter_name] = policy_definition.parameters[
                             parameter_name].json()
@@ -186,6 +199,19 @@ class CategorizedParameters:
             logger.debug(f"User did not supply a parameter; key {missing_key} was not found in the parameters config.")
             user_supplied_value = None
 
+        # If the parameter is called effect and we are overriding to make everything enforce,
+        # then let's change the user supplied value to that
+        allowed_values = parameters[parameter_name].get("allowed_values", None)
+        if allowed_values:
+            if parameter_name == "effect" or parameter_name == "Effect":  # This is faster than using .lower()
+                if self.enforce:
+                    # It could be Capitalized or lowercase in allowed_values
+                    if "Deny" in allowed_values:
+                        user_supplied_value = "Deny"
+                    # lowercase = [x.lower() for x in allowed_values]
+                    if "deny" in allowed_values:
+                        user_supplied_value = "deny"
+
         # Python thinks [] or {} is the same as None. Let's circumvent that
         if not user_supplied_value:
             # Case: If the user-supplied value is truly None, that's okay.
@@ -193,17 +219,26 @@ class CategorizedParameters:
                 if default_value:
                     logger.debug(
                         f"Parameter value not supplied by user. Using default value. Parameter: {parameter_name}. Value: {default_value}. Policy ID: {policy_id}")
-                    return default_value
+                    # return default_value
+                    result = parameters[parameter_name]
+                    result["value"] = default_value
+                    return result
                 elif isinstance(user_supplied_value, list):
                     user_supplied_value = []
                     logger.debug(
                         f"Parameter value supplied by user - an empty list. Using user-supplied value. Parameter: {parameter_name}. Value: {user_supplied_value}. Policy ID: {policy_id}")
-                    return user_supplied_value
+                    # return user_supplied_value
+                    result = parameters[parameter_name]
+                    result["value"] = user_supplied_value
+                    return result
                 elif isinstance(user_supplied_value, dict):
                     logger.debug(
                         f"Parameter value supplied by user - an empty object. Using user-supplied value. Parameter: {parameter_name}. Value: {user_supplied_value}. Policy ID: {policy_id}")
                     user_supplied_value = {}
-                    return user_supplied_value
+                    result = parameters[parameter_name]
+                    result["value"] = user_supplied_value
+                    return result
+                    # return user_supplied_value
                 else:
                     logger.debug(
                         f"Parameter value not supplied by user. No default value available. Parameter: {parameter_name}. Policy ID: {policy_id}")

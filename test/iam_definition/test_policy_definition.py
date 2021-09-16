@@ -71,13 +71,13 @@ class PolicyDefinitionV2TestCase(unittest.TestCase):
 
     def test_no_params(self):
         """PolicyDefinition.no_params"""
-        self.assertTrue(self.no_params_definition.no_params)
+        self.assertFalse(self.no_params_definition.no_params) # issue #92: - to change this. Not sure which ones are not required.
         self.assertFalse(self.params_optional_definition.no_params)
         self.assertFalse(self.params_required_definition.no_params)
 
     def test_params_optional(self):
         """PolicyDefinition.params_optional"""
-        self.assertFalse(self.no_params_definition.params_optional)
+        self.assertTrue(self.no_params_definition.params_optional)
         self.assertTrue(self.params_optional_definition.params_optional)
         self.assertFalse(self.params_required_definition.params_optional)
 
@@ -160,8 +160,23 @@ class PolicyDefinitionV2TestCase(unittest.TestCase):
         self.assertFalse(policy_definition.audit_only)
 
     def test_parameters_config(self):
+        # fix issue #92
         results = self.no_params_definition.parameters_config()
-        self.assertDictEqual(results, {})
+        print(json.dumps(results, indent=4))
+        expected_results = {
+            "effect": {
+                "effect": {
+                    "type": "string",
+                    "default_value": "Audit",
+                    "allowed_values": [
+                        "Audit",
+                        "Deny",
+                        "Disabled"
+                    ]
+                }
+            }
+        }
+        self.assertDictEqual(results, expected_results)
         results = self.params_optional_definition.parameters_config()
         expected_results = {
             "effect": {

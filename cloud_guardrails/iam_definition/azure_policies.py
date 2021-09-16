@@ -130,9 +130,10 @@ class AzurePolicies:
         policy_definition = self.get_policy_definition(policy_id=policy_id)
         parameters = {}
         for parameter_name, parameter_details in policy_definition.parameters.items():
-            if not include_effect:
-                if parameter_details.name == "effect":
-                    continue
+            # Fixing issue #92
+            # if not include_effect:
+                # if parameter_details.name == "effect":
+                #     continue
             parameters[parameter_details.name] = parameter_details.json()
         return parameters
 
@@ -270,8 +271,7 @@ class AzurePolicies:
         return results
 
     def get_all_policy_ids_sorted_by_service(self, no_params: bool = True, params_optional: bool = True,
-                                             params_required: bool = True, audit_only: bool = False) -> dict:
-
+                                             params_required: bool = True, audit_only: bool = False, enforce: bool = False) -> dict:
         results = {}
         for service_name, service_policies in self.service_definitions.items():
             if self.config.is_service_excluded(service_name=service_name):
@@ -295,9 +295,18 @@ class AzurePolicies:
                             # Look up the policy definition and set the object
                             # For parameter name, parameter details, do stuff from get_policy_definition_parameters
                             for parameter_name, parameter_details in policy_definition.parameters.items():
-                                if parameter_details.name == "effect":
-                                    continue
+                                # fix issue #92
+                                # if parameter_details.name == "effect":
+                                #     continue
                                 parameters[parameter_details.name] = parameter_details.json()
+                                if parameter_name == "effect":
+                                    if enforce:
+                                        # It could be Capitalized or lowercase in allowed_values
+                                        if "Deny" in parameter_details.allowed_values:
+                                            parameters[parameter_name]["value"] = "Deny"
+                                        # lowercase = [x.lower() for x in parameter_details.allowed_values]
+                                        if "deny" in parameter_details.allowed_values:
+                                            parameters[parameter_name]["value"] = "deny"
                             service_results[policy_details.get("display_name")] = dict(
                                 short_id=policy_details.get("short_id"),
                                 long_id=policy_definition.id,
@@ -312,9 +321,18 @@ class AzurePolicies:
                             # Look up the policy definition and set the object
                             # For parameter name, parameter details, do stuff from get_policy_definition_parameters
                             for parameter_name, parameter_details in policy_definition.parameters.items():
-                                if parameter_details.name == "effect":
-                                    continue
+                                # fix issue #92
+                                # if parameter_details.name == "effect":
+                                #     continue
                                 parameters[parameter_details.name] = parameter_details.json()
+                                if parameter_details.name == "effect":
+                                    if enforce:
+                                        # It could be Capitalized or lowercase in allowed_values
+                                        if "Deny" in parameter_details.allowed_values:
+                                            parameters[parameter_details.name]["value"] = "Deny"
+                                        # lowercase = [x.lower() for x in parameter_details.allowed_values]
+                                        if "deny" in parameter_details.allowed_values:
+                                            parameters[parameter_details.name]["value"] = "deny"
                             service_results[policy_details.get("display_name")] = dict(
                                 short_id=policy_details.get("short_id"),
                                 long_id=policy_definition.id,
@@ -344,7 +362,7 @@ class AzurePolicies:
         results = {}
         compliance_data_file = os.path.abspath(
             os.path.join(
-                os.path.dirname(__file__), os.path.pardir, "shared", "../shared/data", "compliance-data.json"
+                os.path.dirname(__file__), os.path.pardir, "shared", "data", "compliance-data.json"
             )
         )
         with open(compliance_data_file) as json_file:
@@ -467,8 +485,9 @@ class AzurePolicies:
                     parameter_requirements = "Required"
 
                 parameter_names = policy_definition_obj.parameter_names
-                if "effect" in parameter_names:
-                    parameter_names.remove("effect")
+                # Fixing issue #92
+                # if "effect" in parameter_names:
+                #     parameter_names.remove("effect")
                 parameter_names = ", ".join(parameter_names)
                 # Store Audit only result as a string
                 if policy_definition_obj.audit_only:

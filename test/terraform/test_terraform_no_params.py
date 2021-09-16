@@ -55,7 +55,7 @@ class TerraformTemplateNoParamsTestCase(unittest.TestCase):
         expected_results_file = os.path.join(os.path.dirname(__file__), os.path.pardir, "files", "policy_id_pairs_kv.json")
         expected_results = utils.read_json_file(expected_results_file)
         # print(json.dumps(expected_results, indent=4))
-        # print(kv_policy_names)
+        print(kv_policy_names)
         for policy_name, policy_details in expected_results["Key Vault"].items():
             self.assertTrue(policy_name in kv_policy_names)
 

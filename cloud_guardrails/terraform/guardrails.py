@@ -4,6 +4,7 @@
 # For full license text, see the LICENSE file in the repo root
 # or https://opensource.org/licenses/BSD-3-Clause
 import os
+import sys
 import logging
 from colorama import Fore
 from jinja2 import Environment, FileSystemLoader
@@ -89,11 +90,11 @@ class TerraformGuardrails:
         if self.no_params:
             policy_ids_sorted_by_service = self.azure_policies.get_all_policy_ids_sorted_by_service(
                 no_params=True, params_optional=self.params_optional, params_required=self.params_required,
-                audit_only=self.audit_only)
+                audit_only=self.audit_only, enforce=self.enforcement_mode)
         else:
             policy_ids_sorted_by_service = self.azure_policies.get_all_policy_ids_sorted_by_service(
                 no_params=self.no_params, params_optional=self.params_optional, params_required=self.params_required,
-                audit_only=self.audit_only)
+                audit_only=self.audit_only, enforce=self.enforcement_mode)
         return policy_ids_sorted_by_service
 
     def policy_names(self) -> list:
@@ -112,7 +113,7 @@ class TerraformGuardrails:
                 policies.append(service_policy_content.get("display_name"))
         return policies
 
-    def generate_terraform(self) -> str:
+    def generate_terraform(self):
         # Generate the Terraform file content
         if self.no_params:
             terraform_template = TerraformTemplateNoParams(
@@ -128,7 +129,8 @@ class TerraformGuardrails:
                 parameters_config=self.parameters_config,
                 params_required=self.params_required,
                 params_optional=self.params_optional,
-                audit_only=self.audit_only
+                audit_only=self.audit_only,
+                enforce=self.enforcement_mode
             )
 
             terraform_template = TerraformTemplateWithParams(
@@ -141,6 +143,10 @@ class TerraformGuardrails:
                 category=self.category
             )
         result = terraform_template.rendered()
+        if not self.policy_id_pairs():
+            raise Exception("The configuration you've provided does not match any Azure Policies. Consider opening up your configuration and try again.")
+            # return False
+        # else:
         return result
 
     def create_terraform_file(self, output_file: str):

@@ -1,0 +1,1338 @@
+# ---------------------------------------------------------------------------------------------------------------------
+# API Management
+# ---------------------------------------------------------------------------------------------------------------------
+API Management:
+  "API Management service should use a SKU that supports virtual networks":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+    listOfAllowedSKUs:
+        - Developer
+        - Premium
+        - Isolated # Allowed: ["Developer", "Basic", "Standard", "Premium", "Isolated", "Consumption"]
+# ---------------------------------------------------------------------------------------------------------------------
+# API for FHIR
+# ---------------------------------------------------------------------------------------------------------------------
+API for FHIR:
+  "Azure API for FHIR should use a customer-managed key to encrypt data at rest":
+    effect: audit  # Allowed: ["audit", "disabled"]
+
+  "Azure API for FHIR should use private link":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+
+  "CORS should not allow every domain to access your API for FHIR":
+    effect: audit  # Allowed: ["audit", "disabled"]
+# ---------------------------------------------------------------------------------------------------------------------
+# App Configuration
+# ---------------------------------------------------------------------------------------------------------------------
+App Configuration:
+  "App Configuration should disable public network access":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "App Configuration should use a SKU that supports private link":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "App Configuration should use a customer-managed key":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "App Configuration should use private link":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "App Configuration stores should have local authentication methods disabled":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+# ---------------------------------------------------------------------------------------------------------------------
+# App Platform
+# ---------------------------------------------------------------------------------------------------------------------
+App Platform:
+  "Audit Azure Spring Cloud instances where distributed tracing is not enabled":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+# ---------------------------------------------------------------------------------------------------------------------
+# App Service
+# ---------------------------------------------------------------------------------------------------------------------
+App Service:
+  "API App should only be accessible over HTTPS":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+
+  "API apps should use an Azure file share for its content directory":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+
+  "App Service Apps should be injected into a virtual network":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "App Service Environment apps should not be reachable over public internet":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "App Service Environment should be configured with strongest TLS Cipher suites":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+
+  "App Service Environment should be provisioned with latest versions":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "App Service Environment should disable TLS 1.0 and 1.1":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "App Service Environment should enable internal encryption":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+
+  "App Service apps should enable outbound non-RFC 1918 traffic to Azure Virtual Network":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "App Service apps should use a SKU that supports private link":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "App Service should use private link":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "App Services should disable public network access":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Authentication should be enabled on your API app":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Authentication should be enabled on your Function app":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Authentication should be enabled on your web app":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "CORS should not allow every resource to access your API App":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "CORS should not allow every resource to access your Function Apps":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "CORS should not allow every resource to access your Web Applications":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Diagnostic logs in App Services should be enabled":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Ensure API app has 'Client Certificates (Incoming client certificates)' set to 'On'":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+
+  "Ensure WEB app has 'Client Certificates (Incoming client certificates)' set to 'On'":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+
+  "Ensure that 'HTTP Version' is the latest, if used to run the API app":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Ensure that 'HTTP Version' is the latest, if used to run the Function app":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Ensure that 'HTTP Version' is the latest, if used to run the Web app":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Ensure that 'Java version' is the latest, if used as a part of the API app":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+    JavaLatestVersion: 11 
+
+  "Ensure that 'Java version' is the latest, if used as a part of the Function app":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+    JavaLatestVersion: 11 
+
+  "Ensure that 'Java version' is the latest, if used as a part of the Web app":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+    JavaLatestVersion: 11 
+
+  "Ensure that 'PHP version' is the latest, if used as a part of the API app":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+    PHPLatestVersion: 7.4 
+
+  "Ensure that 'PHP version' is the latest, if used as a part of the WEB app":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+    PHPLatestVersion: 7.4 
+
+  "Ensure that 'Python version' is the latest, if used as a part of the API app":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+    WindowsPythonLatestVersion: 3.6 
+    LinuxPythonLatestVersion: 3.9 
+
+  "Ensure that 'Python version' is the latest, if used as a part of the Function app":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+    WindowsPythonLatestVersion: 3.6 
+    LinuxPythonLatestVersion: 3.9 
+
+  "Ensure that 'Python version' is the latest, if used as a part of the Web app":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+    WindowsPythonLatestVersion: 3.6 
+    LinuxPythonLatestVersion: 3.9 
+
+  "FTPS only should be required in your API App":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "FTPS only should be required in your Function App":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "FTPS should be required in your Web App":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Function App should only be accessible over HTTPS":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+
+  "Function apps should have 'Client Certificates (Incoming client certificates)' enabled":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+
+  "Function apps should use an Azure file share for its content directory":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+
+  "Latest TLS version should be used in your API App":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Latest TLS version should be used in your Function App":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Latest TLS version should be used in your Web App":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Managed identity should be used in your API App":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Managed identity should be used in your Function App":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Managed identity should be used in your Web App":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Remote debugging should be turned off for API Apps":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Remote debugging should be turned off for Function Apps":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Remote debugging should be turned off for Web Applications":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Resource logs in App Services should be enabled":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+    requiredRetentionDays: 365 
+
+  "Web Application should only be accessible over HTTPS":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+
+  "Web apps should use an Azure file share for its content directory":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+# ---------------------------------------------------------------------------------------------------------------------
+# Attestation
+# ---------------------------------------------------------------------------------------------------------------------
+Attestation:
+  "Azure Attestation providers should use private endpoints":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+# ---------------------------------------------------------------------------------------------------------------------
+# Automation
+# ---------------------------------------------------------------------------------------------------------------------
+Automation:
+  "Automation account variables should be encrypted":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Automation accounts should disable public network access":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Azure Automation accounts should use customer-managed keys to encrypt data at rest":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Private endpoint connections on Automation Accounts should be enabled":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+# ---------------------------------------------------------------------------------------------------------------------
+# Azure Active Directory
+# ---------------------------------------------------------------------------------------------------------------------
+Azure Active Directory:
+  "Azure Active Directory Domain Services managed domains should use TLS 1.2 only mode":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+# ---------------------------------------------------------------------------------------------------------------------
+# Azure Data Explorer
+# ---------------------------------------------------------------------------------------------------------------------
+Azure Data Explorer:
+  "Azure Data Explorer encryption at rest should use a customer-managed key":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Disk encryption should be enabled on Azure Data Explorer":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Double encryption should be enabled on Azure Data Explorer":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Virtual network injection should be enabled for Azure Data Explorer":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+# ---------------------------------------------------------------------------------------------------------------------
+# Azure Stack Edge
+# ---------------------------------------------------------------------------------------------------------------------
+Azure Stack Edge:
+  "Azure Stack Edge devices should use double-encryption":
+    effect: audit  # Allowed: ["audit", "deny", "disabled"]
+# ---------------------------------------------------------------------------------------------------------------------
+# Backup
+# ---------------------------------------------------------------------------------------------------------------------
+Backup:
+  "Azure Backup should be enabled for Virtual Machines":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Azure Recovery Services vaults should use private link":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+# ---------------------------------------------------------------------------------------------------------------------
+# Batch
+# ---------------------------------------------------------------------------------------------------------------------
+Batch:
+  "Azure Batch account should use customer-managed keys to encrypt data":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Private endpoint connections on Batch accounts should be enabled":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Public network access should be disabled for Batch accounts":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Resource logs in Batch accounts should be enabled":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+    requiredRetentionDays: 365 
+# ---------------------------------------------------------------------------------------------------------------------
+# Bot Service
+# ---------------------------------------------------------------------------------------------------------------------
+Bot Service:
+  "Bot Service endpoint should be a valid HTTPS URI":
+    effect: audit  # Allowed: ["audit", "deny", "disabled"]
+
+  "Bot Service should be encrypted with a customer-managed key":
+    effect: audit  # Allowed: ["audit", "deny", "disabled"]
+
+  "Bot Service should have isolated mode enabled":
+    effect: audit  # Allowed: ["audit", "deny", "disabled"]
+# ---------------------------------------------------------------------------------------------------------------------
+# Cache
+# ---------------------------------------------------------------------------------------------------------------------
+Cache:
+  "Azure Cache for Redis should disable public network access":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Azure Cache for Redis should reside within a virtual network":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Azure Cache for Redis should use private link":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Only secure connections to your Azure Cache for Redis should be enabled":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+# ---------------------------------------------------------------------------------------------------------------------
+# Cognitive Services
+# ---------------------------------------------------------------------------------------------------------------------
+Cognitive Services:
+  "Cognitive Services accounts should disable public network access":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Cognitive Services accounts should enable data encryption with a customer-managed key":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Cognitive Services accounts should have local authentication methods disabled":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Cognitive Services accounts should restrict network access":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Cognitive Services accounts should use a managed identity":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Cognitive Services accounts should use customer owned storage":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Cognitive Services should use private link":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+# ---------------------------------------------------------------------------------------------------------------------
+# Compute
+# ---------------------------------------------------------------------------------------------------------------------
+Compute:
+  "Disk access resources should use private link":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Managed disks should be double encrypted with both platform-managed and customer-managed keys":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Managed disks should disable public network access":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+
+  "Microsoft Antimalware for Azure should be configured to automatically update protection signatures":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Microsoft IaaSAntimalware extension should be deployed on Windows servers":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "OS and data disks should be encrypted with a customer-managed key":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Unattached disks should be encrypted":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+
+  "Virtual machines and virtual machine scale sets should have encryption at host enabled":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Virtual machines should be migrated to new Azure Resource Manager resources":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+# ---------------------------------------------------------------------------------------------------------------------
+# Container Instance
+# ---------------------------------------------------------------------------------------------------------------------
+Container Instance:
+  "Azure Container Instance container group should deploy into a virtual network":
+    effect: Audit  # Allowed: ["Audit", "Disabled", "Deny"]
+
+  "Azure Container Instance container group should use customer-managed key for encryption":
+    effect: Audit  # Allowed: ["Audit", "Disabled", "Deny"]
+# ---------------------------------------------------------------------------------------------------------------------
+# Container Registry
+# ---------------------------------------------------------------------------------------------------------------------
+Container Registry:
+  "Container registries should be encrypted with a customer-managed key":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Container registries should have SKUs that support Private Links":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Container registries should have local authentication methods disabled.":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Container registries should not allow unrestricted network access":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Container registries should use private link":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+
+  "Public network access should be disabled for Container registries":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+# ---------------------------------------------------------------------------------------------------------------------
+# Cosmos DB
+# ---------------------------------------------------------------------------------------------------------------------
+Cosmos DB:
+  "Azure Cosmos DB accounts should have firewall rules":
+    effect: Deny  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Azure Cosmos DB accounts should use customer-managed keys to encrypt data at rest":
+    effect: audit  # Allowed: ["audit", "deny", "disabled"]
+
+  "Azure Cosmos DB should disable public network access":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Cosmos DB database accounts should have local authentication methods disabled":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "CosmosDB accounts should use private link":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+# ---------------------------------------------------------------------------------------------------------------------
+# Data Box
+# ---------------------------------------------------------------------------------------------------------------------
+Data Box:
+  "Azure Data Box jobs should enable double encryption for data at rest on the device":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+    supportedSKUs:
+        - DataBox
+        - DataBoxHeavy # Allowed: ["DataBox", "DataBoxHeavy"]
+
+  "Azure Data Box jobs should use a customer-managed key to encrypt the device unlock password":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+    supportedSKUs:
+        - DataBox
+        - DataBoxHeavy # Allowed: ["DataBox", "DataBoxHeavy"]
+# ---------------------------------------------------------------------------------------------------------------------
+# Data Factory
+# ---------------------------------------------------------------------------------------------------------------------
+Data Factory:
+  "Azure Data Factory integration runtime should have a limit for number of cores":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+    maxCores: 32 
+
+  "Azure Data Factory linked services should use Key Vault for storing secrets":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Azure Data Factory linked services should use system-assigned managed identity authentication when it is supported":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Azure Data Factory should use a Git repository for source control":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Azure Data Factory should use private link":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Azure data factories should be encrypted with a customer-managed key":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Public network access on Azure Data Factory should be disabled":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "SQL Server Integration Services integration runtimes on Azure Data Factory should be joined to a virtual network":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+# ---------------------------------------------------------------------------------------------------------------------
+# Data Lake
+# ---------------------------------------------------------------------------------------------------------------------
+Data Lake:
+  "Resource logs in Azure Data Lake Store should be enabled":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+    requiredRetentionDays: 365 
+
+  "Resource logs in Data Lake Analytics should be enabled":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+    requiredRetentionDays: 365 
+# ---------------------------------------------------------------------------------------------------------------------
+# Event Grid
+# ---------------------------------------------------------------------------------------------------------------------
+Event Grid:
+  "Azure Event Grid domains should disable public network access":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Azure Event Grid domains should use private link":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+
+  "Azure Event Grid topics should disable public network access":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Azure Event Grid topics should use private link":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+# ---------------------------------------------------------------------------------------------------------------------
+# Event Hub
+# ---------------------------------------------------------------------------------------------------------------------
+Event Hub:
+  "All authorization rules except RootManageSharedAccessKey should be removed from Event Hub namespace":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Authorization rules on the Event Hub instance should be defined":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Event Hub namespaces should have double encryption enabled":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Event Hub namespaces should use a customer-managed key for encryption":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+
+  "Event Hub namespaces should use private link":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Resource logs in Event Hub should be enabled":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+    requiredRetentionDays: 365 
+# ---------------------------------------------------------------------------------------------------------------------
+# General
+# ---------------------------------------------------------------------------------------------------------------------
+General:
+  "Audit usage of custom RBAC rules":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+
+  "Custom subscription owner roles should not exist":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+# ---------------------------------------------------------------------------------------------------------------------
+# HDInsight
+# ---------------------------------------------------------------------------------------------------------------------
+HDInsight:
+  "Azure HDInsight clusters should be injected into a virtual network":
+    effect: Audit  # Allowed: ["Audit", "Disabled", "Deny"]
+
+  "Azure HDInsight clusters should use customer-managed keys to encrypt data at rest":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Azure HDInsight clusters should use encryption at host to encrypt data at rest":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Azure HDInsight clusters should use encryption in transit to encrypt communication between Azure HDInsight cluster nodes":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+# ---------------------------------------------------------------------------------------------------------------------
+# Internet of Things
+# ---------------------------------------------------------------------------------------------------------------------
+Internet of Things:
+  "Azure IoT Hub should use customer-managed key to encrypt data at rest":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "IoT Hub device provisioning service data should be encrypted using customer-managed keys (CMK)":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "IoT Hub device provisioning service instances should disable public network access":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "IoT Hub device provisioning service instances should use private link":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+
+  "Private endpoint should be enabled for IoT Hub":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+
+  "Public network access on Azure IoT Hub should be disabled":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Resource logs in IoT Hub should be enabled":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+    requiredRetentionDays: 365 
+# ---------------------------------------------------------------------------------------------------------------------
+# Key Vault
+# ---------------------------------------------------------------------------------------------------------------------
+Key Vault:
+  "Azure Key Vault Managed HSM should have purge protection enabled":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Azure Key Vault should disable public network access":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Azure Key Vaults should use private link":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Certificates should be issued by the specified integrated certificate authority":
+    allowedCAs:
+        - DigiCert
+        - GlobalSign # Allowed: ["DigiCert", "GlobalSign"]
+    effect: audit  # Allowed: ["audit", "deny", "disabled"]
+
+  "Certificates should have the specified maximum validity period":
+    maximumValidityInMonths: 12 
+    effect: audit  # Allowed: ["audit", "deny", "disabled"]
+
+  "Certificates should use allowed key types":
+    allowedKeyTypes:
+        - RSA
+        - RSA-HSM # Allowed: ["RSA", "RSA-HSM", "EC", "EC-HSM"]
+    effect: audit  # Allowed: ["audit", "deny", "disabled"]
+
+  "Certificates using elliptic curve cryptography should have allowed curve names":
+    allowedECNames:
+        - P-256
+        - P-256K
+        - P-384
+        - P-521 # Allowed: ["P-256", "P-256K", "P-384", "P-521"]
+    effect: audit  # Allowed: ["audit", "deny", "disabled"]
+
+  "Key Vault keys should have an expiration date":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Key Vault secrets should have an expiration date":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Key vaults should have purge protection enabled":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Key vaults should have soft delete enabled":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Keys should be backed by a hardware security module (HSM)":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Keys should be the specified cryptographic type RSA or EC":
+    allowedKeyTypes:
+        - RSA
+        - RSA-HSM
+        - EC
+        - EC-HSM # Allowed: ["RSA", "RSA-HSM", "EC", "EC-HSM"]
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Keys using elliptic curve cryptography should have the specified curve names":
+    allowedECNames:
+        - P-256
+        - P-256K
+        - P-384
+        - P-521 # Allowed: ["P-256", "P-256K", "P-384", "P-521"]
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Private endpoint should be configured for Key Vault":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Resource logs in Azure Key Vault Managed HSM should be enabled":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+    requiredRetentionDays: 365 
+
+  "Resource logs in Key Vault should be enabled":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+    requiredRetentionDays: 365 
+
+  "Secrets should have content type set":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+# ---------------------------------------------------------------------------------------------------------------------
+# Kubernetes
+# ---------------------------------------------------------------------------------------------------------------------
+Kubernetes:
+  "Azure Arc enabled Kubernetes clusters should have Azure Defender's extension installed":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Azure Kubernetes Service Private Clusters should be enabled":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Azure Policy Add-on for Kubernetes service (AKS) should be installed and enabled on your clusters":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+
+  "Both operating systems and data disks in Azure Kubernetes Service clusters should be encrypted by customer-managed keys":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Temp disks and cache for agent node pools in Azure Kubernetes Service clusters should be encrypted at host":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+# ---------------------------------------------------------------------------------------------------------------------
+# Lighthouse
+# ---------------------------------------------------------------------------------------------------------------------
+Lighthouse:
+  "Audit delegation of scopes to a managing tenant":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+# ---------------------------------------------------------------------------------------------------------------------
+# Logic Apps
+# ---------------------------------------------------------------------------------------------------------------------
+Logic Apps:
+  "Logic Apps Integration Service Environment should be encrypted with customer-managed keys":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Logic Apps should be deployed into Integration Service Environment":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Resource logs in Logic Apps should be enabled":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+    requiredRetentionDays: 365 
+# ---------------------------------------------------------------------------------------------------------------------
+# Machine Learning
+# ---------------------------------------------------------------------------------------------------------------------
+Machine Learning:
+  "Azure Machine Learning workspaces should be encrypted with a customer-managed key":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Azure Machine Learning workspaces should use private link":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Azure Machine Learning workspaces should use user-assigned managed identity":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Machine Learning computes should have local authentication methods disabled":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+# ---------------------------------------------------------------------------------------------------------------------
+# Managed Application
+# ---------------------------------------------------------------------------------------------------------------------
+Managed Application:
+  "Application definition for Managed Application should use customer provided storage account":
+    effect: audit  # Allowed: ["audit", "deny", "disabled"]
+# ---------------------------------------------------------------------------------------------------------------------
+# Media Services
+# ---------------------------------------------------------------------------------------------------------------------
+Media Services:
+  "Azure Media Services accounts should use an API that supports Private Link":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Azure Media Services accounts that allow access to the legacy v2 API should be blocked":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Azure Media Services should use private link":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+# ---------------------------------------------------------------------------------------------------------------------
+# Monitoring
+# ---------------------------------------------------------------------------------------------------------------------
+Monitoring:
+  "Activity log should be retained for at least one year":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Application Insights components should block log ingestion and querying from public networks":
+    effect: audit  # Allowed: ["audit", "deny", "disabled"]
+
+  "Application Insights components should block non-Azure Active Directory based ingestion.":
+    effect: Audit  # Allowed: ["Deny", "Audit", "Disabled"]
+
+  "Application Insights components with Private Link enabled should use Bring Your Own Storage accounts for profiler and debugger.":
+    effect: Audit  # Allowed: ["Deny", "Audit", "Disabled"]
+
+  "Azure Log Search Alerts over Log Analytics workspaces should use customer-managed keys":
+    effect: Audit  # Allowed: ["Audit", "Disabled", "Deny"]
+
+  "Azure Monitor Logs clusters should be created with infrastructure-encryption enabled (double encryption)":
+    effect: audit  # Allowed: ["audit", "deny", "disabled"]
+
+  "Azure Monitor Logs clusters should be encrypted with customer-managed key":
+    effect: audit  # Allowed: ["audit", "deny", "disabled"]
+
+  "Azure Monitor Logs for Application Insights should be linked to a Log Analytics workspace":
+    effect: audit  # Allowed: ["audit", "deny", "disabled"]
+
+  "Azure Monitor Private Link Scope should use private link":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Azure Monitor log profile should collect logs for categories 'write,' 'delete,' and 'action'":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Azure Monitor should collect activity logs from all regions":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Azure Monitor solution 'Security and Audit' must be deployed":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Azure subscriptions should have a log profile for Activity Log":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Log Analytics Workspaces should block non-Azure Active Directory based ingestion.":
+    effect: Audit  # Allowed: ["Deny", "Audit", "Disabled"]
+
+  "Log Analytics agent should be installed on your Linux Azure Arc machines":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Log Analytics agent should be installed on your Windows Azure Arc machines":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Log Analytics workspaces should block log ingestion and querying from public networks":
+    effect: audit  # Allowed: ["audit", "deny", "disabled"]
+
+  "Network traffic data collection agent should be installed on Linux virtual machines":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Network traffic data collection agent should be installed on Windows virtual machines":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Saved-queries in Azure Monitor should be saved in customer storage account for logs encryption":
+    effect: audit  # Allowed: ["audit", "deny", "disabled"]
+
+  "Storage account containing the container with activity logs must be encrypted with BYOK":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "The Log Analytics agent should be installed on Virtual Machine Scale Sets":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "The Log Analytics agent should be installed on virtual machines":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Workbooks should be saved to storage accounts that you control":
+    effect: audit  # Allowed: ["deny", "audit", "disabled"]
+# ---------------------------------------------------------------------------------------------------------------------
+# Network
+# ---------------------------------------------------------------------------------------------------------------------
+Network:
+  "All Internet traffic should be routed via your deployed Azure Firewall":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Azure VPN gateways should not use 'basic' SKU":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+
+  "Flow logs should be configured for every network security group":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+
+  "Flow logs should be enabled for every network security group":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+
+  "Network Watcher flow logs should have traffic analytics enabled":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+
+  "RDP access from the Internet should be blocked":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+
+  "SSH access from the Internet should be blocked":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+
+  "Web Application Firewall (WAF) should be enabled for Application Gateway":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Web Application Firewall (WAF) should be enabled for Azure Front Door Service service":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Web Application Firewall (WAF) should use the specified mode for Application Gateway":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+    modeRequirement: Detection  # Allowed: ["Prevention", "Detection"]
+
+  "Web Application Firewall (WAF) should use the specified mode for Azure Front Door Service":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+    modeRequirement: Detection  # Allowed: ["Prevention", "Detection"]
+# ---------------------------------------------------------------------------------------------------------------------
+# Portal
+# ---------------------------------------------------------------------------------------------------------------------
+Portal:
+  "Shared dashboards should not have markdown tiles with inline content":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+# ---------------------------------------------------------------------------------------------------------------------
+# SQL
+# ---------------------------------------------------------------------------------------------------------------------
+SQL:
+  "An Azure Active Directory administrator should be provisioned for SQL servers":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Auditing on SQL server should be enabled":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+    setting: enabled  # Allowed: ["enabled", "disabled"]
+
+  "Azure Defender for SQL should be enabled for unprotected Azure SQL servers":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Azure Defender for SQL should be enabled for unprotected SQL Managed Instances":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Azure SQL Database should have the minimal TLS version of 1.2":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+
+  "Connection throttling should be enabled for PostgreSQL database servers":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Disconnections should be logged for PostgreSQL database servers.":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Enforce SSL connection should be enabled for MySQL database servers":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+
+  "Enforce SSL connection should be enabled for PostgreSQL database servers":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+
+  "Geo-redundant backup should be enabled for Azure Database for MariaDB":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+
+  "Geo-redundant backup should be enabled for Azure Database for MySQL":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+
+  "Geo-redundant backup should be enabled for Azure Database for PostgreSQL":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+
+  "Infrastructure encryption should be enabled for Azure Database for MySQL servers":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Infrastructure encryption should be enabled for Azure Database for PostgreSQL servers":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Log checkpoints should be enabled for PostgreSQL database servers":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Log connections should be enabled for PostgreSQL database servers":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Log duration should be enabled for PostgreSQL database servers":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Long-term geo-redundant backup should be enabled for Azure SQL Databases":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "MySQL servers should use customer-managed keys to encrypt data at rest":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "PostgreSQL servers should use customer-managed keys to encrypt data at rest":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Private endpoint connections on Azure SQL Database should be enabled":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+
+  "Private endpoint should be enabled for MariaDB servers":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Private endpoint should be enabled for MySQL servers":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Private endpoint should be enabled for PostgreSQL servers":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Public network access on Azure SQL Database should be disabled":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Public network access should be disabled for MariaDB servers":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+
+  "Public network access should be disabled for MySQL flexible servers":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Public network access should be disabled for MySQL servers":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+
+  "Public network access should be disabled for PostgreSQL flexible servers":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Public network access should be disabled for PostgreSQL servers":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+
+  "SQL Auditing settings should have Action-Groups configured to capture critical activities":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "SQL Database should avoid using GRS backup redundancy":
+    effect: Deny  # Allowed: ["Deny", "Disabled"]
+
+  "SQL Managed Instance should have the minimal TLS version of 1.2":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+
+  "SQL Managed Instances should avoid using GRS backup redundancy":
+    effect: Deny  # Allowed: ["Deny", "Disabled"]
+
+  "SQL managed instances should use customer-managed keys to encrypt data at rest":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "SQL servers should use customer-managed keys to encrypt data at rest":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "SQL servers with auditing to storage account destination should be configured with 90 days retention or higher":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Transparent Data Encryption on SQL databases should be enabled":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Vulnerability Assessment settings for SQL server should contain an email address to receive scan reports":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Vulnerability assessment should be enabled on SQL Managed Instance":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Vulnerability assessment should be enabled on your SQL servers":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+# ---------------------------------------------------------------------------------------------------------------------
+# Search
+# ---------------------------------------------------------------------------------------------------------------------
+Search:
+  "Azure Cognitive Search service should use a SKU that supports private link":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Azure Cognitive Search services should disable public network access":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Azure Cognitive Search services should use private link":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+
+  "Resource logs in Search services should be enabled":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+    requiredRetentionDays: 365 
+# ---------------------------------------------------------------------------------------------------------------------
+# Security Center
+# ---------------------------------------------------------------------------------------------------------------------
+Security Center:
+  "A maximum of 3 owners should be designated for your subscription":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "A vulnerability assessment solution should be enabled on your virtual machines":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Adaptive application controls for defining safe applications should be enabled on your machines":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Adaptive network hardening recommendations should be applied on internet facing virtual machines":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "All network ports should be restricted on network security groups associated to your virtual machine":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Allowlist rules in your adaptive application control policy should be updated":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Authorized IP ranges should be defined on Kubernetes Services":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+
+  "Auto provisioning of the Log Analytics agent should be enabled on your subscription":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Azure DDoS Protection Standard should be enabled":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Azure Defender for App Service should be enabled":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Azure Defender for Azure SQL Database servers should be enabled":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Azure Defender for DNS should be enabled":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Azure Defender for Key Vault should be enabled":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Azure Defender for Kubernetes should be enabled":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Azure Defender for Resource Manager should be enabled":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Azure Defender for SQL servers on machines should be enabled":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Azure Defender for Storage should be enabled":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Azure Defender for container registries should be enabled":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Azure Defender for servers should be enabled":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Cloud Services (extended support) role instances should be configured securely":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Cloud Services (extended support) role instances should have an endpoint protection solution installed":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Cloud Services (extended support) role instances should have system updates installed":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Deprecated accounts should be removed from your subscription":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Deprecated accounts with owner permissions should be removed from your subscription":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Email notification for high severity alerts should be enabled":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Email notification to subscription owner for high severity alerts should be enabled":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Endpoint protection solution should be installed on virtual machine scale sets":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "External accounts with owner permissions should be removed from your subscription":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "External accounts with read permissions should be removed from your subscription":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "External accounts with write permissions should be removed from your subscription":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Guest Attestation extension should be installed on supported Linux virtual machines":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Guest Attestation extension should be installed on supported Linux virtual machines scale sets":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Guest Attestation extension should be installed on supported Windows virtual machines":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Guest Attestation extension should be installed on supported Windows virtual machines scale sets":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Guest Configuration extension should be installed on your machines":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "IP Forwarding on your virtual machine should be disabled":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Internet-facing virtual machines should be protected with network security groups":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Kubernetes Services should be upgraded to a non-vulnerable Kubernetes version":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+
+  "Linux virtual machines should use Secure Boot":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Log Analytics agent health issues should be resolved on your machines":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Log Analytics agent should be installed on your Cloud Services (extended support) role instances":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Log Analytics agent should be installed on your virtual machine for Azure Security Center monitoring":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Log Analytics agent should be installed on your virtual machine scale sets for Azure Security Center monitoring":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "MFA should be enabled accounts with write permissions on your subscription":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "MFA should be enabled on accounts with owner permissions on your subscription":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "MFA should be enabled on accounts with read permissions on your subscription":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Management ports of virtual machines should be protected with just-in-time network access control":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Management ports should be closed on your virtual machines":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Monitor missing Endpoint Protection in Azure Security Center":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Non-internet-facing virtual machines should be protected with network security groups":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Role-Based Access Control (RBAC) should be used on Kubernetes Services":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+
+  "SQL databases should have vulnerability findings resolved":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "SQL servers on machines should have vulnerability findings resolved":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Secure Boot should be enabled on supported Windows virtual machines":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+
+  "Security Center standard pricing tier should be selected":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+
+  "Sensitive data in your SQL databases should be classified":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Service principals should be used to protect your subscriptions instead of management certificates":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Subnets should be associated with a Network Security Group":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Subscriptions should have a contact email address for security issues":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "System updates on virtual machine scale sets should be installed":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "System updates should be installed on your machines":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "There should be more than one owner assigned to your subscription":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Virtual machines guest attestation status should be healthy":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Virtual machines should encrypt temp disks, caches, and data flows between Compute and Storage resources":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Virtual machines' Guest Configuration extension should be deployed with system-assigned managed identity":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Vulnerabilities in Azure Container Registry images should be remediated":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Vulnerabilities in container security configurations should be remediated":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Vulnerabilities in security configuration on your machines should be remediated":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Vulnerabilities in security configuration on your virtual machine scale sets should be remediated":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "vTPM should be enabled on supported virtual machines":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+# ---------------------------------------------------------------------------------------------------------------------
+# Service Bus
+# ---------------------------------------------------------------------------------------------------------------------
+Service Bus:
+  "All authorization rules except RootManageSharedAccessKey should be removed from Service Bus namespace":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Azure Service Bus namespaces should use private link":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Resource logs in Service Bus should be enabled":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+    requiredRetentionDays: 365 
+
+  "Service Bus Premium namespaces should use a customer-managed key for encryption":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+
+  "Service Bus namespaces should have double encryption enabled":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+# ---------------------------------------------------------------------------------------------------------------------
+# Service Fabric
+# ---------------------------------------------------------------------------------------------------------------------
+Service Fabric:
+  "Service Fabric clusters should have the ClusterProtectionLevel property set to EncryptAndSign":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Service Fabric clusters should only use Azure Active Directory for client authentication":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+# ---------------------------------------------------------------------------------------------------------------------
+# SignalR
+# ---------------------------------------------------------------------------------------------------------------------
+SignalR:
+  "Azure SignalR Service should disable public network access":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Azure SignalR Service should use a Private Link enabled SKU":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Azure SignalR Service should use private link":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+# ---------------------------------------------------------------------------------------------------------------------
+# Site Recovery
+# ---------------------------------------------------------------------------------------------------------------------
+Site Recovery:
+  "Recovery Services vaults should use private link":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+# ---------------------------------------------------------------------------------------------------------------------
+# Storage
+# ---------------------------------------------------------------------------------------------------------------------
+Storage:
+  "Azure File Sync should use private link":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Geo-redundant storage should be enabled for Storage Accounts":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+
+  "HPC Cache accounts should use customer-managed key for encryption":
+    effect: Audit  # Allowed: ["Audit", "Disabled", "Deny"]
+
+  "Public network access should be disabled for Azure File Sync":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Secure transfer to storage accounts should be enabled":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Storage account encryption scopes should use customer-managed keys to encrypt data at rest":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Storage account keys should not be expired":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Storage account public access should be disallowed":
+    effect: audit  # Allowed: ["audit", "deny", "disabled"]
+
+  "Storage accounts should allow access from trusted Microsoft services":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Storage accounts should be migrated to new Azure Resource Manager resources":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Storage accounts should have infrastructure encryption":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Storage accounts should prevent shared key access":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Storage accounts should restrict network access":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Storage accounts should restrict network access using virtual network rules":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Storage accounts should use customer-managed key for encryption":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+
+  "Storage accounts should use private link":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+# ---------------------------------------------------------------------------------------------------------------------
+# Stream Analytics
+# ---------------------------------------------------------------------------------------------------------------------
+Stream Analytics:
+  "Azure Stream Analytics jobs should use customer-managed keys to encrypt data":
+    effect: audit  # Allowed: ["audit", "deny", "disabled"]
+
+  "Resource logs in Azure Stream Analytics should be enabled":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+    requiredRetentionDays: 365 
+# ---------------------------------------------------------------------------------------------------------------------
+# Synapse
+# ---------------------------------------------------------------------------------------------------------------------
+Synapse:
+  "Auditing on Synapse workspace should be enabled":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+    setting: enabled  # Allowed: ["enabled", "disabled"]
+
+  "Azure Synapse workspaces should allow outbound data traffic only to approved targets":
+    effect: Audit  # Allowed: ["Audit", "Disabled", "Deny"]
+
+  "Azure Synapse workspaces should disable public network access":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Azure Synapse workspaces should use customer-managed keys to encrypt data at rest":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Azure Synapse workspaces should use private link":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+
+  "IP firewall rules on Azure Synapse workspaces should be removed":
+    effect: Audit  # Allowed: ["Audit", "Disabled"]
+
+  "Managed workspace virtual network on Azure Synapse workspaces should be enabled":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Synapse workspace auditing settings should have action groups configured to capture critical activities":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Synapse workspaces with SQL auditing to storage account destination should be configured with 90 days retention or higher":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+
+  "Vulnerability assessment should be enabled on your Synapse workspaces":
+    effect: AuditIfNotExists  # Allowed: ["AuditIfNotExists", "Disabled"]
+# ---------------------------------------------------------------------------------------------------------------------
+# VM Image Builder
+# ---------------------------------------------------------------------------------------------------------------------
+VM Image Builder:
+  "VM Image Builder templates should use private link":
+    effect: Audit  # Allowed: ["Audit", "Disabled", "Deny"]
+# ---------------------------------------------------------------------------------------------------------------------
+# Web PubSub
+# ---------------------------------------------------------------------------------------------------------------------
+Web PubSub:
+  "Azure Web PubSub Service should disable public network access":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Azure Web PubSub Service should use a SKU that supports private link":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]
+
+  "Azure Web PubSub Service should use private link":
+    effect: Audit  # Allowed: ["Audit", "Deny", "Disabled"]

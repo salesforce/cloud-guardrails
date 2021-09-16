@@ -25,6 +25,7 @@ logger = logging.getLogger(__name__)
     name="create-parameters-file",
     short_help="Create a YAML file containing Policy Parameters and default values."
 )
+@click.option("--enforce", "-e", "enforce", type=str, is_flag=True, required=False, default=False, help="Where possible, set the effect for all policies to Deny.")
 @click.option("--output", "-o", "output_file", type=click.Path(exists=False), required=True, default="parameters.yml", help="The path to the output file")
 @click.option("--config", "-c", "config_file", type=click.Path(exists=False), required=False, help="The path to the output file")
 @click.option("--exclude-services", "exclude_services", type=str, help="Exclude specific services (comma-separated) without using a config file.", callback=validate.click_validate_comma_separated_excluded_services)
@@ -34,6 +35,7 @@ logger = logging.getLogger(__name__)
 @optgroup.option("--required-only", "-ro", is_flag=True, default=False, help="Include policies containing REQUIRED parameters")
 @click.option("--verbose", "-v", "verbosity", count=True)
 def create_parameters_file(
+    enforce: bool,
     output_file: str,
     config_file: str,
     optional_only: bool,
@@ -62,7 +64,8 @@ def create_parameters_file(
         params_optional = False
 
     # config_template = get_parameters_template()
-    parameters_template = ParameterTemplate(config=config, params_optional=params_optional, params_required=params_required)
+    parameters_template = ParameterTemplate(config=config, params_optional=params_optional,
+                                            params_required=params_required, enforce=enforce)
     parameters_template_rendered = parameters_template.rendered()
 
     filename = Path(output_file).resolve()
