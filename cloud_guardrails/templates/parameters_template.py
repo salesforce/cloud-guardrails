@@ -77,8 +77,8 @@ class ParameterTemplate:
                 # It could be Capitalized or lowercase in allowed_values
                 if "Deny" in allowed_values:
                     result = "Deny"
-                lowercase = [x.lower() for x in allowed_values]
-                if "deny" in lowercase:
+                # lowercase = [x.lower() for x in allowed_values]
+                if "deny" in allowed_values:
                     result = "deny"
         return result
 

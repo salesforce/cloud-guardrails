@@ -304,8 +304,8 @@ class AzurePolicies:
                                         # It could be Capitalized or lowercase in allowed_values
                                         if "Deny" in parameter_details.allowed_values:
                                             parameters[parameter_name]["value"] = "Deny"
-                                        lowercase = [x.lower() for x in parameter_details.allowed_values]
-                                        if "deny" in lowercase:
+                                        # lowercase = [x.lower() for x in parameter_details.allowed_values]
+                                        if "deny" in parameter_details.allowed_values:
                                             parameters[parameter_name]["value"] = "deny"
                             service_results[policy_details.get("display_name")] = dict(
                                 short_id=policy_details.get("short_id"),
@@ -330,8 +330,8 @@ class AzurePolicies:
                                         # It could be Capitalized or lowercase in allowed_values
                                         if "Deny" in parameter_details.allowed_values:
                                             parameters[parameter_details.name]["value"] = "Deny"
-                                        lowercase = [x.lower() for x in parameter_details.allowed_values]
-                                        if "deny" in lowercase:
+                                        # lowercase = [x.lower() for x in parameter_details.allowed_values]
+                                        if "deny" in parameter_details.allowed_values:
                                             parameters[parameter_details.name]["value"] = "deny"
                             service_results[policy_details.get("display_name")] = dict(
                                 short_id=policy_details.get("short_id"),

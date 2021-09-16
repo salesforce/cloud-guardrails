@@ -116,9 +116,9 @@ test-list-services: activate-env
 	./cloud_guardrails/bin/cli.py list-services --help
 	./cloud_guardrails/bin/cli.py list-services
 test-generate-terraform:
-	./cloud_guardrails/bin/cli.py generate-terraform --no-params --service all --subscription example
-	./cloud_guardrails/bin/cli.py generate-terraform --params-optional --service all --subscription example
-	./cloud_guardrails/bin/cli.py generate-terraform --params-required --service all --subscription example
+	./cloud_guardrails/bin/cli.py generate-terraform --no-params --service all --subscription example --output examples/terraform-demo-no-params/
+	./cloud_guardrails/bin/cli.py generate-terraform --params-optional --service all --subscription example --output examples/terraform-demo-params-optional/
+	./cloud_guardrails/bin/cli.py generate-terraform --params-required --service all --subscription example --output examples/terraform-demo-params-required/
 test-create-parameters-file:
 	./cloud_guardrails/bin/cli.py create-parameters-file --params-optional --service all --subscription example
 	./cloud_guardrails/bin/cli.py create-parameters-file --params-required --service all --subscription example

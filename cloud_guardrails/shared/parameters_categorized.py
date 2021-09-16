@@ -133,8 +133,8 @@ class CategorizedParameters:
                                     # It could be Capitalized or lowercase in allowed_values
                                     if "Deny" in allowed_values:
                                         results[service_name][policy_name][parameter_name]["value"] = "Deny"
-                                    lowercase = [x.lower() for x in allowed_values]
-                                    if "deny" in lowercase:
+                                    # lowercase = [x.lower() for x in allowed_values]
+                                    if "deny" in allowed_values:
                                         results[service_name][policy_name][parameter_name]["value"] = "deny"
 
                     else:
@@ -208,8 +208,8 @@ class CategorizedParameters:
                     # It could be Capitalized or lowercase in allowed_values
                     if "Deny" in allowed_values:
                         user_supplied_value = "Deny"
-                    lowercase = [x.lower() for x in allowed_values]
-                    if "deny" in lowercase:
+                    # lowercase = [x.lower() for x in allowed_values]
+                    if "deny" in allowed_values:
                         user_supplied_value = "deny"
 
         # Python thinks [] or {} is the same as None. Let's circumvent that
