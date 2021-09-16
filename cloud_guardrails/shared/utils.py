@@ -109,6 +109,14 @@ def normalize_display_name_string(string: str) -> str:
     return string
 
 
+def strip_special_characters(some_string: str) -> str:
+    """Remove all special characters, punctuation, and spaces from a string"""
+    # Input: "Special $#! characters   spaces 888323"
+    # Output: 'Specialcharactersspaces888323'
+    result = ''.join(e for e in some_string if e.isalnum())
+    return result
+
+
 def normalize_display_names_list(display_names: list) -> list:
     results = []
     for name in display_names:

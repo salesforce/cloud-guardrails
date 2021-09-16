@@ -1006,7 +1006,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
         effect = { "value" : "Audit" }
         listOfAllowedSKUs = { "value" : ["Developer", "Premium", "Isolated"] }
     })
-    reference_id = null
+    reference_id = "APIManagementserviceshoulduseaSKUthatsupportsvirtualnetworks"
   }
 
   policy_definition_reference {
@@ -1014,7 +1014,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "audit" }
     })
-    reference_id = null
+    reference_id = "AzureAPIforFHIRshoulduseacustomermanagedkeytoencryptdataatrest"
   }
 
   policy_definition_reference {
@@ -1022,7 +1022,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AzureAPIforFHIRshoulduseprivatelink"
   }
 
   policy_definition_reference {
@@ -1030,7 +1030,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "audit" }
     })
-    reference_id = null
+    reference_id = "CORSshouldnotalloweverydomaintoaccessyourAPIforFHIR"
   }
 
   policy_definition_reference {
@@ -1038,7 +1038,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AppConfigurationshoulddisablepublicnetworkaccess"
   }
 
   policy_definition_reference {
@@ -1046,7 +1046,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AppConfigurationshoulduseaSKUthatsupportsprivatelink"
   }
 
   policy_definition_reference {
@@ -1054,7 +1054,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AppConfigurationshoulduseacustomermanagedkey"
   }
 
   policy_definition_reference {
@@ -1062,7 +1062,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "AppConfigurationshoulduseprivatelink"
   }
 
   policy_definition_reference {
@@ -1070,7 +1070,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AppConfigurationstoresshouldhavelocalauthenticationmethodsdisabled"
   }
 
   policy_definition_reference {
@@ -1078,7 +1078,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AuditAzureSpringCloudinstanceswheredistributedtracingisnotenabled"
   }
 
   policy_definition_reference {
@@ -1086,7 +1086,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "APIAppshouldonlybeaccessibleoverHTTPS"
   }
 
   policy_definition_reference {
@@ -1094,7 +1094,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "APIappsshoulduseanAzurefileshareforitscontentdirectory"
   }
 
   policy_definition_reference {
@@ -1102,7 +1102,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AppServiceAppsshouldbeinjectedintoavirtualnetwork"
   }
 
   policy_definition_reference {
@@ -1110,7 +1110,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AppServiceEnvironmentappsshouldnotbereachableoverpublicinternet"
   }
 
   policy_definition_reference {
@@ -1118,7 +1118,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AppServiceEnvironmentshouldbeconfiguredwithstrongestTLSCiphersuites"
   }
 
   policy_definition_reference {
@@ -1126,7 +1126,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AppServiceEnvironmentshouldbeprovisionedwithlatestversions"
   }
 
   policy_definition_reference {
@@ -1134,7 +1134,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AppServiceEnvironmentshoulddisableTLS10and11"
   }
 
   policy_definition_reference {
@@ -1142,7 +1142,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AppServiceEnvironmentshouldenableinternalencryption"
   }
 
   policy_definition_reference {
@@ -1150,7 +1150,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "AppServiceappsshouldenableoutboundnonRFC1918traffictoAzureVirtualNetwork"
   }
 
   policy_definition_reference {
@@ -1158,7 +1158,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AppServiceappsshoulduseaSKUthatsupportsprivatelink"
   }
 
   policy_definition_reference {
@@ -1166,7 +1166,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "AppServiceshoulduseprivatelink"
   }
 
   policy_definition_reference {
@@ -1174,7 +1174,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "AppServicesshoulddisablepublicnetworkaccess"
   }
 
   policy_definition_reference {
@@ -1182,7 +1182,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "AuthenticationshouldbeenabledonyourAPIapp"
   }
 
   policy_definition_reference {
@@ -1190,7 +1190,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "AuthenticationshouldbeenabledonyourFunctionapp"
   }
 
   policy_definition_reference {
@@ -1198,7 +1198,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "Authenticationshouldbeenabledonyourwebapp"
   }
 
   policy_definition_reference {
@@ -1206,7 +1206,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "CORSshouldnotalloweveryresourcetoaccessyourAPIApp"
   }
 
   policy_definition_reference {
@@ -1214,7 +1214,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "CORSshouldnotalloweveryresourcetoaccessyourFunctionApps"
   }
 
   policy_definition_reference {
@@ -1222,7 +1222,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "CORSshouldnotalloweveryresourcetoaccessyourWebApplications"
   }
 
   policy_definition_reference {
@@ -1230,7 +1230,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "DiagnosticlogsinAppServicesshouldbeenabled"
   }
 
   policy_definition_reference {
@@ -1238,7 +1238,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "EnsureAPIapphasClientCertificatesIncomingclientcertificatessettoOn"
   }
 
   policy_definition_reference {
@@ -1246,7 +1246,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "EnsureWEBapphasClientCertificatesIncomingclientcertificatessettoOn"
   }
 
   policy_definition_reference {
@@ -1254,7 +1254,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "EnsurethatHTTPVersionisthelatestifusedtoruntheAPIapp"
   }
 
   policy_definition_reference {
@@ -1262,7 +1262,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "EnsurethatHTTPVersionisthelatestifusedtoruntheFunctionapp"
   }
 
   policy_definition_reference {
@@ -1270,7 +1270,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "EnsurethatHTTPVersionisthelatestifusedtoruntheWebapp"
   }
 
   policy_definition_reference {
@@ -1279,7 +1279,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
         effect = { "value" : "AuditIfNotExists" }
         JavaLatestVersion = { "value" : "11" }
     })
-    reference_id = null
+    reference_id = "EnsurethatJavaversionisthelatestifusedasapartoftheAPIapp"
   }
 
   policy_definition_reference {
@@ -1288,7 +1288,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
         effect = { "value" : "AuditIfNotExists" }
         JavaLatestVersion = { "value" : "11" }
     })
-    reference_id = null
+    reference_id = "EnsurethatJavaversionisthelatestifusedasapartoftheFunctionapp"
   }
 
   policy_definition_reference {
@@ -1297,7 +1297,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
         effect = { "value" : "AuditIfNotExists" }
         JavaLatestVersion = { "value" : "11" }
     })
-    reference_id = null
+    reference_id = "EnsurethatJavaversionisthelatestifusedasapartoftheWebapp"
   }
 
   policy_definition_reference {
@@ -1306,7 +1306,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
         effect = { "value" : "AuditIfNotExists" }
         PHPLatestVersion = { "value" : "7.4" }
     })
-    reference_id = null
+    reference_id = "EnsurethatPHPversionisthelatestifusedasapartoftheAPIapp"
   }
 
   policy_definition_reference {
@@ -1315,7 +1315,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
         effect = { "value" : "AuditIfNotExists" }
         PHPLatestVersion = { "value" : "7.4" }
     })
-    reference_id = null
+    reference_id = "EnsurethatPHPversionisthelatestifusedasapartoftheWEBapp"
   }
 
   policy_definition_reference {
@@ -1325,7 +1325,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
         WindowsPythonLatestVersion = { "value" : "3.6" }
         LinuxPythonLatestVersion = { "value" : "3.9" }
     })
-    reference_id = null
+    reference_id = "EnsurethatPythonversionisthelatestifusedasapartoftheAPIapp"
   }
 
   policy_definition_reference {
@@ -1335,7 +1335,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
         WindowsPythonLatestVersion = { "value" : "3.6" }
         LinuxPythonLatestVersion = { "value" : "3.9" }
     })
-    reference_id = null
+    reference_id = "EnsurethatPythonversionisthelatestifusedasapartoftheFunctionapp"
   }
 
   policy_definition_reference {
@@ -1345,7 +1345,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
         WindowsPythonLatestVersion = { "value" : "3.6" }
         LinuxPythonLatestVersion = { "value" : "3.9" }
     })
-    reference_id = null
+    reference_id = "EnsurethatPythonversionisthelatestifusedasapartoftheWebapp"
   }
 
   policy_definition_reference {
@@ -1353,7 +1353,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "FTPSonlyshouldberequiredinyourAPIApp"
   }
 
   policy_definition_reference {
@@ -1361,7 +1361,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "FTPSonlyshouldberequiredinyourFunctionApp"
   }
 
   policy_definition_reference {
@@ -1369,7 +1369,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "FTPSshouldberequiredinyourWebApp"
   }
 
   policy_definition_reference {
@@ -1377,7 +1377,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "FunctionAppshouldonlybeaccessibleoverHTTPS"
   }
 
   policy_definition_reference {
@@ -1385,7 +1385,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "FunctionappsshouldhaveClientCertificatesIncomingclientcertificatesenabled"
   }
 
   policy_definition_reference {
@@ -1393,7 +1393,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "FunctionappsshoulduseanAzurefileshareforitscontentdirectory"
   }
 
   policy_definition_reference {
@@ -1401,7 +1401,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "LatestTLSversionshouldbeusedinyourAPIApp"
   }
 
   policy_definition_reference {
@@ -1409,7 +1409,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "LatestTLSversionshouldbeusedinyourFunctionApp"
   }
 
   policy_definition_reference {
@@ -1417,7 +1417,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "LatestTLSversionshouldbeusedinyourWebApp"
   }
 
   policy_definition_reference {
@@ -1425,7 +1425,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "ManagedidentityshouldbeusedinyourAPIApp"
   }
 
   policy_definition_reference {
@@ -1433,7 +1433,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "ManagedidentityshouldbeusedinyourFunctionApp"
   }
 
   policy_definition_reference {
@@ -1441,7 +1441,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "ManagedidentityshouldbeusedinyourWebApp"
   }
 
   policy_definition_reference {
@@ -1449,7 +1449,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "RemotedebuggingshouldbeturnedoffforAPIApps"
   }
 
   policy_definition_reference {
@@ -1457,7 +1457,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "RemotedebuggingshouldbeturnedoffforFunctionApps"
   }
 
   policy_definition_reference {
@@ -1465,7 +1465,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "RemotedebuggingshouldbeturnedoffforWebApplications"
   }
 
   policy_definition_reference {
@@ -1474,7 +1474,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
         effect = { "value" : "AuditIfNotExists" }
         requiredRetentionDays = { "value" : "365" }
     })
-    reference_id = null
+    reference_id = "ResourcelogsinAppServicesshouldbeenabled"
   }
 
   policy_definition_reference {
@@ -1482,7 +1482,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "WebApplicationshouldonlybeaccessibleoverHTTPS"
   }
 
   policy_definition_reference {
@@ -1490,7 +1490,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "WebappsshoulduseanAzurefileshareforitscontentdirectory"
   }
 
   policy_definition_reference {
@@ -1498,7 +1498,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "AzureAttestationprovidersshoulduseprivateendpoints"
   }
 
   policy_definition_reference {
@@ -1506,7 +1506,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "Automationaccountvariablesshouldbeencrypted"
   }
 
   policy_definition_reference {
@@ -1514,7 +1514,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "Automationaccountsshoulddisablepublicnetworkaccess"
   }
 
   policy_definition_reference {
@@ -1522,7 +1522,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AzureAutomationaccountsshouldusecustomermanagedkeystoencryptdataatrest"
   }
 
   policy_definition_reference {
@@ -1530,7 +1530,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "PrivateendpointconnectionsonAutomationAccountsshouldbeenabled"
   }
 
   policy_definition_reference {
@@ -1538,7 +1538,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AzureActiveDirectoryDomainServicesmanageddomainsshoulduseTLS12onlymode"
   }
 
   policy_definition_reference {
@@ -1546,7 +1546,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AzureDataExplorerencryptionatrestshoulduseacustomermanagedkey"
   }
 
   policy_definition_reference {
@@ -1554,7 +1554,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "DiskencryptionshouldbeenabledonAzureDataExplorer"
   }
 
   policy_definition_reference {
@@ -1562,7 +1562,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "DoubleencryptionshouldbeenabledonAzureDataExplorer"
   }
 
   policy_definition_reference {
@@ -1570,7 +1570,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "VirtualnetworkinjectionshouldbeenabledforAzureDataExplorer"
   }
 
   policy_definition_reference {
@@ -1578,7 +1578,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "audit" }
     })
-    reference_id = null
+    reference_id = "AzureStackEdgedevicesshouldusedoubleencryption"
   }
 
   policy_definition_reference {
@@ -1586,7 +1586,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "AzureBackupshouldbeenabledforVirtualMachines"
   }
 
   policy_definition_reference {
@@ -1594,7 +1594,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AzureRecoveryServicesvaultsshoulduseprivatelink"
   }
 
   policy_definition_reference {
@@ -1602,7 +1602,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AzureBatchaccountshouldusecustomermanagedkeystoencryptdata"
   }
 
   policy_definition_reference {
@@ -1610,7 +1610,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "PrivateendpointconnectionsonBatchaccountsshouldbeenabled"
   }
 
   policy_definition_reference {
@@ -1618,7 +1618,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "PublicnetworkaccessshouldbedisabledforBatchaccounts"
   }
 
   policy_definition_reference {
@@ -1627,7 +1627,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
         effect = { "value" : "AuditIfNotExists" }
         requiredRetentionDays = { "value" : "365" }
     })
-    reference_id = null
+    reference_id = "ResourcelogsinBatchaccountsshouldbeenabled"
   }
 
   policy_definition_reference {
@@ -1635,7 +1635,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "audit" }
     })
-    reference_id = null
+    reference_id = "BotServiceendpointshouldbeavalidHTTPSURI"
   }
 
   policy_definition_reference {
@@ -1643,7 +1643,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "audit" }
     })
-    reference_id = null
+    reference_id = "BotServiceshouldbeencryptedwithacustomermanagedkey"
   }
 
   policy_definition_reference {
@@ -1651,7 +1651,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "audit" }
     })
-    reference_id = null
+    reference_id = "BotServiceshouldhaveisolatedmodeenabled"
   }
 
   policy_definition_reference {
@@ -1659,7 +1659,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AzureCacheforRedisshoulddisablepublicnetworkaccess"
   }
 
   policy_definition_reference {
@@ -1667,7 +1667,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AzureCacheforRedisshouldresidewithinavirtualnetwork"
   }
 
   policy_definition_reference {
@@ -1675,7 +1675,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "AzureCacheforRedisshoulduseprivatelink"
   }
 
   policy_definition_reference {
@@ -1683,7 +1683,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "OnlysecureconnectionstoyourAzureCacheforRedisshouldbeenabled"
   }
 
   policy_definition_reference {
@@ -1691,7 +1691,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "CognitiveServicesaccountsshoulddisablepublicnetworkaccess"
   }
 
   policy_definition_reference {
@@ -1699,7 +1699,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "CognitiveServicesaccountsshouldenabledataencryptionwithacustomermanagedkey"
   }
 
   policy_definition_reference {
@@ -1707,7 +1707,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "CognitiveServicesaccountsshouldhavelocalauthenticationmethodsdisabled"
   }
 
   policy_definition_reference {
@@ -1715,7 +1715,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "CognitiveServicesaccountsshouldrestrictnetworkaccess"
   }
 
   policy_definition_reference {
@@ -1723,7 +1723,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "CognitiveServicesaccountsshoulduseamanagedidentity"
   }
 
   policy_definition_reference {
@@ -1731,7 +1731,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "CognitiveServicesaccountsshouldusecustomerownedstorage"
   }
 
   policy_definition_reference {
@@ -1739,7 +1739,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "CognitiveServicesshoulduseprivatelink"
   }
 
   policy_definition_reference {
@@ -1747,7 +1747,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "Diskaccessresourcesshoulduseprivatelink"
   }
 
   policy_definition_reference {
@@ -1755,7 +1755,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "Manageddisksshouldbedoubleencryptedwithbothplatformmanagedandcustomermanagedkeys"
   }
 
   policy_definition_reference {
@@ -1763,7 +1763,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "Manageddisksshoulddisablepublicnetworkaccess"
   }
 
   policy_definition_reference {
@@ -1771,7 +1771,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "MicrosoftAntimalwareforAzureshouldbeconfiguredtoautomaticallyupdateprotectionsignatures"
   }
 
   policy_definition_reference {
@@ -1779,7 +1779,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "MicrosoftIaaSAntimalwareextensionshouldbedeployedonWindowsservers"
   }
 
   policy_definition_reference {
@@ -1787,7 +1787,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "OSanddatadisksshouldbeencryptedwithacustomermanagedkey"
   }
 
   policy_definition_reference {
@@ -1795,7 +1795,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "Unattacheddisksshouldbeencrypted"
   }
 
   policy_definition_reference {
@@ -1803,7 +1803,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "Virtualmachinesandvirtualmachinescalesetsshouldhaveencryptionathostenabled"
   }
 
   policy_definition_reference {
@@ -1811,7 +1811,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "VirtualmachinesshouldbemigratedtonewAzureResourceManagerresources"
   }
 
   policy_definition_reference {
@@ -1819,7 +1819,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AzureContainerInstancecontainergroupshoulddeployintoavirtualnetwork"
   }
 
   policy_definition_reference {
@@ -1827,7 +1827,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AzureContainerInstancecontainergroupshouldusecustomermanagedkeyforencryption"
   }
 
   policy_definition_reference {
@@ -1835,7 +1835,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "Containerregistriesshouldbeencryptedwithacustomermanagedkey"
   }
 
   policy_definition_reference {
@@ -1843,7 +1843,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "ContainerregistriesshouldhaveSKUsthatsupportPrivateLinks"
   }
 
   policy_definition_reference {
@@ -1851,7 +1851,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "Containerregistriesshouldhavelocalauthenticationmethodsdisabled"
   }
 
   policy_definition_reference {
@@ -1859,7 +1859,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "Containerregistriesshouldnotallowunrestrictednetworkaccess"
   }
 
   policy_definition_reference {
@@ -1867,7 +1867,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "Containerregistriesshoulduseprivatelink"
   }
 
   policy_definition_reference {
@@ -1875,7 +1875,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "PublicnetworkaccessshouldbedisabledforContainerregistries"
   }
 
   policy_definition_reference {
@@ -1883,7 +1883,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Deny" }
     })
-    reference_id = null
+    reference_id = "AzureCosmosDBaccountsshouldhavefirewallrules"
   }
 
   policy_definition_reference {
@@ -1891,7 +1891,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "audit" }
     })
-    reference_id = null
+    reference_id = "AzureCosmosDBaccountsshouldusecustomermanagedkeystoencryptdataatrest"
   }
 
   policy_definition_reference {
@@ -1899,7 +1899,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AzureCosmosDBshoulddisablepublicnetworkaccess"
   }
 
   policy_definition_reference {
@@ -1907,7 +1907,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "CosmosDBdatabaseaccountsshouldhavelocalauthenticationmethodsdisabled"
   }
 
   policy_definition_reference {
@@ -1915,7 +1915,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "CosmosDBaccountsshoulduseprivatelink"
   }
 
   policy_definition_reference {
@@ -1924,7 +1924,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
         effect = { "value" : "Audit" }
         supportedSKUs = { "value" : ["DataBox", "DataBoxHeavy"] }
     })
-    reference_id = null
+    reference_id = "AzureDataBoxjobsshouldenabledoubleencryptionfordataatrestonthedevice"
   }
 
   policy_definition_reference {
@@ -1933,7 +1933,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
         effect = { "value" : "Audit" }
         supportedSKUs = { "value" : ["DataBox", "DataBoxHeavy"] }
     })
-    reference_id = null
+    reference_id = "AzureDataBoxjobsshoulduseacustomermanagedkeytoencryptthedeviceunlockpassword"
   }
 
   policy_definition_reference {
@@ -1942,7 +1942,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
         effect = { "value" : "Audit" }
         maxCores = { "value" : 32 }
     })
-    reference_id = null
+    reference_id = "AzureDataFactoryintegrationruntimeshouldhavealimitfornumberofcores"
   }
 
   policy_definition_reference {
@@ -1950,7 +1950,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AzureDataFactorylinkedservicesshoulduseKeyVaultforstoringsecrets"
   }
 
   policy_definition_reference {
@@ -1958,7 +1958,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AzureDataFactorylinkedservicesshouldusesystemassignedmanagedidentityauthenticationwhenitissupported"
   }
 
   policy_definition_reference {
@@ -1966,7 +1966,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AzureDataFactoryshoulduseaGitrepositoryforsourcecontrol"
   }
 
   policy_definition_reference {
@@ -1974,7 +1974,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "AzureDataFactoryshoulduseprivatelink"
   }
 
   policy_definition_reference {
@@ -1982,7 +1982,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "Azuredatafactoriesshouldbeencryptedwithacustomermanagedkey"
   }
 
   policy_definition_reference {
@@ -1990,7 +1990,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "PublicnetworkaccessonAzureDataFactoryshouldbedisabled"
   }
 
   policy_definition_reference {
@@ -1998,7 +1998,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "SQLServerIntegrationServicesintegrationruntimesonAzureDataFactoryshouldbejoinedtoavirtualnetwork"
   }
 
   policy_definition_reference {
@@ -2007,7 +2007,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
         effect = { "value" : "AuditIfNotExists" }
         requiredRetentionDays = { "value" : "365" }
     })
-    reference_id = null
+    reference_id = "ResourcelogsinAzureDataLakeStoreshouldbeenabled"
   }
 
   policy_definition_reference {
@@ -2016,7 +2016,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
         effect = { "value" : "AuditIfNotExists" }
         requiredRetentionDays = { "value" : "365" }
     })
-    reference_id = null
+    reference_id = "ResourcelogsinDataLakeAnalyticsshouldbeenabled"
   }
 
   policy_definition_reference {
@@ -2024,7 +2024,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AzureEventGriddomainsshoulddisablepublicnetworkaccess"
   }
 
   policy_definition_reference {
@@ -2032,7 +2032,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AzureEventGriddomainsshoulduseprivatelink"
   }
 
   policy_definition_reference {
@@ -2040,7 +2040,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AzureEventGridtopicsshoulddisablepublicnetworkaccess"
   }
 
   policy_definition_reference {
@@ -2048,7 +2048,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AzureEventGridtopicsshoulduseprivatelink"
   }
 
   policy_definition_reference {
@@ -2056,7 +2056,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AllauthorizationrulesexceptRootManageSharedAccessKeyshouldberemovedfromEventHubnamespace"
   }
 
   policy_definition_reference {
@@ -2064,7 +2064,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "AuthorizationrulesontheEventHubinstanceshouldbedefined"
   }
 
   policy_definition_reference {
@@ -2072,7 +2072,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "EventHubnamespacesshouldhavedoubleencryptionenabled"
   }
 
   policy_definition_reference {
@@ -2080,7 +2080,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "EventHubnamespacesshoulduseacustomermanagedkeyforencryption"
   }
 
   policy_definition_reference {
@@ -2088,7 +2088,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "EventHubnamespacesshoulduseprivatelink"
   }
 
   policy_definition_reference {
@@ -2097,7 +2097,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
         effect = { "value" : "AuditIfNotExists" }
         requiredRetentionDays = { "value" : "365" }
     })
-    reference_id = null
+    reference_id = "ResourcelogsinEventHubshouldbeenabled"
   }
 
   policy_definition_reference {
@@ -2105,7 +2105,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AuditusageofcustomRBACrules"
   }
 
   policy_definition_reference {
@@ -2113,7 +2113,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "Customsubscriptionownerrolesshouldnotexist"
   }
 
   policy_definition_reference {
@@ -2121,7 +2121,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AzureHDInsightclustersshouldbeinjectedintoavirtualnetwork"
   }
 
   policy_definition_reference {
@@ -2129,7 +2129,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AzureHDInsightclustersshouldusecustomermanagedkeystoencryptdataatrest"
   }
 
   policy_definition_reference {
@@ -2137,7 +2137,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AzureHDInsightclustersshoulduseencryptionathosttoencryptdataatrest"
   }
 
   policy_definition_reference {
@@ -2145,7 +2145,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AzureHDInsightclustersshoulduseencryptionintransittoencryptcommunicationbetweenAzureHDInsightclusternodes"
   }
 
   policy_definition_reference {
@@ -2153,7 +2153,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AzureIoTHubshouldusecustomermanagedkeytoencryptdataatrest"
   }
 
   policy_definition_reference {
@@ -2161,7 +2161,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "IoTHubdeviceprovisioningservicedatashouldbeencryptedusingcustomermanagedkeysCMK"
   }
 
   policy_definition_reference {
@@ -2169,7 +2169,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "IoTHubdeviceprovisioningserviceinstancesshoulddisablepublicnetworkaccess"
   }
 
   policy_definition_reference {
@@ -2177,7 +2177,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "IoTHubdeviceprovisioningserviceinstancesshoulduseprivatelink"
   }
 
   policy_definition_reference {
@@ -2185,7 +2185,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "PrivateendpointshouldbeenabledforIoTHub"
   }
 
   policy_definition_reference {
@@ -2193,7 +2193,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "PublicnetworkaccessonAzureIoTHubshouldbedisabled"
   }
 
   policy_definition_reference {
@@ -2202,7 +2202,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
         effect = { "value" : "AuditIfNotExists" }
         requiredRetentionDays = { "value" : "365" }
     })
-    reference_id = null
+    reference_id = "ResourcelogsinIoTHubshouldbeenabled"
   }
 
   policy_definition_reference {
@@ -2210,7 +2210,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AzureKeyVaultManagedHSMshouldhavepurgeprotectionenabled"
   }
 
   policy_definition_reference {
@@ -2218,7 +2218,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AzureKeyVaultshoulddisablepublicnetworkaccess"
   }
 
   policy_definition_reference {
@@ -2226,7 +2226,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AzureKeyVaultsshoulduseprivatelink"
   }
 
   policy_definition_reference {
@@ -2235,7 +2235,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
         allowedCAs = { "value" : ["DigiCert", "GlobalSign"] }
         effect = { "value" : "audit" }
     })
-    reference_id = null
+    reference_id = "Certificatesshouldbeissuedbythespecifiedintegratedcertificateauthority"
   }
 
   policy_definition_reference {
@@ -2244,7 +2244,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
         maximumValidityInMonths = { "value" : 12 }
         effect = { "value" : "audit" }
     })
-    reference_id = null
+    reference_id = "Certificatesshouldhavethespecifiedmaximumvalidityperiod"
   }
 
   policy_definition_reference {
@@ -2253,7 +2253,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
         allowedKeyTypes = { "value" : ["RSA", "RSA-HSM"] }
         effect = { "value" : "audit" }
     })
-    reference_id = null
+    reference_id = "Certificatesshoulduseallowedkeytypes"
   }
 
   policy_definition_reference {
@@ -2262,7 +2262,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
         allowedECNames = { "value" : ["P-256", "P-256K", "P-384", "P-521"] }
         effect = { "value" : "audit" }
     })
-    reference_id = null
+    reference_id = "Certificatesusingellipticcurvecryptographyshouldhaveallowedcurvenames"
   }
 
   policy_definition_reference {
@@ -2270,7 +2270,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "KeyVaultkeysshouldhaveanexpirationdate"
   }
 
   policy_definition_reference {
@@ -2278,7 +2278,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "KeyVaultsecretsshouldhaveanexpirationdate"
   }
 
   policy_definition_reference {
@@ -2286,7 +2286,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "Keyvaultsshouldhavepurgeprotectionenabled"
   }
 
   policy_definition_reference {
@@ -2294,7 +2294,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "Keyvaultsshouldhavesoftdeleteenabled"
   }
 
   policy_definition_reference {
@@ -2302,7 +2302,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "KeysshouldbebackedbyahardwaresecuritymoduleHSM"
   }
 
   policy_definition_reference {
@@ -2311,7 +2311,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
         allowedKeyTypes = { "value" : ["RSA", "RSA-HSM", "EC", "EC-HSM"] }
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "KeysshouldbethespecifiedcryptographictypeRSAorEC"
   }
 
   policy_definition_reference {
@@ -2320,7 +2320,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
         allowedECNames = { "value" : ["P-256", "P-256K", "P-384", "P-521"] }
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "Keysusingellipticcurvecryptographyshouldhavethespecifiedcurvenames"
   }
 
   policy_definition_reference {
@@ -2328,7 +2328,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "PrivateendpointshouldbeconfiguredforKeyVault"
   }
 
   policy_definition_reference {
@@ -2337,7 +2337,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
         effect = { "value" : "AuditIfNotExists" }
         requiredRetentionDays = { "value" : "365" }
     })
-    reference_id = null
+    reference_id = "ResourcelogsinAzureKeyVaultManagedHSMshouldbeenabled"
   }
 
   policy_definition_reference {
@@ -2346,7 +2346,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
         effect = { "value" : "AuditIfNotExists" }
         requiredRetentionDays = { "value" : "365" }
     })
-    reference_id = null
+    reference_id = "ResourcelogsinKeyVaultshouldbeenabled"
   }
 
   policy_definition_reference {
@@ -2354,7 +2354,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "Secretsshouldhavecontenttypeset"
   }
 
   policy_definition_reference {
@@ -2362,7 +2362,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "AzureArcenabledKubernetesclustersshouldhaveAzureDefendersextensioninstalled"
   }
 
   policy_definition_reference {
@@ -2370,7 +2370,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AzureKubernetesServicePrivateClustersshouldbeenabled"
   }
 
   policy_definition_reference {
@@ -2378,7 +2378,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AzurePolicyAddonforKubernetesserviceAKSshouldbeinstalledandenabledonyourclusters"
   }
 
   policy_definition_reference {
@@ -2386,7 +2386,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "BothoperatingsystemsanddatadisksinAzureKubernetesServiceclustersshouldbeencryptedbycustomermanagedkeys"
   }
 
   policy_definition_reference {
@@ -2394,7 +2394,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "TempdisksandcacheforagentnodepoolsinAzureKubernetesServiceclustersshouldbeencryptedathost"
   }
 
   policy_definition_reference {
@@ -2402,7 +2402,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "Auditdelegationofscopestoamanagingtenant"
   }
 
   policy_definition_reference {
@@ -2410,7 +2410,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "LogicAppsIntegrationServiceEnvironmentshouldbeencryptedwithcustomermanagedkeys"
   }
 
   policy_definition_reference {
@@ -2418,7 +2418,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "LogicAppsshouldbedeployedintoIntegrationServiceEnvironment"
   }
 
   policy_definition_reference {
@@ -2427,7 +2427,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
         effect = { "value" : "AuditIfNotExists" }
         requiredRetentionDays = { "value" : "365" }
     })
-    reference_id = null
+    reference_id = "ResourcelogsinLogicAppsshouldbeenabled"
   }
 
   policy_definition_reference {
@@ -2435,7 +2435,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AzureMachineLearningworkspacesshouldbeencryptedwithacustomermanagedkey"
   }
 
   policy_definition_reference {
@@ -2443,7 +2443,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AzureMachineLearningworkspacesshoulduseprivatelink"
   }
 
   policy_definition_reference {
@@ -2451,7 +2451,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AzureMachineLearningworkspacesshoulduseuserassignedmanagedidentity"
   }
 
   policy_definition_reference {
@@ -2459,7 +2459,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "MachineLearningcomputesshouldhavelocalauthenticationmethodsdisabled"
   }
 
   policy_definition_reference {
@@ -2467,7 +2467,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "audit" }
     })
-    reference_id = null
+    reference_id = "ApplicationdefinitionforManagedApplicationshouldusecustomerprovidedstorageaccount"
   }
 
   policy_definition_reference {
@@ -2475,7 +2475,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AzureMediaServicesaccountsshoulduseanAPIthatsupportsPrivateLink"
   }
 
   policy_definition_reference {
@@ -2483,7 +2483,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AzureMediaServicesaccountsthatallowaccesstothelegacyv2APIshouldbeblocked"
   }
 
   policy_definition_reference {
@@ -2491,7 +2491,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "AzureMediaServicesshoulduseprivatelink"
   }
 
   policy_definition_reference {
@@ -2499,7 +2499,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "Activitylogshouldberetainedforatleastoneyear"
   }
 
   policy_definition_reference {
@@ -2507,7 +2507,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "audit" }
     })
-    reference_id = null
+    reference_id = "ApplicationInsightscomponentsshouldblocklogingestionandqueryingfrompublicnetworks"
   }
 
   policy_definition_reference {
@@ -2515,7 +2515,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "ApplicationInsightscomponentsshouldblocknonAzureActiveDirectorybasedingestion"
   }
 
   policy_definition_reference {
@@ -2523,7 +2523,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "ApplicationInsightscomponentswithPrivateLinkenabledshoulduseBringYourOwnStorageaccountsforprofileranddebugger"
   }
 
   policy_definition_reference {
@@ -2531,7 +2531,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AzureLogSearchAlertsoverLogAnalyticsworkspacesshouldusecustomermanagedkeys"
   }
 
   policy_definition_reference {
@@ -2539,7 +2539,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "audit" }
     })
-    reference_id = null
+    reference_id = "AzureMonitorLogsclustersshouldbecreatedwithinfrastructureencryptionenableddoubleencryption"
   }
 
   policy_definition_reference {
@@ -2547,7 +2547,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "audit" }
     })
-    reference_id = null
+    reference_id = "AzureMonitorLogsclustersshouldbeencryptedwithcustomermanagedkey"
   }
 
   policy_definition_reference {
@@ -2555,7 +2555,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "audit" }
     })
-    reference_id = null
+    reference_id = "AzureMonitorLogsforApplicationInsightsshouldbelinkedtoaLogAnalyticsworkspace"
   }
 
   policy_definition_reference {
@@ -2563,7 +2563,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "AzureMonitorPrivateLinkScopeshoulduseprivatelink"
   }
 
   policy_definition_reference {
@@ -2571,7 +2571,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "AzureMonitorlogprofileshouldcollectlogsforcategorieswritedeleteandaction"
   }
 
   policy_definition_reference {
@@ -2579,7 +2579,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "AzureMonitorshouldcollectactivitylogsfromallregions"
   }
 
   policy_definition_reference {
@@ -2587,7 +2587,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "AzureMonitorsolutionSecurityandAuditmustbedeployed"
   }
 
   policy_definition_reference {
@@ -2595,7 +2595,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "AzuresubscriptionsshouldhavealogprofileforActivityLog"
   }
 
   policy_definition_reference {
@@ -2603,7 +2603,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "LogAnalyticsWorkspacesshouldblocknonAzureActiveDirectorybasedingestion"
   }
 
   policy_definition_reference {
@@ -2611,7 +2611,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "LogAnalyticsagentshouldbeinstalledonyourLinuxAzureArcmachines"
   }
 
   policy_definition_reference {
@@ -2619,7 +2619,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "LogAnalyticsagentshouldbeinstalledonyourWindowsAzureArcmachines"
   }
 
   policy_definition_reference {
@@ -2627,7 +2627,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "audit" }
     })
-    reference_id = null
+    reference_id = "LogAnalyticsworkspacesshouldblocklogingestionandqueryingfrompublicnetworks"
   }
 
   policy_definition_reference {
@@ -2635,7 +2635,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "NetworktrafficdatacollectionagentshouldbeinstalledonLinuxvirtualmachines"
   }
 
   policy_definition_reference {
@@ -2643,7 +2643,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "NetworktrafficdatacollectionagentshouldbeinstalledonWindowsvirtualmachines"
   }
 
   policy_definition_reference {
@@ -2651,7 +2651,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "audit" }
     })
-    reference_id = null
+    reference_id = "SavedqueriesinAzureMonitorshouldbesavedincustomerstorageaccountforlogsencryption"
   }
 
   policy_definition_reference {
@@ -2659,7 +2659,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "StorageaccountcontainingthecontainerwithactivitylogsmustbeencryptedwithBYOK"
   }
 
   policy_definition_reference {
@@ -2667,7 +2667,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "TheLogAnalyticsagentshouldbeinstalledonVirtualMachineScaleSets"
   }
 
   policy_definition_reference {
@@ -2675,7 +2675,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "TheLogAnalyticsagentshouldbeinstalledonvirtualmachines"
   }
 
   policy_definition_reference {
@@ -2683,7 +2683,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "audit" }
     })
-    reference_id = null
+    reference_id = "Workbooksshouldbesavedtostorageaccountsthatyoucontrol"
   }
 
   policy_definition_reference {
@@ -2691,7 +2691,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "AllInternettrafficshouldberoutedviayourdeployedAzureFirewall"
   }
 
   policy_definition_reference {
@@ -2699,7 +2699,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AzureVPNgatewaysshouldnotusebasicSKU"
   }
 
   policy_definition_reference {
@@ -2707,7 +2707,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "Flowlogsshouldbeconfiguredforeverynetworksecuritygroup"
   }
 
   policy_definition_reference {
@@ -2715,7 +2715,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "Flowlogsshouldbeenabledforeverynetworksecuritygroup"
   }
 
   policy_definition_reference {
@@ -2723,7 +2723,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "NetworkWatcherflowlogsshouldhavetrafficanalyticsenabled"
   }
 
   policy_definition_reference {
@@ -2731,7 +2731,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "RDPaccessfromtheInternetshouldbeblocked"
   }
 
   policy_definition_reference {
@@ -2739,7 +2739,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "SSHaccessfromtheInternetshouldbeblocked"
   }
 
   policy_definition_reference {
@@ -2747,7 +2747,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "WebApplicationFirewallWAFshouldbeenabledforApplicationGateway"
   }
 
   policy_definition_reference {
@@ -2755,7 +2755,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "WebApplicationFirewallWAFshouldbeenabledforAzureFrontDoorServiceservice"
   }
 
   policy_definition_reference {
@@ -2764,7 +2764,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
         effect = { "value" : "Audit" }
         modeRequirement = { "value" : "Detection" }
     })
-    reference_id = null
+    reference_id = "WebApplicationFirewallWAFshouldusethespecifiedmodeforApplicationGateway"
   }
 
   policy_definition_reference {
@@ -2773,7 +2773,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
         effect = { "value" : "Audit" }
         modeRequirement = { "value" : "Detection" }
     })
-    reference_id = null
+    reference_id = "WebApplicationFirewallWAFshouldusethespecifiedmodeforAzureFrontDoorService"
   }
 
   policy_definition_reference {
@@ -2781,7 +2781,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "Shareddashboardsshouldnothavemarkdowntileswithinlinecontent"
   }
 
   policy_definition_reference {
@@ -2789,7 +2789,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "AnAzureActiveDirectoryadministratorshouldbeprovisionedforSQLservers"
   }
 
   policy_definition_reference {
@@ -2798,7 +2798,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
         effect = { "value" : "AuditIfNotExists" }
         setting = { "value" : "enabled" }
     })
-    reference_id = null
+    reference_id = "AuditingonSQLservershouldbeenabled"
   }
 
   policy_definition_reference {
@@ -2806,7 +2806,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "AzureDefenderforSQLshouldbeenabledforunprotectedAzureSQLservers"
   }
 
   policy_definition_reference {
@@ -2814,7 +2814,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "AzureDefenderforSQLshouldbeenabledforunprotectedSQLManagedInstances"
   }
 
   policy_definition_reference {
@@ -2822,7 +2822,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AzureSQLDatabaseshouldhavetheminimalTLSversionof12"
   }
 
   policy_definition_reference {
@@ -2830,7 +2830,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "ConnectionthrottlingshouldbeenabledforPostgreSQLdatabaseservers"
   }
 
   policy_definition_reference {
@@ -2838,7 +2838,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "DisconnectionsshouldbeloggedforPostgreSQLdatabaseservers"
   }
 
   policy_definition_reference {
@@ -2846,7 +2846,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "EnforceSSLconnectionshouldbeenabledforMySQLdatabaseservers"
   }
 
   policy_definition_reference {
@@ -2854,7 +2854,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "EnforceSSLconnectionshouldbeenabledforPostgreSQLdatabaseservers"
   }
 
   policy_definition_reference {
@@ -2862,7 +2862,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "GeoredundantbackupshouldbeenabledforAzureDatabaseforMariaDB"
   }
 
   policy_definition_reference {
@@ -2870,7 +2870,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "GeoredundantbackupshouldbeenabledforAzureDatabaseforMySQL"
   }
 
   policy_definition_reference {
@@ -2878,7 +2878,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "GeoredundantbackupshouldbeenabledforAzureDatabaseforPostgreSQL"
   }
 
   policy_definition_reference {
@@ -2886,7 +2886,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "InfrastructureencryptionshouldbeenabledforAzureDatabaseforMySQLservers"
   }
 
   policy_definition_reference {
@@ -2894,7 +2894,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "InfrastructureencryptionshouldbeenabledforAzureDatabaseforPostgreSQLservers"
   }
 
   policy_definition_reference {
@@ -2902,7 +2902,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "LogcheckpointsshouldbeenabledforPostgreSQLdatabaseservers"
   }
 
   policy_definition_reference {
@@ -2910,7 +2910,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "LogconnectionsshouldbeenabledforPostgreSQLdatabaseservers"
   }
 
   policy_definition_reference {
@@ -2918,7 +2918,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "LogdurationshouldbeenabledforPostgreSQLdatabaseservers"
   }
 
   policy_definition_reference {
@@ -2926,7 +2926,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "LongtermgeoredundantbackupshouldbeenabledforAzureSQLDatabases"
   }
 
   policy_definition_reference {
@@ -2934,7 +2934,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "MySQLserversshouldusecustomermanagedkeystoencryptdataatrest"
   }
 
   policy_definition_reference {
@@ -2942,7 +2942,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "PostgreSQLserversshouldusecustomermanagedkeystoencryptdataatrest"
   }
 
   policy_definition_reference {
@@ -2950,7 +2950,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "PrivateendpointconnectionsonAzureSQLDatabaseshouldbeenabled"
   }
 
   policy_definition_reference {
@@ -2958,7 +2958,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "PrivateendpointshouldbeenabledforMariaDBservers"
   }
 
   policy_definition_reference {
@@ -2966,7 +2966,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "PrivateendpointshouldbeenabledforMySQLservers"
   }
 
   policy_definition_reference {
@@ -2974,7 +2974,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "PrivateendpointshouldbeenabledforPostgreSQLservers"
   }
 
   policy_definition_reference {
@@ -2982,7 +2982,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "PublicnetworkaccessonAzureSQLDatabaseshouldbedisabled"
   }
 
   policy_definition_reference {
@@ -2990,7 +2990,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "PublicnetworkaccessshouldbedisabledforMariaDBservers"
   }
 
   policy_definition_reference {
@@ -2998,7 +2998,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "PublicnetworkaccessshouldbedisabledforMySQLflexibleservers"
   }
 
   policy_definition_reference {
@@ -3006,7 +3006,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "PublicnetworkaccessshouldbedisabledforMySQLservers"
   }
 
   policy_definition_reference {
@@ -3014,7 +3014,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "PublicnetworkaccessshouldbedisabledforPostgreSQLflexibleservers"
   }
 
   policy_definition_reference {
@@ -3022,7 +3022,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "PublicnetworkaccessshouldbedisabledforPostgreSQLservers"
   }
 
   policy_definition_reference {
@@ -3030,7 +3030,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "SQLAuditingsettingsshouldhaveActionGroupsconfiguredtocapturecriticalactivities"
   }
 
   policy_definition_reference {
@@ -3038,7 +3038,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Deny" }
     })
-    reference_id = null
+    reference_id = "SQLDatabaseshouldavoidusingGRSbackupredundancy"
   }
 
   policy_definition_reference {
@@ -3046,7 +3046,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "SQLManagedInstanceshouldhavetheminimalTLSversionof12"
   }
 
   policy_definition_reference {
@@ -3054,7 +3054,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Deny" }
     })
-    reference_id = null
+    reference_id = "SQLManagedInstancesshouldavoidusingGRSbackupredundancy"
   }
 
   policy_definition_reference {
@@ -3062,7 +3062,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "SQLmanagedinstancesshouldusecustomermanagedkeystoencryptdataatrest"
   }
 
   policy_definition_reference {
@@ -3070,7 +3070,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "SQLserversshouldusecustomermanagedkeystoencryptdataatrest"
   }
 
   policy_definition_reference {
@@ -3078,7 +3078,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "SQLserverswithauditingtostorageaccountdestinationshouldbeconfiguredwith90daysretentionorhigher"
   }
 
   policy_definition_reference {
@@ -3086,7 +3086,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "TransparentDataEncryptiononSQLdatabasesshouldbeenabled"
   }
 
   policy_definition_reference {
@@ -3094,7 +3094,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "VulnerabilityAssessmentsettingsforSQLservershouldcontainanemailaddresstoreceivescanreports"
   }
 
   policy_definition_reference {
@@ -3102,7 +3102,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "VulnerabilityassessmentshouldbeenabledonSQLManagedInstance"
   }
 
   policy_definition_reference {
@@ -3110,7 +3110,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "VulnerabilityassessmentshouldbeenabledonyourSQLservers"
   }
 
   policy_definition_reference {
@@ -3118,7 +3118,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AzureCognitiveSearchserviceshoulduseaSKUthatsupportsprivatelink"
   }
 
   policy_definition_reference {
@@ -3126,7 +3126,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AzureCognitiveSearchservicesshoulddisablepublicnetworkaccess"
   }
 
   policy_definition_reference {
@@ -3134,7 +3134,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AzureCognitiveSearchservicesshoulduseprivatelink"
   }
 
   policy_definition_reference {
@@ -3143,7 +3143,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
         effect = { "value" : "AuditIfNotExists" }
         requiredRetentionDays = { "value" : "365" }
     })
-    reference_id = null
+    reference_id = "ResourcelogsinSearchservicesshouldbeenabled"
   }
 
   policy_definition_reference {
@@ -3151,7 +3151,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "Amaximumof3ownersshouldbedesignatedforyoursubscription"
   }
 
   policy_definition_reference {
@@ -3159,7 +3159,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "Avulnerabilityassessmentsolutionshouldbeenabledonyourvirtualmachines"
   }
 
   policy_definition_reference {
@@ -3167,7 +3167,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "Adaptiveapplicationcontrolsfordefiningsafeapplicationsshouldbeenabledonyourmachines"
   }
 
   policy_definition_reference {
@@ -3175,7 +3175,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "Adaptivenetworkhardeningrecommendationsshouldbeappliedoninternetfacingvirtualmachines"
   }
 
   policy_definition_reference {
@@ -3183,7 +3183,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "Allnetworkportsshouldberestrictedonnetworksecuritygroupsassociatedtoyourvirtualmachine"
   }
 
   policy_definition_reference {
@@ -3191,7 +3191,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "Allowlistrulesinyouradaptiveapplicationcontrolpolicyshouldbeupdated"
   }
 
   policy_definition_reference {
@@ -3199,7 +3199,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AuthorizedIPrangesshouldbedefinedonKubernetesServices"
   }
 
   policy_definition_reference {
@@ -3207,7 +3207,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "AutoprovisioningoftheLogAnalyticsagentshouldbeenabledonyoursubscription"
   }
 
   policy_definition_reference {
@@ -3215,7 +3215,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "AzureDDoSProtectionStandardshouldbeenabled"
   }
 
   policy_definition_reference {
@@ -3223,7 +3223,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "AzureDefenderforAppServiceshouldbeenabled"
   }
 
   policy_definition_reference {
@@ -3231,7 +3231,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "AzureDefenderforAzureSQLDatabaseserversshouldbeenabled"
   }
 
   policy_definition_reference {
@@ -3239,7 +3239,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "AzureDefenderforDNSshouldbeenabled"
   }
 
   policy_definition_reference {
@@ -3247,7 +3247,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "AzureDefenderforKeyVaultshouldbeenabled"
   }
 
   policy_definition_reference {
@@ -3255,7 +3255,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "AzureDefenderforKubernetesshouldbeenabled"
   }
 
   policy_definition_reference {
@@ -3263,7 +3263,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "AzureDefenderforResourceManagershouldbeenabled"
   }
 
   policy_definition_reference {
@@ -3271,7 +3271,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "AzureDefenderforSQLserversonmachinesshouldbeenabled"
   }
 
   policy_definition_reference {
@@ -3279,7 +3279,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "AzureDefenderforStorageshouldbeenabled"
   }
 
   policy_definition_reference {
@@ -3287,7 +3287,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "AzureDefenderforcontainerregistriesshouldbeenabled"
   }
 
   policy_definition_reference {
@@ -3295,7 +3295,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "AzureDefenderforserversshouldbeenabled"
   }
 
   policy_definition_reference {
@@ -3303,7 +3303,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "CloudServicesextendedsupportroleinstancesshouldbeconfiguredsecurely"
   }
 
   policy_definition_reference {
@@ -3311,7 +3311,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "CloudServicesextendedsupportroleinstancesshouldhaveanendpointprotectionsolutioninstalled"
   }
 
   policy_definition_reference {
@@ -3319,7 +3319,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "CloudServicesextendedsupportroleinstancesshouldhavesystemupdatesinstalled"
   }
 
   policy_definition_reference {
@@ -3327,7 +3327,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "Deprecatedaccountsshouldberemovedfromyoursubscription"
   }
 
   policy_definition_reference {
@@ -3335,7 +3335,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "Deprecatedaccountswithownerpermissionsshouldberemovedfromyoursubscription"
   }
 
   policy_definition_reference {
@@ -3343,7 +3343,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "Emailnotificationforhighseverityalertsshouldbeenabled"
   }
 
   policy_definition_reference {
@@ -3351,7 +3351,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "Emailnotificationtosubscriptionownerforhighseverityalertsshouldbeenabled"
   }
 
   policy_definition_reference {
@@ -3359,7 +3359,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "Endpointprotectionsolutionshouldbeinstalledonvirtualmachinescalesets"
   }
 
   policy_definition_reference {
@@ -3367,7 +3367,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "Externalaccountswithownerpermissionsshouldberemovedfromyoursubscription"
   }
 
   policy_definition_reference {
@@ -3375,7 +3375,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "Externalaccountswithreadpermissionsshouldberemovedfromyoursubscription"
   }
 
   policy_definition_reference {
@@ -3383,7 +3383,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "Externalaccountswithwritepermissionsshouldberemovedfromyoursubscription"
   }
 
   policy_definition_reference {
@@ -3391,7 +3391,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "GuestAttestationextensionshouldbeinstalledonsupportedLinuxvirtualmachines"
   }
 
   policy_definition_reference {
@@ -3399,7 +3399,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "GuestAttestationextensionshouldbeinstalledonsupportedLinuxvirtualmachinesscalesets"
   }
 
   policy_definition_reference {
@@ -3407,7 +3407,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "GuestAttestationextensionshouldbeinstalledonsupportedWindowsvirtualmachines"
   }
 
   policy_definition_reference {
@@ -3415,7 +3415,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "GuestAttestationextensionshouldbeinstalledonsupportedWindowsvirtualmachinesscalesets"
   }
 
   policy_definition_reference {
@@ -3423,7 +3423,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "GuestConfigurationextensionshouldbeinstalledonyourmachines"
   }
 
   policy_definition_reference {
@@ -3431,7 +3431,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "IPForwardingonyourvirtualmachineshouldbedisabled"
   }
 
   policy_definition_reference {
@@ -3439,7 +3439,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "Internetfacingvirtualmachinesshouldbeprotectedwithnetworksecuritygroups"
   }
 
   policy_definition_reference {
@@ -3447,7 +3447,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "KubernetesServicesshouldbeupgradedtoanonvulnerableKubernetesversion"
   }
 
   policy_definition_reference {
@@ -3455,7 +3455,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "LinuxvirtualmachinesshoulduseSecureBoot"
   }
 
   policy_definition_reference {
@@ -3463,7 +3463,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "LogAnalyticsagenthealthissuesshouldberesolvedonyourmachines"
   }
 
   policy_definition_reference {
@@ -3471,7 +3471,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "LogAnalyticsagentshouldbeinstalledonyourCloudServicesextendedsupportroleinstances"
   }
 
   policy_definition_reference {
@@ -3479,7 +3479,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "LogAnalyticsagentshouldbeinstalledonyourvirtualmachineforAzureSecurityCentermonitoring"
   }
 
   policy_definition_reference {
@@ -3487,7 +3487,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "LogAnalyticsagentshouldbeinstalledonyourvirtualmachinescalesetsforAzureSecurityCentermonitoring"
   }
 
   policy_definition_reference {
@@ -3495,7 +3495,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "MFAshouldbeenabledaccountswithwritepermissionsonyoursubscription"
   }
 
   policy_definition_reference {
@@ -3503,7 +3503,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "MFAshouldbeenabledonaccountswithownerpermissionsonyoursubscription"
   }
 
   policy_definition_reference {
@@ -3511,7 +3511,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "MFAshouldbeenabledonaccountswithreadpermissionsonyoursubscription"
   }
 
   policy_definition_reference {
@@ -3519,7 +3519,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "Managementportsofvirtualmachinesshouldbeprotectedwithjustintimenetworkaccesscontrol"
   }
 
   policy_definition_reference {
@@ -3527,7 +3527,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "Managementportsshouldbeclosedonyourvirtualmachines"
   }
 
   policy_definition_reference {
@@ -3535,7 +3535,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "MonitormissingEndpointProtectioninAzureSecurityCenter"
   }
 
   policy_definition_reference {
@@ -3543,7 +3543,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "Noninternetfacingvirtualmachinesshouldbeprotectedwithnetworksecuritygroups"
   }
 
   policy_definition_reference {
@@ -3551,7 +3551,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "RoleBasedAccessControlRBACshouldbeusedonKubernetesServices"
   }
 
   policy_definition_reference {
@@ -3559,7 +3559,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "SQLdatabasesshouldhavevulnerabilityfindingsresolved"
   }
 
   policy_definition_reference {
@@ -3567,7 +3567,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "SQLserversonmachinesshouldhavevulnerabilityfindingsresolved"
   }
 
   policy_definition_reference {
@@ -3575,7 +3575,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "SecureBootshouldbeenabledonsupportedWindowsvirtualmachines"
   }
 
   policy_definition_reference {
@@ -3583,7 +3583,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "SecurityCenterstandardpricingtiershouldbeselected"
   }
 
   policy_definition_reference {
@@ -3591,7 +3591,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "SensitivedatainyourSQLdatabasesshouldbeclassified"
   }
 
   policy_definition_reference {
@@ -3599,7 +3599,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "Serviceprincipalsshouldbeusedtoprotectyoursubscriptionsinsteadofmanagementcertificates"
   }
 
   policy_definition_reference {
@@ -3607,7 +3607,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "SubnetsshouldbeassociatedwithaNetworkSecurityGroup"
   }
 
   policy_definition_reference {
@@ -3615,7 +3615,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "Subscriptionsshouldhaveacontactemailaddressforsecurityissues"
   }
 
   policy_definition_reference {
@@ -3623,7 +3623,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "Systemupdatesonvirtualmachinescalesetsshouldbeinstalled"
   }
 
   policy_definition_reference {
@@ -3631,7 +3631,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "Systemupdatesshouldbeinstalledonyourmachines"
   }
 
   policy_definition_reference {
@@ -3639,7 +3639,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "Thereshouldbemorethanoneownerassignedtoyoursubscription"
   }
 
   policy_definition_reference {
@@ -3647,7 +3647,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "Virtualmachinesguestattestationstatusshouldbehealthy"
   }
 
   policy_definition_reference {
@@ -3655,7 +3655,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "VirtualmachinesshouldencrypttempdiskscachesanddataflowsbetweenComputeandStorageresources"
   }
 
   policy_definition_reference {
@@ -3663,7 +3663,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "VirtualmachinesGuestConfigurationextensionshouldbedeployedwithsystemassignedmanagedidentity"
   }
 
   policy_definition_reference {
@@ -3671,7 +3671,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "VulnerabilitiesinAzureContainerRegistryimagesshouldberemediated"
   }
 
   policy_definition_reference {
@@ -3679,7 +3679,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "Vulnerabilitiesincontainersecurityconfigurationsshouldberemediated"
   }
 
   policy_definition_reference {
@@ -3687,7 +3687,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "Vulnerabilitiesinsecurityconfigurationonyourmachinesshouldberemediated"
   }
 
   policy_definition_reference {
@@ -3695,7 +3695,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "Vulnerabilitiesinsecurityconfigurationonyourvirtualmachinescalesetsshouldberemediated"
   }
 
   policy_definition_reference {
@@ -3703,7 +3703,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "vTPMshouldbeenabledonsupportedvirtualmachines"
   }
 
   policy_definition_reference {
@@ -3711,7 +3711,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AllauthorizationrulesexceptRootManageSharedAccessKeyshouldberemovedfromServiceBusnamespace"
   }
 
   policy_definition_reference {
@@ -3719,7 +3719,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "AzureServiceBusnamespacesshoulduseprivatelink"
   }
 
   policy_definition_reference {
@@ -3728,7 +3728,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
         effect = { "value" : "AuditIfNotExists" }
         requiredRetentionDays = { "value" : "365" }
     })
-    reference_id = null
+    reference_id = "ResourcelogsinServiceBusshouldbeenabled"
   }
 
   policy_definition_reference {
@@ -3736,7 +3736,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "ServiceBusPremiumnamespacesshoulduseacustomermanagedkeyforencryption"
   }
 
   policy_definition_reference {
@@ -3744,7 +3744,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "ServiceBusnamespacesshouldhavedoubleencryptionenabled"
   }
 
   policy_definition_reference {
@@ -3752,7 +3752,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "ServiceFabricclustersshouldhavetheClusterProtectionLevelpropertysettoEncryptAndSign"
   }
 
   policy_definition_reference {
@@ -3760,7 +3760,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "ServiceFabricclustersshouldonlyuseAzureActiveDirectoryforclientauthentication"
   }
 
   policy_definition_reference {
@@ -3768,7 +3768,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AzureSignalRServiceshoulddisablepublicnetworkaccess"
   }
 
   policy_definition_reference {
@@ -3776,7 +3776,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AzureSignalRServiceshoulduseaPrivateLinkenabledSKU"
   }
 
   policy_definition_reference {
@@ -3784,7 +3784,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AzureSignalRServiceshoulduseprivatelink"
   }
 
   policy_definition_reference {
@@ -3792,7 +3792,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "RecoveryServicesvaultsshoulduseprivatelink"
   }
 
   policy_definition_reference {
@@ -3800,7 +3800,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "AzureFileSyncshoulduseprivatelink"
   }
 
   policy_definition_reference {
@@ -3808,7 +3808,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "GeoredundantstorageshouldbeenabledforStorageAccounts"
   }
 
   policy_definition_reference {
@@ -3816,7 +3816,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "HPCCacheaccountsshouldusecustomermanagedkeyforencryption"
   }
 
   policy_definition_reference {
@@ -3824,7 +3824,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "PublicnetworkaccessshouldbedisabledforAzureFileSync"
   }
 
   policy_definition_reference {
@@ -3832,7 +3832,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "Securetransfertostorageaccountsshouldbeenabled"
   }
 
   policy_definition_reference {
@@ -3840,7 +3840,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "Storageaccountencryptionscopesshouldusecustomermanagedkeystoencryptdataatrest"
   }
 
   policy_definition_reference {
@@ -3848,7 +3848,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "Storageaccountkeysshouldnotbeexpired"
   }
 
   policy_definition_reference {
@@ -3856,7 +3856,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "audit" }
     })
-    reference_id = null
+    reference_id = "Storageaccountpublicaccessshouldbedisallowed"
   }
 
   policy_definition_reference {
@@ -3864,7 +3864,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "StorageaccountsshouldallowaccessfromtrustedMicrosoftservices"
   }
 
   policy_definition_reference {
@@ -3872,7 +3872,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "StorageaccountsshouldbemigratedtonewAzureResourceManagerresources"
   }
 
   policy_definition_reference {
@@ -3880,7 +3880,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "Storageaccountsshouldhaveinfrastructureencryption"
   }
 
   policy_definition_reference {
@@ -3888,7 +3888,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "Storageaccountsshouldpreventsharedkeyaccess"
   }
 
   policy_definition_reference {
@@ -3896,7 +3896,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "Storageaccountsshouldrestrictnetworkaccess"
   }
 
   policy_definition_reference {
@@ -3904,7 +3904,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "Storageaccountsshouldrestrictnetworkaccessusingvirtualnetworkrules"
   }
 
   policy_definition_reference {
@@ -3912,7 +3912,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "Storageaccountsshouldusecustomermanagedkeyforencryption"
   }
 
   policy_definition_reference {
@@ -3920,7 +3920,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "Storageaccountsshoulduseprivatelink"
   }
 
   policy_definition_reference {
@@ -3928,7 +3928,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "audit" }
     })
-    reference_id = null
+    reference_id = "AzureStreamAnalyticsjobsshouldusecustomermanagedkeystoencryptdata"
   }
 
   policy_definition_reference {
@@ -3937,7 +3937,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
         effect = { "value" : "AuditIfNotExists" }
         requiredRetentionDays = { "value" : "365" }
     })
-    reference_id = null
+    reference_id = "ResourcelogsinAzureStreamAnalyticsshouldbeenabled"
   }
 
   policy_definition_reference {
@@ -3946,7 +3946,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
         effect = { "value" : "AuditIfNotExists" }
         setting = { "value" : "enabled" }
     })
-    reference_id = null
+    reference_id = "AuditingonSynapseworkspaceshouldbeenabled"
   }
 
   policy_definition_reference {
@@ -3954,7 +3954,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AzureSynapseworkspacesshouldallowoutbounddatatrafficonlytoapprovedtargets"
   }
 
   policy_definition_reference {
@@ -3962,7 +3962,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AzureSynapseworkspacesshoulddisablepublicnetworkaccess"
   }
 
   policy_definition_reference {
@@ -3970,7 +3970,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AzureSynapseworkspacesshouldusecustomermanagedkeystoencryptdataatrest"
   }
 
   policy_definition_reference {
@@ -3978,7 +3978,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AzureSynapseworkspacesshoulduseprivatelink"
   }
 
   policy_definition_reference {
@@ -3986,7 +3986,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "IPfirewallrulesonAzureSynapseworkspacesshouldberemoved"
   }
 
   policy_definition_reference {
@@ -3994,7 +3994,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "ManagedworkspacevirtualnetworkonAzureSynapseworkspacesshouldbeenabled"
   }
 
   policy_definition_reference {
@@ -4002,7 +4002,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "Synapseworkspaceauditingsettingsshouldhaveactiongroupsconfiguredtocapturecriticalactivities"
   }
 
   policy_definition_reference {
@@ -4010,7 +4010,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "SynapseworkspaceswithSQLauditingtostorageaccountdestinationshouldbeconfiguredwith90daysretentionorhigher"
   }
 
   policy_definition_reference {
@@ -4018,7 +4018,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "VulnerabilityassessmentshouldbeenabledonyourSynapseworkspaces"
   }
 
   policy_definition_reference {
@@ -4026,7 +4026,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "VMImageBuildertemplatesshoulduseprivatelink"
   }
 
   policy_definition_reference {
@@ -4034,7 +4034,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AzureWebPubSubServiceshoulddisablepublicnetworkaccess"
   }
 
   policy_definition_reference {
@@ -4042,7 +4042,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AzureWebPubSubServiceshoulduseaSKUthatsupportsprivatelink"
   }
 
   policy_definition_reference {
@@ -4050,7 +4050,7 @@ resource "azurerm_policy_set_definition" "example_PO_Audit" {
     parameter_values = jsonencode({
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "AzureWebPubSubServiceshoulduseprivatelink"
   }
 }
 

@@ -115,7 +115,7 @@ test-describe-policy: activate-env
 test-list-services: activate-env
 	./cloud_guardrails/bin/cli.py list-services --help
 	./cloud_guardrails/bin/cli.py list-services
-test-generate-terraform:
+test-generate-terraform: activate-env
 	./cloud_guardrails/bin/cli.py generate-terraform --no-params --service all --subscription example --output examples/terraform-demo-no-params/
 	./cloud_guardrails/bin/cli.py generate-terraform --params-optional --service all --subscription example --output examples/terraform-demo-params-optional/
 	./cloud_guardrails/bin/cli.py generate-terraform --params-required --service all --subscription example --output examples/terraform-demo-params-required/

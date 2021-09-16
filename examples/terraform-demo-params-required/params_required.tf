@@ -284,7 +284,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         effect = { "value" : "Audit" }
         enableDoubleEncryption = { "value" : false }
     })
-    reference_id = null
+    reference_id = "AzureRecoveryServicesvaultsshouldusecustomermanagedkeysforencryptingbackupdata"
   }
 
   policy_definition_reference {
@@ -293,7 +293,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         effect = { "value" : "AuditIfNotExists" }
         metricName = { "value" : "" }
     })
-    reference_id = null
+    reference_id = "MetricalertrulesshouldbeconfiguredonBatchaccounts"
   }
 
   policy_definition_reference {
@@ -301,7 +301,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
     parameter_values = jsonencode({
         listOfAllowedSKUs = { "value" : [] }
     })
-    reference_id = null
+    reference_id = "AllowedvirtualmachinesizeSKUs"
   }
 
   policy_definition_reference {
@@ -310,7 +310,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         allowedEncryptionSets = { "value" : [] }
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "Manageddisksshoulduseaspecificsetofdiskencryptionsetsforthecustomermanagedkeyencryption"
   }
 
   policy_definition_reference {
@@ -319,7 +319,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         effect = { "value" : "Audit" }
         approvedExtensions = { "value" : [] }
     })
-    reference_id = null
+    reference_id = "OnlyapprovedVMextensionsshouldbeinstalled"
   }
 
   policy_definition_reference {
@@ -328,7 +328,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         effect = { "value" : "AuditIfNotExists" }
         includeAKSClusters = { "value" : false }
     })
-    reference_id = null
+    reference_id = "ResourcelogsinVirtualMachineScaleSetsshouldbeenabled"
   }
 
   policy_definition_reference {
@@ -337,7 +337,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         listOfAllowedLocations = { "value" : [] }
         policyEffect = { "value" : "deny" }
     })
-    reference_id = null
+    reference_id = "AzureCosmosDBallowedlocations"
   }
 
   policy_definition_reference {
@@ -346,7 +346,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         throughputMax = { "value" : 0 }
         effect = { "value" : "deny" }
     })
-    reference_id = null
+    reference_id = "AzureCosmosDBthroughputshouldbelimited"
   }
 
   policy_definition_reference {
@@ -355,7 +355,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         effect = { "value" : "Audit" }
         allowedLinkedServiceResourceTypes = { "value" : [] }
     })
-    reference_id = null
+    reference_id = "AzureDataFactorylinkedserviceresourcetypeshouldbeinallowlist"
   }
 
   policy_definition_reference {
@@ -363,7 +363,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
     parameter_values = jsonencode({
         listOfAllowedLocations = { "value" : [] }
     })
-    reference_id = null
+    reference_id = "Allowedlocations"
   }
 
   policy_definition_reference {
@@ -371,7 +371,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
     parameter_values = jsonencode({
         listOfAllowedLocations = { "value" : [] }
     })
-    reference_id = null
+    reference_id = "Allowedlocationsforresourcegroups"
   }
 
   policy_definition_reference {
@@ -379,7 +379,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
     parameter_values = jsonencode({
         listOfResourceTypesAllowed = { "value" : [] }
     })
-    reference_id = null
+    reference_id = "Allowedresourcetypes"
   }
 
   policy_definition_reference {
@@ -388,7 +388,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         listOfResourceTypesNotAllowed = { "value" : [] }
         effect = { "value" : "Deny" }
     })
-    reference_id = null
+    reference_id = "Notallowedresourcetypes"
   }
 
   policy_definition_reference {
@@ -397,7 +397,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         caCommonName = { "value" : "" }
         effect = { "value" : "audit" }
     })
-    reference_id = null
+    reference_id = "Certificatesshouldbeissuedbythespecifiednonintegratedcertificateauthority"
   }
 
   policy_definition_reference {
@@ -407,7 +407,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         minimumDaysBeforeExpiry = { "value" : 0 }
         effect = { "value" : "audit" }
     })
-    reference_id = null
+    reference_id = "Certificatesshouldhavethespecifiedlifetimeactiontriggers"
   }
 
   policy_definition_reference {
@@ -416,7 +416,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         daysToExpire = { "value" : 0 }
         effect = { "value" : "audit" }
     })
-    reference_id = null
+    reference_id = "Certificatesshouldnotexpirewithinthespecifiednumberofdays"
   }
 
   policy_definition_reference {
@@ -425,7 +425,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         minimumRSAKeySize = { "value" : 0 }
         effect = { "value" : "audit" }
     })
-    reference_id = null
+    reference_id = "CertificatesusingRSAcryptographyshouldhavethespecifiedminimumkeysize"
   }
 
   policy_definition_reference {
@@ -434,7 +434,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         minimumDaysBeforeExpiration = { "value" : 0 }
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "Keysshouldhavemorethanthespecifiednumberofdaysbeforeexpiration"
   }
 
   policy_definition_reference {
@@ -443,7 +443,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         maximumValidityInDays = { "value" : 0 }
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "Keysshouldhavethespecifiedmaximumvalidityperiod"
   }
 
   policy_definition_reference {
@@ -452,7 +452,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         maximumValidityInDays = { "value" : 0 }
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "Keysshouldnotbeactiveforlongerthanthespecifiednumberofdays"
   }
 
   policy_definition_reference {
@@ -461,7 +461,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         minimumRSAKeySize = { "value" : 0 }
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "KeysusingRSAcryptographyshouldhaveaspecifiedminimumkeysize"
   }
 
   policy_definition_reference {
@@ -470,7 +470,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         minimumDaysBeforeExpiration = { "value" : 0 }
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "Secretsshouldhavemorethanthespecifiednumberofdaysbeforeexpiration"
   }
 
   policy_definition_reference {
@@ -479,7 +479,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         maximumValidityInDays = { "value" : 0 }
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "Secretsshouldhavethespecifiedmaximumvalidityperiod"
   }
 
   policy_definition_reference {
@@ -488,7 +488,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         maximumValidityInDays = { "value" : 0 }
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "Secretsshouldnotbeactiveforlongerthanthespecifiednumberofdays"
   }
 
   policy_definition_reference {
@@ -501,7 +501,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         cpuLimit = { "value" : "" }
         memoryLimit = { "value" : "" }
     })
-    reference_id = null
+    reference_id = "KubernetesclustercontainersCPUandmemoryresourcelimitsshouldnotexceedthespecifiedlimits"
   }
 
   policy_definition_reference {
@@ -512,7 +512,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         namespaces = { "value" : [] }
         labelSelector = { "value" : {} }
     })
-    reference_id = null
+    reference_id = "KubernetesclustercontainersshouldnotsharehostprocessIDorhostIPCnamespace"
   }
 
   policy_definition_reference {
@@ -524,7 +524,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         labelSelector = { "value" : {} }
         forbiddenSysctls = { "value" : [] }
     })
-    reference_id = null
+    reference_id = "Kubernetesclustercontainersshouldnotuseforbiddensysctlinterfaces"
   }
 
   policy_definition_reference {
@@ -536,7 +536,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         labelSelector = { "value" : {} }
         allowedContainerPortsList = { "value" : [] }
     })
-    reference_id = null
+    reference_id = "Kubernetesclustercontainersshouldonlylistenonallowedports"
   }
 
   policy_definition_reference {
@@ -548,7 +548,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         labelSelector = { "value" : {} }
         allowedProfiles = { "value" : [] }
     })
-    reference_id = null
+    reference_id = "KubernetesclustercontainersshouldonlyuseallowedAppArmorprofiles"
   }
 
   policy_definition_reference {
@@ -560,7 +560,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         labelSelector = { "value" : {} }
         procMountType = { "value" : "Default" }
     })
-    reference_id = null
+    reference_id = "KubernetesclustercontainersshouldonlyuseallowedProcMountType"
   }
 
   policy_definition_reference {
@@ -573,7 +573,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         allowedCapabilities = { "value" : [] }
         requiredDropCapabilities = { "value" : [] }
     })
-    reference_id = null
+    reference_id = "Kubernetesclustercontainersshouldonlyuseallowedcapabilities"
   }
 
   policy_definition_reference {
@@ -585,7 +585,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         labelSelector = { "value" : {} }
         allowedContainerImagesRegex = { "value" : "" }
     })
-    reference_id = null
+    reference_id = "Kubernetesclustercontainersshouldonlyuseallowedimages"
   }
 
   policy_definition_reference {
@@ -597,7 +597,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         labelSelector = { "value" : {} }
         allowedProfiles = { "value" : [] }
     })
-    reference_id = null
+    reference_id = "Kubernetesclustercontainersshouldonlyuseallowedseccompprofiles"
   }
 
   policy_definition_reference {
@@ -608,7 +608,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         namespaces = { "value" : [] }
         labelSelector = { "value" : {} }
     })
-    reference_id = null
+    reference_id = "Kubernetesclustercontainersshouldrunwithareadonlyrootfilesystem"
   }
 
   policy_definition_reference {
@@ -620,7 +620,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         labelSelector = { "value" : {} }
         allowedFlexVolumeDrivers = { "value" : [] }
     })
-    reference_id = null
+    reference_id = "KubernetesclusterpodFlexVolumevolumesshouldonlyusealloweddrivers"
   }
 
   policy_definition_reference {
@@ -632,7 +632,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         labelSelector = { "value" : {} }
         allowedHostPaths = { "value" : {"paths": []} }
     })
-    reference_id = null
+    reference_id = "KubernetesclusterpodhostPathvolumesshouldonlyuseallowedhostpaths"
   }
 
   policy_definition_reference {
@@ -651,7 +651,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         fsGroupRule = { "value" : "RunAsAny" }
         fsGroupRanges = { "value" : {"ranges": []} }
     })
-    reference_id = null
+    reference_id = "KubernetesclusterpodsandcontainersshouldonlyrunwithapproveduserandgroupIDs"
   }
 
   policy_definition_reference {
@@ -663,7 +663,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         labelSelector = { "value" : {} }
         allowedSELinuxOptions = { "value" : {"options": []} }
     })
-    reference_id = null
+    reference_id = "KubernetesclusterpodsandcontainersshouldonlyuseallowedSELinuxoptions"
   }
 
   policy_definition_reference {
@@ -675,7 +675,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         labelSelector = { "value" : {} }
         allowedVolumeTypes = { "value" : [] }
     })
-    reference_id = null
+    reference_id = "Kubernetesclusterpodsshouldonlyuseallowedvolumetypes"
   }
 
   policy_definition_reference {
@@ -689,7 +689,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         minPort = { "value" : 0 }
         maxPort = { "value" : 0 }
     })
-    reference_id = null
+    reference_id = "Kubernetesclusterpodsshouldonlyuseapprovedhostnetworkandportrange"
   }
 
   policy_definition_reference {
@@ -701,7 +701,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         labelSelector = { "value" : {} }
         labelsList = { "value" : [] }
     })
-    reference_id = null
+    reference_id = "Kubernetesclusterpodsshouldusespecifiedlabels"
   }
 
   policy_definition_reference {
@@ -713,7 +713,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         labelSelector = { "value" : {} }
         allowedServicePortsList = { "value" : [] }
     })
-    reference_id = null
+    reference_id = "Kubernetesclusterservicesshouldlistenonlyonallowedports"
   }
 
   policy_definition_reference {
@@ -725,7 +725,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         labelSelector = { "value" : {} }
         allowedExternalIPs = { "value" : [] }
     })
-    reference_id = null
+    reference_id = "KubernetesclusterservicesshouldonlyuseallowedexternalIPs"
   }
 
   policy_definition_reference {
@@ -737,7 +737,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         labelSelector = { "value" : {} }
         excludedContainers = { "value" : [] }
     })
-    reference_id = null
+    reference_id = "Kubernetesclustershouldnotallowprivilegedcontainers"
   }
 
   policy_definition_reference {
@@ -748,7 +748,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         namespaces = { "value" : [] }
         labelSelector = { "value" : {} }
     })
-    reference_id = null
+    reference_id = "KubernetesclustersshouldbeaccessibleonlyoverHTTPS"
   }
 
   policy_definition_reference {
@@ -759,7 +759,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         namespaces = { "value" : [] }
         labelSelector = { "value" : {} }
     })
-    reference_id = null
+    reference_id = "KubernetesclustersshoulddisableautomountingAPIcredentials"
   }
 
   policy_definition_reference {
@@ -770,7 +770,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         namespaces = { "value" : [] }
         labelSelector = { "value" : {} }
     })
-    reference_id = null
+    reference_id = "Kubernetesclustersshouldnotallowcontainerprivilegeescalation"
   }
 
   policy_definition_reference {
@@ -781,7 +781,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         namespaces = { "value" : [] }
         labelSelector = { "value" : {} }
     })
-    reference_id = null
+    reference_id = "KubernetesclustersshouldnotgrantCAPSYSADMINsecuritycapabilities"
   }
 
   policy_definition_reference {
@@ -793,7 +793,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         labelSelector = { "value" : {} }
         disallowedCapabilities = { "value" : [] }
     })
-    reference_id = null
+    reference_id = "Kubernetesclustersshouldnotusespecificsecuritycapabilities"
   }
 
   policy_definition_reference {
@@ -804,7 +804,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         namespaces = { "value" : [] }
         labelSelector = { "value" : {} }
     })
-    reference_id = null
+    reference_id = "Kubernetesclustersshouldnotusethedefaultnamespace"
   }
 
   policy_definition_reference {
@@ -815,7 +815,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         namespaces = { "value" : [] }
         labelSelector = { "value" : {} }
     })
-    reference_id = null
+    reference_id = "Kubernetesclustersshoulduseinternalloadbalancers"
   }
 
   policy_definition_reference {
@@ -823,7 +823,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
     parameter_values = jsonencode({
         listOfAllowedTenants = { "value" : [] }
     })
-    reference_id = null
+    reference_id = "AllowmanagingtenantidstoonboardthroughAzureLighthouse"
   }
 
   policy_definition_reference {
@@ -835,7 +835,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         allowedPythonPackageChannels = { "value" : [] }
         effect = { "value" : "enforceSetting" }
     })
-    reference_id = null
+    reference_id = "ConfigureallowedPythonpackagesforspecifiedAzureMachineLearningcomputes"
   }
 
   policy_definition_reference {
@@ -847,7 +847,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         allowedModuleAuthors = { "value" : [] }
         effect = { "value" : "enforceSetting" }
     })
-    reference_id = null
+    reference_id = "ConfigureallowedmoduleauthorsforspecifiedAzureMachineLearningcomputes"
   }
 
   policy_definition_reference {
@@ -859,7 +859,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         allowedACRs = { "value" : [] }
         effect = { "value" : "enforceSetting" }
     })
-    reference_id = null
+    reference_id = "ConfigureallowedregistriesforspecifiedAzureMachineLearningcomputes"
   }
 
   policy_definition_reference {
@@ -871,7 +871,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         approvalEndpoint = { "value" : "" }
         effect = { "value" : "enforceSetting" }
     })
-    reference_id = null
+    reference_id = "ConfigureanapprovalendpointcalledpriortojobsrunningforspecifiedAzureMachineLearningcomputes"
   }
 
   policy_definition_reference {
@@ -883,7 +883,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         signingKey = { "value" : "" }
         effect = { "value" : "enforceSetting" }
     })
-    reference_id = null
+    reference_id = "ConfigurecodesigningfortrainingcodeforspecifiedAzureMachineLearningcomputes"
   }
 
   policy_definition_reference {
@@ -896,7 +896,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         datastore = { "value" : "" }
         effect = { "value" : "enforceSetting" }
     })
-    reference_id = null
+    reference_id = "ConfigurelogfilterexpressionsanddatastoretobeusedforfulllogsforspecifiedAzureMachineLearningcomputes"
   }
 
   policy_definition_reference {
@@ -907,7 +907,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         issuer = { "value" : "" }
         audience = { "value" : "" }
     })
-    reference_id = null
+    reference_id = "AzureMediaServicescontentkeypoliciesshouldusetokenauthentication"
   }
 
   policy_definition_reference {
@@ -916,7 +916,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         effect = { "value" : "Deny" }
         allowedJobInputHttpUriPatterns = { "value" : [] }
     })
-    reference_id = null
+    reference_id = "AzureMediaServicesjobswithHTTPSinputsshouldlimitinputURIstopermittedURIpatterns"
   }
 
   policy_definition_reference {
@@ -925,7 +925,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         effect = { "value" : "AuditIfNotExists" }
         operationName = { "value" : "" }
     })
-    reference_id = null
+    reference_id = "AnactivitylogalertshouldexistforspecificAdministrativeoperations"
   }
 
   policy_definition_reference {
@@ -934,7 +934,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         effect = { "value" : "AuditIfNotExists" }
         operationName = { "value" : "" }
     })
-    reference_id = null
+    reference_id = "AnactivitylogalertshouldexistforspecificPolicyoperations"
   }
 
   policy_definition_reference {
@@ -943,7 +943,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         effect = { "value" : "AuditIfNotExists" }
         operationName = { "value" : "" }
     })
-    reference_id = null
+    reference_id = "AnactivitylogalertshouldexistforspecificSecurityoperations"
   }
 
   policy_definition_reference {
@@ -951,7 +951,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
     parameter_values = jsonencode({
         listOfResourceTypes = { "value" : [] }
     })
-    reference_id = null
+    reference_id = "Auditdiagnosticsetting"
   }
 
   policy_definition_reference {
@@ -961,7 +961,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         listOfImageIdToInclude_linux = { "value" : [] }
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "Dependencyagentshouldbeenabledforlistedvirtualmachineimages"
   }
 
   policy_definition_reference {
@@ -971,7 +971,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         listOfImageIdToInclude_linux = { "value" : [] }
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "Dependencyagentshouldbeenabledinvirtualmachinescalesetsforlistedvirtualmachineimages"
   }
 
   policy_definition_reference {
@@ -981,7 +981,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         listOfImageIdToInclude_linux = { "value" : [] }
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "LogAnalyticsAgentshouldbeenabledforlistedvirtualmachineimages"
   }
 
   policy_definition_reference {
@@ -991,7 +991,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         listOfImageIdToInclude_linux = { "value" : [] }
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "LogAnalyticsagentshouldbeenabledinvirtualmachinescalesetsforlistedvirtualmachineimages"
   }
 
   policy_definition_reference {
@@ -1000,7 +1000,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         logAnalyticsWorkspaceId = { "value" : "" }
         effect = { "value" : "AuditIfNotExists" }
     })
-    reference_id = null
+    reference_id = "Virtualmachinesshouldbeconnectedtoaspecifiedworkspace"
   }
 
   policy_definition_reference {
@@ -1014,7 +1014,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         DHGroup = { "value" : [] }
         PFSGroup = { "value" : [] }
     })
-    reference_id = null
+    reference_id = "AcustomIPsecIKEpolicymustbeappliedtoallAzurevirtualnetworkgatewayconnections"
   }
 
   policy_definition_reference {
@@ -1024,7 +1024,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         listOfLocations = { "value" : [] }
         resourceGroupName = { "value" : "NetworkWatcherRG" }
     })
-    reference_id = null
+    reference_id = "NetworkWatchershouldbeenabled"
   }
 
   policy_definition_reference {
@@ -1033,7 +1033,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         effect = { "value" : "Audit" }
         virtualNetworkId = { "value" : "" }
     })
-    reference_id = null
+    reference_id = "Virtualmachinesshouldbeconnectedtoanapprovedvirtualnetwork"
   }
 
   policy_definition_reference {
@@ -1042,7 +1042,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         effect = { "value" : "AuditIfNotExists" }
         virtualNetworkGatewayId = { "value" : "" }
     })
-    reference_id = null
+    reference_id = "Virtualnetworksshouldusespecifiedvirtualnetworkgateway"
   }
 
   policy_definition_reference {
@@ -1050,7 +1050,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
     parameter_values = jsonencode({
         subnetId = { "value" : "" }
     })
-    reference_id = null
+    reference_id = "VirtualnetworkfirewallruleonAzureSQLDatabaseshouldbeenabledtoallowtrafficfromthespecifiedsubnet"
   }
 
   policy_definition_reference {
@@ -1059,7 +1059,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         effect = { "value" : "Deny" }
         listOfAllowedSKUs = { "value" : [] }
     })
-    reference_id = null
+    reference_id = "StorageaccountsshouldbelimitedbyallowedSKUs"
   }
 
   policy_definition_reference {
@@ -1068,7 +1068,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         allowedTenantIds = { "value" : [] }
         effect = { "value" : "Audit" }
     })
-    reference_id = null
+    reference_id = "SynapsemanagedprivateendpointsshouldonlyconnecttoresourcesinapprovedAzureActiveDirectorytenants"
   }
 
   policy_definition_reference {
@@ -1077,7 +1077,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         tagName = { "value" : "" }
         tagValue = { "value" : "" }
     })
-    reference_id = null
+    reference_id = "Requireataganditsvalueonresourcegroups"
   }
 
   policy_definition_reference {
@@ -1086,7 +1086,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
         tagName = { "value" : "" }
         tagValue = { "value" : "" }
     })
-    reference_id = null
+    reference_id = "Requireataganditsvalueonresources"
   }
 
   policy_definition_reference {
@@ -1094,7 +1094,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
     parameter_values = jsonencode({
         tagName = { "value" : "" }
     })
-    reference_id = null
+    reference_id = "Requireatagonresourcegroups"
   }
 
   policy_definition_reference {
@@ -1102,7 +1102,7 @@ resource "azurerm_policy_set_definition" "example_PR_Audit" {
     parameter_values = jsonencode({
         tagName = { "value" : "" }
     })
-    reference_id = null
+    reference_id = "Requireatagonresources"
   }
 }
 
