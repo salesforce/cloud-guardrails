@@ -129,6 +129,7 @@ class TerraformTemplateWithParams:
         env.filters['format_parameter_value'] = format_parameter_value
         env.filters['get_placeholder_value_given_type'] = get_placeholder_value_given_type
         env.filters['normalize_display_name_string'] = utils.normalize_display_name_string
+        env.filters['strip_special_characters'] = utils.strip_special_characters
         env.tests['is_none_instance'] = utils.is_none_instance
         template = env.get_template("policy-initiative-with-parameters.tf.j2")
         result = template.render(t=self.template_contents_json)

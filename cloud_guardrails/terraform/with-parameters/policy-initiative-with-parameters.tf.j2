@@ -77,7 +77,7 @@ resource "azurerm_policy_set_definition" "{{ t.name }}" {
       {%- endif -%}
 {% endfor %}
     })
-    reference_id = null
+    reference_id = "{{ policy_definition_name|strip_special_characters }}"
   }
 {% endfor %}{%- endfor -%}
 }
