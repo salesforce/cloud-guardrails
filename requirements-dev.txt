@@ -15,7 +15,7 @@ invoke==1.6.0
 bc-python-hcl2==0.3.21
 
 # Documentation
-mkdocs==1.2.2
+mkdocs==1.2.3
 mkdocs-material==7.2.6
 mkdocs-material-extensions==1.0.3
 mkdocstrings==0.15.2
