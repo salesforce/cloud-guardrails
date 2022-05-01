@@ -1,6 +1,6 @@
-# Cloud Guardrails
+# Azure Guardrails
 
-Cloud Guardrails allows you to rapidly cherry-pick cloud security guardrails by generating Terraform files that create Azure Policy Initiatives.
+Azure Guardrails allows you to rapidly cherry-pick cloud security guardrails by generating Terraform files that create Azure Policy Initiatives.
 
 ![Continuous Integration Tests](https://github.com/salesforce/cloud-guardrails/workflows/continuous-integration/badge.svg)
 [![Downloads](https://pepy.tech/badge/cloud-guardrails)](https://pepy.tech/project/cloud-guardrails)
