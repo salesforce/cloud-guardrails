@@ -27,7 +27,7 @@ mkdocs-table-reader-plugin==0.6
 # Automation to create the excel spreadsheets
 openpyxl==3.0.9
 pandas==1.3.2
-lxml==4.6.5
+lxml==4.9.1
 
 # Docs
 # atomicwrites==1.4.0
