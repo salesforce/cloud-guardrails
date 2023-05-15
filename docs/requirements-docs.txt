@@ -4,7 +4,7 @@ mkdocs-material==7.1.8
 mkdocs-material-extensions==1.0.1
 mkdocstrings==0.15.2
 Pygments==2.9.0
-pymdown-extensions==8.2
+pymdown-extensions==10.0
 pytkdocs==0.11.1
 mkdocs-table-reader-plugin==0.5
 
